@@ -39,12 +39,38 @@
 <h1>Toolchain for graphics</h1>
 <ul>
 <li>OpenGL - graphics rendering</li>
-<li>SDL2 - context creation, windowing, nput handling</li>
-<li>C++ - programming</li>
+<li>SDL2 - context creation, windowing, input handling</li>
+<li>C / C++ - programming</li>
 <li>premake - solution creation, supporting:</li>
 <li>gmake</li>
 <li>code::blocks</li>
 <li>Visual Studio</li>
+</ul>
+</section>
+<section id="opengl" class="slide level1">
+<h1>OpenGL</h1>
+<ul>
+<li>a C library for graphics rendering</li>
+<li>usually utilises the underlying hardware graphics accelerator (graphics card)</li>
+</ul>
+</section>
+<section id="sdl2" class="slide level1">
+<h1>SDL2</h1>
+<ul>
+<li>context creation, windowing, input handling</li>
+<li>OpenGL <strong>only</strong> does rendering, we need other tools for a number of jobs:</li>
+<li>to setup a &quot;context&quot; that OpenGL can use</li>
+<li>to create and manipulate windows</li>
+<li>to handle input</li>
+<li>...</li>
+</ul>
+</section>
+<section id="c-c" class="slide level1">
+<h1>C / C++</h1>
+<ul>
+<li>OpenGL provides a C-style API (Application Program Interface)</li>
+<li>that API can be used from C or C++</li>
+<li>or the API can be wrapped for use from other languages (e.g. Java, Python)</li>
 </ul>
 </section>
 <section id="premake" class="slide level1">

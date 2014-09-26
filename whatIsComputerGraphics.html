@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="generator" content="pandoc">
   <meta name="author" content="shearer12345" />
-  <title>Lincoln Lectures on Graphics</title>
+  <title>WhatIsComputerGraphics</title>
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -30,21 +30,39 @@
     <div class="slides">
 
 <section>
-    <h1 class="title">Lincoln Lectures on Graphics</h1>
+    <h1 class="title">WhatIsComputerGraphics</h1>
     <h2 class="author">shearer12345</h2>
     <h3 class="date"></h3>
 </section>
 
-<section id="lecture-1" class="slide level1">
-<h1>Lecture 1</h1>
+<section id="the-purpose-of-graphics" class="slide level1">
+<h1>The purpose of graphics</h1>
 <ul>
-<li><a href="whatIsComputerGraphics.html">what is Computer Graphics?</a></li>
-<li><a href="whyIsComputerGraphicsHard.html">why is Computer Graphics hard?</a></li>
-<li><a href="recommendedReading.html">recommended reading</a></li>
-<li><a href="lincolnAssessment.html">Lincoln Assessment</a></li>
-<li><a href="toolchain.html">toolchain</a></li>
-<li><a href="lincolnWorkshops.html">lincolnWorkshops</a></li>
-<li><a href="studentAsProducer.html">student as producer</a></li>
+<li>The purpose of graphics of any kind is to determine what color to put in what pixels</li>
+<li>This determination is what makes text look like text, windows look like windows, and so forth</li>
+</ul>
+<figure>
+<img src="assets/exampleOfGraphics.png" alt="Examples of Graphics" /><figcaption>Examples of Graphics</figcaption>
+</figure>
+</section>
+<section id="d-graphics" class="slide level1">
+<h1>3D Graphics?</h1>
+<ul>
+<li>Images are just a two­dimensional array of pixels</li>
+<li>So, how does 3D work?</li>
+<li>3D graphics is some system of producing colors for pixels that convince you that the scene you are looking at is a 3D world rather than a 2D image</li>
+<li>The process of converting a 3D world into a 2D image of that world is called rendering</li>
+</ul>
+</section>
+<section id="rasterization" class="slide level1">
+<h1>Rasterization</h1>
+<ul>
+<li>There are several methods for rendering a 3D world</li>
+<li>Real­time graphics hardware, such as that found in your computer, involves a very great deal of fakery</li>
+<li>This approach is called rasterization and has some constraints:</li>
+<li>all objects that you see are empty shells (surfaces only)</li>
+<li><strong>Everything is a shell</strong></li>
+<li>Techniques exists to cut open these empty shells, but they simply replace parts of the shell with more shells that shows what the inside looks like</li>
 </ul>
 </section>
     </div>
