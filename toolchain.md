@@ -4,12 +4,32 @@
 #Toolchain for graphics
 
 - OpenGL - graphics rendering
-- SDL2 - context creation, windowing, nput handling
-- C++ - programming
+- SDL2 - context creation, windowing, input handling
+- C / C++ - programming
 - premake - solution creation, supporting:
   - gmake
   - code::blocks
   - Visual Studio
+
+#OpenGL
+
+- a C library for graphics rendering
+- usually utilises the underlying hardware graphics accelerator (graphics card)
+
+#SDL2
+
+- context creation, windowing, input handling
+- OpenGL **only** does rendering, we need other tools for a number of jobs:
+  - to setup a "context" that OpenGL can use
+  - to create and manipulate windows
+  - to handle input
+  - ...
+
+#C / C++
+
+- OpenGL provides a C-style API (Application Program Interface)
+- that API can be used from C or C++
+- or the API can be wrapped for use from other languages (e.g. Java, Python)
 
 #Premake
 
