@@ -1,5 +1,5 @@
-%Lincoln Assessment
-%shearer12345
+%Lincoln Graphics Assessment
+%shearer12345 - https://github.com/shearer12345/graphics
 
 - From the Module Specification - Graphics 2015-16
   - Blackboard=>Graphics (CGP2012M)->About this module
