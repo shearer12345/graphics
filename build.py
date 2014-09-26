@@ -13,8 +13,8 @@ for file in os.listdir('.'):
     if file.endswith(fileSuffix):
         print('Working on', file)
         fileNameWithoutSuffix = file[:-len(fileSuffix)]
-        revealFileName = fileNameWithoutSuffix + '_reveal.html'
-        html5FileName = fileNameWithoutSuffix + '.html' 
+        revealFileName = fileNameWithoutSuffix + '.html'
+        html5FileName = fileNameWithoutSuffix + '_html5.html' 
         docxFileName = fileNameWithoutSuffix + '.docx'
         pdfFileName = fileNameWithoutSuffix + '.pdf'
         webtexFileName = fileNameWithoutSuffix + '_webtex.html'
