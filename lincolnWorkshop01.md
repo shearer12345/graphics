@@ -1,6 +1,19 @@
 #Lincoln Graphics Workshop 01
 
 - HelloWorld and getting to know the build system
+- https://github.com/shearer12345/graphics_examples_in_git_branches
+
+#Summary
+
+- A quick questionnaire
+- Testing if OpenGL works on your machine
+- Getting to know how to build a project more complex than your are used to
+- trying it on both Windows (7 or 8.1) and Ubuntu
+- exploring the examples and running them
+
+#Quick Questionnaire
+
+- https://www.surveymonkey.com/s/HWWGTBH
 
 #Testing if OpenGL Works
 
