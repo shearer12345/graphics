@@ -1,7 +1,8 @@
 #Lincoln Graphics Workshop 01
 
 - HelloWorld and getting to know the build system
-- https://github.com/shearer12345/graphics_examples_in_git_branches
+- source - https://github.com/shearer12345/graphics_examples_in_git_branches
+- this - https://github.com/shearer12345/graphics/blob/master/lincolnWorkshop01.md
 
 #Summary
 
@@ -35,3 +36,24 @@
 - In Lab A, on Windows 8.1, the file assignments are confused
     - double-clicking a `.sln` file opens VS2010 (Which doesn't work) instead of VS2013
     - Just Open VS2013 yourself and load the solution
+
+#Things to do
+
+1) download the source from https://github.com/shearer12345/graphics_examples_in_git_branches
+  - follow the instructions carefully to get everything run
+
+2) staying in the "master" branch, on both Windows and on Linux, follow the usage instructions to build the example and run it.
+
+3) checkout each branch in **reverse** age order, starting with `baseBuildWithNoFeaturesWithTravisTesting`
+    - e.g. `git checkout baseBuildWithNoFeaturesWithTravisTesting`
+    - look at the code in `premake.lua` and `main.cpp`
+    - build each example
+    - run each example
+    - if you find useful, diff the example against others
+        - `git diff baseBuildWithNoFeaturesWithTravisTesting master`
+
+4) **STRETCH** lookup the SDL commands in the SDL2 documentation and see what they do. Then try to:
+    - position the window elsewhere
+    - make the window larger
+    - use a different version of OpenGL
+  
