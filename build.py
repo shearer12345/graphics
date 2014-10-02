@@ -5,6 +5,7 @@
 #deck2pdf - https://github.com/melix/deck2pdf
 #TODO should rewrite the path to reveal for markdown files further down the hierarchy
 
+pdfReveal = False
 
 import os
 import sys
@@ -19,24 +20,19 @@ fileSuffix = '.md'
 clearTuple = ('.html', '.docx', '.pdf')
 
 PORT = 8000
-Handler = http.server.SimpleHTTPRequestHandler
-httpd = socketserver.TCPServer(("", PORT), Handler)
-
-serverThreads = []
+if pdfReveal:
+    Handler = http.server.SimpleHTTPRequestHandler
+    httpd = socketserver.TCPServer(("", PORT), Handler)
 
 def serverThread(port=8000):
     print( 'Starting httpServer at port', PORT);
     httpd.serve_forever()
 
-def startServer(threadList, port=8000):
+def startServer(port=8000):
     t = Thread(target=serverThread, args=(port,))
-    threadList += [t]
     t.daemon = True
     t.start()
 
-def stopServer():
-    print( 'XXX - Stopping httpServer' );
-         
 def clearDirectory(dir):
     for file in os.listdir(dir):
         if file.endswith(clearTuple):
@@ -70,7 +66,6 @@ def buildDirectory(dir, reveal=True, pdfReveal=False):
             #pandoc.exe -t revealjs -s file -o htmlFileName -V theme=moon
 
 clearDirectory('.')
-startServer(threadList = serverThreads)
-time.sleep(2)
-buildDirectory('.', pdfReveal=True)
-stopServer()
+if pdfReveal:
+    startServer()
+buildDirectory('.', pdfReveal=pdfReveal)
