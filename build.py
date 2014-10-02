@@ -8,16 +8,41 @@
 
 import os
 import sys
+import time
+
+from threading import Thread
+
+import http.server
+import socketserver
 
 fileSuffix = '.md'
 clearTuple = ('.html', '.docx', '.pdf')
 
+PORT = 8000
+Handler = http.server.SimpleHTTPRequestHandler
+httpd = socketserver.TCPServer(("", PORT), Handler)
+
+serverThreads = []
+
+def serverThread(port=8000):
+    print( 'Starting httpServer at port', PORT);
+    httpd.serve_forever()
+
+def startServer(threadList, port=8000):
+    t = Thread(target=serverThread, args=(port,))
+    threadList += [t]
+    t.daemon = True
+    t.start()
+
+def stopServer():
+    print( 'XXX - Stopping httpServer' );
+         
 def clearDirectory(dir):
     for file in os.listdir(dir):
         if file.endswith(clearTuple):
             os.remove(os.path.join(dir, file))
 
-def buildDirectory(dir):
+def buildDirectory(dir, reveal=True, pdfReveal=False):
     for file in os.listdir(dir):
         if file.endswith(fileSuffix):
             print('Working on', file)
@@ -29,14 +54,23 @@ def buildDirectory(dir):
             pdfFileName = os.path.join(dir, fileNameWithoutSuffix + '.pdf')
             webtexFileName = os.path.join(dir, fileNameWithoutSuffix + '_webtex.html')
             
-            os.system('pandoc ' + '-s ' + file + ' -o ' + revealFileName + ' -t revealjs' + ' -V theme=moon')
+            if reveal:
+                os.system('pandoc ' + '-s ' + file + ' -o ' + revealFileName + ' -t revealjs' + ' -V theme=moon')
             #os.system('pandoc ' + '-s ' + file + ' -o ' + html5FileName + ' -t html5')
             #os.system('pandoc ' + '-s ' + file + ' -o ' + docxFileName + ' -t docx')
             #os.system('pandoc ' + '-s ' + file + ' -o ' + pdfFileName + ' -t latex')
-            #os.system(' deck2pdf.bat --profile=revealjs ' + revealFileName + ' ' + pdfFileName)
+            
+            #pdf of reveal
+            if pdfReveal:
+                phantomString = 'phantomjs ./reveal.js/plugin/print-pdf/print-pdf.js ' + 'http://localhost:8000/' + fileNameWithoutSuffix + '.html' + '?print-pdf#/ ' + pdfFileName
+                os.system(phantomString)
+                
             #os.system('pandoc ' + '-s ' + file + ' -o ' + webtexFileName + ' --webtex')
             
             #pandoc.exe -t revealjs -s file -o htmlFileName -V theme=moon
 
 clearDirectory('.')
-buildDirectory('.')
+startServer(threadList = serverThreads)
+time.sleep(2)
+buildDirectory('.', pdfReveal=True)
+stopServer()
