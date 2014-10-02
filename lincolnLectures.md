@@ -1,12 +1,18 @@
 %Lincoln Lectures on Graphics
 %shearer12345
 
+1) [Lecture 1](#lecture-1)
+2) [Lecture 2](#lecture-2)
+
 #Lecture 1
 
-- [what is Computer Graphics?](whatIsComputerGraphics.html)
-- [why is Computer Graphics hard?](whyIsComputerGraphicsHard.html)
-- [recommended reading](recommendedReading.html)
+- [what is Computer Graphics?](../topics/whatIsComputerGraphics.html)
+- [why is Computer Graphics hard?](../topics/whyIsComputerGraphicsHard.html)
+- [toolchain](../topics/toolchain.html)
+
+#Lecture 2
+
 - [Lincoln Assessment](lincolnAssessment.html)
-- [toolchain](toolchain.html)
-- [lincolnWorkshops](lincolnWorkshops.html)
-- [student as producer](studentAsProducer.html)
+- [recommended reading](../topics/recommendedReading.html)
+- [student as producer](../topics/studentAsProducer.html)
+- [lincolnWorkshops](workshops.html)
