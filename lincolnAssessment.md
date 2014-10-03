@@ -1,5 +1,8 @@
-%Lincoln Graphics Assessment
-%[shearer12345](https://github.com/shearer12345/graphics)
+
+---
+title: Graphics Assessment
+author: shearer12345
+---
 
 #Assessment Methods and Weighting
 
@@ -20,6 +23,7 @@
 
     > design and develop interactive 3D graphics software, applying appropriate mathematical/algorithmic techniques for efficient 2D and 3D graphics
 - Learning Outcome 2
+
     > Demonstrate deep understanding of computer graphics programming techniques and approaches
 - Both are *individually* assessed
 
@@ -28,7 +32,11 @@
 ##What to expect in the assignment
 
 - based around developing an interactive 3D scenario
-    - such as a simple computer game like Pong or Space Invaders
+    - such as a simple computer game:
+        - Pong
+        - Space Invaders
+        - Virtual plane
+
 - will submit to blackboard, but live-demo in the following workshop, affording:
     - faster mark turn around
     - immediate verbal feedback

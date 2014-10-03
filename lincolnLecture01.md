@@ -1,3 +1,9 @@
+
+---
+title: lincoln Lectures On Graphics - 01
+author: shearer12345
+---
+
 ---
 title: What Is Computer Graphics
 author: shearer12345
@@ -94,3 +100,135 @@ visual features important for 3D perception:
 - ? Stereoscopic
 - ? Obscuring - things in front
 - ? changes in all of these
+
+%whyIsComputerGraphicsHard
+%shearer12345
+
+#Why do you think?
+
+#What do we mean by Computer Graphics
+
+- ???
+
+#What do we mean by Computer Graphics
+
+- interactive
+- 3D
+- generating of a sequence of static 2D projections of 3D scenes fast enough and realistically enough to trick the human eye into "seeing" smooth 3D motion
+
+See [whatIsComputerGraphics](whatIsComputerGraphics.html)
+
+#What Kinds of Factors
+
+- human-ones
+- physical ones (about the real world)
+- computational ones
+
+#Some things that make it hard
+
+- Needing to do lots fast
+- the maths etc
+- the algorithms
+- computational limits
+    - cpu time
+    - ram?
+- program limits (api or other)
+- the cpu/api/gpu boundaries etc
+
+#Let's do some back of the envelope Maths
+
+- ...
+- how much "work" do we need to do?
+
+#Let's do some back of the envelope Maths
+
+- how many pixels per frame
+    - to look ok/good
+    - projector?
+    - HD?
+    - ...
+- how many frames per second
+    - to trick our eyes into seeing motion
+
+#How many pixels per frame
+
+- to look ok/good
+- normal projector = 1024 x 768 ~= 750,000 pixels
+- FullHD = 1920 x 1080 ~= **2,000,000 pixels**
+
+Note: for appproximation using 2 million pixels
+
+#How many frames per second
+
+- to trick our eyes into seeing motion
+    - 25fps -> 100fps
+    - aim for **50fps** or 60fps
+    - 
+Note: for appproximation using 50fps
+
+#How many pixels per second?
+
+- ????
+
+#How many pixels per second?
+
+- 2,000,000 pixels per frame
+- times
+- 50 frames per second
+
+#How many pixels per second?
+
+- 2,000,000 pixels per frame
+- times
+- 50 frames per second
+- = 100,000,000 pixels per second
+
+#How many computational processing is needed?
+
+- ???
+
+
+
+% toolchain
+% shearer12345
+
+#Toolchain for graphics
+
+- OpenGL - graphics rendering
+- SDL2 - context creation, windowing, input handling
+- C / C++ - programming
+- premake - solution creation, supporting:
+  - gmake
+  - code::blocks
+  - Visual Studio
+
+#OpenGL
+
+- a C library for graphics rendering
+- usually utilises the underlying hardware graphics accelerator (graphics card)
+
+#SDL2
+
+- context creation, windowing, input handling
+- OpenGL **only** does rendering, we need other tools for a number of jobs:
+  - to setup a "context" that OpenGL can use
+  - to create and manipulate windows
+  - to handle input
+  - ...
+
+#C / C++
+
+- OpenGL provides a C-style API (Application Program Interface)
+- that API can be used from C or C++
+- or the API can be wrapped for use from other languages (e.g. Java, Python)
+
+#Premake
+
+
+>Describe your software project just once, using Premake's simple and easy to read syntax, and build it everywhere. Generate project files for Visual Studio, GNU Make, Xcode, Code::Blocks, and more across Windows, Mac OS X, and Linux. Use the full featured Lua scripting engine to make build configuration tasks a breeze.
+  - [http://industriousone.com/premake](http://industriousone.com/premake)
+
+- using premake 4.4 (beta5), which supports upto Visual Studio 2012
+  - later versions are supported by importing and upgrading the project in VS
+  - [premake4.4-beta5](http://industriousone.com/topic/premake-44-beta5-now-available)
+

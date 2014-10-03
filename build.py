@@ -5,6 +5,7 @@
 #deck2pdf - https://github.com/melix/deck2pdf
 #TODO should rewrite the path to reveal for markdown files further down the hierarchy
 
+pdfReveal = False
 
 import os
 import sys
@@ -16,33 +17,40 @@ import http.server
 import socketserver
 
 fileSuffix = '.md'
+mdppFileSuffix = '.mdpp'
 clearTuple = ('.html', '.docx', '.pdf')
 
 PORT = 8000
-Handler = http.server.SimpleHTTPRequestHandler
-httpd = socketserver.TCPServer(("", PORT), Handler)
-
-serverThreads = []
+if pdfReveal:
+    Handler = http.server.SimpleHTTPRequestHandler
+    httpd = socketserver.TCPServer(("", PORT), Handler)
 
 def serverThread(port=8000):
     print( 'Starting httpServer at port', PORT);
     httpd.serve_forever()
 
-def startServer(threadList, port=8000):
+def startServer(port=8000):
     t = Thread(target=serverThread, args=(port,))
-    threadList += [t]
     t.daemon = True
     t.start()
 
-def stopServer():
-    print( 'XXX - Stopping httpServer' );
-         
 def clearDirectory(dir):
     for file in os.listdir(dir):
         if file.endswith(clearTuple):
             os.remove(os.path.join(dir, file))
 
 def buildDirectory(dir, reveal=True, pdfReveal=False):
+
+    #process mdpp files to create md
+    for file in os.listdir(dir):
+        if file.endswith(mdppFileSuffix):
+            print('Working on', file)
+            fileNameWithoutSuffix = file[:-len(mdppFileSuffix)]
+            file = os.path.join(dir, file)
+            mdFileName = os.path.join(dir, fileNameWithoutSuffix + '.md')
+            os.system('py C:\\Users\\shearer\\code\\markdown-pp\\markdown-pp.py ' + file + ' ' + mdFileName)
+
+    #process md files
     for file in os.listdir(dir):
         if file.endswith(fileSuffix):
             print('Working on', file)
@@ -70,7 +78,6 @@ def buildDirectory(dir, reveal=True, pdfReveal=False):
             #pandoc.exe -t revealjs -s file -o htmlFileName -V theme=moon
 
 clearDirectory('.')
-startServer(threadList = serverThreads)
-time.sleep(2)
-buildDirectory('.', pdfReveal=True)
-stopServer()
+if pdfReveal:
+    startServer()
+buildDirectory('.', pdfReveal=pdfReveal)

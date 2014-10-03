@@ -2,13 +2,13 @@
 
 - does OpenGL work at all on your hardware?
      - test without building your own code
-- what versions are OpenGL your hardware supports?
+- what versions of OpenGL your hardware supports?
 - how fast does OpenGL work on your hardware?
 
 #gputest
 
-- http://www.geeks3d.com/gputest/
-  - windows
+- http://www.geeks3d.com/gputest/download/
+    - windows
     - OS X
     - linux
 
