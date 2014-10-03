@@ -17,6 +17,7 @@ import http.server
 import socketserver
 
 fileSuffix = '.md'
+mdppFileSuffix = '.mdpp'
 clearTuple = ('.html', '.docx', '.pdf')
 
 PORT = 8000
@@ -39,6 +40,17 @@ def clearDirectory(dir):
             os.remove(os.path.join(dir, file))
 
 def buildDirectory(dir, reveal=True, pdfReveal=False):
+
+    #process mdpp files to create md
+    for file in os.listdir(dir):
+        if file.endswith(mdppFileSuffix):
+            print('Working on', file)
+            fileNameWithoutSuffix = file[:-len(mdppFileSuffix)]
+            file = os.path.join(dir, file)
+            mdFileName = os.path.join(dir, fileNameWithoutSuffix + '.md')
+            os.system('py C:\\Users\\shearer\\code\\markdown-pp\\markdown-pp.py ' + file + ' ' + mdFileName)
+
+    #process md files
     for file in os.listdir(dir):
         if file.endswith(fileSuffix):
             print('Working on', file)
