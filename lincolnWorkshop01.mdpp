@@ -17,27 +17,7 @@ https://github.com/shearer12345/graphics_examples_in_git_branches
 
 - https://www.surveymonkey.com/s/HWWGTBH
 
-#Testing If OpenGL works
-
-- does OpenGL work at all on your hardware?
-     - test without building your own code
-- what versions of OpenGL your hardware supports?
-- how fast does OpenGL work on your hardware?
-
-#gputest
-
-- http://www.geeks3d.com/gputest/download/
-    - windows
-    - OS X
-    - linux
-
-#glxinfo
-
-- linux only
-```bash
-glxinfo | grep "OpenGL version"
-```
-
+!INCLUDE "testingIfOpenGLworks.md"
 
 #Source Code
 
