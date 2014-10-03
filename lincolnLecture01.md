@@ -101,6 +101,7 @@ visual features important for 3D perception:
 - ? Obscuring - things in front
 - ? changes in all of these
 
+
 %whyIsComputerGraphicsHard
 %shearer12345
 
@@ -186,6 +187,7 @@ Note: for appproximation using 50fps
 #How many computational processing is needed?
 
 - ???
+
 
 
 

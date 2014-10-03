@@ -1,12 +1,22 @@
 #It's Triangles All The Way Down
 
+![triangle](assets\triangle.png)
+
+---
+
+##It's Triangles All The Way Down
+
 - Remember: Everything is a shell
-- All of these shells are made of triangles
-- Even surfaces that appear to be round are merely triangles if you look closely enough
-- There are techniques that generate more triangles for objects that appear closer or larger, so that the viewer can almost never see the faceted silhouette of the object, but they are always made of triangles
+- All of these shells are made of **triangles**
+- Even surfaces that appear to be round are merely **triangles** if you look closely enough
+- There are techniques that generate **more triangles** for objects that appear closer or larger, so that the viewer can almost never see the faceted silhouette of the object, but they are **always made of triangles**
+
+---
+
+##It's Triangles All The Way Down
+
 - Note: Some rasterizers use planar quadrilaterals: four-sided objects, where all of the lines lie in the same plane. One of the reasons that hardware-based rasterizers always use triangles is that all of the lines of a triangle are guaranteed to be in the same plane. Knowing this makes the rasterization process less complicated.
 
-![triangle](assets\triangle.png)
 
 #Objects
 
@@ -29,7 +39,7 @@
 
 ##OpenGL Pipeline
 
-![http://goanna.cs.rmit.edu.au/~gl/teaching/Interactive3D/2011/lecture2.html](assets\pipeline01.png)
+![http://goanna.cs.rmit.edu.au/~gl/teaching/ Interactive3D/2011/lecture2.html](assets\pipeline01.png)
 
 ---
 
