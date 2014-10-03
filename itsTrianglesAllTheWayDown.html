@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <title></title>
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <link rel="stylesheet" href="reveal.js/css/reveal.min.css"/>
+    <style type="text/css">code{white-space: pre;}</style>
+    <link rel="stylesheet" href="reveal.js/css/theme/simple.css" id="theme">
+    <!-- If the query includes 'print-pdf', include the PDF print sheet -->
+    <script>
+      if( window.location.search.match( /print-pdf/gi ) ) {
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = 'reveal.js/css/print/pdf.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+      }
+    </script>
+    <!--[if lt IE 9]>
+    <script src="reveal.js/lib/js/html5shiv.js"></script>
+    <![endif]-->
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+
+<section id="its-triangles-all-the-way-down" class="slide level1">
+<h1>It's Triangles All The Way Down</h1>
+<ul>
+<li>Remember: Everything is a shell</li>
+<li>All of these shells are made of triangles</li>
+<li>Even surfaces that appear to be round are merely triangles if you look closely enough</li>
+<li>There are techniques that generate more triangles for objects that appear closer or larger, so that the viewer can almost never see the faceted silhouette of the object, but they are always made of triangles</li>
+<li>Note: Some rasterizers use planar quadrilaterals: four-sided objects, where all of the lines lie in the same plane. One of the reasons that hardware-based rasterizers always use triangles is that all of the lines of a triangle are guaranteed to be in the same plane. Knowing this makes the rasterization process less complicated.</li>
+</ul>
+<figure>
+<img src="assets\triangle.png" alt="triangle" /><figcaption>triangle</figcaption>
+</figure>
+</section>
+<section id="objects" class="slide level1">
+<h1>Objects</h1>
+<ul>
+<li>An object is made out of a collection of adjacent triangles that define the outer surface of the object</li>
+<li>Such a collection of triangles is often called:
+<ul>
+<li>a model</li>
+<li>a mesh</li>
+<li>geometry</li>
+<li><strong>these terms are used interchangeably</strong></li>
+</ul></li>
+</ul>
+</section>
+<section id="pipeline" class="slide level1">
+<h1>Pipeline</h1>
+<ul>
+<li>Rasterization has several phases ordered into a pipeline</li>
+<li>triangles enter from the left and a 2D image is filled in at the right</li>
+<li>A pipeline is very ammeneable to hardware acceleration</li>
+<li>it operates on each triangle one at a time, in a specific order</li>
+<li>triangles can be fed into the left of the pipeline while triangles that were sent earlier can still be in some phase of rasterization.</li>
+</ul>
+</section>
+<section class="slide level1">
+
+<h2 id="opengl-pipeline">OpenGL Pipeline</h2>
+<figure>
+<img src="assets\pipeline01.png" alt="http://goanna.cs.rmit.edu.au/~gl/teaching/Interactive3D/2011/lecture2.html" /><figcaption>http://goanna.cs.rmit.edu.au/~gl/teaching/Interactive3D/2011/lecture2.html</figcaption>
+</figure>
+</section>
+<section class="slide level1">
+
+<h2 id="raster-ordering">Raster Ordering</h2>
+<ul>
+<li>The order in which triangles and the various meshes are submitted to the rasterizer can affect its output
+<ul>
+<li>(if you are doing fancy stuff)</li>
+</ul></li>
+<li>No matter how you submit the triangular mesh data, the rasterizer will process each triangle in a specific order:
+<ul>
+<li>drawing the next one only when the previous triangle has finished being drawn</li>
+</ul></li>
+</ul>
+</section>
+<section class="slide level1">
+
+<h2 id="triangles-and-vertices-in-opengl">Triangles and Vertices (in OpenGL)</h2>
+<ul>
+<li>Triangles consist of 3 vertices
+<ul>
+<li>A vertex is a collection of arbitrary data</li>
+<li>???!!!???</li>
+<li>For the sake of simplicity, in our context this data must contain a point in three dimensional space - it may contain other data (e.g. colour)</li>
+</ul></li>
+<li>Any 3 points that are not on the same line create a triangle
+<ul>
+<li>A triangle is defined by exactly 3 (three-dimensional) points - (X, Y, Z)</li>
+</ul></li>
+</ul>
+</section>
+    </div>
+  </div>
+
+
+  <script src="reveal.js/lib/js/head.min.js"></script>
+  <script src="reveal.js/js/reveal.min.js"></script>
+
+  <script>
+
+      // Full list of configuration options available here:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+        theme: 'moon', // available themes are in /css/theme
+        transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+        // Optional libraries used to extend on reveal.js
+        dependencies: [
+          { src: 'reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: 'reveal.js/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+          { src: 'reveal.js/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } },
+//          { src: 'reveal.js/plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; }, }
+//          { src: 'reveal.js/plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+]});
+    </script>
+    </body>
+</html>

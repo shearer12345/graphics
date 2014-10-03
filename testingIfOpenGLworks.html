@@ -9,6 +9,25 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <link rel="stylesheet" href="reveal.js/css/reveal.min.css"/>
     <style type="text/css">code{white-space: pre;}</style>
+    <style type="text/css">
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; }
+code > span.dt { color: #902000; }
+code > span.dv { color: #40a070; }
+code > span.bn { color: #40a070; }
+code > span.fl { color: #40a070; }
+code > span.ch { color: #4070a0; }
+code > span.st { color: #4070a0; }
+code > span.co { color: #60a0b0; font-style: italic; }
+code > span.ot { color: #007020; }
+code > span.al { color: #ff0000; font-weight: bold; }
+code > span.fu { color: #06287e; }
+code > span.er { color: #ff0000; font-weight: bold; }
+    </style>
     <link rel="stylesheet" href="reveal.js/css/theme/simple.css" id="theme">
     <!-- If the query includes 'print-pdf', include the PDF print sheet -->
     <script>
@@ -29,12 +48,35 @@
     <div class="slides">
 
 
-<section><section id="lincoln-graphics-workshops" class="titleslide slide level1"><h1>Lincoln Graphics Workshops</h1></section><section id="workshop-1---helloworld-and-getting-to-know-the-build-system" class="slide level2">
-<h1>Workshop 1 - HelloWorld, and getting to know the build system</h1>
+<section id="testing-if-opengl-works" class="slide level1">
+<h1>Testing If OpenGL works</h1>
 <ul>
-<li><a href="lincolnWorkshop01.html">lincolnWorkshop01</a></li>
+<li>does OpenGL work at all on your hardware?
+<ul>
+<li>test without building your own code</li>
+</ul></li>
+<li>what versions of OpenGL your hardware supports?</li>
+<li>how fast does OpenGL work on your hardware?</li>
 </ul>
-</section></section>
+</section>
+<section id="gputest" class="slide level1">
+<h1>gputest</h1>
+<ul>
+<li>http://www.geeks3d.com/gputest/download/
+<ul>
+<li>windows</li>
+<li>OS X</li>
+<li>linux</li>
+</ul></li>
+</ul>
+</section>
+<section id="glxinfo" class="slide level1">
+<h1>glxinfo</h1>
+<ul>
+<li><p>linux only</p>
+<pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">glxinfo</span> <span class="kw">|</span> <span class="kw">grep</span> <span class="st">&quot;OpenGL version&quot;</span></code></pre></li>
+</ul>
+</section>
     </div>
   </div>
 
