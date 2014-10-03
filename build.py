@@ -63,7 +63,7 @@ def buildDirectory(dir, reveal=True, pdfReveal=False):
             webtexFileName = os.path.join(dir, fileNameWithoutSuffix + '_webtex.html')
             
             if reveal:
-                os.system('pandoc ' + '-s ' + file + ' -o ' + revealFileName + ' -t revealjs' + ' -V theme=moon')
+                os.system('pandoc ' + '-s ' + file + ' -o ' + revealFileName + ' -t revealjs' + ' -V theme=sky')
             #os.system('pandoc ' + '-s ' + file + ' -o ' + html5FileName + ' -t html5')
             #os.system('pandoc ' + '-s ' + file + ' -o ' + docxFileName + ' -t docx')
             #os.system('pandoc ' + '-s ' + file + ' -o ' + pdfFileName + ' -t latex')
