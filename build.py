@@ -1,11 +1,11 @@
 #! /usr/bin/env python3
 
-#REQUIRES pandoc and (sometimes) deck2pdf in the path
+#REQUIRES pandoc 
 #pandoc - http://johnmacfarlane.net/pandoc/
-#deck2pdf - https://github.com/melix/deck2pdf
 #TODO should rewrite the path to reveal for markdown files further down the hierarchy
 
 pdfReveal = False
+purePdf=False
 
 import os
 import sys
@@ -39,7 +39,7 @@ def clearDirectory(dir):
         if file.endswith(clearTuple):
             os.remove(os.path.join(dir, file))
 
-def buildDirectory(dir, reveal=True, pdfReveal=False):
+def buildDirectory(dir, reveal=True, pdfReveal=False, purePdf=False):
 
     #process mdpp files to create md
     for file in os.listdir(dir):
@@ -59,14 +59,15 @@ def buildDirectory(dir, reveal=True, pdfReveal=False):
             revealFileName = os.path.join(dir, fileNameWithoutSuffix + '.html')
             html5FileName = os.path.join(dir, fileNameWithoutSuffix + '_html5.html' )
             docxFileName = os.path.join(dir, fileNameWithoutSuffix + '.docx')
-            pdfFileName = os.path.join(dir, fileNameWithoutSuffix + '.pdf')
+            purePdfFileName = os.path.join(dir, fileNameWithoutSuffix + '_pure.pdf')
             webtexFileName = os.path.join(dir, fileNameWithoutSuffix + '_webtex.html')
             
             if reveal:
                 os.system('pandoc ' + '-s ' + file + ' -o ' + revealFileName + ' -t revealjs' + ' -V theme=sky')
             #os.system('pandoc ' + '-s ' + file + ' -o ' + html5FileName + ' -t html5')
             #os.system('pandoc ' + '-s ' + file + ' -o ' + docxFileName + ' -t docx')
-            #os.system('pandoc ' + '-s ' + file + ' -o ' + pdfFileName + ' -t latex')
+            if purePdf:
+                os.system('pandoc ' + '-s ' + file + ' -o ' + purePdfFileName + ' -t latex')
             
             #pdf of reveal
             if pdfReveal:
@@ -80,4 +81,4 @@ def buildDirectory(dir, reveal=True, pdfReveal=False):
 clearDirectory('.')
 if pdfReveal:
     startServer()
-buildDirectory('.', pdfReveal=pdfReveal)
+buildDirectory('.', pdfReveal=pdfReveal, purePdf=purePdf)
