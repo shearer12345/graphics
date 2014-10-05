@@ -48,7 +48,6 @@
 - [http://oglplus.org/](http://oglplus.org/)
 - OGLplus tutorials [http://oglplus.org/oglplus/html/oglplus_tutorials.html](http://oglplus.org/oglplus/html/oglplus_tutorials.html)
 
-
 #Debugging tools
 
 - [apitrace - http://apitrace.github.io/](apitrace - http://apitrace.github.io/)
