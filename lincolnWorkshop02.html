@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <title></title>
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <link rel="stylesheet" href="reveal.js/css/reveal.min.css"/>
+    <style type="text/css">code{white-space: pre;}</style>
+    <style type="text/css">
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; }
+code > span.dt { color: #902000; }
+code > span.dv { color: #40a070; }
+code > span.bn { color: #40a070; }
+code > span.fl { color: #40a070; }
+code > span.ch { color: #4070a0; }
+code > span.st { color: #4070a0; }
+code > span.co { color: #60a0b0; font-style: italic; }
+code > span.ot { color: #007020; }
+code > span.al { color: #ff0000; font-weight: bold; }
+code > span.fu { color: #06287e; }
+code > span.er { color: #ff0000; font-weight: bold; }
+    </style>
+    <link rel="stylesheet" href="reveal.js/css/theme/simple.css" id="theme">
+    <!-- If the query includes 'print-pdf', include the PDF print sheet -->
+    <script>
+      if( window.location.search.match( /print-pdf/gi ) ) {
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = 'reveal.js/css/print/pdf.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+      }
+    </script>
+    <!--[if lt IE 9]>
+    <script src="reveal.js/lib/js/html5shiv.js"></script>
+    <![endif]-->
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+
+<section id="lincoln-graphics-workshop-02" class="slide level1">
+<h1>Lincoln Graphics Workshop 02</h1>
+<ul>
+<li>HelloTriangle</li>
+<li>source for examples:</li>
+</ul>
+<p>https://github.com/shearer12345/graphics_examples_in_git_branches</p>
+<pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">git</span> checkout glTriangle <span class="co">##the glTriangle example - a helloTriangle</span></code></pre>
+</section>
+<section id="a-heads-up" class="slide level1">
+<h1>A heads-up</h1>
+<ul>
+<li>The helloTriangle for modern OpenGL is <strong>COMPLEX</strong></li>
+<li>It has a number of stages all of which must work in order to display <strong>anything!</strong></li>
+<li>We'll go through the code in classes
+<ul>
+<li>but you'll want to work through each step and figure them out for yourself</li>
+<li>likely you'll want to come back to this simple example</li>
+<li>there are <strong>lots</strong> of new terms here, we'll cover them more later</li>
+<li>the code will have some <strong>sign-posts</strong> where you might want to make changes/additions for the activities</li>
+</ul></li>
+</ul>
+</section>
+<section class="slide level1">
+
+<h2 id="preparatory-stages-to-get-a-single-triangle">Preparatory stages to get a single Triangle!!</h2>
+<ul>
+<li>This won't draw <strong>anything</strong> without the <strong>loop</strong> stages</li>
+</ul>
+<ol type="1">
+<li>Create a <strong>Window</strong> and a <strong>GL context</strong></li>
+<li>Load <strong>GLSL shaders</strong></li>
+<li>Link GLSL shaders in to <strong>GLSL programs</strong></li>
+<li>Create/Load <strong>Geometry data</strong> (vertices) CPU-side</li>
+<li>Load <strong>Geometry</strong> data into OpenGL</li>
+<li>Create <strong>Vertex Array Objects</strong></li>
+</ol>
+</section>
+<section class="slide level1">
+
+<h2 id="loop-stages-to-get-a-single-triangle">Loop stages to get a single Triangle!!</h2>
+<ol type="1">
+<li>Clear the <strong>Back Buffer</strong></li>
+<li>Tell OpenGL to use a <strong>GLSL program</strong> that has already been created</li>
+<li>Tell OpenGL to use some <strong>geometry data</strong> that has already been loaded</li>
+<li>Tell OpenGL where in the <strong>GLSL program</strong> to put the <strong>geometry data</strong></li>
+<li>Tell OpenGL what format the <strong>geometry data</strong> is in - how it is stored / how to read it</li>
+<li>Tell OpenGL to draw some type of <strong>Primitive</strong>, using some number of <strong>Vertices</strong></li>
+<li>Clean up some OpenGL stuff</li>
+<li>Tell SDL to swap the <strong>Back Buffer</strong> and the <strong>Front Buffer</strong></li>
+</ol>
+</section>
+<section class="slide level1">
+
+<h2 id="update-the-examples">Update the examples</h2>
+<ul>
+<li>You should update all the examples from the git repository
+<ul>
+<li>or delete the examples directory and start again</li>
+<li>the README for starting again is at:</li>
+<li>https://github.com/shearer12345/graphics_examples_in_git_branches</li>
+</ul></li>
+</ul>
+<pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">git</span> stash save WhatEverStashNameYouLike <span class="co">#OPTIONAL: save any changes you may have made</span>
+<span class="kw">git</span> checkout master <span class="co">#make sure you&#39;re on the master branch</span>
+<span class="kw">git</span> pull <span class="co">#pull remote master locally</span>
+<span class="kw">python</span> .\branchAndTrack.py <span class="co">#run branchAndTrack to update all branches</span>
+<span class="co">##or</span>
+<span class="kw">py</span> .\branchAndTrack.py <span class="co">#if in Lincoln Lab A</span></code></pre>
+</section>
+<section class="slide level1">
+
+<h2 id="run-the-examples">Run the examples</h2>
+<ul>
+<li>checkout the following examples and run each
+<ul>
+<li>using build system of your choice</li>
+<li><p>assuming Visual Studio here</p>
+<pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">git</span> checkout EXAMPLE <span class="co">##checkout example from the repository</span>
+<span class="kw">.</span>\premake4 vs2012
+<span class="co">#load in Visual Studio</span>
+<span class="co">#build in Visual Studio</span>
+<span class="co">#run in Visual Studio</span></code></pre></li>
+</ul>
+<ol type="1">
+<li>glIncluded</li>
+<li></li>
+</ol></li>
+</ul>
+</section>
+<section class="slide level1">
+
+<h2 id="diff-the-examples">Diff the examples</h2>
+<ul>
+<li><p>look at what's different between the examples</p>
+<pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">git</span> diff EXAMPLE1 EXAMPLE2 <span class="co">##will produce the **diff** for all files</span></code></pre></li>
+<li><p>you can also diff just a single file</p>
+<pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">git</span> diff EXAMPLE1 EXAMPLE2 .\fileName
+<span class="co">##for example</span>
+<span class="kw">git</span> diff master sdlCreateContext .\main.cpp</code></pre></li>
+</ul>
+</section>
+<section class="slide level1">
+
+<h2 id="activities">Activities</h2>
+<ul>
+<li>You should try to <strong>all of these</strong> today. Work on them in your free-study time if you need</li>
+<li>Don't change the GLSL shaders to do this - that's for later!</li>
+</ul>
+<ol type="1">
+<li>make the background color something different</li>
+<li>make the triangle a different shape</li>
+<li>make the triangle appear somewhere else on the screen, but the original shape
+<ul>
+<li>this is a <strong>translation</strong></li>
+</ul></li>
+<li>make the triangle larger than the original, but still similar
+<ul>
+<li>http://www.mathsisfun.com/geometry/triangles-similar.html</li>
+<li>don't rotate it, only change the size</li>
+<li>this is a <strong>scale</strong></li>
+</ul></li>
+<li>make the triangle <strong>translate</strong> or <strong>scale</strong> over time
+<ul>
+<li>you'll need to add a loop to the main function</li>
+</ul></li>
+</ol>
+</section>
+<section class="slide level1">
+
+<h2 id="stretch-activities">Stretch Activities</h2>
+<ul>
+<li>If you've got through the standard activities then have a bash at these</li>
+</ul>
+<ol type="1">
+<li>make the triangle be in a rotated position
+<ul>
+<li>this is <strong>rotation</strong></li>
+</ul></li>
+<li>make the triangle rotate over time</li>
+<li>make the triangle translate <strong>and</strong> scale, over time</li>
+<li>make the triangle translate <strong>and</strong> rotate, over time!!!!!!!!!!</li>
+</ol>
+</section>
+    </div>
+  </div>
+
+
+  <script src="reveal.js/lib/js/head.min.js"></script>
+  <script src="reveal.js/js/reveal.min.js"></script>
+
+  <script>
+
+      // Full list of configuration options available here:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+        theme: 'sky', // available themes are in /css/theme
+        transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+        // Optional libraries used to extend on reveal.js
+        dependencies: [
+          { src: 'reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: 'reveal.js/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+          { src: 'reveal.js/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } },
+//          { src: 'reveal.js/plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; }, }
+//          { src: 'reveal.js/plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+]});
+    </script>
+    </body>
+</html>
