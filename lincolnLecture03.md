@@ -42,6 +42,10 @@ author: shearer12345
 - 2D tutorials with SDL2 [http://lazyfoo.net/tutorials/SDL/index.php](http://lazyfoo.net/tutorials/SDL/index.php)
 - SDL2 migration guide [https://wiki.libsdl.org/MigrationGuide](https://wiki.libsdl.org/MigrationGuide)
 
+#Extensions Wrangling
+
+- gl3w [https://github.com/skaslev/gl3w](https://github.com/skaslev/gl3w)
+- gl3w with SDL2 example [https://github.com/progschj/OpenGL-Windowing-Examples/blob/master/sdl2.cpp](https://github.com/progschj/OpenGL-Windowing-Examples/blob/master/sdl2.cpp)
 ---
 
 ##SDL alternatives
