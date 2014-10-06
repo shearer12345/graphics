@@ -52,10 +52,23 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <h1>Lincoln Graphics Workshop 02</h1>
 <ul>
 <li>HelloTriangle</li>
+</ul>
+</section>
+<section class="slide level1">
+
+<h2 id="gltrianglewhite">glTriangleWhite</h2>
+<figure>
+<img src="assets/examples/glTriangleWhite.png" alt="glTriangleWhite" /><figcaption>glTriangleWhite</figcaption>
+</figure>
+</section>
+<section class="slide level1">
+
+<h2 id="source-and-checkout">Source and checkout</h2>
+<ul>
 <li>source for examples:</li>
 </ul>
 <p>https://github.com/shearer12345/graphics_examples_in_git_branches</p>
-<pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">git</span> checkout glTriangle <span class="co">##the glTriangle example - a helloTriangle</span></code></pre>
+<pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">git</span> checkout glTriangleWhite <span class="co">##the glTriangle example - a helloTriangle</span></code></pre>
 </section>
 <section id="a-heads-up" class="slide level1">
 <h1>A heads-up</h1>
@@ -108,10 +121,13 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <ul>
 <li>or delete the examples directory and start again</li>
 <li>the README for starting again is at:</li>
-<li>https://github.com/shearer12345/graphics_examples_in_git_branches</li>
+<li><a href="https://github.com/shearer12345/graphics_examples_in_git_branches" class="uri">https://github.com/shearer12345/graphics_examples_in_git_branches</a></li>
 </ul></li>
 </ul>
-<pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">git</span> stash save WhatEverStashNameYouLike <span class="co">#OPTIONAL: save any changes you may have made</span>
+<pre class="sourceCode bash"><code class="sourceCode bash"><span class="co">#OPTIONAL: save any changes you may have made</span>
+<span class="kw">git</span> stash save WhatEverStashNameYouLike 
+
+<span class="co">#TO UPDATE your local repository</span>
 <span class="kw">git</span> checkout master <span class="co">#make sure you&#39;re on the master branch</span>
 <span class="kw">git</span> pull <span class="co">#pull remote master locally</span>
 <span class="kw">python</span> .\branchAndTrack.py <span class="co">#run branchAndTrack to update all branches</span>
@@ -122,7 +138,7 @@ code > span.er { color: #ff0000; font-weight: bold; }
 
 <h2 id="run-the-examples">Run the examples</h2>
 <ul>
-<li>checkout the following examples and run each
+<li>checkout the examples following (next page) and run each
 <ul>
 <li>using build system of your choice</li>
 <li><p>assuming Visual Studio here</p>
@@ -131,12 +147,38 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <span class="co">#load in Visual Studio</span>
 <span class="co">#build in Visual Studio</span>
 <span class="co">#run in Visual Studio</span></code></pre></li>
+</ul></li>
+<li>Note that you each time you checkout a new example, you should re-run premake.
+<ul>
+<li>Visual Studio will detect this and ask if you want to reload the solution - say YES</li>
+<li>If you using VS2013, you may need to right-click the solution and hit &quot;re-target&quot;</li>
+<li>If you using VS2013, you may need to right-click the project ahd hit &quot;Set As Startup Project&quot;</li>
+</ul></li>
 </ul>
+</section>
+<section class="slide level1">
+
+<h3 id="examples-to-look-through">Examples to look through</h3>
 <ol type="1">
-<li>glIncluded</li>
-<li></li>
-</ol></li>
-</ul>
+<li>glGlew
+<ul>
+<li>include the GLEW library, make SDL create an OpenGL context. <strong>important changes here</strong></li>
+</ul></li>
+<li>glCreateShadersAndProgram
+<ul>
+<li>load some GLSL shaders into OpenGL, compile and link them. <strong>new stuff here</strong></li>
+</ul></li>
+<li>glGenVertexBuffer
+<ul>
+<li>load some vertex data into OpenGL. <strong>more new stuff here</strong></li>
+</ul></li>
+<li>glTriangleWhite
+<ul>
+<li>this one is the first time you'll see anything rendered</li>
+<li><strong>yet more new stuff here</strong></li>
+<li>this one is the one to do the activities (later) on</li>
+</ul></li>
+</ol>
 </section>
 <section class="slide level1">
 
@@ -147,7 +189,7 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <li><p>you can also diff just a single file</p>
 <pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">git</span> diff EXAMPLE1 EXAMPLE2 .\fileName
 <span class="co">##for example</span>
-<span class="kw">git</span> diff master sdlCreateContext .\main.cpp</code></pre></li>
+<span class="kw">git</span> diff sdlHelloWorldWithFunctions glGlew .\main.cpp</code></pre></li>
 </ul>
 </section>
 <section class="slide level1">
@@ -156,25 +198,62 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <ul>
 <li>You should try to <strong>all of these</strong> today. Work on them in your free-study time if you need</li>
 <li>Don't change the GLSL shaders to do this - that's for later!</li>
+<li>There are 5 main activities and 4 stretch activities</li>
+<li>If you want to make each of these activities as a separate <code>git branch</code> you can
+<ul>
+<li>if you fork my repo on github, and upload your own branches</li>
+<li>then you can send pull requests - for feedback and as <strong>student as producer</strong></li>
+</ul></li>
 </ul>
-<ol type="1">
-<li>make the background color something different</li>
-<li>make the triangle a different shape</li>
-<li>make the triangle appear somewhere else on the screen, but the original shape
+</section>
+<section class="slide level1">
+
+<h2 id="activity-1---make-the-background-color-something-different">Activity 1 - make the background color something different</h2>
+<figure>
+<img src="assets/examples/glTriangleWhiteOnRedBackground.png" alt="glTriangleWhiteOnRedBackground" /><figcaption>glTriangleWhiteOnRedBackground</figcaption>
+</figure>
+</section>
+<section class="slide level1">
+
+<h2 id="activity-2---make-the-triangle-a-different-shape">Activity 2 - make the triangle a different shape</h2>
+<figure>
+<img src="assets/examples/glTriangleWhiteDifferentShape.png" alt="glTriangleWhiteDifferentShape" /><figcaption>glTriangleWhiteDifferentShape</figcaption>
+</figure>
+</section>
+<section class="slide level1">
+
+<h2 id="activity-3---make-the-triangle-appear-somewhere-else-on-the-screen-but-the-original-shape">Activity 3 - make the triangle appear somewhere else on the screen, but the original shape</h2>
 <ul>
 <li>this is a <strong>translation</strong></li>
-</ul></li>
-<li>make the triangle larger than the original, but still similar
+</ul>
+<figure>
+<img src="assets/examples/glTriangleWhiteCPUTranslation.png" alt="glTriangleWhiteCPUTranslation" /><figcaption>glTriangleWhiteCPUTranslation</figcaption>
+</figure>
+</section>
+<section class="slide level1">
+
+<h2 id="activity-4---make-the-triangle-larger-than-the-original">Activity 4 - make the triangle larger than the original</h2>
 <ul>
-<li>http://www.mathsisfun.com/geometry/triangles-similar.html</li>
-<li>don't rotate it, only change the size</li>
+<li>but still similar (the same shape)</li>
 <li>this is a <strong>scale</strong></li>
-</ul></li>
-<li>make the triangle <strong>translate</strong> or <strong>scale</strong> over time
+</ul>
+<figure>
+<img src="assets/examples/glTriangleWhiteCPUScale.png" alt="glTriangleWhiteCPUScale" /><figcaption>glTriangleWhiteCPUScale</figcaption>
+</figure>
+</section>
+<section class="slide level1">
+
+<h2 id="activity-5---make-the-triangle-translate-or-scale-over-time">Activity 5 - make the triangle <strong>translate</strong> or <strong>scale</strong> over time</h2>
 <ul>
 <li>you'll need to add a loop to the main function</li>
+<li>you'll need to do quite a number of other things also
+<ul>
+<li>specifically, look at the <code>glBufferData</code> function</li>
 </ul></li>
-</ol>
+</ul>
+<figure>
+<img src="assets/examples/glTriangleWhiteTranslationOverTimeAnimated.gif" alt="glTriangleWhiteTranslationOverTimeAnimated" /><figcaption>glTriangleWhiteTranslationOverTimeAnimated</figcaption>
+</figure>
 </section>
 <section class="slide level1">
 
