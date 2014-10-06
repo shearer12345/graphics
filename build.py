@@ -5,7 +5,7 @@
 #TODO should rewrite the path to reveal for markdown files further down the hierarchy
 
 pdfReveal = False
-purePdf=False
+purePdf   = False
 
 import os
 import sys
@@ -59,6 +59,7 @@ def buildDirectory(dir, reveal=True, pdfReveal=False, purePdf=False):
             revealFileName = os.path.join(dir, fileNameWithoutSuffix + '.html')
             html5FileName = os.path.join(dir, fileNameWithoutSuffix + '_html5.html' )
             docxFileName = os.path.join(dir, fileNameWithoutSuffix + '.docx')
+            pdfFileName = os.path.join(dir, fileNameWithoutSuffix + '.pdf')
             purePdfFileName = os.path.join(dir, fileNameWithoutSuffix + '_pure.pdf')
             webtexFileName = os.path.join(dir, fileNameWithoutSuffix + '_webtex.html')
             
