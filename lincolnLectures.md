@@ -1,8 +1,9 @@
 %Lincoln Lectures on Graphics
 %shearer12345
 
-1) [Lecture 1](lincolnLecture01)
-2) [Lecture 2](lincolnLecture02)
+1) [Lecture 1](lincolnLecture01.html)
+2) [Lecture 2](lincolnLecture02.html)
+2) [Lecture 3](lincolnLecture03.html)
 
 
 
