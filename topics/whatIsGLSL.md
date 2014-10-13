@@ -65,6 +65,3 @@
 | 4.50         | 4.5            | August 2014    | #version 450        |
 
 http://en.wikipedia.org/wiki/OpenGL_Shading_Language#Versions
-
-
-

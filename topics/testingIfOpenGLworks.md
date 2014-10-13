@@ -5,14 +5,14 @@
 - what versions of OpenGL your hardware supports?
 - how fast does OpenGL work on your hardware?
 
-#gputest
+##gputest
 
 - http://www.geeks3d.com/gputest/download/
     - windows
     - OS X
     - linux
 
-#glxinfo
+##glxinfo
 
 - linux only
 ```bash

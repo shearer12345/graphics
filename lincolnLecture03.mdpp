@@ -1,12 +1,6 @@
+#Lincoln Lectures On Graphics - 03
 
----
-title: lincoln Lectures On Graphics - 03
-author: shearer12345
----
+!INCLUDE "topics/pipelineOverview.md"
 
-!INCLUDE "pipelineOverview.md"
-
-
-!INCLUDE "links.md"
-
+!INCLUDE "topics/links.md"
 

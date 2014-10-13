@@ -2,14 +2,12 @@
 
 ##Putting the **"Fun"** in Fundamentals
 
-#
-##Vertices in World Space
+#Vertices in World Space
 
 The pipeline is fed (*somehow, we'll cover later*) with **vertices** in **WORLD SPACE** (or **Object Space**)
 
 ![pipelineOverview01verticesInWorldSpace](assets/pipelineOverview/pipelineOverview01verticesInWorldSpace.png)\ 
 
-#
 ##Clip Space Transformation
 
 - Transform the vertices into a certain region of space
@@ -20,7 +18,6 @@ The pipeline is fed (*somehow, we'll cover later*) with **vertices** in **WORLD 
 
 ![pipelineOverview01verticesInWorldSpace](assets/pipelineOverview/worldSpaceToClipSpace.png)\ 
 
-#
 ##Homogeneous Coordinates!!
 
 - X,Y,Z and W!!!
@@ -32,12 +29,10 @@ The pipeline is fed (*somehow, we'll cover later*) with **vertices** in **WORLD 
     - http://www.tomdalling.com/blog/modern-opengl/explaining-homogenous-coordinates-and-projective-geometry/
     - http://www.songho.ca/math/homogeneous/homogeneous.html
 
-#
-##Vertices in Clip Space
+#Vertices in Clip Space
 
 ![pipelineOverview02verticesInClipSpace](assets/pipelineOverview/pipelineOverview02verticesInClipSpace.png)\ 
 
-#
 ##Normalized Device Coordinates
 
 - Clip space is interesting, but inconvenient
@@ -45,19 +40,16 @@ The pipeline is fed (*somehow, we'll cover later*) with **vertices** in **WORLD 
 - The X, Y, and Z of each vertex's position is divided by W to get normalized device coordinates
     - basically the same as clip space except that the range of X, Y and Z are **[-1, 1]**
 
-#
-##Vertices in Normalized Device Coordinates
+#Vertices in Normalized Device Coordinates
 
 ![pipelineOverview03verticesInNormalizedDeviceCoordinates](assets/pipelineOverview/pipelineOverview03verticesInNormalizedDeviceCoordinates.png)\ 
 
-#
 ##Clipping
 
 - Triangles not **fully** in **clip space** (the [-1,1] cube) we want to **clip**
 
 ![pipelineOverview02verticesInClipSpace](assets/pipelineOverview/clipping.png)\ 
 
-#
 ##Clipping 2
 
 - Points are easy to test in our new, normalised coordinate space (NDC)
@@ -65,12 +57,10 @@ The pipeline is fed (*somehow, we'll cover later*) with **vertices** in **WORLD 
 - Triangles are complicated
     - may need to make more triangles
 
-#
-##Vertices in Clipped NDC
+#Vertices in Clipped NDC
 
 ![pipelineOverview04verticesInNormalizedDeviceCoordinatesClipped](assets/pipelineOverview/pipelineOverview04verticesInNormalizedDeviceCoordinatesClipped.png)\ 
 
-#
 ##Window Transformation
 
 - Transform from normalized device coordinates towindow coordinates
@@ -80,12 +70,10 @@ The pipeline is fed (*somehow, we'll cover later*) with **vertices** in **WORLD 
     - still have a z-coordinates!! Why?? Stay-tuned ...
     - bottom-left position is the origin (0, 0)
 
-#
-##Vertices in Window Coordinates
+#Vertices in Window Coordinates
 
 ![pipelineOverview05verticesInWindowCoordinates](assets/pipelineOverview/pipelineOverview05verticesInWindowCoordinates.png)\ 
 
-#
 ##Scan Conversion
 
 - After conversion to window coordinates the triangle undergoes a process called **scan conversion**
@@ -94,7 +82,6 @@ The pipeline is fed (*somehow, we'll cover later*) with **vertices** in **WORLD 
     - also fills in pixels for lines
 - We'll look later at how scan conversion can be done
 
-#
 ##Scan Conversion (triangles again)
 
 - Image in the centre shows the digital grid of output pixels
@@ -103,7 +90,6 @@ The pipeline is fed (*somehow, we'll cover later*) with **vertices** in **WORLD 
 
 ![pipelineOverview02verticesInClipSpace](assets/pipelineOverview/scanline.png)\ 
 
-#
 ##Scan Conversion (more triangles)
 
 - During scan conversion, a triangle will produce a **fragment** for every pixel sample that is within the 2D area of the triangle (right)
@@ -111,7 +97,6 @@ The pipeline is fed (*somehow, we'll cover later*) with **vertices** in **WORLD 
 
 ![pipelineOverview02verticesInClipSpace](assets/pipelineOverview/scanline.png)\ 
 
-#
 ##Scan Conversion
 ###Shared Edges and ***the invariance guarantee*** (By Tom Clancy)
 
@@ -122,7 +107,6 @@ The pipeline is fed (*somehow, we'll cover later*) with **vertices** in **WORLD 
 
 ![pipelineOverview02verticesInClipSpace](assets/pipelineOverview/sharededge.png)\ 
 
-#
 ##Scan Conversion (Still??)
 
 - Scan conversion only uses X and Y position of the triangle in window coordinates to determine which fragments to generate
@@ -134,12 +118,10 @@ The pipeline is fed (*somehow, we'll cover later*) with **vertices** in **WORLD 
         - (a.k.a. known as the depth of the fragment)
         - there may be other information that is part of a fragment
 
-#
-##Fragments
+#Fragments
 
 ![pipelineOverview06fragments](assets/pipelineOverview/pipelineOverview06fragments.png)\ 
 
-#
 ##Fragment Processing
 
 - Fragment processing takes a fragment from scan converted triangle and **transforms** it into
@@ -151,12 +133,10 @@ The pipeline is fed (*somehow, we'll cover later*) with **vertices** in **WORLD 
 - **However**, the fragments from another triangle might
 - ***Therefore, fragments from one triangle must all be processed before fragments from another triangle***
 
-#
-##Processed Fragments
+#Processed Fragments
 
 ![pipelineOverview07fragmentsProcessed](assets/pipelineOverview/pipelineOverview07fragmentsProcessed.png)\ 
 
-#
 ##Fragment Writing (maybe)
 
 - After generating one or more colours and a depth value
@@ -165,8 +145,7 @@ The pipeline is fed (*somehow, we'll cover later*) with **vertices** in **WORLD 
 - This step involves more than simply writing to the destination image
     - These will be covered more later
 
-#
-##Colours
+#Colours
 
 -  The usual description of a colour is as a series of numbers on the range **[0, 1] ***Why [0,1]?*
     - each of the numbers corresponds to the **intensity** of a particular reference colour
@@ -177,7 +156,6 @@ The pipeline is fed (*somehow, we'll cover later*) with **vertices** in **WORLD 
 
 ![pipelineOverview07fragmentsProcessed](assets/pipelineOverview/RGB_and_CMYK_comparison.png)\ 
 
-#
 ##Colours 2
 
 - Combining different intensities of this 3 colours, we can generate and display millions of different colour shades in OpenGL
@@ -187,8 +165,7 @@ The pipeline is fed (*somehow, we'll cover later*) with **vertices** in **WORLD 
         - any *special conditions?*
     - unless you're a tetrachromat ... [http://www.post-gazette.com/pg/06256/721190-114.stm](http://www.post-gazette.com/pg/06256/721190-114.stm)
 
-#
-##Shaders
+#Shaders
 
 - A shader is a program designed to be run on a renderer as part of the rendering operation
 - Regardless of the kind of rendering system in use, shaders can only be executed at certain points in the rendering process
@@ -196,7 +173,6 @@ The pipeline is fed (*somehow, we'll cover later*) with **vertices** in **WORLD 
     - transformation of an incoming vertex to clip space is a useful hook for user-defined code
     - the processing of a fragment into final colours and depth
 
-#
 ##Shaders 2 (GLSL)
 
 - Shaders for OpenGL are run on the actual rendering hardware so free up valuable CPU time for other tasks
@@ -208,7 +184,6 @@ The pipeline is fed (*somehow, we'll cover later*) with **vertices** in **WORLD 
 - There are a number of shading languages available to various APIs. The one used here is the primary shading language of OpenGL, the **OpenGL Shading Language**, or **GLSL**. for short
     - It looks deceptively like C, **but it is very much not C**
 
-#
 ##Shaders 3 (GLSL)
 
 ```GLSL

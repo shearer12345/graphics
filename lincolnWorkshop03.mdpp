@@ -23,11 +23,9 @@ git checkout glTriangleWhite ##the glTriangle example - a helloTriangle
     - so they'll run on the GPU, rather than the CPU
     - which makes debugging a challenge
 
-!INCLUDE "whatIsGLSL.md"
+!INCLUDE "topics/whatIsGLSL.md"
 
-!INCLUDE "debuggingGLSL.md"
-
-
+!INCLUDE "topics/debuggingGLSL.md"
 
 #Activities
 

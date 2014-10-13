@@ -1,10 +1,6 @@
+#Lincoln Graphics Assessment 2014-15
 
----
-title: Graphics Assessment
-author: shearer12345
----
-
-#Assessment Methods and Weighting
+##Assessment Methods and Weighting
 
 - Assignment (Coursework)
     - weighting = 70%
@@ -13,8 +9,6 @@ author: shearer12345
 
 - From the Module Specification - Graphics 2015-16
     - Blackboard=>Graphics (CGP2012M)->About this module
-
----
 
 ##Learning Outcomes
 
@@ -27,23 +21,19 @@ author: shearer12345
     > Demonstrate deep understanding of computer graphics programming techniques and approaches
 - Both are *individually* assessed
 
----
-
 ##What to expect in the assignment
 
 - based around developing an interactive 3D scenario
     - such as a simple computer game:
         - Pong
         - Space Invaders
-        - Virtual plane
+        - Virtual helicopter or plane
 
 - will submit to blackboard, but live-demo in the following workshop, affording:
     - faster mark turn around
     - immediate verbal feedback
     - written feedback with mark release
     - opportunity to ask questions
-
----
 
 ##What features in the assignment will be assessed
 
@@ -57,8 +47,6 @@ author: shearer12345
     - advanced features, such as:
         - lighting simulation
         - texturing.
-
----
 
 ##What to expect on the Exam
 
