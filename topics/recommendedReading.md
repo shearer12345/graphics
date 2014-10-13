@@ -1,15 +1,11 @@
 #Recommended Reading for Graphics
 
----
-
 ##Required
 
 - **Learning Modern 3D Graphics Programming**
     - Open book of GL tutorials
     - Jason L. McKesson
     - http://www.arcsynthesis.org/gltut/
-
----
 
 ##Recommended
 
@@ -24,8 +20,6 @@ OR
 - **Interactive Computer Graphics**: A Top-Down Approach with Shader-Based OpenGL
     - Dave Shreiner, Edward Angel - **6th edition only**. NOT 5th or previous
     - Edition: 6 ISBN-13: 978-0273752264
-
----
 
 ##Additional
 

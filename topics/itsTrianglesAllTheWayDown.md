@@ -2,8 +2,6 @@
 
 ![triangle](assets\triangle.png)
 
----
-
 ##It's Triangles All The Way Down
 
 - Remember: Everything is a shell
@@ -11,12 +9,9 @@
 - Even surfaces that appear to be round are merely **triangles** if you look closely enough
 - There are techniques that generate **more triangles** for objects that appear closer or larger, so that the viewer can almost never see the faceted silhouette of the object, but they are **always made of triangles**
 
----
-
 ##It's Triangles All The Way Down
 
 - Note: Some rasterizers use planar quadrilaterals: four-sided objects, where all of the lines lie in the same plane. One of the reasons that hardware-based rasterizers always use triangles is that all of the lines of a triangle are guaranteed to be in the same plane. Knowing this makes the rasterization process less complicated.
-
 
 #Objects
 
@@ -35,13 +30,9 @@
 - it operates on each triangle one at a time, in a specific order
 - triangles can be fed into the left of the pipeline while triangles that were sent earlier can still be in some phase of rasterization.
 
----
-
 ##OpenGL Pipeline
 
 ![http://goanna.cs.rmit.edu.au/~gl/teaching/ Interactive3D/2011/lecture2.html](assets\pipeline01.png)
-
----
 
 ##Raster Ordering
 
@@ -49,8 +40,6 @@
     - (if you are doing fancy stuff)
 - No matter how you submit the triangular mesh data, the rasterizer will process each triangle in a specific order:
     - drawing the next one only when the previous triangle has finished being drawn
-
----
 
 ##Triangles and Vertices (in OpenGL)
 

@@ -2,15 +2,11 @@
 
 - HelloTriangle
 
----
-
 ##glTriangleWhite
 
 ![glTriangleWhite](assets/examples/glTriangleWhite.png)
 
----
-
-##Source and checkout
+#Source and checkout
 
 - source for examples:
 
@@ -30,8 +26,6 @@ git checkout glTriangleWhite ##the glTriangle example - a helloTriangle
     - there are **lots** of new terms here, we'll cover them more later
     - the code will have some **sign-posts** where you might want to make changes/additions for the activities
 
----
-
 ##Preparatory stages to get a single Triangle!!
 
 - This won't draw **anything** without the **loop** stages
@@ -42,8 +36,6 @@ git checkout glTriangleWhite ##the glTriangle example - a helloTriangle
 4) Create/Load **Geometry data** (vertices) CPU-side
 5) Load **Geometry** data into OpenGL
 6) Create **Vertex Array Objects**
-
----
 
 ##Loop stages to get a single Triangle!!
 
@@ -56,18 +48,17 @@ git checkout glTriangleWhite ##the glTriangle example - a helloTriangle
 7) Clean up some OpenGL stuff
 8) Tell SDL to swap the **Back Buffer** and the **Front Buffer**
 
----
-
-##Update the examples
+#Update your examples
 
 - You should update all the examples from the git repository
-    - or delete the examples directory and start again
+- Either delete the examples directory and start again
     - the README for starting again is at:
     - [https://github.com/shearer12345/graphics_examples_in_git_branches](https://github.com/shearer12345/graphics_examples_in_git_branches)
+- OR
 
 ```bash
 #OPTIONAL: save any changes you may have made
-git stash save WhatEverStashNameYouLike 
+git stash save WhatEverStashNameYouLike
 
 #TO UPDATE your local repository
 git checkout master #make sure you're on the master branch
@@ -77,9 +68,7 @@ python .\branchAndTrack.py #run branchAndTrack to update all branches
 py .\branchAndTrack.py #if in Lincoln Lab A
 ```
 
----
-
-##Run the examples
+#Run the examples
 
 - checkout the examples following (next page) and run each
     - using build system of your choice
@@ -97,9 +86,7 @@ git checkout EXAMPLE ##checkout example from the repository
     - If you using VS2013, you may need to right-click the solution and hit "re-target"
     - If you using VS2013, you may need to right-click the project ahd hit "Set As Startup Project"
 
----
-
-###Examples to look through
+##Examples to look through
 
 1) glGlew
     - include the GLEW library, make SDL create an OpenGL context. **important changes here**
@@ -111,8 +98,6 @@ git checkout EXAMPLE ##checkout example from the repository
     - this one is the first time you'll see anything rendered
     - **yet more new stuff here**
     - this one is the one to do the activities (later) on
-
----
 
 ##Diff the examples
 
@@ -127,48 +112,34 @@ git diff EXAMPLE1 EXAMPLE2 .\fileName
 git diff sdlHelloWorldWithFunctions glGlew .\main.cpp
 ```
 
----
-
-##Activities
+#Activities
 
 - You should try to **all of these** today. Work on them in your free-study time if you need
-- Don't change the GLSL shaders to do this - that's for later!
+- **Don't change the GLSL shaders** to do this - that's for later!
 - There are 5 main activities and 4 stretch activities
 - If you want to make each of these activities as a separate `git branch` you can
     - if you fork my repo on github, and upload your own branches
     - then you can send pull requests - for feedback and as **student as producer**
 
----
-
-##Activity 1 - make the background color something different
+##Activity 1 - make the **background color** something different
 
 ![glTriangleWhiteOnRedBackground](assets/examples/glTriangleWhiteOnRedBackground.png)
 
----
+##Activity 2 - make the triangle a **different shape**
 
-##Activity 2 - make the triangle a different shape
-
-![glTriangleWhiteDifferentShape](assets/examples/glTriangleWhiteDifferentShape.png)
-
----
-
-##Activity 3 - make the triangle appear somewhere else on the screen, but the original shape
+##Activity 3 - make the triangle appear **somewhere else** on the screen, but the original shape
 - this is a **translation**
 
 ![glTriangleWhiteCPUTranslation](assets/examples/glTriangleWhiteCPUTranslation.png)
 
----
-
-##Activity 4 - make the triangle larger than the original
+##Activity 4 - make the triangle **larger** than the original
 
 - but still similar (the same shape)
 - this is a **scale**
 
 ![glTriangleWhiteCPUScale](assets/examples/glTriangleWhiteCPUScale.png)
 
----
-
-##Activity 5 - make the triangle **translate** or **scale** over time
+##Activity 5 - make the triangle **translate** or **scale** **over time**
 
 - you'll need to add a loop to the main function
 - you'll need to do quite a number of other things also
@@ -176,9 +147,7 @@ git diff sdlHelloWorldWithFunctions glGlew .\main.cpp
 
 ![glTriangleWhiteTranslationOverTimeAnimated](assets/examples/glTriangleWhiteTranslationOverTimeAnimated.gif)
 
----
-
-##Stretch Activities
+#Stretch Activities
 
 - If you've got through the standard activities then have a bash at these
 

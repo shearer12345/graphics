@@ -1,17 +1,9 @@
-
----
-title: lincoln Lectures On Graphics - 02
-author: shearer12345
----
-
+#Lincoln Lectures On Graphics - 02
 
 !INCLUDE "lincolnAssessment.md"
 
+!INCLUDE "topics/recommendedReading.md"
 
-!INCLUDE "recommendedReading.md"
+!INCLUDE "topics/itsTrianglesAllTheWayDown.md"
 
-
-!INCLUDE "itsTrianglesAllTheWayDown.md"
-
-
-!INCLUDE "whatIsOpenGL.md"
+!INCLUDE "topics/whatIsOpenGL.md"

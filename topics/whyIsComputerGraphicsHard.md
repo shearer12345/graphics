@@ -1,13 +1,12 @@
-%whyIsComputerGraphicsHard
-%shearer12345
+#Why Is Computer Graphics Hard?
 
-#Why do you think?
+##Why do you think?
 
-#What do we mean by Computer Graphics
+##What do we mean by Computer Graphics
 
 - ???
 
-#What do we mean by Computer Graphics
+##What do we mean by Computer Graphics
 
 - interactive
 - 3D
@@ -21,7 +20,7 @@ See [whatIsComputerGraphics](whatIsComputerGraphics.html)
 - physical ones (about the real world)
 - computational ones
 
-#Some things that make it hard
+##Some things that make it hard
 
 - Needing to do lots fast
 - the maths etc
@@ -37,7 +36,7 @@ See [whatIsComputerGraphics](whatIsComputerGraphics.html)
 - ...
 - how much "work" do we need to do?
 
-#Let's do some back of the envelope Maths
+##Let's do some back of the envelope Maths
 
 - how many pixels per frame
     - to look ok/good
@@ -47,7 +46,7 @@ See [whatIsComputerGraphics](whatIsComputerGraphics.html)
 - how many frames per second
     - to trick our eyes into seeing motion
 
-#How many pixels per frame
+##How many pixels per frame
 
 - to look ok/good
 - normal projector = 1024 x 768 ~= 750,000 pixels
@@ -55,32 +54,31 @@ See [whatIsComputerGraphics](whatIsComputerGraphics.html)
 
 Note: for appproximation using 2 million pixels
 
-#How many frames per second
+##How many frames per second
 
 - to trick our eyes into seeing motion
     - 25fps -> 100fps
     - aim for **50fps** or 60fps
-    - 
-Note: for appproximation using 50fps
+ Note: for appproximation using 50fps
 
-#How many pixels per second?
+##How many pixels per second?
 
 - ????
 
-#How many pixels per second?
+##How many pixels per second?
 
 - 2,000,000 pixels per frame
 - times
 - 50 frames per second
 
-#How many pixels per second?
+##How many pixels per second?
 
 - 2,000,000 pixels per frame
 - times
 - 50 frames per second
 - = 100,000,000 pixels per second
 
-#How many computational processing is needed?
+##How much computational processing is needed?
 
 - ???
 

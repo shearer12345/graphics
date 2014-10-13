@@ -1,23 +1,20 @@
----
-title: What Is Computer Graphics
-author: shearer12345
----
+#What Is Computer Graphics?
 
-#The purpose of graphics
+##The purpose of graphics
 
 - The purpose of graphics of any kind is to determine what color to put in what pixels
 - This determination is what makes text look like text, windows look like windows, and so forth
 
 ![Examples of Graphics](assets/exampleOfGraphics.png)
 
-#3D Graphics?
+##3D Graphics?
 
 - Images are just a two-dimensional array of pixels
   - So, how does 3D work?
 - 3D graphics is some system of producing colors for pixels that convince you that the scene you are looking at is a 3D world rather than a 2D image
 - The process of converting a 3D world into a 2D image of that world is called projection
 
-#human perception
+##Human Perception
 
 What visual features are important for human perception?
 
@@ -25,7 +22,7 @@ What visual features are important for human perception?
 
 ![http://www.geograph.org.uk/photo/2609594](assets/realWorldExample_0001_2609594_1bcae70f.jpg)
 
-#human perception?
+##Human Perception 2
 
 What visual features are important for human perception?
 
@@ -34,7 +31,7 @@ What visual features are important for human perception?
 
 ![http://www.public-domain-image.com/full-image/nature-landscapes-public-domain-images-pictures/mountain-public-domain-images-pictures/a-field-of-sagebrush-and-mount-shasta.jpg-free-photograph.html](assets/realWorldExample_0002_a-field-of-sagebrush-and-mount-shasta.jpg)
 
-#3D perception
+##3D perception
 
 visual features important for 3D perception:
 
@@ -46,7 +43,7 @@ visual features important for 3D perception:
 - Obscuring - things in front
 - changes in all of these
 
-#3D perception activities
+##3D perception activities
 
 - Stereoscopic
     - activity: finger thing / "camera 1, camera 2" (Wayne's-World-1992)
@@ -62,13 +59,12 @@ visual features important for 3D perception:
   - **Everything is a shell**
   - Techniques exists to cut open these empty shells, but they simply replace parts of the shell with more shells that shows what the inside looks like
 
-
-#How hard are those visual features to simulate?
+##How hard are those visual features to simulate?
 
 - Algorithmically?
 - Computationally?
 
-#Visual simulation difficulty?
+##Visual simulation difficulty?
 
 - Algorithmically?
 - Computationally?
@@ -81,11 +77,11 @@ visual features important for 3D perception:
     - Obscuring - things in front
     - changes in all of these
 
-#Which visual features does OpenGL support, and how easily?
+##Which visual features does OpenGL support, and how easily?
 
 - ...
 
-#OpenGL visual feature support
+##OpenGL visual feature support
 
 - ? Perspective - viewpoint, projection (size, shape, field of view) also, how straight/parallel lines converge.
 - ? Focus, depth of field
