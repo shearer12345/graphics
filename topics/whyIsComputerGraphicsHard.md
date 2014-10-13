@@ -12,8 +12,6 @@
 - 3D
 - generating of a sequence of static 2D projections of 3D scenes fast enough and realistically enough to trick the human eye into "seeing" smooth 3D motion
 
-See [whatIsComputerGraphics](whatIsComputerGraphics.html)
-
 #What Kinds of Factors
 
 - human-ones
