@@ -9,6 +9,7 @@ purePdf   = False
 
 import os
 import sys
+import errno
 import time
 
 from threading import Thread
@@ -34,21 +35,40 @@ def startServer(port=8000):
     t.daemon = True
     t.start()
 
+def make_sure_path_exists(path):
+    try:
+        os.makedirs(path)
+    except OSError as exception:
+        if exception.errno != errno.EEXIST:
+            raise
+
+def silentremove(filename):
+    try:
+        os.remove(filename)
+    except OSError as e:
+        if e.errno != errno.ENOENT: # errno.ENOENT = no such file or directory
+            raise # re-raise exception if a different error occured
+            
 def clearDirectory(dir):
     for file in os.listdir(dir):
         if file.endswith(clearTuple):
             os.remove(os.path.join(dir, file))
+        if file.endswith(mdppFileSuffix):
+            #remove the md files created from mdpp
+            silentremove(os.path.join(dir, file[:-len(mdppFileSuffix)]+fileSuffix))
 
 def buildDirectory(dir, reveal=True, pdfReveal=False, purePdf=False):
 
     #process mdpp files to create md
+    mdFileList = []
     for file in os.listdir(dir):
         if file.endswith(mdppFileSuffix):
-            print('Working on', file)
+            print('Generating temporary md file from:', file)
             fileNameWithoutSuffix = file[:-len(mdppFileSuffix)]
             file = os.path.join(dir, file)
             mdFileName = os.path.join(dir, fileNameWithoutSuffix + '.md')
             os.system('py C:\\Users\\shearer\\code\\markdown-pp\\markdown-pp.py ' + file + ' ' + mdFileName)
+            mdFileList.append(mdFileName) ##add to list
 
     #process md files
     for file in os.listdir(dir):
@@ -78,6 +98,12 @@ def buildDirectory(dir, reveal=True, pdfReveal=False, purePdf=False):
             #os.system('pandoc ' + '-s ' + file + ' -o ' + webtexFileName + ' --webtex')
             
             #pandoc.exe -t revealjs -s file -o htmlFileName -V theme=moon
+    
+    #clean up generated .md files
+    print('Cleaning up temporary md files')
+    for file in mdFileList:
+        os.remove(file)
+        
 
 clearDirectory('.')
 if pdfReveal:
