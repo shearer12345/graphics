@@ -48,45 +48,21 @@ code > span.er { color: #ff0000; font-weight: bold; }
     <div class="slides">
 
 
-<section id="lincoln-graphics-workshop-02" class="slide level1">
-<h1>Lincoln Graphics Workshop 02</h1>
-<ul>
-<li>HelloTriangle</li>
-</ul>
-</section>
-<section class="slide level1">
-
-<h2 id="gltrianglewhite">glTriangleWhite</h2>
+<section><section id="lincoln-graphics-workshop-02" class="titleslide slide level1"><h1>Lincoln Graphics Workshop 02</h1></section><section id="gltrianglewhite" class="slide level2">
+<h1>glTriangleWhite</h1>
 <figure>
 <img src="assets/examples/glTriangleWhite.png" alt="glTriangleWhite" /><figcaption>glTriangleWhite</figcaption>
 </figure>
-</section>
-<section class="slide level1">
-
-<h2 id="source-and-checkout">Source and checkout</h2>
+</section><section id="source-and-checkout" class="slide level2">
+<h1>Source and checkout</h1>
 <ul>
 <li>source for examples:</li>
 </ul>
 <p>https://github.com/shearer12345/graphics_examples_in_git_branches</p>
 <pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">git</span> checkout glTriangleWhite <span class="co">##the glTriangle example - a helloTriangle</span></code></pre>
-</section>
-<section id="a-heads-up" class="slide level1">
-<h1>A heads-up</h1>
-<ul>
-<li>The helloTriangle for modern OpenGL is <strong>COMPLEX</strong></li>
-<li>It has a number of stages all of which must work in order to display <strong>anything!</strong></li>
-<li>We'll go through the code in classes
-<ul>
-<li>but you'll want to work through each step and figure them out for yourself</li>
-<li>likely you'll want to come back to this simple example</li>
-<li>there are <strong>lots</strong> of new terms here, we'll cover them more later</li>
-<li>the code will have some <strong>sign-posts</strong> where you might want to make changes/additions for the activities</li>
-</ul></li>
-</ul>
-</section>
-<section class="slide level1">
-
-<h2 id="preparatory-stages-to-get-a-single-triangle">Preparatory stages to get a single Triangle!!</h2>
+</section></section>
+<section><section id="a-heads-up" class="titleslide slide level1"><h1>A heads-up</h1></section><section id="preparatory-stages-to-get-a-single-triangle" class="slide level2">
+<h1>Preparatory stages to get a single Triangle!!</h1>
 <ul>
 <li>This won't draw <strong>anything</strong> without the <strong>loop</strong> stages</li>
 </ul>
@@ -98,10 +74,8 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <li>Load <strong>Geometry</strong> data into OpenGL</li>
 <li>Create <strong>Vertex Array Objects</strong></li>
 </ol>
-</section>
-<section class="slide level1">
-
-<h2 id="loop-stages-to-get-a-single-triangle">Loop stages to get a single Triangle!!</h2>
+</section><section id="loop-stages-to-get-a-single-triangle" class="slide level2">
+<h1>Loop stages to get a single Triangle!!</h1>
 <ol type="1">
 <li>Clear the <strong>Back Buffer</strong></li>
 <li>Tell OpenGL to use a <strong>GLSL program</strong> that has already been created</li>
@@ -112,10 +86,8 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <li>Clean up some OpenGL stuff</li>
 <li>Tell SDL to swap the <strong>Back Buffer</strong> and the <strong>Front Buffer</strong></li>
 </ol>
-</section>
-<section class="slide level1">
-
-<h2 id="update-the-examples">Update the examples</h2>
+</section><section id="update-the-examples" class="slide level2">
+<h1>Update the examples</h1>
 <ul>
 <li>You should update all the examples from the git repository
 <ul>
@@ -133,10 +105,8 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <span class="kw">python</span> .\branchAndTrack.py <span class="co">#run branchAndTrack to update all branches</span>
 <span class="co">##or</span>
 <span class="kw">py</span> .\branchAndTrack.py <span class="co">#if in Lincoln Lab A</span></code></pre>
-</section>
-<section class="slide level1">
-
-<h2 id="run-the-examples">Run the examples</h2>
+</section><section id="run-the-examples" class="slide level2">
+<h1>Run the examples</h1>
 <ul>
 <li>checkout the examples following (next page) and run each
 <ul>
@@ -155,10 +125,10 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <li>If you using VS2013, you may need to right-click the project ahd hit &quot;Set As Startup Project&quot;</li>
 </ul></li>
 </ul>
-</section>
-<section class="slide level1">
+</section><section class="slide level2">
 
-<h3 id="examples-to-look-through">Examples to look through</h3>
+<section id="examples-to-look-through" class="level3">
+<h3>Examples to look through</h3>
 <ol type="1">
 <li>glGlew
 <ul>
@@ -180,9 +150,8 @@ code > span.er { color: #ff0000; font-weight: bold; }
 </ul></li>
 </ol>
 </section>
-<section class="slide level1">
-
-<h2 id="diff-the-examples">Diff the examples</h2>
+</section><section id="diff-the-examples" class="slide level2">
+<h1>Diff the examples</h1>
 <ul>
 <li><p>look at what's different between the examples</p>
 <pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">git</span> diff EXAMPLE1 EXAMPLE2 <span class="co">##will produce the **diff** for all files</span></code></pre></li>
@@ -191,10 +160,8 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <span class="co">##for example</span>
 <span class="kw">git</span> diff sdlHelloWorldWithFunctions glGlew .\main.cpp</code></pre></li>
 </ul>
-</section>
-<section class="slide level1">
-
-<h2 id="activities">Activities</h2>
+</section><section id="activities" class="slide level2">
+<h1>Activities</h1>
 <ul>
 <li>You should try to <strong>all of these</strong> today. Work on them in your free-study time if you need</li>
 <li>Don't change the GLSL shaders to do this - that's for later!</li>
@@ -205,34 +172,26 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <li>then you can send pull requests - for feedback and as <strong>student as producer</strong></li>
 </ul></li>
 </ul>
-</section>
-<section class="slide level1">
-
-<h2 id="activity-1---make-the-background-color-something-different">Activity 1 - make the background color something different</h2>
+</section><section id="activity-1---make-the-background-color-something-different" class="slide level2">
+<h1>Activity 1 - make the background color something different</h1>
 <figure>
 <img src="assets/examples/glTriangleWhiteOnRedBackground.png" alt="glTriangleWhiteOnRedBackground" /><figcaption>glTriangleWhiteOnRedBackground</figcaption>
 </figure>
-</section>
-<section class="slide level1">
-
-<h2 id="activity-2---make-the-triangle-a-different-shape">Activity 2 - make the triangle a different shape</h2>
+</section><section id="activity-2---make-the-triangle-a-different-shape" class="slide level2">
+<h1>Activity 2 - make the triangle a different shape</h1>
 <figure>
 <img src="assets/examples/glTriangleWhiteDifferentShape.png" alt="glTriangleWhiteDifferentShape" /><figcaption>glTriangleWhiteDifferentShape</figcaption>
 </figure>
-</section>
-<section class="slide level1">
-
-<h2 id="activity-3---make-the-triangle-appear-somewhere-else-on-the-screen-but-the-original-shape">Activity 3 - make the triangle appear somewhere else on the screen, but the original shape</h2>
+</section><section id="activity-3---make-the-triangle-appear-somewhere-else-on-the-screen-but-the-original-shape" class="slide level2">
+<h1>Activity 3 - make the triangle appear somewhere else on the screen, but the original shape</h1>
 <ul>
 <li>this is a <strong>translation</strong></li>
 </ul>
 <figure>
 <img src="assets/examples/glTriangleWhiteCPUTranslation.png" alt="glTriangleWhiteCPUTranslation" /><figcaption>glTriangleWhiteCPUTranslation</figcaption>
 </figure>
-</section>
-<section class="slide level1">
-
-<h2 id="activity-4---make-the-triangle-larger-than-the-original">Activity 4 - make the triangle larger than the original</h2>
+</section><section id="activity-4---make-the-triangle-larger-than-the-original" class="slide level2">
+<h1>Activity 4 - make the triangle larger than the original</h1>
 <ul>
 <li>but still similar (the same shape)</li>
 <li>this is a <strong>scale</strong></li>
@@ -240,10 +199,8 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <figure>
 <img src="assets/examples/glTriangleWhiteCPUScale.png" alt="glTriangleWhiteCPUScale" /><figcaption>glTriangleWhiteCPUScale</figcaption>
 </figure>
-</section>
-<section class="slide level1">
-
-<h2 id="activity-5---make-the-triangle-translate-or-scale-over-time">Activity 5 - make the triangle <strong>translate</strong> or <strong>scale</strong> over time</h2>
+</section><section id="activity-5---make-the-triangle-translate-or-scale-over-time" class="slide level2">
+<h1>Activity 5 - make the triangle <strong>translate</strong> or <strong>scale</strong> over time</h1>
 <ul>
 <li>you'll need to add a loop to the main function</li>
 <li>you'll need to do quite a number of other things also
@@ -254,10 +211,8 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <figure>
 <img src="assets/examples/glTriangleWhiteTranslationOverTimeAnimated.gif" alt="glTriangleWhiteTranslationOverTimeAnimated" /><figcaption>glTriangleWhiteTranslationOverTimeAnimated</figcaption>
 </figure>
-</section>
-<section class="slide level1">
-
-<h2 id="stretch-activities">Stretch Activities</h2>
+</section><section id="stretch-activities" class="slide level2">
+<h1>Stretch Activities</h1>
 <ul>
 <li>If you've got through the standard activities then have a bash at these</li>
 </ul>
@@ -270,7 +225,7 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <li>make the triangle translate <strong>and</strong> scale, over time</li>
 <li>make the triangle translate <strong>and</strong> rotate, over time!!!!!!!!!!</li>
 </ol>
-</section>
+</section></section>
     </div>
   </div>
 

@@ -29,62 +29,28 @@
     <div class="slides">
 
 
-<section id="its-triangles-all-the-way-down" class="slide level1">
+<section><section id="its-triangles-all-the-way-down" class="titleslide slide level1"><h1>It's Triangles All The Way Down</h1></section><section id="its-triangles-all-the-way-down-1" class="slide level2">
 <h1>It's Triangles All The Way Down</h1>
-<figure>
-<img src="assets\triangle.png" alt="triangle" /><figcaption>triangle</figcaption>
-</figure>
-</section>
-<section class="slide level1">
-
-<h2 id="its-triangles-all-the-way-down-1">It's Triangles All The Way Down</h2>
 <ul>
 <li>Remember: Everything is a shell</li>
 <li>All of these shells are made of <strong>triangles</strong></li>
 <li>Even surfaces that appear to be round are merely <strong>triangles</strong> if you look closely enough</li>
 <li>There are techniques that generate <strong>more triangles</strong> for objects that appear closer or larger, so that the viewer can almost never see the faceted silhouette of the object, but they are <strong>always made of triangles</strong></li>
 </ul>
-</section>
-<section class="slide level1">
-
-<h2 id="its-triangles-all-the-way-down-2">It's Triangles All The Way Down</h2>
+</section><section id="its-triangles-all-the-way-down-2" class="slide level2">
+<h1>It's Triangles All The Way Down</h1>
 <ul>
 <li>Note: Some rasterizers use planar quadrilaterals: four-sided objects, where all of the lines lie in the same plane. One of the reasons that hardware-based rasterizers always use triangles is that all of the lines of a triangle are guaranteed to be in the same plane. Knowing this makes the rasterization process less complicated.</li>
 </ul>
-</section>
-<section id="objects" class="slide level1">
-<h1>Objects</h1>
-<ul>
-<li>An object is made out of a collection of adjacent triangles that define the outer surface of the object</li>
-<li>Such a collection of triangles is often called:
-<ul>
-<li>a model</li>
-<li>a mesh</li>
-<li>geometry</li>
-<li><strong>these terms are used interchangeably</strong></li>
-</ul></li>
-</ul>
-</section>
-<section id="pipeline" class="slide level1">
-<h1>Pipeline</h1>
-<ul>
-<li>Rasterization has several phases ordered into a pipeline</li>
-<li>triangles enter from the left and a 2D image is filled in at the right</li>
-<li>A pipeline is very ammeneable to hardware acceleration</li>
-<li>it operates on each triangle one at a time, in a specific order</li>
-<li>triangles can be fed into the left of the pipeline while triangles that were sent earlier can still be in some phase of rasterization.</li>
-</ul>
-</section>
-<section class="slide level1">
-
-<h2 id="opengl-pipeline">OpenGL Pipeline</h2>
+</section></section>
+<section><section id="objects" class="titleslide slide level1"><h1>Objects</h1></section></section>
+<section><section id="pipeline" class="titleslide slide level1"><h1>Pipeline</h1></section><section id="opengl-pipeline" class="slide level2">
+<h1>OpenGL Pipeline</h1>
 <figure>
 <img src="assets\pipeline01.png" alt="http://goanna.cs.rmit.edu.au/~gl/teaching/ Interactive3D/2011/lecture2.html" /><figcaption>http://goanna.cs.rmit.edu.au/~gl/teaching/ Interactive3D/2011/lecture2.html</figcaption>
 </figure>
-</section>
-<section class="slide level1">
-
-<h2 id="raster-ordering">Raster Ordering</h2>
+</section><section id="raster-ordering" class="slide level2">
+<h1>Raster Ordering</h1>
 <ul>
 <li>The order in which triangles and the various meshes are submitted to the rasterizer can affect its output
 <ul>
@@ -95,10 +61,8 @@
 <li>drawing the next one only when the previous triangle has finished being drawn</li>
 </ul></li>
 </ul>
-</section>
-<section class="slide level1">
-
-<h2 id="triangles-and-vertices-in-opengl">Triangles and Vertices (in OpenGL)</h2>
+</section><section id="triangles-and-vertices-in-opengl" class="slide level2">
+<h1>Triangles and Vertices (in OpenGL)</h1>
 <ul>
 <li>Triangles consist of 3 vertices
 <ul>
@@ -111,7 +75,7 @@
 <li>A triangle is defined by exactly 3 (three-dimensional) points - (X, Y, Z)</li>
 </ul></li>
 </ul>
-</section>
+</section></section>
     </div>
   </div>
 

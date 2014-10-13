@@ -54,19 +54,16 @@ code > span.er { color: #ff0000; font-weight: bold; }
     <h3 class="date"></h3>
 </section>
 
-<section id="pipeline-overview" class="slide level1">
-<h1>Pipeline Overview</h1>
-<h2 id="putting-the-fun-in-fundamentals">Putting the <strong>&quot;Fun&quot;</strong> in Fundamentals</h2>
-</section>
-<section id="section" class="slide level1">
-<h1></h1>
-<h2 id="vertices-in-world-space">Vertices in World Space</h2>
+<section><section id="pipeline-overview" class="titleslide slide level1"><h1>Pipeline Overview</h1></section><section id="putting-the-fun-in-fundamentals" class="slide level2">
+<h1>Putting the <strong>&quot;Fun&quot;</strong> in Fundamentals</h1>
+</section></section>
+<section><section id="section" class="titleslide slide level1"><h1></h1></section><section id="vertices-in-world-space" class="slide level2">
+<h1>Vertices in World Space</h1>
 <p>The pipeline is fed (<em>somehow, we'll cover later</em>) with <strong>vertices</strong> in <strong>WORLD SPACE</strong> (or <strong>Object Space</strong>)</p>
 <p><img src="assets/pipelineOverview/pipelineOverview01verticesInWorldSpace.png" alt="pipelineOverview01verticesInWorldSpace" /> </p>
-</section>
-<section id="section-1" class="slide level1">
-<h1></h1>
-<h2 id="clip-space-transformation">Clip Space Transformation</h2>
+</section></section>
+<section><section id="section-1" class="titleslide slide level1"><h1></h1></section><section id="clip-space-transformation" class="slide level2">
+<h1>Clip Space Transformation</h1>
 <ul>
 <li>Transform the vertices into a certain region of space
 <ul>
@@ -79,10 +76,9 @@ code > span.er { color: #ff0000; font-weight: bold; }
 </ul></li>
 </ul>
 <p><img src="assets/pipelineOverview/worldSpaceToClipSpace.png" alt="pipelineOverview01verticesInWorldSpace" /> </p>
-</section>
-<section id="section-2" class="slide level1">
-<h1></h1>
-<h2 id="homogeneous-coordinates">Homogeneous Coordinates!!</h2>
+</section></section>
+<section><section id="section-2" class="titleslide slide level1"><h1></h1></section><section id="homogeneous-coordinates" class="slide level2">
+<h1>Homogeneous Coordinates!!</h1>
 <ul>
 <li>X,Y,Z and W!!!
 <ul>
@@ -99,15 +95,13 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <li>http://www.songho.ca/math/homogeneous/homogeneous.html</li>
 </ul></li>
 </ul>
-</section>
-<section id="section-3" class="slide level1">
-<h1></h1>
-<h2 id="vertices-in-clip-space">Vertices in Clip Space</h2>
+</section></section>
+<section><section id="section-3" class="titleslide slide level1"><h1></h1></section><section id="vertices-in-clip-space" class="slide level2">
+<h1>Vertices in Clip Space</h1>
 <p><img src="assets/pipelineOverview/pipelineOverview02verticesInClipSpace.png" alt="pipelineOverview02verticesInClipSpace" /> </p>
-</section>
-<section id="section-4" class="slide level1">
-<h1></h1>
-<h2 id="normalized-device-coordinates">Normalized Device Coordinates</h2>
+</section></section>
+<section><section id="section-4" class="titleslide slide level1"><h1></h1></section><section id="normalized-device-coordinates" class="slide level2">
+<h1>Normalized Device Coordinates</h1>
 <ul>
 <li>Clip space is interesting, but inconvenient
 <ul>
@@ -118,23 +112,20 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <li>basically the same as clip space except that the range of X, Y and Z are <strong>[-1, 1]</strong></li>
 </ul></li>
 </ul>
-</section>
-<section id="section-5" class="slide level1">
-<h1></h1>
-<h2 id="vertices-in-normalized-device-coordinates">Vertices in Normalized Device Coordinates</h2>
+</section></section>
+<section><section id="section-5" class="titleslide slide level1"><h1></h1></section><section id="vertices-in-normalized-device-coordinates" class="slide level2">
+<h1>Vertices in Normalized Device Coordinates</h1>
 <p><img src="assets/pipelineOverview/pipelineOverview03verticesInNormalizedDeviceCoordinates.png" alt="pipelineOverview03verticesInNormalizedDeviceCoordinates" /> </p>
-</section>
-<section id="section-6" class="slide level1">
-<h1></h1>
-<h2 id="clipping">Clipping</h2>
+</section></section>
+<section><section id="section-6" class="titleslide slide level1"><h1></h1></section><section id="clipping" class="slide level2">
+<h1>Clipping</h1>
 <ul>
 <li>Triangles not <strong>fully</strong> in <strong>clip space</strong> (the [-1,1] cube) we want to <strong>clip</strong></li>
 </ul>
 <p><img src="assets/pipelineOverview/clipping.png" alt="pipelineOverview02verticesInClipSpace" /> </p>
-</section>
-<section id="section-7" class="slide level1">
-<h1></h1>
-<h2 id="clipping-2">Clipping 2</h2>
+</section></section>
+<section><section id="section-7" class="titleslide slide level1"><h1></h1></section><section id="clipping-2" class="slide level2">
+<h1>Clipping 2</h1>
 <ul>
 <li>Points are easy to test in our new, normalised coordinate space (NDC)</li>
 <li>Lines are more difficult</li>
@@ -143,15 +134,13 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <li>may need to make more triangles</li>
 </ul></li>
 </ul>
-</section>
-<section id="section-8" class="slide level1">
-<h1></h1>
-<h2 id="vertices-in-clipped-ndc">Vertices in Clipped NDC</h2>
+</section></section>
+<section><section id="section-8" class="titleslide slide level1"><h1></h1></section><section id="vertices-in-clipped-ndc" class="slide level2">
+<h1>Vertices in Clipped NDC</h1>
 <p><img src="assets/pipelineOverview/pipelineOverview04verticesInNormalizedDeviceCoordinatesClipped.png" alt="pipelineOverview04verticesInNormalizedDeviceCoordinatesClipped" /> </p>
-</section>
-<section id="section-9" class="slide level1">
-<h1></h1>
-<h2 id="window-transformation">Window Transformation</h2>
+</section></section>
+<section><section id="section-9" class="titleslide slide level1"><h1></h1></section><section id="window-transformation" class="slide level2">
+<h1>Window Transformation</h1>
 <ul>
 <li>Transform from normalized device coordinates towindow coordinates</li>
 <li>window coordinates are relative to the window that OpenGL is running within</li>
@@ -162,15 +151,13 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <li>bottom-left position is the origin (0, 0)</li>
 </ul></li>
 </ul>
-</section>
-<section id="section-10" class="slide level1">
-<h1></h1>
-<h2 id="vertices-in-window-coordinates">Vertices in Window Coordinates</h2>
+</section></section>
+<section><section id="section-10" class="titleslide slide level1"><h1></h1></section><section id="vertices-in-window-coordinates" class="slide level2">
+<h1>Vertices in Window Coordinates</h1>
 <p><img src="assets/pipelineOverview/pipelineOverview05verticesInWindowCoordinates.png" alt="pipelineOverview05verticesInWindowCoordinates" /> </p>
-</section>
-<section id="section-11" class="slide level1">
-<h1></h1>
-<h2 id="scan-conversion">Scan Conversion</h2>
+</section></section>
+<section><section id="section-11" class="titleslide slide level1"><h1></h1></section><section id="scan-conversion" class="slide level2">
+<h1>Scan Conversion</h1>
 <ul>
 <li>After conversion to window coordinates the triangle undergoes a process called <strong>scan conversion</strong>
 <ul>
@@ -182,10 +169,9 @@ code > span.er { color: #ff0000; font-weight: bold; }
 </ul></li>
 <li>We'll look later at how scan conversion can be done</li>
 </ul>
-</section>
-<section id="section-12" class="slide level1">
-<h1></h1>
-<h2 id="scan-conversion-triangles-again">Scan Conversion (triangles again)</h2>
+</section></section>
+<section><section id="section-12" class="titleslide slide level1"><h1></h1></section><section id="scan-conversion-triangles-again" class="slide level2">
+<h1>Scan Conversion (triangles again)</h1>
 <ul>
 <li>Image in the centre shows the digital grid of output pixels
 <ul>
@@ -196,10 +182,9 @@ code > span.er { color: #ff0000; font-weight: bold; }
 </ul></li>
 </ul>
 <p><img src="assets/pipelineOverview/scanline.png" alt="pipelineOverview02verticesInClipSpace" /> </p>
-</section>
-<section id="section-13" class="slide level1">
-<h1></h1>
-<h2 id="scan-conversion-more-triangles">Scan Conversion (more triangles)</h2>
+</section></section>
+<section><section id="section-13" class="titleslide slide level1"><h1></h1></section><section id="scan-conversion-more-triangles" class="slide level2">
+<h1>Scan Conversion (more triangles)</h1>
 <ul>
 <li>During scan conversion, a triangle will produce a <strong>fragment</strong> for every pixel sample that is within the 2D area of the triangle (right)
 <ul>
@@ -207,11 +192,11 @@ code > span.er { color: #ff0000; font-weight: bold; }
 </ul></li>
 </ul>
 <p><img src="assets/pipelineOverview/scanline.png" alt="pipelineOverview02verticesInClipSpace" /> </p>
-</section>
-<section id="section-14" class="slide level1">
-<h1></h1>
-<h2 id="scan-conversion-1">Scan Conversion</h2>
-<h3 id="shared-edges-and-the-invariance-guarantee-by-tom-clancy">Shared Edges and <strong><em>the invariance guarantee</em></strong> (By Tom Clancy)</h3>
+</section></section>
+<section><section id="section-14" class="titleslide slide level1"><h1></h1></section><section id="scan-conversion-1" class="slide level2">
+<h1>Scan Conversion</h1>
+<section id="shared-edges-and-the-invariance-guarantee-by-tom-clancy" class="level3">
+<h3>Shared Edges and <strong><em>the invariance guarantee</em></strong> (By Tom Clancy)</h3>
 <ul>
 <li>triangles that share edges are very often rendered (unless you’re making asteroids)</li>
 <li>OpenGL offers the invariance guarantee
@@ -222,9 +207,9 @@ code > span.er { color: #ff0000; font-weight: bold; }
 </ul>
 <p><img src="assets/pipelineOverview/sharededge.png" alt="pipelineOverview02verticesInClipSpace" /> </p>
 </section>
-<section id="section-15" class="slide level1">
-<h1></h1>
-<h2 id="scan-conversion-still">Scan Conversion (Still??)</h2>
+</section></section>
+<section><section id="section-15" class="titleslide slide level1"><h1></h1></section><section id="scan-conversion-still" class="slide level2">
+<h1>Scan Conversion (Still??)</h1>
 <ul>
 <li>Scan conversion only uses X and Y position of the triangle in window coordinates to determine which fragments to generate
 <ul>
@@ -241,15 +226,13 @@ code > span.er { color: #ff0000; font-weight: bold; }
 </ul></li>
 </ul></li>
 </ul>
-</section>
-<section id="section-16" class="slide level1">
-<h1></h1>
-<h2 id="fragments">Fragments</h2>
+</section></section>
+<section><section id="section-16" class="titleslide slide level1"><h1></h1></section><section id="fragments" class="slide level2">
+<h1>Fragments</h1>
 <p><img src="assets/pipelineOverview/pipelineOverview06fragments.png" alt="pipelineOverview06fragments" /> </p>
-</section>
-<section id="section-17" class="slide level1">
-<h1></h1>
-<h2 id="fragment-processing">Fragment Processing</h2>
+</section></section>
+<section><section id="section-17" class="titleslide slide level1"><h1></h1></section><section id="fragment-processing" class="slide level2">
+<h1>Fragment Processing</h1>
 <ul>
 <li>Fragment processing takes a fragment from scan converted triangle and <strong>transforms</strong> it into</li>
 <li>one or more colour values</li>
@@ -262,15 +245,13 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <li><strong>However</strong>, the fragments from another triangle might</li>
 <li><strong><em>Therefore, fragments from one triangle must all be processed before fragments from another triangle</em></strong></li>
 </ul>
-</section>
-<section id="section-18" class="slide level1">
-<h1></h1>
-<h2 id="processed-fragments">Processed Fragments</h2>
+</section></section>
+<section><section id="section-18" class="titleslide slide level1"><h1></h1></section><section id="processed-fragments" class="slide level2">
+<h1>Processed Fragments</h1>
 <p><img src="assets/pipelineOverview/pipelineOverview07fragmentsProcessed.png" alt="pipelineOverview07fragmentsProcessed" /> </p>
-</section>
-<section id="section-19" class="slide level1">
-<h1></h1>
-<h2 id="fragment-writing-maybe">Fragment Writing (maybe)</h2>
+</section></section>
+<section><section id="section-19" class="titleslide slide level1"><h1></h1></section><section id="fragment-writing-maybe" class="slide level2">
+<h1>Fragment Writing (maybe)</h1>
 <ul>
 <li>After generating one or more colours and a depth value
 <ul>
@@ -282,10 +263,9 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <li>These will be covered more later</li>
 </ul></li>
 </ul>
-</section>
-<section id="section-20" class="slide level1">
-<h1></h1>
-<h2 id="colours">Colours</h2>
+</section></section>
+<section><section id="section-20" class="titleslide slide level1"><h1></h1></section><section id="colours" class="slide level2">
+<h1>Colours</h1>
 <ul>
 <li>The usual description of a colour is as a series of numbers on the range <strong>[0, 1] </strong><em>Why [0,1]?</em>
 <ul>
@@ -299,10 +279,9 @@ code > span.er { color: #ff0000; font-weight: bold; }
 </ul></li>
 </ul>
 <p><img src="assets/pipelineOverview/RGB_and_CMYK_comparison.png" alt="pipelineOverview07fragmentsProcessed" /> </p>
-</section>
-<section id="section-21" class="slide level1">
-<h1></h1>
-<h2 id="colours-2">Colours 2</h2>
+</section></section>
+<section><section id="section-21" class="titleslide slide level1"><h1></h1></section><section id="colours-2" class="slide level2">
+<h1>Colours 2</h1>
 <ul>
 <li>Combining different intensities of this 3 colours, we can generate and display millions of different colour shades in OpenGL
 <ul>
@@ -317,10 +296,9 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <li>unless you're a tetrachromat ... <a href="http://www.post-gazette.com/pg/06256/721190-114.stm" class="uri">http://www.post-gazette.com/pg/06256/721190-114.stm</a></li>
 </ul></li>
 </ul>
-</section>
-<section id="section-22" class="slide level1">
-<h1></h1>
-<h2 id="shaders">Shaders</h2>
+</section></section>
+<section><section id="section-22" class="titleslide slide level1"><h1></h1></section><section id="shaders" class="slide level2">
+<h1>Shaders</h1>
 <ul>
 <li>A shader is a program designed to be run on a renderer as part of the rendering operation</li>
 <li>Regardless of the kind of rendering system in use, shaders can only be executed at certain points in the rendering process</li>
@@ -330,10 +308,9 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <li>the processing of a fragment into final colours and depth</li>
 </ul></li>
 </ul>
-</section>
-<section id="section-23" class="slide level1">
-<h1></h1>
-<h2 id="shaders-2-glsl">Shaders 2 (GLSL)</h2>
+</section></section>
+<section><section id="section-23" class="titleslide slide level1"><h1></h1></section><section id="shaders-2-glsl" class="slide level2">
+<h1>Shaders 2 (GLSL)</h1>
 <ul>
 <li>Shaders for OpenGL are run on the actual rendering hardware so free up valuable CPU time for other tasks
 <ul>
@@ -350,10 +327,9 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <li>It looks deceptively like C, <strong>but it is very much not C</strong></li>
 </ul></li>
 </ul>
-</section>
-<section id="section-24" class="slide level1">
-<h1></h1>
-<h2 id="shaders-3-glsl">Shaders 3 (GLSL)</h2>
+</section></section>
+<section><section id="section-24" class="titleslide slide level1"><h1></h1></section><section id="shaders-3-glsl" class="slide level2">
+<h1>Shaders 3 (GLSL)</h1>
 <pre class="glsl"><code>#version 330
 
 layout(location = 0) in vec4 position;
@@ -373,18 +349,10 @@ void main()
 
     gl_Position = position + totalOffset;
 }</code></pre>
-</section>
-<section id="links-about-graphics" class="slide level1">
-<h1>Links about Graphics</h1>
-<ul>
-<li>a general list</li>
-<li>and related interesting stuff</li>
-<li>peruse at your leisure</li>
-</ul>
-</section>
-<section id="section-25" class="slide level1">
-<h1></h1>
-<h2 id="opengl-3.0-onwards">OpenGL 3.0 onwards</h2>
+</section></section>
+<section><section id="links-about-graphics" class="titleslide slide level1"><h1>Links about Graphics</h1></section></section>
+<section><section id="section-25" class="titleslide slide level1"><h1></h1></section><section id="opengl-3.0-onwards" class="slide level2">
+<h1>OpenGL 3.0 onwards</h1>
 <ul>
 <li><a href="http://open.gl/" class="uri">http://open.gl/</a></li>
 <li><a href="http://duriansoftware.com/joe/An-intro-to-modern-OpenGL.-Chapter-1%3a-The-Graphics-Pipeline.html">http://duriansoftware.com/joe/An-intro-to-modern-OpenGL.-Chapter-1%3a-The-Graphics-Pipeline.html</a></li>
@@ -394,10 +362,9 @@ void main()
 <li><a href="http://www.daveshreiner.com/SIGGRAPH/s11/Modern-OpenGL.pdf" class="uri">http://www.daveshreiner.com/SIGGRAPH/s11/Modern-OpenGL.pdf</a></li>
 <li><a href="http://fgiesen.wordpress.com/2011/07/09/a-trip-through-the-graphics-pipeline-2011-index/" class="uri">http://fgiesen.wordpress.com/2011/07/09/a-trip-through-the-graphics-pipeline-2011-index/</a></li>
 </ul>
-</section>
-<section id="section-26" class="slide level1">
-<h1></h1>
-<h2 id="opengl-3.0-onwards-2">OpenGL 3.0 onwards 2</h2>
+</section></section>
+<section><section id="section-26" class="titleslide slide level1"><h1></h1></section><section id="opengl-3.0-onwards-2" class="slide level2">
+<h1>OpenGL 3.0 onwards 2</h1>
 <ul>
 <li><a href="http://gamedev.stackexchange.com/questions/32876/good-resources-for-learning-modern-opengl-3-0-or-later" class="uri">http://gamedev.stackexchange.com/questions/32876/good-resources-for-learning-modern-opengl-3-0-or-later</a></li>
 <li><a href="https://github.com/g-truc/ogl-samples" class="uri">https://github.com/g-truc/ogl-samples</a></li>
@@ -407,10 +374,9 @@ void main()
 <li>Swiftless tutorials <a href="http://www.swiftless.com/opengl4tuts.html" class="uri">http://www.swiftless.com/opengl4tuts.html</a></li>
 <li>http://www.tomdalling.com/blog/category/modern-opengl/</li>
 </ul>
-</section>
-<section id="section-27" class="slide level1">
-<h1></h1>
-<h2 id="context-creation-mostly-sdl2">Context Creation (mostly SDL2)</h2>
+</section></section>
+<section><section id="section-27" class="titleslide slide level1"><h1></h1></section><section id="context-creation-mostly-sdl2" class="slide level2">
+<h1>Context Creation (mostly SDL2)</h1>
 <ul>
 <li>https://open.gl/context</li>
 <li><a href="https://www.libsdl.org/index.php" class="uri">https://www.libsdl.org/index.php</a></li>
@@ -421,20 +387,18 @@ void main()
 <li>2D tutorials with SDL2 <a href="http://lazyfoo.net/tutorials/SDL/index.php" class="uri">http://lazyfoo.net/tutorials/SDL/index.php</a></li>
 <li>SDL2 migration guide <a href="https://wiki.libsdl.org/MigrationGuide" class="uri">https://wiki.libsdl.org/MigrationGuide</a></li>
 </ul>
-</section>
-<section id="section-28" class="slide level1">
-<h1></h1>
-<h2 id="context-creation-non-sdl">Context Creation (non-SDL)</h2>
+</section></section>
+<section><section id="section-28" class="titleslide slide level1"><h1></h1></section><section id="context-creation-non-sdl" class="slide level2">
+<h1>Context Creation (non-SDL)</h1>
 <ul>
 <li>Unofficial OpenGL Software Development Kit <a href="http://glsdk.sourceforge.net/docs/html/index.html" class="uri">http://glsdk.sourceforge.net/docs/html/index.html</a></li>
 <li>FreeGlut <a href="http://freeglut.sourceforge.net/" class="uri">http://freeglut.sourceforge.net/</a></li>
 <li>Simple and Fast Multimedia Library <a href="http://www.sfml-dev.org/" class="uri">http://www.sfml-dev.org/</a></li>
 <li>GLFW <a href="http://www.glfw.org/" class="uri">http://www.glfw.org/</a></li>
 </ul>
-</section>
-<section id="section-29" class="slide level1">
-<h1></h1>
-<h2 id="platform-specific-context-creation">platform-specific Context Creation</h2>
+</section></section>
+<section><section id="section-29" class="titleslide slide level1"><h1></h1></section><section id="platform-specific-context-creation" class="slide level2">
+<h1>platform-specific Context Creation</h1>
 <pre class="sourceCode c"><code class="sourceCode c"><span class="ot">#include &lt;windows.h&gt;</span>
 <span class="ot">#include &lt;GL/GL.h&gt;</span>
 
@@ -460,62 +424,11 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
 
         <span class="kw">return</span> <span class="dv">0</span>;
 }</code></pre>
-</section>
-<section id="section-30" class="slide level1">
-<h1></h1>
-<pre class="sourceCode c"><code class="sourceCode c">LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
-{
-        <span class="kw">switch</span>(message)
-        {
-        <span class="kw">case</span> WM_CREATE:
-                {
-                PIXELFORMATDESCRIPTOR pfd =
-                {
-                        <span class="kw">sizeof</span>(PIXELFORMATDESCRIPTOR),
-                        <span class="dv">1</span>,
-                        PFD_DRAW_TO_WINDOW | PFD_SUPPORT_OPENGL | PFD_DOUBLEBUFFER,    <span class="co">//Flags</span>
-                        PFD_TYPE_RGBA,            <span class="co">//The kind of framebuffer. RGBA or palette.</span>
-                        <span class="dv">32</span>,                        <span class="co">//Colordepth of the framebuffer.</span>
-                        <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>,
-                        <span class="dv">0</span>,
-                        <span class="dv">0</span>,
-                        <span class="dv">0</span>,
-                        <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>,
-                        <span class="dv">24</span>,                        <span class="co">//Number of bits for the depthbuffer</span>
-                        <span class="dv">8</span>,                        <span class="co">//Number of bits for the stencilbuffer</span>
-                        <span class="dv">0</span>,                        <span class="co">//Number of Aux buffers in the framebuffer.</span>
-                        PFD_MAIN_PLANE,
-                        <span class="dv">0</span>,
-                        <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>
-                };</code></pre>
-</section>
-<section id="section-31" class="slide level1">
-<h1></h1>
-<pre class="sourceCode c"><code class="sourceCode c">                HDC ourWindowHandleToDeviceContext = GetDC(hWnd);
-
-                <span class="dt">int</span>  letWindowsChooseThisPixelFormat;
-                letWindowsChooseThisPixelFormat = ChoosePixelFormat(ourWindowHandleToDeviceContext, &amp;pfd); 
-                SetPixelFormat(ourWindowHandleToDeviceContext,letWindowsChooseThisPixelFormat, &amp;pfd);
-
-                HGLRC ourOpenGLRenderingContext = wglCreateContext(ourWindowHandleToDeviceContext);
-                wglMakeCurrent (ourWindowHandleToDeviceContext, ourOpenGLRenderingContext);
-
-                MessageBoxA(<span class="dv">0</span>,(<span class="dt">char</span>*)glGetString(GL_VERSION), <span class="st">&quot;OPENGL VERSION&quot;</span>,<span class="dv">0</span>);
-
-                wglDeleteContext(ourOpenGLRenderingContext);
-                PostQuitMessage(<span class="dv">0</span>);
-                }
-                <span class="kw">break</span>;
-        <span class="kw">default</span>:
-                <span class="kw">return</span> DefWindowProc(hWnd, message, wParam, lParam);
-        }
-        <span class="kw">return</span> <span class="dv">0</span>;
-
-}</code></pre>
-</section>
-<section id="section-32" class="slide level1">
-<h1></h1>
-<h2 id="extensions-wrangling">Extensions Wrangling</h2>
+</section></section>
+<section><section id="section-30" class="titleslide slide level1"><h1></h1></section></section>
+<section><section id="section-31" class="titleslide slide level1"><h1></h1></section></section>
+<section><section id="section-32" class="titleslide slide level1"><h1></h1></section><section id="extensions-wrangling" class="slide level2">
+<h1>Extensions Wrangling</h1>
 <ul>
 <li>Manual function loading! <a href="https://open.gl/context#Onemorething" class="uri">https://open.gl/context#Onemorething</a></li>
 <li>OpenGl Extension Wrangler Library (GLEW) <a href="http://glew.sourceforge.net/" class="uri">http://glew.sourceforge.net/</a></li>
@@ -523,18 +436,16 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
 <li>gl3w with SDL2 example <a href="https://github.com/progschj/OpenGL-Windowing-Examples/blob/master/sdl2.cpp" class="uri">https://github.com/progschj/OpenGL-Windowing-Examples/blob/master/sdl2.cpp</a></li>
 <li>Lazy Foo on Modern OpenGL <a href="http://lazyfoo.net/tutorials/SDL/51_SDL_and_modern_opengl/index.php" class="uri">http://lazyfoo.net/tutorials/SDL/51_SDL_and_modern_opengl/index.php</a></li>
 </ul>
-</section>
-<section id="section-33" class="slide level1">
-<h1></h1>
-<h2 id="object-orientated-opengl-oglplus-c">Object-orientated OpenGL (OGLplus, C++)</h2>
+</section></section>
+<section><section id="section-33" class="titleslide slide level1"><h1></h1></section><section id="object-orientated-opengl-oglplus-c" class="slide level2">
+<h1>Object-orientated OpenGL (OGLplus, C++)</h1>
 <ul>
 <li><a href="http://oglplus.org/" class="uri">http://oglplus.org/</a></li>
 <li>OGLplus tutorials <a href="http://oglplus.org/oglplus/html/oglplus_tutorials.html" class="uri">http://oglplus.org/oglplus/html/oglplus_tutorials.html</a></li>
 </ul>
-</section>
-<section id="section-34" class="slide level1">
-<h1></h1>
-<h2 id="using-git">using git</h2>
+</section></section>
+<section><section id="section-34" class="titleslide slide level1"><h1></h1></section><section id="using-git" class="slide level2">
+<h1>using git</h1>
 <ul>
 <li><a href="http://programmaticallyspeaking.com/code-demo-using-git.html" class="uri">http://programmaticallyspeaking.com/code-demo-using-git.html</a></li>
 <li>Try Github <a href="https://try.github.io/levels/1/challenges/1" class="uri">https://try.github.io/levels/1/challenges/1</a></li>
@@ -547,10 +458,9 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
 </ul></li>
 <li>git-big-picture (for summarising git trees) <a href="https://github.com/esc/git-big-picture" class="uri">https://github.com/esc/git-big-picture</a></li>
 </ul>
-</section>
-<section id="section-35" class="slide level1">
-<h1></h1>
-<h2 id="debugging-tools">Debugging tools</h2>
+</section></section>
+<section><section id="section-35" class="titleslide slide level1"><h1></h1></section><section id="debugging-tools" class="slide level2">
+<h1>Debugging tools</h1>
 <ul>
 <li><a href="apitrace%20-%20http://apitrace.github.io/">apitrace - http://apitrace.github.io/</a></li>
 <li>VOGL:
@@ -560,41 +470,36 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
 <li><a href="https://www.youtube.com/watch?v=45O7WTc6k2Y">https://www.youtube.com/watch?v=45O7WTc6k2Y -Moving Your Games to OpenGL</a></li>
 </ul></li>
 </ul>
-</section>
-<section id="section-36" class="slide level1">
-<h1></h1>
-<h2 id="build-tools-premake">Build tools (Premake)</h2>
+</section></section>
+<section><section id="section-36" class="titleslide slide level1"><h1></h1></section><section id="build-tools-premake" class="slide level2">
+<h1>Build tools (Premake)</h1>
 <ul>
 <li>Premake Website (a little out of date) <a href="http://industriousone.com/premake" class="uri">http://industriousone.com/premake</a></li>
 <li>Premake repositories <a href="https://bitbucket.org/premake/" class="uri">https://bitbucket.org/premake/</a></li>
 <li>Premake Meta (Premake quickstart scripts) <a href="https://github.com/d-led/premake-meta-cpp" class="uri">https://github.com/d-led/premake-meta-cpp</a></li>
 <li>Example complex-ish Premake script from gltut <a href="https://bitbucket.org/alfonse/gltut/src/1d1479cc7027f1e32c5adff748f3b296f1931d84/framework/framework.lua?at=default" class="uri">https://bitbucket.org/alfonse/gltut/src/1d1479cc7027f1e32c5adff748f3b296f1931d84/framework/framework.lua?at=default</a></li>
 </ul>
-</section>
-<section id="section-37" class="slide level1">
-<h1></h1>
-<h2 id="matrices">Matrices</h2>
+</section></section>
+<section><section id="section-37" class="titleslide slide level1"><h1></h1></section><section id="matrices" class="slide level2">
+<h1>Matrices</h1>
 <ul>
 <li><a href="www.opengl-tutorial.org/beginners-tutorials/tutorial-3-matrices/" class="uri">www.opengl-tutorial.org/beginners-tutorials/tutorial-3-matrices/</a></li>
 </ul>
-</section>
-<section id="section-38" class="slide level1">
-<h1></h1>
-<h2 id="coordinate-systems">Coordinate Systems</h2>
+</section></section>
+<section><section id="section-38" class="titleslide slide level1"><h1></h1></section><section id="coordinate-systems" class="slide level2">
+<h1>Coordinate Systems</h1>
 <ul>
 <li>http://www.matrix44.net/cms/notes/opengl-3d-graphics/coordinate-systems-in-opengl</li>
 </ul>
-</section>
-<section id="section-39" class="slide level1">
-<h1></h1>
-<h2 id="homogeneous-coordinates-1">Homogeneous Coordinates</h2>
+</section></section>
+<section><section id="section-39" class="titleslide slide level1"><h1></h1></section><section id="homogeneous-coordinates-1" class="slide level2">
+<h1>Homogeneous Coordinates</h1>
 <ul>
 <li>http://www.tomdalling.com/blog/modern-opengl/explaining-homogenous-coordinates-and-projective-geometry/ http://www.songho.ca/math/homogeneous/homogeneous.html</li>
 </ul>
-</section>
-<section id="section-40" class="slide level1">
-<h1></h1>
-<h2 id="engines">Engines</h2>
+</section></section>
+<section><section id="section-40" class="titleslide slide level1"><h1></h1></section><section id="engines" class="slide level2">
+<h1>Engines</h1>
 <ul>
 <li>unreal engine 4 on linux (and steamOS and windows and maybe xbox one)
 <ul>
@@ -609,20 +514,18 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
 <li>Crystal Space <a href="http://www.crystalspace3d.org/main/Main_Page" class="uri">http://www.crystalspace3d.org/main/Main_Page</a></li>
 <li>Horde3D <a href="http://www.horde3d.org/" class="uri">http://www.horde3d.org/</a></li>
 </ul>
-</section>
-<section id="section-41" class="slide level1">
-<h1></h1>
-<h2 id="asset-importing">Asset importing</h2>
+</section></section>
+<section><section id="section-41" class="titleslide slide level1"><h1></h1></section><section id="asset-importing" class="slide level2">
+<h1>Asset importing</h1>
 <p><strong>Note that SDL2 can load standard <code>.bmp</code> files on its own, but no other image formats</strong></p>
 <ul>
 <li>Open Asset Import Library <a href="assimp.sourceforge.net/index.html" class="uri">assimp.sourceforge.net/index.html</a></li>
 <li>Resilient Image Library <a href="sourceforge.net/projects/resil/" class="uri">sourceforge.net/projects/resil/</a></li>
 <li>Simple OpenGL Image Library <a href="www.opengl-tutorial.org/miscellaneous/useful-tools-links/" class="uri">www.opengl-tutorial.org/miscellaneous/useful-tools-links/</a></li>
 </ul>
-</section>
-<section id="section-42" class="slide level1">
-<h1></h1>
-<h2 id="other">other</h2>
+</section></section>
+<section><section id="section-42" class="titleslide slide level1"><h1></h1></section><section id="other" class="slide level2">
+<h1>other</h1>
 <ul>
 <li>unreal engine 4 to linux
 <ul>
@@ -636,17 +539,16 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
 <li><a href="http://www.opengl.org/" class="uri">http://www.opengl.org/</a></li>
 <li><a href="https://software.intel.com/en-us/articles/quake-wars-gets-ray-traced/?wapkw=%28ray+tracing%29">https://software.intel.com/en-us/articles/quake-wars-gets-ray-traced/?wapkw=%28ray+tracing%29</a></li>
 </ul>
-</section>
-<section id="section-43" class="slide level1">
-<h1></h1>
-<h2 id="other-2">other 2</h2>
+</section></section>
+<section><section id="section-43" class="titleslide slide level1"><h1></h1></section><section id="other-2" class="slide level2">
+<h1>other 2</h1>
 <ul>
 <li><a href="https://www.youtube.com/watch?v=hapCuhAs1nA" class="uri">https://www.youtube.com/watch?v=hapCuhAs1nA</a></li>
 <li><a href="https://www.youtube.com/watch?v=VUxcVzpeFqc" class="uri">https://www.youtube.com/watch?v=VUxcVzpeFqc</a></li>
 <li><p><a href="http://www.mesa3d.org/llvmpipe.html" class="uri">http://www.mesa3d.org/llvmpipe.html</a></p></li>
 <li><p><a href="http://www.willusher.io/sdl2%20tutorials/2013/08/15/lesson-0-linux-command-line/">http://www.willusher.io/sdl2%20tutorials/2013/08/15/lesson-0-linux-command-line/</a></p></li>
 </ul>
-</section>
+</section></section>
     </div>
   </div>
 
