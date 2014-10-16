@@ -1,0 +1,157 @@
+#Lincoln Lectures On Graphics - 04
+
+!INCLUDE "topics/pipelineOverview.md"
+
+#Stepping through glTriangleWhite
+
+##Stepping through glTriangleWhite
+
+- We'll walk through all the code for `glTriangleWhite`
+    - it's just main.cpp that we're interested in
+    - [https://github.com/shearer12345/graphics_examples_in_git_branches/blob/glTriangleWhite/main.cpp](https://github.com/shearer12345/graphics_examples_in_git_branches/blob/glTriangleWhite/main.cpp)
+- We'll walk through starting at the global variables, then the entry point (main)
+
+#Code in execution order here also
+
+#Global Variables
+
+##SDL Variables
+
+```C++
+SDL_Window *win; //pointer to the SDL_Window
+SDL_GLContext context; //the SDL_GLContext
+GLuint theProgram; //GLuint that we'll fill in to refer to the GLSL program (only have 1 at this point)
+```
+
+##string holding the **source** of our vertex shader
+
+```C++
+//string holding the **source** of our vertex shader, to save loading from a file
+const std::string strVertexShader(
+	"#version 330\n"
+	"layout(location = 0) in vec4 position;\n"
+	"void main()\n"
+	"{\n"
+	"   gl_Position = position;\n"
+	"}\n"
+	);
+```
+
+##string holding the **source** of our fragment shader
+
+```C++
+//string holding the **source** of our fragment shader, to save loading from a file
+const std::string strFragmentShader(
+	"#version 330\n"
+	"out vec4 outputColor;\n"
+	"void main()\n"
+	"{\n"
+	"   outputColor = vec4(1.0f, 1.0f, 1.0f, 1.0f);\n"
+	"}\n"
+	);
+```
+
+##our variables
+
+```C++
+const float vertexPositions[] = {
+	0.0f, 0.5f, 0.0f, 1.0f,
+	-0.4330127f, -0.25f, 0.0f, 1.0f,
+	0.4330127f, -0.25f, 0.0f, 1.0f,
+};
+```
+
+##our OpenGL variables
+
+```C++
+GLuint theProgram; //GLuint that we'll fill in to refer to the GLSL program (only have 1 at this point)
+GLuint positionBufferObject;
+GLuint vao;
+```
+
+- note the variable `theProgram` is actually higher up in the source, but is more sensible here
+
+#main (page 1 - setup)
+
+```C++
+int main( int argc, char* args[] )
+{
+
+	//setup
+	//- do just once
+	initialise();
+	createWindow();
+	setGLAttributes();
+	createContext();
+	initGlew();
+
+
+	//load stuff from files
+	//- usually do just once
+	loadAssets();
+```
+
+##main (page 2 - loop)
+
+```C++
+	//LOOP FROM HERE - PLACEHOLDER
+
+		//GET INPUT HERE - PLACEHOLDER
+
+		//UPDATE SIMULATION - PLACEHOLDER
+
+		glClear(GL_COLOR_BUFFER_BIT);
+
+		render(); //RENDER HERE - PLACEHOLDER
+		
+		SDL_GL_SwapWindow(win);; //present the frame buffer to the display (swapBuffers)
+
+	//LOOP TO HERE - PLACEHOLDER
+
+```
+
+##main (page 3 - close)
+
+```C++
+	//not looping, so delay so we can see what it does
+	SDL_Delay(2000); //Wait for 2 seconds before exiting
+
+	
+	//cleanup and exit
+	cleanUp();
+	SDL_Quit();
+
+	return 0;
+}
+```
+
+#initialise
+
+```C++
+void initialise()
+{
+	if (SDL_Init(SDL_INIT_EVERYTHING) != 0){
+		cout << "SDL_Init Error: " << SDL_GetError() << std::endl;
+		exit(1);
+	}
+	cout << "SDL initialised OK!\n";
+}
+```
+
+#createWindow
+
+```C++
+void createWindow()
+{
+	win = SDL_CreateWindow("Hello World!", 100, 100, 600, 600, SDL_WINDOW_OPENGL); //same height and width makes the window square ...
+	if (win == nullptr)
+	{
+		std::cout << "SDL_CreateWindow Error: " << SDL_GetError() << std::endl;
+		SDL_Quit();
+		exit(1);
+	}
+	cout << "SDL CreatedWindow OK!\n";
+}
+```
+
+#etc ...
