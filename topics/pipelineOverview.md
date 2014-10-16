@@ -33,17 +33,6 @@ The pipeline is fed (*somehow, we'll cover later*) with **vertices** in **WORLD 
 
 ![pipelineOverview02verticesInClipSpace](assets/pipelineOverview/pipelineOverview02verticesInClipSpace.png)\ 
 
-##Normalized Device Coordinates
-
-- Clip space is interesting, but inconvenient
-    - the extent of this space is different for each vertex, which makes visualizing a triangle rather difficult
-- The X, Y, and Z of each vertex's position is divided by W to get normalized device coordinates
-    - basically the same as clip space except that the range of X, Y and Z are **[-1, 1]**
-
-#Vertices in Normalized Device Coordinates
-
-![pipelineOverview03verticesInNormalizedDeviceCoordinates](assets/pipelineOverview/pipelineOverview03verticesInNormalizedDeviceCoordinates.png)\ 
-
 ##Clipping
 
 - Triangles not **fully** in **clip space** (the [-1,1] cube) we want to **clip**
@@ -57,9 +46,20 @@ The pipeline is fed (*somehow, we'll cover later*) with **vertices** in **WORLD 
 - Triangles are complicated
     - may need to make more triangles
 
-#Vertices in Clipped NDC
+#Vertices in Normalized Device Coordinates
 
-![pipelineOverview04verticesInNormalizedDeviceCoordinatesClipped](assets/pipelineOverview/pipelineOverview04verticesInNormalizedDeviceCoordinatesClipped.png)\ 
+![pipelineOverview03verticesInNormalizedDeviceCoordinates](assets/pipelineOverview/pipelineOverview03verticesThatHaveBeenClipped.png)\ 
+
+##Normalized Device Coordinates
+
+- Clip space is interesting, but inconvenient
+    - the extent of this space is different for each vertex, which makes visualizing a triangle rather difficult
+- The X, Y, and Z of each vertex's position is divided by W to get normalized device coordinates
+    - basically the same as clip space except that the range of X, Y and Z are **[-1, 1]**
+
+#Vertices in NDC
+
+![pipelineOverview04verticesInNormalizedDeviceCoordinatesClipped](assets/pipelineOverview/pipelineOverview04verticesInNormalizedDeviceCoordinates.png)\ 
 
 ##Window Transformation
 
