@@ -85,20 +85,7 @@ code > span.er { color: #ff0000; font-weight: bold; }
 </ul></li>
 </ul>
 </section></section>
-<section><section id="vertices-in-clip-space" class="titleslide slide level1"><h1>Vertices in Clip Space</h1></section><section id="normalized-device-coordinates" class="slide level2">
-<h1>Normalized Device Coordinates</h1>
-<ul>
-<li>Clip space is interesting, but inconvenient
-<ul>
-<li>the extent of this space is different for each vertex, which makes visualizing a triangle rather difficult</li>
-</ul></li>
-<li>The X, Y, and Z of each vertex's position is divided by W to get normalized device coordinates
-<ul>
-<li>basically the same as clip space except that the range of X, Y and Z are <strong>[-1, 1]</strong></li>
-</ul></li>
-</ul>
-</section></section>
-<section><section id="vertices-in-normalized-device-coordinates" class="titleslide slide level1"><h1>Vertices in Normalized Device Coordinates</h1></section><section id="clipping" class="slide level2">
+<section><section id="vertices-in-clip-space" class="titleslide slide level1"><h1>Vertices in Clip Space</h1></section><section id="clipping" class="slide level2">
 <h1>Clipping</h1>
 <ul>
 <li>Triangles not <strong>fully</strong> in <strong>clip space</strong> (the [-1,1] cube) we want to <strong>clip</strong></li>
@@ -115,7 +102,20 @@ code > span.er { color: #ff0000; font-weight: bold; }
 </ul></li>
 </ul>
 </section></section>
-<section><section id="vertices-in-clipped-ndc" class="titleslide slide level1"><h1>Vertices in Clipped NDC</h1></section><section id="window-transformation" class="slide level2">
+<section><section id="vertices-in-normalized-device-coordinates" class="titleslide slide level1"><h1>Vertices in Normalized Device Coordinates</h1></section><section id="normalized-device-coordinates" class="slide level2">
+<h1>Normalized Device Coordinates</h1>
+<ul>
+<li>Clip space is interesting, but inconvenient
+<ul>
+<li>the extent of this space is different for each vertex, which makes visualizing a triangle rather difficult</li>
+</ul></li>
+<li>The X, Y, and Z of each vertex's position is divided by W to get normalized device coordinates
+<ul>
+<li>basically the same as clip space except that the range of X, Y and Z are <strong>[-1, 1]</strong></li>
+</ul></li>
+</ul>
+</section></section>
+<section><section id="vertices-in-ndc" class="titleslide slide level1"><h1>Vertices in NDC</h1></section><section id="window-transformation" class="slide level2">
 <h1>Window Transformation</h1>
 <ul>
 <li>Transform from normalized device coordinates towindow coordinates</li>
