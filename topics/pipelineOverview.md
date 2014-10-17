@@ -2,7 +2,7 @@
 
 ##Putting the **"Fun"** in Fundamentals
 
-#Vertices in World Space
+##Vertices in World Space
 
 The pipeline is fed (*somehow, we'll cover later*) with **vertices** in **WORLD SPACE** (or **Object Space**)
 
@@ -16,7 +16,7 @@ The pipeline is fed (*somehow, we'll cover later*) with **vertices** in **WORLD 
     - [http://arcsynthesis.org/gltut/Basics/Intro%20Graphics%20and%20Rendering.html](http://arcsynthesis.org/gltut/Basics/Intro%20Graphics%20and%20Rendering.html)
     - you get to **program** this bit (GLSL - vertex shader)
 
-![pipelineOverview01verticesInWorldSpace](assets/pipelineOverview/worldSpaceToClipSpace.png)\ 
+![worldSpaceToClipSpace](assets/pipelineOverview/worldSpaceToClipSpace.png)\ 
 
 ##Homogeneous Coordinates!!
 
@@ -29,7 +29,7 @@ The pipeline is fed (*somehow, we'll cover later*) with **vertices** in **WORLD 
     - http://www.tomdalling.com/blog/modern-opengl/explaining-homogenous-coordinates-and-projective-geometry/
     - http://www.songho.ca/math/homogeneous/homogeneous.html
 
-#Vertices in Clip Space
+##Vertices in Clip Space
 
 ![pipelineOverview02verticesInClipSpace](assets/pipelineOverview/pipelineOverview02verticesInClipSpace.png)\ 
 
@@ -37,7 +37,7 @@ The pipeline is fed (*somehow, we'll cover later*) with **vertices** in **WORLD 
 
 - Triangles not **fully** in **clip space** (the [-1,1] cube) we want to **clip**
 
-![pipelineOverview02verticesInClipSpace](assets/pipelineOverview/clipping.png)\ 
+![clipping](assets/pipelineOverview/clipping.png)\ 
 
 ##Clipping 2
 
@@ -46,9 +46,9 @@ The pipeline is fed (*somehow, we'll cover later*) with **vertices** in **WORLD 
 - Triangles are complicated
     - may need to make more triangles
 
-#Vertices in Normalized Device Coordinates
+##Vertices in Normalized Device Coordinates
 
-![pipelineOverview03verticesInNormalizedDeviceCoordinates](assets/pipelineOverview/pipelineOverview03verticesThatHaveBeenClipped.png)\ 
+![pipelineOverview03verticesThatHaveBeenClipped](assets/pipelineOverview/pipelineOverview03verticesThatHaveBeenClipped.png)\ 
 
 ##Normalized Device Coordinates
 
@@ -57,9 +57,9 @@ The pipeline is fed (*somehow, we'll cover later*) with **vertices** in **WORLD 
 - The X, Y, and Z of each vertex's position is divided by W to get normalized device coordinates
     - basically the same as clip space except that the range of X, Y and Z are **[-1, 1]**
 
-#Vertices in NDC
+##Vertices in NDC
 
-![pipelineOverview04verticesInNormalizedDeviceCoordinatesClipped](assets/pipelineOverview/pipelineOverview04verticesInNormalizedDeviceCoordinates.png)\ 
+![pipelineOverview04verticesInNormalizedDeviceCoordinates](assets/pipelineOverview/pipelineOverview04verticesInNormalizedDeviceCoordinates.png)\ 
 
 ##Window Transformation
 
@@ -70,7 +70,7 @@ The pipeline is fed (*somehow, we'll cover later*) with **vertices** in **WORLD 
     - still have a z-coordinates!! Why?? Stay-tuned ...
     - bottom-left position is the origin (0, 0)
 
-#Vertices in Window Coordinates
+##Vertices in Window Coordinates
 
 ![pipelineOverview05verticesInWindowCoordinates](assets/pipelineOverview/pipelineOverview05verticesInWindowCoordinates.png)\ 
 
@@ -88,14 +88,14 @@ The pipeline is fed (*somehow, we'll cover later*) with **vertices** in **WORLD 
     - the circles represent the centre of each pixel, the centre of each pixel represents a **sample**:
         - a discrete location within the area of a pixel
 
-![pipelineOverview02verticesInClipSpace](assets/pipelineOverview/scanline.png)\ 
+![scanline](assets/pipelineOverview/scanline.png)\ 
 
 ##Scan Conversion (more triangles)
 
 - During scan conversion, a triangle will produce a **fragment** for every pixel sample that is within the 2D area of the triangle (right)
     - a rough **approximation** of the triangle's general shape
 
-![pipelineOverview02verticesInClipSpace](assets/pipelineOverview/scanline.png)\ 
+![scanline](assets/pipelineOverview/scanline.png)\ 
 
 ##Scan Conversion
 ###Shared Edges and ***the invariance guarantee*** (By Tom Clancy)
@@ -105,7 +105,7 @@ The pipeline is fed (*somehow, we'll cover later*) with **vertices** in **WORLD 
     - so long as shared edge vertex positions are **identical**, there will be no sample gaps during scan conversion
 - What would happen otherwise??
 
-![pipelineOverview02verticesInClipSpace](assets/pipelineOverview/sharededge.png)\ 
+![sharededge](assets/pipelineOverview/sharededge.png)\ 
 
 ##Scan Conversion (Still??)
 
@@ -118,7 +118,7 @@ The pipeline is fed (*somehow, we'll cover later*) with **vertices** in **WORLD 
         - (a.k.a. known as the depth of the fragment)
         - there may be other information that is part of a fragment
 
-#Fragments
+##Fragments
 
 ![pipelineOverview06fragments](assets/pipelineOverview/pipelineOverview06fragments.png)\ 
 
@@ -133,7 +133,7 @@ The pipeline is fed (*somehow, we'll cover later*) with **vertices** in **WORLD 
 - **However**, the fragments from another triangle might
 - ***Therefore, fragments from one triangle must all be processed before fragments from another triangle***
 
-#Processed Fragments
+##Processed Fragments
 
 ![pipelineOverview07fragmentsProcessed](assets/pipelineOverview/pipelineOverview07fragmentsProcessed.png)\ 
 
@@ -147,6 +147,8 @@ The pipeline is fed (*somehow, we'll cover later*) with **vertices** in **WORLD 
 
 #Colours
 
+##Colours
+
 -  The usual description of a colour is as a series of numbers on the range **[0, 1] ***Why [0,1]?*
     - each of the numbers corresponds to the **intensity** of a particular reference colour
     - the final colour represented by the series of numbers is a mix of these reference colours
@@ -154,7 +156,7 @@ The pipeline is fed (*somehow, we'll cover later*) with **vertices** in **WORLD 
     - the most common colour space for screens is RGB, where the reference colours are Red, Green and Blue
     - printed works tend to use CMYK (Cyan, Magenta, Yellow, Black)]
 
-![pipelineOverview07fragmentsProcessed](assets/pipelineOverview/RGB_and_CMYK_comparison.png)\ 
+![RGB_and_CMYK_comparison](assets/pipelineOverview/RGB_and_CMYK_comparison.png)\ 
 
 ##Colours 2
 
@@ -166,6 +168,8 @@ The pipeline is fed (*somehow, we'll cover later*) with **vertices** in **WORLD 
     - unless you're a tetrachromat ... [http://www.post-gazette.com/pg/06256/721190-114.stm](http://www.post-gazette.com/pg/06256/721190-114.stm)
 
 #Shaders
+
+##Shaders
 
 - A shader is a program designed to be run on a renderer as part of the rendering operation
 - Regardless of the kind of rendering system in use, shaders can only be executed at certain points in the rendering process
