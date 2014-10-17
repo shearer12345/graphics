@@ -71,7 +71,9 @@ GLuint vao;
 
 - note the variable `theProgram` is actually higher up in the source, but is more sensible here
 
-#main (page 1 - setup)
+#main
+
+##main (page 1 - setup)
 
 ```C++
 int main( int argc, char* args[] )
@@ -127,6 +129,8 @@ int main( int argc, char* args[] )
 
 #initialise
 
+##initialise
+
 ```C++
 void initialise()
 {
@@ -139,6 +143,8 @@ void initialise()
 ```
 
 #createWindow
+
+##createWindow
 
 ```C++
 void createWindow()
