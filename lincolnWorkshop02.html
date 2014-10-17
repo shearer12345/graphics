@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <title></title>
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <link rel="stylesheet" href="reveal.js/css/reveal.min.css"/>
+    <style type="text/css">code{white-space: pre;}</style>
+    <style type="text/css">
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; }
+code > span.dt { color: #902000; }
+code > span.dv { color: #40a070; }
+code > span.bn { color: #40a070; }
+code > span.fl { color: #40a070; }
+code > span.ch { color: #4070a0; }
+code > span.st { color: #4070a0; }
+code > span.co { color: #60a0b0; font-style: italic; }
+code > span.ot { color: #007020; }
+code > span.al { color: #ff0000; font-weight: bold; }
+code > span.fu { color: #06287e; }
+code > span.er { color: #ff0000; font-weight: bold; }
+    </style>
+    <link rel="stylesheet" href="reveal.js/css/theme/simple.css" id="theme">
+    <!-- If the query includes 'print-pdf', include the PDF print sheet -->
+    <script>
+      if( window.location.search.match( /print-pdf/gi ) ) {
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = 'reveal.js/css/print/pdf.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+      }
+    </script>
+    <!--[if lt IE 9]>
+    <script src="reveal.js/lib/js/html5shiv.js"></script>
+    <![endif]-->
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+
+<section><section id="lincoln-graphics-workshop-02" class="titleslide slide level1"><h1>Lincoln Graphics Workshop 02</h1></section><section id="gltrianglewhite" class="slide level2">
+<h1>glTriangleWhite</h1>
+<figure>
+<img src="assets/examples/glTriangleWhite.png" alt="glTriangleWhite" /><figcaption>glTriangleWhite</figcaption>
+</figure>
+</section></section>
+<section><section id="source-and-checkout" class="titleslide slide level1"><h1>Source and checkout</h1></section></section>
+<section><section id="a-heads-up" class="titleslide slide level1"><h1>A heads-up</h1></section><section id="preparatory-stages-to-get-a-single-triangle" class="slide level2">
+<h1>Preparatory stages to get a single Triangle!!</h1>
+<ul>
+<li>This won't draw <strong>anything</strong> without the <strong>loop</strong> stages</li>
+</ul>
+<ol type="1">
+<li>Create a <strong>Window</strong> and a <strong>GL context</strong></li>
+<li>Load <strong>GLSL shaders</strong></li>
+<li>Link GLSL shaders in to <strong>GLSL programs</strong></li>
+<li>Create/Load <strong>Geometry data</strong> (vertices) CPU-side</li>
+<li>Load <strong>Geometry</strong> data into OpenGL</li>
+<li>Create <strong>Vertex Array Objects</strong></li>
+</ol>
+</section><section id="loop-stages-to-get-a-single-triangle" class="slide level2">
+<h1>Loop stages to get a single Triangle!!</h1>
+<ol type="1">
+<li>Clear the <strong>Back Buffer</strong></li>
+<li>Tell OpenGL to use a <strong>GLSL program</strong> that has already been created</li>
+<li>Tell OpenGL to use some <strong>geometry data</strong> that has already been loaded</li>
+<li>Tell OpenGL where in the <strong>GLSL program</strong> to put the <strong>geometry data</strong></li>
+<li>Tell OpenGL what format the <strong>geometry data</strong> is in - how it is stored / how to read it</li>
+<li>Tell OpenGL to draw some type of <strong>Primitive</strong>, using some number of <strong>Vertices</strong></li>
+<li>Clean up some OpenGL stuff</li>
+<li>Tell SDL to swap the <strong>Back Buffer</strong> and the <strong>Front Buffer</strong></li>
+</ol>
+</section></section>
+<section><section id="update-your-examples" class="titleslide slide level1"><h1>Update your examples</h1></section></section>
+<section><section id="run-the-examples" class="titleslide slide level1"><h1>Run the examples</h1></section><section id="examples-to-look-through" class="slide level2">
+<h1>Examples to look through</h1>
+<ol type="1">
+<li>glGlew
+<ul>
+<li>include the GLEW library, make SDL create an OpenGL context. <strong>important changes here</strong></li>
+</ul></li>
+<li>glCreateShadersAndProgram
+<ul>
+<li>load some GLSL shaders into OpenGL, compile and link them. <strong>new stuff here</strong></li>
+</ul></li>
+<li>glGenVertexBuffer
+<ul>
+<li>load some vertex data into OpenGL. <strong>more new stuff here</strong></li>
+</ul></li>
+<li>glTriangleWhite
+<ul>
+<li>this one is the first time you'll see anything rendered</li>
+<li><strong>yet more new stuff here</strong></li>
+<li>this one is the one to do the activities (later) on</li>
+</ul></li>
+</ol>
+</section><section id="diff-the-examples" class="slide level2">
+<h1>Diff the examples</h1>
+<ul>
+<li><p>look at what's different between the examples</p>
+<pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">git</span> diff EXAMPLE1 EXAMPLE2 <span class="co">##will produce the **diff** for all files</span></code></pre></li>
+<li><p>you can also diff just a single file</p>
+<pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">git</span> diff EXAMPLE1 EXAMPLE2 .\fileName
+<span class="co">##for example</span>
+<span class="kw">git</span> diff sdlHelloWorldWithFunctions glGlew .\main.cpp</code></pre></li>
+</ul>
+</section></section>
+<section><section id="activities" class="titleslide slide level1"><h1>Activities</h1></section><section id="activity-1---make-the-background-color-something-different" class="slide level2">
+<h1>Activity 1 - make the <strong>background color</strong> something different</h1>
+<figure>
+<img src="assets/examples/glTriangleWhiteOnRedBackground.png" alt="glTriangleWhiteOnRedBackground" /><figcaption>glTriangleWhiteOnRedBackground</figcaption>
+</figure>
+</section><section id="activity-2---make-the-triangle-a-different-shape" class="slide level2">
+<h1>Activity 2 - make the triangle a <strong>different shape</strong></h1>
+</section><section id="activity-3---make-the-triangle-appear-somewhere-else-on-the-screen-but-the-original-shape" class="slide level2">
+<h1>Activity 3 - make the triangle appear <strong>somewhere else</strong> on the screen, but the original shape</h1>
+<ul>
+<li>this is a <strong>translation</strong></li>
+</ul>
+<figure>
+<img src="assets/examples/glTriangleWhiteCPUTranslation.png" alt="glTriangleWhiteCPUTranslation" /><figcaption>glTriangleWhiteCPUTranslation</figcaption>
+</figure>
+</section><section id="activity-4---make-the-triangle-larger-than-the-original" class="slide level2">
+<h1>Activity 4 - make the triangle <strong>larger</strong> than the original</h1>
+<ul>
+<li>but still similar (the same shape)</li>
+<li>this is a <strong>scale</strong></li>
+</ul>
+<figure>
+<img src="assets/examples/glTriangleWhiteCPUScale.png" alt="glTriangleWhiteCPUScale" /><figcaption>glTriangleWhiteCPUScale</figcaption>
+</figure>
+</section><section id="activity-5---make-the-triangle-translate-or-scale-over-time" class="slide level2">
+<h1>Activity 5 - make the triangle <strong>translate</strong> or <strong>scale</strong> <strong>over time</strong></h1>
+<ul>
+<li>you'll need to add a loop to the main function</li>
+<li>you'll need to do quite a number of other things also
+<ul>
+<li>specifically, look at the <code>glBufferData</code> function</li>
+</ul></li>
+</ul>
+<figure>
+<img src="assets/examples/glTriangleWhiteTranslationOverTimeAnimated.gif" alt="glTriangleWhiteTranslationOverTimeAnimated" /><figcaption>glTriangleWhiteTranslationOverTimeAnimated</figcaption>
+</figure>
+</section></section>
+<section><section id="stretch-activities" class="titleslide slide level1"><h1>Stretch Activities</h1></section></section>
+    </div>
+  </div>
+
+
+  <script src="reveal.js/lib/js/head.min.js"></script>
+  <script src="reveal.js/js/reveal.min.js"></script>
+
+  <script>
+
+      // Full list of configuration options available here:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+        theme: 'sky', // available themes are in /css/theme
+        transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+        // Optional libraries used to extend on reveal.js
+        dependencies: [
+          { src: 'reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: 'reveal.js/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+          { src: 'reveal.js/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } },
+//          { src: 'reveal.js/plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; }, }
+//          { src: 'reveal.js/plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+]});
+    </script>
+    </body>
+</html>

@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <title></title>
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <link rel="stylesheet" href="reveal.js/css/reveal.min.css"/>
+    <style type="text/css">code{white-space: pre;}</style>
+    <style type="text/css">
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; }
+code > span.dt { color: #902000; }
+code > span.dv { color: #40a070; }
+code > span.bn { color: #40a070; }
+code > span.fl { color: #40a070; }
+code > span.ch { color: #4070a0; }
+code > span.st { color: #4070a0; }
+code > span.co { color: #60a0b0; font-style: italic; }
+code > span.ot { color: #007020; }
+code > span.al { color: #ff0000; font-weight: bold; }
+code > span.fu { color: #06287e; }
+code > span.er { color: #ff0000; font-weight: bold; }
+    </style>
+    <link rel="stylesheet" href="reveal.js/css/theme/simple.css" id="theme">
+    <!-- If the query includes 'print-pdf', include the PDF print sheet -->
+    <script>
+      if( window.location.search.match( /print-pdf/gi ) ) {
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = 'reveal.js/css/print/pdf.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+      }
+    </script>
+    <!--[if lt IE 9]>
+    <script src="reveal.js/lib/js/html5shiv.js"></script>
+    <![endif]-->
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+
+<section><section id="lincoln-lectures-on-graphics---03" class="titleslide slide level1"><h1>Lincoln Lectures On Graphics - 03</h1></section></section>
+<section><section id="pipeline-overview" class="titleslide slide level1"><h1>Pipeline Overview</h1></section><section id="putting-the-fun-in-fundamentals" class="slide level2">
+<h1>Putting the <strong>&quot;Fun&quot;</strong> in Fundamentals</h1>
+</section><section id="vertices-in-world-space" class="slide level2">
+<h1>Vertices in World Space</h1>
+<p>The pipeline is fed (<em>somehow, we'll cover later</em>) with <strong>vertices</strong> in <strong>WORLD SPACE</strong> (or <strong>Object Space</strong>)</p>
+<p><img src="assets/pipelineOverview/pipelineOverview01verticesInWorldSpace.png" alt="pipelineOverview01verticesInWorldSpace" /> </p>
+</section><section id="clip-space-transformation" class="slide level2">
+<h1>Clip Space Transformation</h1>
+<ul>
+<li>Transform the vertices into a certain region of space
+<ul>
+<li>in OpenGL this is called <strong>clip space</strong></li>
+</ul></li>
+<li>Also known as <strong>projection transformation</strong>
+<ul>
+<li><a href="http://arcsynthesis.org/gltut/Basics/Intro%20Graphics%20and%20Rendering.html">http://arcsynthesis.org/gltut/Basics/Intro%20Graphics%20and%20Rendering.html</a></li>
+<li>you get to <strong>program</strong> this bit (GLSL - vertex shader)</li>
+</ul></li>
+</ul>
+<p><img src="assets/pipelineOverview/worldSpaceToClipSpace.png" alt="worldSpaceToClipSpace" /> </p>
+</section><section id="homogeneous-coordinates" class="slide level2">
+<h1>Homogeneous Coordinates!!</h1>
+<ul>
+<li>X,Y,Z and W!!!
+<ul>
+<li>W defines what the extents of clip space are for this vertex (-W to W on X, Y, Z)</li>
+</ul></li>
+<li>The process of transforming vertices into clip space is arbitrary (stupid)
+<ul>
+<li>OpenGL provides a lot of flexibility in this step</li>
+<li>i.e. <strong>programmable</strong> flexibility!</li>
+</ul></li>
+<li>We'll cover homogeneous coordinates more later
+<ul>
+<li>http://www.tomdalling.com/blog/modern-opengl/explaining-homogenous-coordinates-and-projective-geometry/</li>
+<li>http://www.songho.ca/math/homogeneous/homogeneous.html</li>
+</ul></li>
+</ul>
+</section><section id="vertices-in-clip-space" class="slide level2">
+<h1>Vertices in Clip Space</h1>
+<p><img src="assets/pipelineOverview/pipelineOverview02verticesInClipSpace.png" alt="pipelineOverview02verticesInClipSpace" /> </p>
+</section><section id="clipping" class="slide level2">
+<h1>Clipping</h1>
+<ul>
+<li>Triangles not <strong>fully</strong> in <strong>clip space</strong> (the [-1,1] cube) we want to <strong>clip</strong></li>
+</ul>
+<p><img src="assets/pipelineOverview/clipping.png" alt="clipping" /> </p>
+</section><section id="clipping-2" class="slide level2">
+<h1>Clipping 2</h1>
+<ul>
+<li>Points are easy to test in our new, normalised coordinate space (NDC)</li>
+<li>Lines are more difficult</li>
+<li>Triangles are complicated
+<ul>
+<li>may need to make more triangles</li>
+</ul></li>
+</ul>
+</section><section id="vertices-in-normalized-device-coordinates" class="slide level2">
+<h1>Vertices in Normalized Device Coordinates</h1>
+<p><img src="assets/pipelineOverview/pipelineOverview03verticesThatHaveBeenClipped.png" alt="pipelineOverview03verticesThatHaveBeenClipped" /> </p>
+</section><section id="normalized-device-coordinates" class="slide level2">
+<h1>Normalized Device Coordinates</h1>
+<ul>
+<li>Clip space is interesting, but inconvenient
+<ul>
+<li>the extent of this space is different for each vertex, which makes visualizing a triangle rather difficult</li>
+</ul></li>
+<li>The X, Y, and Z of each vertex's position is divided by W to get normalized device coordinates
+<ul>
+<li>basically the same as clip space except that the range of X, Y and Z are <strong>[-1, 1]</strong></li>
+</ul></li>
+</ul>
+</section><section id="vertices-in-ndc" class="slide level2">
+<h1>Vertices in NDC</h1>
+<p><img src="assets/pipelineOverview/pipelineOverview04verticesInNormalizedDeviceCoordinates.png" alt="pipelineOverview04verticesInNormalizedDeviceCoordinates" /> </p>
+</section><section id="window-transformation" class="slide level2">
+<h1>Window Transformation</h1>
+<ul>
+<li>Transform from normalized device coordinates towindow coordinates</li>
+<li>window coordinates are relative to the window that OpenGL is running within</li>
+<li>Though they refer to the window, they are still three dimensional coordinates
+<ul>
+<li>still floating-point values</li>
+<li>still have a z-coordinates!! Why?? Stay-tuned ...</li>
+<li>bottom-left position is the origin (0, 0)</li>
+</ul></li>
+</ul>
+</section><section id="vertices-in-window-coordinates" class="slide level2">
+<h1>Vertices in Window Coordinates</h1>
+<p><img src="assets/pipelineOverview/pipelineOverview05verticesInWindowCoordinates.png" alt="pipelineOverview05verticesInWindowCoordinates" /> </p>
+</section><section id="scan-conversion" class="slide level2">
+<h1>Scan Conversion</h1>
+<ul>
+<li>After conversion to window coordinates the triangle undergoes a process called <strong>scan conversion</strong>
+<ul>
+<li>also known as <strong>rasterization</strong></li>
+</ul></li>
+<li>Takes the triangle and generates fragments that cover the area of the triangle
+<ul>
+<li>also fills in pixels for lines</li>
+</ul></li>
+<li>We'll look later at how scan conversion can be done</li>
+</ul>
+</section><section id="scan-conversion-triangles-again" class="slide level2">
+<h1>Scan Conversion (triangles again)</h1>
+<ul>
+<li>Image in the centre shows the digital grid of output pixels
+<ul>
+<li>the circles represent the centre of each pixel, the centre of each pixel represents a <strong>sample</strong>:
+<ul>
+<li>a discrete location within the area of a pixel</li>
+</ul></li>
+</ul></li>
+</ul>
+<p><img src="assets/pipelineOverview/scanline.png" alt="scanline" /> </p>
+</section><section id="scan-conversion-more-triangles" class="slide level2">
+<h1>Scan Conversion (more triangles)</h1>
+<ul>
+<li>During scan conversion, a triangle will produce a <strong>fragment</strong> for every pixel sample that is within the 2D area of the triangle (right)
+<ul>
+<li>a rough <strong>approximation</strong> of the triangle's general shape</li>
+</ul></li>
+</ul>
+<p><img src="assets/pipelineOverview/scanline.png" alt="scanline" /> </p>
+</section><section id="scan-conversion-1" class="slide level2">
+<h1>Scan Conversion</h1>
+<section id="shared-edges-and-the-invariance-guarantee-by-tom-clancy" class="level3">
+<h3>Shared Edges and <strong><em>the invariance guarantee</em></strong> (By Tom Clancy)</h3>
+<ul>
+<li>triangles that share edges are very often rendered (unless you’re making asteroids)</li>
+<li>OpenGL offers the invariance guarantee
+<ul>
+<li>so long as shared edge vertex positions are <strong>identical</strong>, there will be no sample gaps during scan conversion</li>
+</ul></li>
+<li>What would happen otherwise??</li>
+</ul>
+<p><img src="assets/pipelineOverview/sharededge.png" alt="sharededge" /> </p>
+</section>
+</section><section id="scan-conversion-still" class="slide level2">
+<h1>Scan Conversion (Still??)</h1>
+<ul>
+<li>Scan conversion only uses X and Y position of the triangle in window coordinates to determine which fragments to generate
+<ul>
+<li>the Z value is not forgotten!</li>
+</ul></li>
+<li>The result of scan converting a triangle is a sequence of fragments that cover the shape of the triangle
+<ul>
+<li>each fragment has data associated with it
+<ul>
+<li>the 2D location of the fragment in window coordinates</li>
+<li>the Z position of the fragment</li>
+<li>(a.k.a. known as the depth of the fragment)</li>
+<li>there may be other information that is part of a fragment</li>
+</ul></li>
+</ul></li>
+</ul>
+</section><section id="fragments" class="slide level2">
+<h1>Fragments</h1>
+<p><img src="assets/pipelineOverview/pipelineOverview06fragments.png" alt="pipelineOverview06fragments" /> </p>
+</section><section id="fragment-processing" class="slide level2">
+<h1>Fragment Processing</h1>
+<ul>
+<li>Fragment processing takes a fragment from scan converted triangle and <strong>transforms</strong> it into</li>
+<li>one or more colour values</li>
+<li>a single depth value (z value)</li>
+<li>you get to <strong>program</strong> this bit (GLSL - fragment shader)</li>
+<li>The order that fragments from a single triangle are processed in is irrelevant
+<ul>
+<li><em>unlike</em> the order that triangles are pumped into the pipeline, a single triangle lies in a <strong>single plane</strong> so fragments generated from it <strong>cannot overlap</strong></li>
+</ul></li>
+<li><strong>However</strong>, the fragments from another triangle might</li>
+<li><strong><em>Therefore, fragments from one triangle must all be processed before fragments from another triangle</em></strong></li>
+</ul>
+</section><section id="processed-fragments" class="slide level2">
+<h1>Processed Fragments</h1>
+<p><img src="assets/pipelineOverview/pipelineOverview07fragmentsProcessed.png" alt="pipelineOverview07fragmentsProcessed" /> </p>
+</section><section id="fragment-writing-maybe" class="slide level2">
+<h1>Fragment Writing (maybe)</h1>
+<ul>
+<li>After generating one or more colours and a depth value
+<ul>
+<li>the fragment is <strong>possibly</strong> written to the destination (probably a frame buffer)</li>
+<li><strong>What might control this?</strong></li>
+</ul></li>
+<li>This step involves more than simply writing to the destination image
+<ul>
+<li>These will be covered more later</li>
+</ul></li>
+</ul>
+</section></section>
+<section><section id="colours" class="titleslide slide level1"><h1>Colours</h1></section><section id="colours-1" class="slide level2">
+<h1>Colours</h1>
+<ul>
+<li>The usual description of a colour is as a series of numbers on the range <strong>[0, 1] </strong><em>Why [0,1]?</em>
+<ul>
+<li>each of the numbers corresponds to the <strong>intensity</strong> of a particular reference colour</li>
+<li>the final colour represented by the series of numbers is a mix of these reference colours</li>
+</ul></li>
+<li>The set of reference colours is called a <strong>colour space</strong>.
+<ul>
+<li>the most common colour space for screens is RGB, where the reference colours are Red, Green and Blue</li>
+<li>printed works tend to use CMYK (Cyan, Magenta, Yellow, Black)]</li>
+</ul></li>
+</ul>
+<p><img src="assets/pipelineOverview/RGB_and_CMYK_comparison.png" alt="RGB_and_CMYK_comparison" /> </p>
+</section><section id="colours-2" class="slide level2">
+<h1>Colours 2</h1>
+<ul>
+<li>Combining different intensities of this 3 colours, we can generate and display millions of different colour shades in OpenGL
+<ul>
+<li>how many colours? what is the usual representation?
+<ul>
+<li><a href="http://en.wikipedia.org/wiki/Color_depth#Deep_color_.2830.2F36.2F48-bit.29" class="uri">http://en.wikipedia.org/wiki/Color_depth#Deep_color_.2830.2F36.2F48-bit.29</a></li>
+</ul></li>
+<li>in most conditions more than the human eye can perceive
+<ul>
+<li>any <em>special conditions?</em></li>
+</ul></li>
+<li>unless you're a tetrachromat ... <a href="http://www.post-gazette.com/pg/06256/721190-114.stm" class="uri">http://www.post-gazette.com/pg/06256/721190-114.stm</a></li>
+</ul></li>
+</ul>
+</section></section>
+<section><section id="shaders" class="titleslide slide level1"><h1>Shaders</h1></section><section id="shaders-1" class="slide level2">
+<h1>Shaders</h1>
+<ul>
+<li>A shader is a program designed to be run on a renderer as part of the rendering operation</li>
+<li>Regardless of the kind of rendering system in use, shaders can only be executed at certain points in the rendering process</li>
+<li>These shader stages represent hooks where we can insert our code to create specific visual effects, for example:
+<ul>
+<li>transformation of an incoming vertex to clip space is a useful hook for user-defined code</li>
+<li>the processing of a fragment into final colours and depth</li>
+</ul></li>
+</ul>
+</section><section id="shaders-2-glsl" class="slide level2">
+<h1>Shaders 2 (GLSL)</h1>
+<ul>
+<li>Shaders for OpenGL are run on the actual rendering hardware so free up valuable CPU time for other tasks
+<ul>
+<li>and <strong>usually</strong> the graphics card has orders of magnitude more raw, though specialist processing power available</li>
+<li>GeForce GTX 760 Ti - <strong>2460 GFLOPS</strong> single-precision!!</li>
+</ul></li>
+<li>Or perform operations that would be difficult if not impossible without the flexibility of executing arbitrary code
+<ul>
+<li>however, they live within certain limits that CPU code would not have to ...</li>
+<li>?? any guess what limits ??</li>
+</ul></li>
+<li>There are a number of shading languages available to various APIs. The one used here is the primary shading language of OpenGL, the <strong>OpenGL Shading Language</strong>, or <strong>GLSL</strong>. for short
+<ul>
+<li>It looks deceptively like C, <strong>but it is very much not C</strong></li>
+</ul></li>
+</ul>
+</section><section id="shaders-3-glsl" class="slide level2">
+<h1>Shaders 3 (GLSL)</h1>
+<pre class="glsl"><code>#version 330
+
+layout(location = 0) in vec4 position;
+uniform float loopDuration;
+uniform float time;
+
+void main()
+{
+    float timeScale = 3.14159f * 2.0f / loopDuration;
+    
+    float currTime = mod(time, loopDuration);
+    vec4 totalOffset = vec4(
+        cos(currTime * timeScale) * 0.5f,
+        sin(currTime * timeScale) * 0.5f,
+        0.0f,
+        0.0f);
+
+    gl_Position = position + totalOffset;
+}</code></pre>
+</section></section>
+<section><section id="links-about-graphics" class="titleslide slide level1"><h1>Links about Graphics</h1></section><section id="opengl-3.0-onwards" class="slide level2">
+<h1>OpenGL 3.0 onwards</h1>
+<ul>
+<li><a href="http://open.gl/" class="uri">http://open.gl/</a></li>
+<li><a href="http://duriansoftware.com/joe/An-intro-to-modern-OpenGL.-Chapter-1%3a-The-Graphics-Pipeline.html">http://duriansoftware.com/joe/An-intro-to-modern-OpenGL.-Chapter-1%3a-The-Graphics-Pipeline.html</a></li>
+<li><a href="http://www.arcsynthesis.org/gltut/" class="uri">http://www.arcsynthesis.org/gltut/</a></li>
+<li><a href="https://bitbucket.org/alfonse/gltut/src" class="uri">https://bitbucket.org/alfonse/gltut/src</a></li>
+<li><a href="http://en.wikibooks.org/wiki/OpenGL_Programming/Modern_OpenGL_Introduction" class="uri">http://en.wikibooks.org/wiki/OpenGL_Programming/Modern_OpenGL_Introduction</a></li>
+<li><a href="http://www.daveshreiner.com/SIGGRAPH/s11/Modern-OpenGL.pdf" class="uri">http://www.daveshreiner.com/SIGGRAPH/s11/Modern-OpenGL.pdf</a></li>
+<li><a href="http://fgiesen.wordpress.com/2011/07/09/a-trip-through-the-graphics-pipeline-2011-index/" class="uri">http://fgiesen.wordpress.com/2011/07/09/a-trip-through-the-graphics-pipeline-2011-index/</a></li>
+</ul>
+</section><section id="opengl-3.0-onwards-2" class="slide level2">
+<h1>OpenGL 3.0 onwards 2</h1>
+<ul>
+<li><a href="http://gamedev.stackexchange.com/questions/32876/good-resources-for-learning-modern-opengl-3-0-or-later" class="uri">http://gamedev.stackexchange.com/questions/32876/good-resources-for-learning-modern-opengl-3-0-or-later</a></li>
+<li><a href="https://github.com/g-truc/ogl-samples" class="uri">https://github.com/g-truc/ogl-samples</a></li>
+<li>OpenGLSuperBible (6th edition) Examples <a href="https://github.com/openglsuperbible/sb6code/tree/master/src" class="uri">https://github.com/openglsuperbible/sb6code/tree/master/src</a></li>
+<li>Open Media Engine OpenGL 4 Tutorials <a href="http://openme.gl/opengl-4-tutorial-code/" class="uri">http://openme.gl/opengl-4-tutorial-code/</a></li>
+<li>OpenGL 4.3/4.4 example using SDL2 and GLM <a href="http://openme.gl/opengl-4-x-example-using-sdl2-and-glm/" class="uri">http://openme.gl/opengl-4-x-example-using-sdl2-and-glm/</a></li>
+<li>Swiftless tutorials <a href="http://www.swiftless.com/opengl4tuts.html" class="uri">http://www.swiftless.com/opengl4tuts.html</a></li>
+<li>http://www.tomdalling.com/blog/category/modern-opengl/</li>
+</ul>
+</section><section id="context-creation-mostly-sdl2" class="slide level2">
+<h1>Context Creation (mostly SDL2)</h1>
+<ul>
+<li>https://open.gl/context</li>
+<li><a href="https://www.libsdl.org/index.php" class="uri">https://www.libsdl.org/index.php</a></li>
+<li><a href="https://www.youtube.com/watch?v=MeMPCSqQ-34" class="uri">https://www.youtube.com/watch?v=MeMPCSqQ-34</a></li>
+<li><a href="https://github.com/BennyQBD/ModernOpenGLTutorial" class="uri">https://github.com/BennyQBD/ModernOpenGLTutorial</a></li>
+<li><a href="https://www.youtube.com/watch?v=ftiKrP3gW3k&amp;list=PLEETnX-uPtBXT9T-hD0Bj31DSnwio-ywh" class="uri">https://www.youtube.com/watch?v=ftiKrP3gW3k&amp;list=PLEETnX-uPtBXT9T-hD0Bj31DSnwio-ywh</a></li>
+<li>Setting up SDL2 in Visual Studio (2013 or any other) <a href="www.programmersranch.com/2014/02/sdl2-setting-up-sdl2-in-visual-studio.html" class="uri">www.programmersranch.com/2014/02/sdl2-setting-up-sdl2-in-visual-studio.html</a></li>
+<li>2D tutorials with SDL2 <a href="http://lazyfoo.net/tutorials/SDL/index.php" class="uri">http://lazyfoo.net/tutorials/SDL/index.php</a></li>
+<li>SDL2 migration guide <a href="https://wiki.libsdl.org/MigrationGuide" class="uri">https://wiki.libsdl.org/MigrationGuide</a></li>
+</ul>
+</section><section id="context-creation-non-sdl" class="slide level2">
+<h1>Context Creation (non-SDL)</h1>
+<ul>
+<li>Unofficial OpenGL Software Development Kit <a href="http://glsdk.sourceforge.net/docs/html/index.html" class="uri">http://glsdk.sourceforge.net/docs/html/index.html</a></li>
+<li>FreeGlut <a href="http://freeglut.sourceforge.net/" class="uri">http://freeglut.sourceforge.net/</a></li>
+<li>Simple and Fast Multimedia Library <a href="http://www.sfml-dev.org/" class="uri">http://www.sfml-dev.org/</a></li>
+<li>GLFW <a href="http://www.glfw.org/" class="uri">http://www.glfw.org/</a></li>
+</ul>
+</section><section id="platform-specific-context-creation" class="slide level2">
+<h1>platform-specific Context Creation</h1>
+<pre class="sourceCode c"><code class="sourceCode c"><span class="ot">#include &lt;windows.h&gt;</span>
+<span class="ot">#include &lt;GL/GL.h&gt;</span>
+
+<span class="ot">#pragma comment (lib, &quot;opengl32.lib&quot;)</span>
+
+LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
+
+<span class="dt">int</span> WinMain( __in HINSTANCE hInstance, __in_opt HINSTANCE hPrevInstance, __in_opt LPSTR lpCmdLine, __in <span class="dt">int</span> nShowCmd )
+{
+        MSG msg          = {<span class="dv">0</span>};
+        WNDCLASS wc      = {<span class="dv">0</span>}; 
+        wc.lpfnWndProc   = WndProc;
+        wc.hInstance     = hInstance;
+        wc.hbrBackground = (HBRUSH)(COLOR_BACKGROUND);
+        wc.lpszClassName = L<span class="st">&quot;oglversionchecksample&quot;</span>;
+        wc.style = CS_OWNDC;
+        <span class="kw">if</span>( !RegisterClass(&amp;wc) )
+                <span class="kw">return</span> <span class="dv">1</span>;
+        CreateWindowW(wc.lpszClassName,L<span class="st">&quot;openglversioncheck&quot;</span>,WS_OVERLAPPEDWINDOW|WS_VISIBLE,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">640</span>,<span class="dv">480</span>,<span class="dv">0</span>,<span class="dv">0</span>,hInstance,<span class="dv">0</span>);
+
+        <span class="kw">while</span>( GetMessage( &amp;msg, NULL, <span class="dv">0</span>, <span class="dv">0</span> ) &gt; <span class="dv">0</span> )
+                DispatchMessage( &amp;msg );
+
+        <span class="kw">return</span> <span class="dv">0</span>;
+}</code></pre>
+</section><section id="platform-specific-context-creation-2" class="slide level2">
+<h1>platform-specific Context Creation 2</h1>
+<pre class="sourceCode c"><code class="sourceCode c">LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
+{
+        <span class="kw">switch</span>(message)
+        {
+        <span class="kw">case</span> WM_CREATE:
+                {
+                PIXELFORMATDESCRIPTOR pfd =
+                {
+                        <span class="kw">sizeof</span>(PIXELFORMATDESCRIPTOR),
+                        <span class="dv">1</span>,
+                        PFD_DRAW_TO_WINDOW | PFD_SUPPORT_OPENGL | PFD_DOUBLEBUFFER,    <span class="co">//Flags</span>
+                        PFD_TYPE_RGBA,            <span class="co">//The kind of framebuffer. RGBA or palette.</span>
+                        <span class="dv">32</span>,                        <span class="co">//Colordepth of the framebuffer.</span>
+                        <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>,
+                        <span class="dv">0</span>,
+                        <span class="dv">0</span>,
+                        <span class="dv">0</span>,
+                        <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>,
+                        <span class="dv">24</span>,                        <span class="co">//Number of bits for the depthbuffer</span>
+                        <span class="dv">8</span>,                        <span class="co">//Number of bits for the stencilbuffer</span>
+                        <span class="dv">0</span>,                        <span class="co">//Number of Aux buffers in the framebuffer.</span>
+                        PFD_MAIN_PLANE,
+                        <span class="dv">0</span>,
+                        <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>
+                };</code></pre>
+</section><section id="platform-specific-context-creation-3" class="slide level2">
+<h1>platform-specific Context Creation 3</h1>
+<pre class="sourceCode c"><code class="sourceCode c">                HDC ourWindowHandleToDeviceContext = GetDC(hWnd);
+
+                <span class="dt">int</span>  letWindowsChooseThisPixelFormat;
+                letWindowsChooseThisPixelFormat = ChoosePixelFormat(ourWindowHandleToDeviceContext, &amp;pfd); 
+                SetPixelFormat(ourWindowHandleToDeviceContext,letWindowsChooseThisPixelFormat, &amp;pfd);
+
+                HGLRC ourOpenGLRenderingContext = wglCreateContext(ourWindowHandleToDeviceContext);
+                wglMakeCurrent (ourWindowHandleToDeviceContext, ourOpenGLRenderingContext);
+
+                MessageBoxA(<span class="dv">0</span>,(<span class="dt">char</span>*)glGetString(GL_VERSION), <span class="st">&quot;OPENGL VERSION&quot;</span>,<span class="dv">0</span>);
+
+                wglDeleteContext(ourOpenGLRenderingContext);
+                PostQuitMessage(<span class="dv">0</span>);
+                }
+                <span class="kw">break</span>;
+        <span class="kw">default</span>:
+                <span class="kw">return</span> DefWindowProc(hWnd, message, wParam, lParam);
+        }
+        <span class="kw">return</span> <span class="dv">0</span>;
+
+}</code></pre>
+</section><section id="extensions-wrangling" class="slide level2">
+<h1>Extensions Wrangling</h1>
+<ul>
+<li>Manual function loading! <a href="https://open.gl/context#Onemorething" class="uri">https://open.gl/context#Onemorething</a></li>
+<li>OpenGl Extension Wrangler Library (GLEW) <a href="http://glew.sourceforge.net/" class="uri">http://glew.sourceforge.net/</a></li>
+<li>gl3w <a href="https://github.com/skaslev/gl3w" class="uri">https://github.com/skaslev/gl3w</a></li>
+<li>gl3w with SDL2 example <a href="https://github.com/progschj/OpenGL-Windowing-Examples/blob/master/sdl2.cpp" class="uri">https://github.com/progschj/OpenGL-Windowing-Examples/blob/master/sdl2.cpp</a></li>
+<li>Lazy Foo on Modern OpenGL <a href="http://lazyfoo.net/tutorials/SDL/51_SDL_and_modern_opengl/index.php" class="uri">http://lazyfoo.net/tutorials/SDL/51_SDL_and_modern_opengl/index.php</a></li>
+</ul>
+</section><section id="object-orientated-opengl-oglplus-c" class="slide level2">
+<h1>Object-orientated OpenGL (OGLplus, C++)</h1>
+<ul>
+<li><a href="http://oglplus.org/" class="uri">http://oglplus.org/</a></li>
+<li>OGLplus tutorials <a href="http://oglplus.org/oglplus/html/oglplus_tutorials.html" class="uri">http://oglplus.org/oglplus/html/oglplus_tutorials.html</a></li>
+</ul>
+</section><section id="using-git" class="slide level2">
+<h1>using git</h1>
+<ul>
+<li><a href="http://programmaticallyspeaking.com/code-demo-using-git.html" class="uri">http://programmaticallyspeaking.com/code-demo-using-git.html</a></li>
+<li>Try Github <a href="https://try.github.io/levels/1/challenges/1" class="uri">https://try.github.io/levels/1/challenges/1</a></li>
+<li>Git: the simple guide <a href="http://rogerdudler.github.io/git-guide/" class="uri">http://rogerdudler.github.io/git-guide/</a></li>
+<li>Git Immersion <a href="http://gitimmersion.com/" class="uri">http://gitimmersion.com/</a></li>
+<li>Github Guides <a href="https://guides.github.com/" class="uri">https://guides.github.com/</a></li>
+<li>Ungit <a href="https://github.com/FredrikNoren/ungit" class="uri">https://github.com/FredrikNoren/ungit</a>
+<ul>
+<li>Ungit Introduction Video <a href="https://www.youtube.com/watch?v=hkBVAi3oKvo&amp;feature=youtu.be" class="uri">https://www.youtube.com/watch?v=hkBVAi3oKvo&amp;feature=youtu.be</a></li>
+</ul></li>
+<li>git-big-picture (for summarising git trees) <a href="https://github.com/esc/git-big-picture" class="uri">https://github.com/esc/git-big-picture</a></li>
+</ul>
+</section><section id="debugging-tools" class="slide level2">
+<h1>Debugging tools</h1>
+<ul>
+<li><a href="apitrace%20-%20http://apitrace.github.io/">apitrace - http://apitrace.github.io/</a></li>
+<li>VOGL:
+<ul>
+<li><a href="http://richg42.blogspot.de/2014/01/vogl-opengl-tracerdebugger-bonus-content.html" class="uri">http://richg42.blogspot.de/2014/01/vogl-opengl-tracerdebugger-bonus-content.html</a></li>
+<li><a href="https://github.com/ValveSoftware/vogl" class="uri">https://github.com/ValveSoftware/vogl</a></li>
+<li><a href="https://www.youtube.com/watch?v=45O7WTc6k2Y">https://www.youtube.com/watch?v=45O7WTc6k2Y -Moving Your Games to OpenGL</a></li>
+</ul></li>
+</ul>
+</section><section id="build-tools-premake" class="slide level2">
+<h1>Build tools (Premake)</h1>
+<ul>
+<li>Premake Website (a little out of date) <a href="http://industriousone.com/premake" class="uri">http://industriousone.com/premake</a></li>
+<li>Premake repositories <a href="https://bitbucket.org/premake/" class="uri">https://bitbucket.org/premake/</a></li>
+<li>Premake Meta (Premake quickstart scripts) <a href="https://github.com/d-led/premake-meta-cpp" class="uri">https://github.com/d-led/premake-meta-cpp</a></li>
+<li>Example complex-ish Premake script from gltut <a href="https://bitbucket.org/alfonse/gltut/src/1d1479cc7027f1e32c5adff748f3b296f1931d84/framework/framework.lua?at=default" class="uri">https://bitbucket.org/alfonse/gltut/src/1d1479cc7027f1e32c5adff748f3b296f1931d84/framework/framework.lua?at=default</a></li>
+</ul>
+</section><section id="matrices" class="slide level2">
+<h1>Matrices</h1>
+<ul>
+<li><a href="www.opengl-tutorial.org/beginners-tutorials/tutorial-3-matrices/" class="uri">www.opengl-tutorial.org/beginners-tutorials/tutorial-3-matrices/</a></li>
+</ul>
+</section><section id="coordinate-systems" class="slide level2">
+<h1>Coordinate Systems</h1>
+<ul>
+<li>http://www.matrix44.net/cms/notes/opengl-3d-graphics/coordinate-systems-in-opengl</li>
+</ul>
+</section><section id="homogeneous-coordinates-1" class="slide level2">
+<h1>Homogeneous Coordinates</h1>
+<ul>
+<li>http://www.tomdalling.com/blog/modern-opengl/explaining-homogenous-coordinates-and-projective-geometry/ http://www.songho.ca/math/homogeneous/homogeneous.html</li>
+</ul>
+</section><section id="engines" class="slide level2">
+<h1>Engines</h1>
+<ul>
+<li>unreal engine 4 on linux (and steamOS and windows and maybe xbox one)
+<ul>
+<li><a href="https://www.unrealengine.com/blog/unreal-engine-4-and-linux" class="uri">https://www.unrealengine.com/blog/unreal-engine-4-and-linux</a></li>
+<li><a href="http://www.extremetech.com/gaming/179802-windows-apps-announced-for-xbox-one-is-steam-in-the-cards" class="uri">http://www.extremetech.com/gaming/179802-windows-apps-announced-for-xbox-one-is-steam-in-the-cards</a></li>
+</ul></li>
+<li>Open Media Engine <a href="http://openme.gl/" class="uri">http://openme.gl/</a>
+<ul>
+<li>A simple to use, general purpose, 3D media framework using OpenGL, OpenAL and OpenDE</li>
+</ul></li>
+<li>OGRE – Open Source 3D Graphics Engine <a href="http://www.ogre3d.org/" class="uri">http://www.ogre3d.org/</a></li>
+<li>Crystal Space <a href="http://www.crystalspace3d.org/main/Main_Page" class="uri">http://www.crystalspace3d.org/main/Main_Page</a></li>
+<li>Horde3D <a href="http://www.horde3d.org/" class="uri">http://www.horde3d.org/</a></li>
+</ul>
+</section><section id="asset-importing" class="slide level2">
+<h1>Asset importing</h1>
+<p><strong>Note that SDL2 can load standard <code>.bmp</code> files on its own, but no other image formats</strong></p>
+<ul>
+<li>Open Asset Import Library <a href="assimp.sourceforge.net/index.html" class="uri">assimp.sourceforge.net/index.html</a></li>
+<li>Resilient Image Library <a href="sourceforge.net/projects/resil/" class="uri">sourceforge.net/projects/resil/</a></li>
+<li>Simple OpenGL Image Library <a href="www.opengl-tutorial.org/miscellaneous/useful-tools-links/" class="uri">www.opengl-tutorial.org/miscellaneous/useful-tools-links/</a></li>
+</ul>
+</section><section id="other" class="slide level2">
+<h1>other</h1>
+<ul>
+<li>unreal engine 4 to linux
+<ul>
+<li><a href="https://www.unrealengine.com/blog/41-update-preview" class="uri">https://www.unrealengine.com/blog/41-update-preview</a></li>
+</ul></li>
+<li><a href="http://pyopengl.sourceforge.net/context/tutorials/shader_1.html" class="uri">http://pyopengl.sourceforge.net/context/tutorials/shader_1.html</a></li>
+<li><a href="http://www.networkedgraphics.org/sigasia2011/part3.pdf" class="uri">http://www.networkedgraphics.org/sigasia2011/part3.pdf</a></li>
+<li><a href="http://goanna.cs.rmit.edu.au/~gl/teaching/Interactive3D/2011/lecture2.html" class="uri">http://goanna.cs.rmit.edu.au/~gl/teaching/Interactive3D/2011/lecture2.html</a></li>
+<li><a href="http://graphics.cs.illinois.edusvn/kcrane/web/index.html" class="uri">http://graphics.cs.illinois.edusvn/kcrane/web/index.html</a></li>
+<li><a href="http://www.ogre3d.org/index.php?option=com_content&amp;task=view&amp;id=17&amp;Itemid=70" class="uri">http://www.ogre3d.org/index.php?option=com_content&amp;task=view&amp;id=17&amp;Itemid=70</a></li>
+<li><a href="http://www.opengl.org/" class="uri">http://www.opengl.org/</a></li>
+<li><a href="https://software.intel.com/en-us/articles/quake-wars-gets-ray-traced/?wapkw=%28ray+tracing%29">https://software.intel.com/en-us/articles/quake-wars-gets-ray-traced/?wapkw=%28ray+tracing%29</a></li>
+</ul>
+</section><section id="other-2" class="slide level2">
+<h1>other 2</h1>
+<ul>
+<li><a href="https://www.youtube.com/watch?v=hapCuhAs1nA" class="uri">https://www.youtube.com/watch?v=hapCuhAs1nA</a></li>
+<li><a href="https://www.youtube.com/watch?v=VUxcVzpeFqc" class="uri">https://www.youtube.com/watch?v=VUxcVzpeFqc</a></li>
+<li><p><a href="http://www.mesa3d.org/llvmpipe.html" class="uri">http://www.mesa3d.org/llvmpipe.html</a></p></li>
+<li><p><a href="http://www.willusher.io/sdl2%20tutorials/2013/08/15/lesson-0-linux-command-line/">http://www.willusher.io/sdl2%20tutorials/2013/08/15/lesson-0-linux-command-line/</a></p></li>
+</ul>
+</section></section>
+    </div>
+  </div>
+
+
+  <script src="reveal.js/lib/js/head.min.js"></script>
+  <script src="reveal.js/js/reveal.min.js"></script>
+
+  <script>
+
+      // Full list of configuration options available here:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+        theme: 'sky', // available themes are in /css/theme
+        transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+        // Optional libraries used to extend on reveal.js
+        dependencies: [
+          { src: 'reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: 'reveal.js/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+          { src: 'reveal.js/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } },
+//          { src: 'reveal.js/plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; }, }
+//          { src: 'reveal.js/plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+]});
+    </script>
+    </body>
+</html>
