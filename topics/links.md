@@ -181,6 +181,12 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 - http://www.tomdalling.com/blog/modern-opengl/explaining-homogenous-coordinates-and-projective-geometry/
 http://www.songho.ca/math/homogeneous/homogeneous.html
 
+##Timing
+
+- http://headerphile.blogspot.co.uk/2014/07/part-9-no-more-delays.html
+- https://wiki.libsdl.org/SDL_GetPerformanceCounter
+- http://gafferongames.com/game-physics/fix-your-timestep/
+
 ##Engines
 
 - unreal engine 4 on linux (and steamOS and windows and maybe xbox one)
