@@ -404,7 +404,7 @@ GLuint vao;</code></pre>
     return 0;
 }</code></pre>
 </section></section>
-<section><section id="initialise" class="titleslide slide level1"><h1>initialise</h1></section><section id="initialise-1" class="slide level2">
+<section><section id="setup" class="titleslide slide level1"><h1>setup</h1></section><section id="initialise" class="slide level2">
 <h1>initialise</h1>
 <pre class="c++"><code>void initialise()
 {
@@ -414,8 +414,7 @@ GLuint vao;</code></pre>
     }
     cout &lt;&lt; &quot;SDL initialised OK!\n&quot;;
 }</code></pre>
-</section></section>
-<section><section id="createwindow" class="titleslide slide level1"><h1>createWindow</h1></section><section id="createwindow-1" class="slide level2">
+</section><section id="createwindow" class="slide level2">
 <h1>createWindow</h1>
 <pre class="c++"><code>void createWindow()
 {
@@ -428,8 +427,64 @@ GLuint vao;</code></pre>
     }
     cout &lt;&lt; &quot;SDL CreatedWindow OK!\n&quot;;
 }</code></pre>
+</section><section id="setglattributes" class="slide level2">
+<h1>setGLAttributes</h1>
+<pre class="c++"><code>void setGLAttributes()
+{
+    // set the opengl context version
+    int major = 3;
+    int minor = 3;
+    SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, major);
+    SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, minor);
+    SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE); //core profile
+    cout &lt;&lt; &quot;Set OpenGL context to version &quot; &lt;&lt; major &lt;&lt; &quot;.&quot; &lt;&lt; minor &lt;&lt; &quot; OK!\n&quot;;
+}</code></pre>
+</section><section id="createcontext" class="slide level2">
+<h1>createContext</h1>
+<pre class="c++"><code>
+void createContext()
+{
+    context = SDL_GL_CreateContext(win);
+    if (context == nullptr){
+        SDL_DestroyWindow(win);
+        std::cout &lt;&lt; &quot;SDL_GL_CreateContext Error: &quot; &lt;&lt; SDL_GetError() &lt;&lt; std::endl;
+        SDL_Quit();
+        exit(1);
+    }
+    cout &lt;&lt; &quot;Created OpenGL context OK!\n&quot;;
+}</code></pre>
+</section><section id="initglew" class="slide level2">
+<h1>initGlew</h1>
+<pre class="c++"><code>void initGlew()
+{
+    GLenum rev;
+    glewExperimental = GL_TRUE; //GLEW isn&#39;t perfect - see https://www.opengl.org/wiki/OpenGL_Loading_Library#GLEW
+    rev = glewInit();
+    if (GLEW_OK != rev){
+        std::cout &lt;&lt; &quot;GLEW Error: &quot; &lt;&lt; glewGetErrorString(rev) &lt;&lt; std::endl;
+        SDL_Quit();
+        exit(1);
+    }
+    else {
+        cout &lt;&lt; &quot;GLEW Init OK!\n&quot;;
+    }
+}</code></pre>
 </section></section>
-<section><section id="etc-..." class="titleslide slide level1"><h1>etc ...</h1></section></section>
+<section><section id="load-assets" class="titleslide slide level1"><h1>Load Assets</h1></section><section id="load-assets-1" class="slide level2">
+<h1>Load Assets</h1>
+<pre class="c++"><code>void loadAssets()
+{
+    initializeProgram(); //create GLSL Shaders, link into a GLSL program
+
+    initializeVertexBuffer(); //load data into a vertex buffer
+
+    glGenVertexArrays(1, &amp;vao); //create a Vertex Array Object
+    glBindVertexArray(vao); //make the VAO active
+    cout &lt;&lt; &quot;Vertex Array Object created OK! GLUint is: &quot; &lt;&lt; vao &lt;&lt; std::endl;
+
+    cout &lt;&lt; &quot;Loaded Assets OK!\n&quot;;
+}</code></pre>
+</section></section>
     </div>
   </div>
 
