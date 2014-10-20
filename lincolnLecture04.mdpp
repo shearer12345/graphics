@@ -127,7 +127,7 @@ int main( int argc, char* args[] )
 }
 ```
 
-#initialise
+#setup
 
 ##initialise
 
@@ -141,8 +141,6 @@ void initialise()
 	cout << "SDL initialised OK!\n";
 }
 ```
-
-#createWindow
 
 ##createWindow
 
@@ -160,4 +158,74 @@ void createWindow()
 }
 ```
 
-#etc ...
+##setGLAttributes
+
+```C++
+void setGLAttributes()
+{
+	// set the opengl context version
+	int major = 3;
+	int minor = 3;
+	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, major);
+	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, minor);
+	SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE); //core profile
+	cout << "Set OpenGL context to version " << major << "." << minor << " OK!\n";
+}
+```
+
+##createContext
+
+```C++
+
+void createContext()
+{
+	context = SDL_GL_CreateContext(win);
+	if (context == nullptr){
+		SDL_DestroyWindow(win);
+		std::cout << "SDL_GL_CreateContext Error: " << SDL_GetError() << std::endl;
+		SDL_Quit();
+		exit(1);
+	}
+	cout << "Created OpenGL context OK!\n";
+}
+```
+
+##initGlew
+
+```C++
+void initGlew()
+{
+	GLenum rev;
+	glewExperimental = GL_TRUE; //GLEW isn't perfect - see https://www.opengl.org/wiki/OpenGL_Loading_Library#GLEW
+	rev = glewInit();
+	if (GLEW_OK != rev){
+		std::cout << "GLEW Error: " << glewGetErrorString(rev) << std::endl;
+		SDL_Quit();
+		exit(1);
+	}
+	else {
+		cout << "GLEW Init OK!\n";
+	}
+}
+```
+
+#Load Assets
+
+##Load Assets
+
+```C++
+void loadAssets()
+{
+	initializeProgram(); //create GLSL Shaders, link into a GLSL program
+
+	initializeVertexBuffer(); //load data into a vertex buffer
+
+	glGenVertexArrays(1, &vao); //create a Vertex Array Object
+	glBindVertexArray(vao); //make the VAO active
+	cout << "Vertex Array Object created OK! GLUint is: " << vao << std::endl;
+
+	cout << "Loaded Assets OK!\n";
+}
+```
+
+
