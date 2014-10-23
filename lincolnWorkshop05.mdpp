@@ -1,0 +1,33 @@
+#Lincoln Graphics Workshop 05 - Playing with Colors and Multiple Triangles
+
+##Playing with Colors
+
+- As previously, you'll be working from glTriangleWhite and adding features.
+    - I have set glTriangleWhite as the "master" branch for now, so a fresh clone will be on this branch by default
+    - *note* don't rely on this behaviour for the longer term
+- If you haven't completed the standard activities from the previous weeks then you should catch up on them
+- as a reminder, the source is at
+    - [https://github.com/shearer12345/graphics_examples_in_git_branches](https://github.com/shearer12345/graphics_examples_in_git_branches)
+
+##Playing with Colors
+
+1) try to make your triangle change colour from top to bottom (or from left to right)
+    - you should be able to do this by **only** changing the GLSL code
+2) try to make the corners of your triangle different colours
+    - you'll need a combination of edits in the C++ code and the GLSL code
+
+- the 2nd ArcSynthesis tutorial should help for both of these
+    - http://www.arcsynthesis.org/gltut/Basics/Tutorial%2002.html
+
+##Multiple Triangles
+
+1) try to draw two triangles
+2) try to draw three triangles
+3) try to draw two triangles, each a different colour
+4) try to draw two triangles, each a different colour, with only one draw call
+
+##Stretch Activities
+
+- If you've got through the standard activities then have a bash at these
+
+1)
