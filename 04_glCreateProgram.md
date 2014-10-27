@@ -19,7 +19,7 @@ GLuint program = glCreateProgram();
 - the program is empty
 - nothing else has changed
 
-TODO - diagram of context, with a new GLSL program, based on ![assets/apitrace/context_draft.jpg](assets/apitrace/context_draft.jpg)
+TODO - diagram of context, with a new GLSL program, based on ![assets/apitrace/context_draft.jpg](assets/apitrace/context_draft.jpg_hide)
 
 ##glAttachShader (vertex)
 
@@ -39,7 +39,7 @@ glAttachShader(program, shaderList[iLoop]);
 - the program is still empty
 - nothing else has changed
 
-TODO - diagram of context, based on ![assets/apitrace/context_draft.jpg](assets/apitrace/context_draft.jpg](assets/apitrace/context_draft.jpg)
+TODO - diagram of context, based on ![assets/apitrace/context_draft.jpg](assets/apitrace/context_draft.jpg](assets/apitrace/context_draft.jpg_hide)
 
 ##glAttachShader (fragment)
 
@@ -59,7 +59,7 @@ glAttachShader(program, shaderList[iLoop]);
 - the program is still empty
 - nothing else has changed
 
-TODO - diagram of context, based on ![assets/apitrace/context_draft.jpg](assets/apitrace/context_draft.jpg](assets/apitrace/context_draft.jpg)
+TODO - diagram of context, based on ![assets/apitrace/context_draft.jpg](assets/apitrace/context_draft.jpg](assets/apitrace/context_draft.jpg_hide)
 
 ##glBindAttribLocation
 
@@ -77,7 +77,7 @@ TODO - diagram of context, based on ![assets/apitrace/context_draft.jpg](assets/
 - the program is still empty
 - nothing else has changed
 
-TODO - diagram of context, based on ![assets/apitrace/context_draft.jpg](assets/apitrace/context_draft.jpg](assets/apitrace/context_draft.jpg)
+TODO - diagram of context, based on ![assets/apitrace/context_draft.jpg](assets/apitrace/context_draft.jpg](assets/apitrace/context_draft.jpg_hide)
 
 ##glLinkProgram
 
@@ -95,9 +95,10 @@ glLinkProgram(program);
 ##glLinkProgram - context
 
 - our GLSL program now has a **linked program** in it, which we need to check the link status of
+- this program exists separately from the attached shaders
 - nothing else has changed
 
-TODO - diagram of context, based on ![assets/apitrace/context_draft.jpg](assets/apitrace/context_draft.jpg](assets/apitrace/context_draft.jpg)
+TODO - diagram of context, based on ![assets/apitrace/context_draft.jpg](assets/apitrace/context_draft.jpg](assets/apitrace/context_draft.jpg_hide)
 
 ##glGetProgramiv
 
@@ -130,9 +131,101 @@ glDetachShader(program, shaderList[iLoop]);
 
 ##glDetachShader (vertex) - context
 
-- our GLSL program with ID=**3** now has our shader with ID=**2 (fragment)** attached
-- the program is still empty
+- our GLSL program with ID=**3** no longer has our shader with ID=**1 (vertex)** attached
 - nothing else has changed
 
-TODO - diagram of context, based on ![assets/apitrace/context_draft.jpg](assets/apitrace/context_draft.jpg](assets/apitrace/context_draft.jpg)
+TODO - diagram of context, based on ![assets/apitrace/context_draft.jpg](assets/apitrace/context_draft.jpg](assets/apitrace/context_draft.jpg_hide)
 
+##glDetachShader (fragment)
+
+- [main.cpp line 212 in our C++ code](https://github.com/shearer12345/graphics_examples_in_git_branches/blob/glTraingleWhiteWithApiTrace/main.cpp#L212)
+```C++
+glDetachShader(program, shaderList[iLoop]);
+```
+
+- [glDetachShader](https://www.opengl.org/sdk/docs/man4/html/glDetachShader.xhtml) Detaches a shader object from a program object to which it is attached
+- in this case we are detaching from the program with ID=**3**, the shader with ID=**2 (our fragment shader)**
+
+![Screenshot - 271014 - 10:37:19.png](assets/apitrace/04_glCreateProgram/Screenshot - 271014 - 10:37:19.png)
+
+##glDetachShader (fragment) - context
+
+- our GLSL program with ID=**3** no longer has our shader with ID=**2 (fragment)** attached
+- nothing else has changed
+
+TODO - diagram of context, based on ![assets/apitrace/context_draft.jpg](assets/apitrace/context_draft.jpg](assets/apitrace/context_draft.jpg_hide)
+
+##glGetAttribLocation (position)
+
+- [main.cpp line 235 in our C++ code](https://github.com/shearer12345/graphics_examples_in_git_branches/blob/glTraingleWhiteWithApiTrace/main.cpp#L235)
+```C++
+positionLocation = glGetAttribLocation(theProgram, "position");
+```
+
+- [glGetAttribLocation](https://www.opengl.org/sdk/docs/man4/html/glGetAttribLocation.xhtml) Returns the location of an attribute variable
+- in this case we are getting the location of attribute **position** in the program with ID=**3**
+- which is 0
+
+![Screenshot - 271014 - 12:20:57.png](assets/apitrace/04_glCreateProgram/Screenshot - 271014 - 12:20:57.png)
+
+##glGetAttribLocation (position) - context
+
+- this is a **get** function, nothing has changed in the context
+
+##glGetUniformLocation (offset)
+
+- [main.cpp line 236 in our C++ code](https://github.com/shearer12345/graphics_examples_in_git_branches/blob/glTraingleWhiteWithApiTrace/main.cpp#L236)
+```C++
+offsetLocation = glGetUniformLocation(theProgram, "offset");
+```
+
+- [glGetAttribLocation](https://www.opengl.org/sdk/docs/man4/html/glGetAttribLocation.xhtml) Returns the location of a uniform variable
+- in this case we are getting the location of uniform **offset** in the program with ID=**3**
+- which is 0
+
+![Screenshot - 271014 - 12:23:31.png](assets/apitrace/04_glCreateProgram/Screenshot - 271014 - 12:23:31.png)
+
+##glGetUniformLocation (offset) - context
+
+- this is a **get** function, nothing has changed in the context
+
+
+##glDeleteShader (vertex)
+
+- [main.cpp line 238 in our C++ code](https://github.com/shearer12345/graphics_examples_in_git_branches/blob/glTraingleWhiteWithApiTrace/main.cpp#L238)
+```C++
+for_each(shaderList.begin(), shaderList.end(), glDeleteShader);
+```
+
+- [glDeleteShader](https://www.opengl.org/sdk/docs/man4/html/glDeleteShader.xhtml) Deletes a shader object
+- frees the memory and invalidates the name associated with the shader object specified by shader.
+- in this case our shader with ID=**1** (the vertex shader) is deleted
+
+![Screenshot - 271014 - 12:28:42.png](assets/apitrace/04_glCreateProgram/Screenshot - 271014 - 12:28:42.png)
+
+##glDeleteShader (vertex) - context
+
+- the shader with ID=**1** no longer exists
+- nothing else has changed
+
+TODO - diagram of context, based on ![assets/apitrace/context_draft.jpg](assets/apitrace/context_draft.jpg_hide)
+
+##glDeleteShader (fragment)
+
+- [main.cpp line 238 in our C++ code](https://github.com/shearer12345/graphics_examples_in_git_branches/blob/glTraingleWhiteWithApiTrace/main.cpp#L238)
+```C++
+for_each(shaderList.begin(), shaderList.end(), glDeleteShader);
+```
+
+- [glDeleteShader](https://www.opengl.org/sdk/docs/man4/html/glDeleteShader.xhtml) Deletes a shader object
+- frees the memory and invalidates the name associated with the shader object specified by shader.
+- in this case our shader with ID=**2** (the fragment shader) is deleted
+
+![Screenshot - 271014 - 12:29:23.png](assets/apitrace/04_glCreateProgram/Screenshot - 271014 - 12:29:23.png)
+
+##glDeleteShader (fragment) - context
+
+- the shader with ID=**2** (our fragment shader) no longer exists
+- nothing else has changed
+
+TODO - diagram of context, based on ![assets/apitrace/context_draft.jpg](assets/apitrace/context_draft.jpg_hide)
