@@ -29,7 +29,7 @@ glAttachShader(program, shaderList[iLoop]);
 ```
 
 - [glCreateProgram](https://www.opengl.org/sdk/docs/man4/html/glAttachShader.xhtml) Attaches a shader object to a program object
-- in this case with are attaching to the program with ID=**3**, the shader with ID=**1 (our vertex shader)**
+- in this case we are attaching to the program with ID=**3**, the shader with ID=**1 (our vertex shader)**
 
 ![Screenshot - 261014 - 09:28:38.png](assets/apitrace/04_glCreateProgram/Screenshot - 261014 - 09:28:38.png)
 
@@ -49,7 +49,7 @@ glAttachShader(program, shaderList[iLoop]);
 ```
 
 - [glCreateProgram](https://www.opengl.org/sdk/docs/man4/html/glAttachShader.xhtml) Attaches a shader object to a program object
-- in this case with are attaching to the program with ID=**3**, the shader with ID=**2 (our fragment shader)**
+- in this case we are attaching to the program with ID=**3**, the shader with ID=**2 (our fragment shader)**
 
 ![Screenshot - 261014 - 09:33:47.png](assets/apitrace/04_glCreateProgram/Screenshot - 261014 - 09:33:47.png)
 
@@ -99,5 +99,40 @@ glLinkProgram(program);
 
 TODO - diagram of context, based on ![assets/apitrace/context_draft.jpg](assets/apitrace/context_draft.jpg](assets/apitrace/context_draft.jpg)
 
---MARK--
+##glGetProgramiv
+
+- [main.cpp line 199 in our C++ code](https://github.com/shearer12345/graphics_examples_in_git_branches/blob/glTraingleWhiteWithApiTrace/main.cpp#L199)
+```C++
+glGetProgramiv(program, GL_LINK_STATUS, &status););
+```
+
+- [glGetProgramiv](https://www.opengl.org/sdk/docs/man4/html/glGetProgram.xhtml) Returns a parameter from a program object
+- in this case get the GL_LINK_STATUS - if the linking worked
+
+![Screenshot - 271014 - 09:57:40.png](assets/apitrace/04_glCreateProgram/Screenshot - 271014 - 09:57:40.png)
+
+##glGetProgramiv - context
+
+- no context change - this is a **get** function
+- remember: **get** functions tend to be relatively expensive
+
+##glDetachShader (vertex)
+
+- [main.cpp line 212 in our C++ code](https://github.com/shearer12345/graphics_examples_in_git_branches/blob/glTraingleWhiteWithApiTrace/main.cpp#L212)
+```C++
+glDetachShader(program, shaderList[iLoop]);
+```
+
+- [glDetachShader](https://www.opengl.org/sdk/docs/man4/html/glDetachShader.xhtml) Detaches a shader object from a program object to which it is attached
+- in this case we are detaching from the program with ID=**3**, the shader with ID=**1 (our vertex shader)**
+
+![Screenshot - 271014 - 10:27:48.png](assets/apitrace/04_glCreateProgram/Screenshot - 271014 - 10:27:48.png)
+
+##glDetachShader (vertex) - context
+
+- our GLSL program with ID=**3** now has our shader with ID=**2 (fragment)** attached
+- the program is still empty
+- nothing else has changed
+
+TODO - diagram of context, based on ![assets/apitrace/context_draft.jpg](assets/apitrace/context_draft.jpg](assets/apitrace/context_draft.jpg)
 
