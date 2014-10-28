@@ -65,6 +65,8 @@ qapitrace 3_1_master-debug.trace
 
 !INCLUDE "04_glCreateProgram.md"
 
+!INCLUDE "05_glGenBuffers.md"
+
 
 
 
