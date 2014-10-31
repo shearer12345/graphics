@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <title></title>
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <link rel="stylesheet" href="reveal.js/css/reveal.min.css"/>
+    <style type="text/css">code{white-space: pre;}</style>
+    <link rel="stylesheet" href="reveal.js/css/theme/simple.css" id="theme">
+    <!-- If the query includes 'print-pdf', include the PDF print sheet -->
+    <script>
+      if( window.location.search.match( /print-pdf/gi ) ) {
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = 'reveal.js/css/print/pdf.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+      }
+    </script>
+    <!--[if lt IE 9]>
+    <script src="reveal.js/lib/js/html5shiv.js"></script>
+    <![endif]-->
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+
+<section><section id="apitrace---initial-state" class="titleslide slide level1"><h1>Apitrace - Initial state</h1></section><section id="initialisation" class="slide level2">
+<h1>Initialisation</h1>
+<ul>
+<li>Frame 0 contained all the stuff the SDL2 and GLEW did for us
+<ul>
+<li>e.g. setting of the framebuffer details, asking GL for function pointers</li>
+<li>there's nothing interesting for us here</li>
+</ul></li>
+<li>We'll start look at Frame 1, which as the first call to <strong>GL</strong> that we've made (that we're interested in)</li>
+<li>At this point the context (the OpenGL state) is almost brand new</li>
+</ul>
+</section><section id="initial-state" class="slide level2">
+<h1>Initial state</h1>
+<ul>
+<li>Initially, every variable in the OpenGL state (of <strong>our</strong> context) is set to a default</li>
+<li>There are many variables in the OpenGL state.</li>
+<li>We are interested in only a small subset</li>
+</ul>
+</section><section id="apitrace-initially-with-whole-state" class="slide level2">
+<h1>ApiTrace initially, with whole state</h1>
+<ul>
+<li>note the thumbnails on the left are from the <strong>end</strong> of each frame</li>
+</ul>
+<figure>
+<img src="assets/apitrace/01_initial/01_initial_wholeState.png" alt="01_initial_wholeState.png" /><figcaption>01_initial_wholeState.png</figcaption>
+</figure>
+</section><section id="apitrace-initially-only-showing-non-default-state" class="slide level2">
+<h1>ApiTrace initially, only showing non-default state</h1>
+<ul>
+<li>debug is enabled</li>
+<li>we've set the viewport, so viewport and scissor box are set</li>
+<li>our window is 600x600, so the viewport covers the whole window
+<ul>
+<li>we've set the viewport explicitly, to allow apiTrace to replay properly</li>
+</ul></li>
+</ul>
+<figure>
+<img src="assets/apitrace/01_initial/02_initial_nonDefaultState.png" alt="02_initial_nonDefaultState.png" /><figcaption>02_initial_nonDefaultState.png</figcaption>
+</figure>
+</section><section id="apitrace-initially-with-an-unfilled-back-buffer-gl_back" class="slide level2">
+<h1>Apitrace initially, with an unfilled back buffer (GL_BACK)</h1>
+<ul>
+<li>at this point the back buffer hasn't been filled
+<ul>
+<li>it is just whatever happens to be whatever the GPU has in RAM already in the allocated area <img src="assets/apitrace/01_initial/03_unfilledBackBuffer.png" alt="03_unfilledBackBuffer.png" /></li>
+</ul></li>
+</ul>
+</section><section id="apitrace-initially-with-a-unfilled-back-buffer-gl_back---zoom" class="slide level2">
+<h1>Apitrace initially, with a unfilled back buffer (GL_BACK) - ZOOM</h1>
+<ul>
+<li>large view of the back buffer</li>
+<li>filled with random stuff that's being rendered previously</li>
+<li><strong>fun days</strong></li>
+</ul>
+<figure>
+<img src="assets/apitrace/01_initial/04_unfilledBackBufferZoom.png" alt="04_unfilledBackBufferZoom.png" /><figcaption>04_unfilledBackBufferZoom.png</figcaption>
+</figure>
+</section><section id="apitrace-initially-with-no-uniform-variables-set" class="slide level2">
+<h1>Apitrace initially, with no <em>uniform</em> variables set</h1>
+<ul>
+<li>initially no <em>uniform</em> variables are set</li>
+</ul>
+<figure>
+<img src="assets/apitrace/01_initial/05_noUniformsSet.png" alt="05_noUniformsSet.png" /><figcaption>05_noUniformsSet.png</figcaption>
+</figure>
+</section></section>
+    </div>
+  </div>
+
+
+  <script src="reveal.js/lib/js/head.min.js"></script>
+  <script src="reveal.js/js/reveal.min.js"></script>
+
+  <script>
+
+      // Full list of configuration options available here:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+        theme: 'sky', // available themes are in /css/theme
+        transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+        // Optional libraries used to extend on reveal.js
+        dependencies: [
+          { src: 'reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: 'reveal.js/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+          { src: 'reveal.js/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } },
+//          { src: 'reveal.js/plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; }, }
+//          { src: 'reveal.js/plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+]});
+    </script>
+    </body>
+</html>

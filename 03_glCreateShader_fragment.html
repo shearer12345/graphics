@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <title></title>
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <link rel="stylesheet" href="reveal.js/css/reveal.min.css"/>
+    <style type="text/css">code{white-space: pre;}</style>
+    <link rel="stylesheet" href="reveal.js/css/theme/simple.css" id="theme">
+    <!-- If the query includes 'print-pdf', include the PDF print sheet -->
+    <script>
+      if( window.location.search.match( /print-pdf/gi ) ) {
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = 'reveal.js/css/print/pdf.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+      }
+    </script>
+    <!--[if lt IE 9]>
+    <script src="reveal.js/lib/js/html5shiv.js"></script>
+    <![endif]-->
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+
+<section><section id="apitrace---fragment-shader-creation" class="titleslide slide level1"><h1>Apitrace - Fragment Shader creation</h1></section><section id="glcreateshader-fragment" class="slide level2">
+<h1>glCreateShader (fragment)</h1>
+<ul>
+<li><p><a href="https://github.com/shearer12345/graphics_examples_in_git_branches/blob/glTraingleWhiteWithApiTrace/main.cpp#L158">main.cpp line 158 in our C++ code</a></p>
+<pre class="c++"><code>GLuint shader = glCreateShader(eShaderType);</code></pre></li>
+<li><a href="https://www.opengl.org/sdk/docs/man4/html/glCreateShader.xhtml">glCreateShader</a> Creates a shader object</li>
+<li>in this case a fragment shader</li>
+<li><p>returns a non-zero value by which it can be referenced</p></li>
+</ul>
+<p><img src="assets/apitrace/03_glCreateShader_fragment/01_createShaderFragment.png" alt="01_createShaderFragment.png" /> 20:24.png)</p>
+</section><section id="glcreateshader-fragment---context" class="slide level2">
+<h1>glCreateShader (fragment) - context</h1>
+<ul>
+<li>a new (empty) shader with ID=2 now exists in our context</li>
+<li>the shader is empty</li>
+<li>nothing else has changed</li>
+</ul>
+<p>TODO - diagram of context, with a new fragment shader, based on <img src="assets/apitrace/context_draft.jpg" alt="assets/apitrace/context_draft.jpg" /></p>
+</section><section id="glshadersource-fragment" class="slide level2">
+<h1>glShaderSource (fragment)</h1>
+<ul>
+<li><p><a href="https://github.com/shearer12345/graphics_examples_in_git_branches/blob/glTraingleWhiteWithApiTrace/main.cpp#L160">main.cpp line 160 in our C++ code</a></p>
+<pre class="c++"><code>glShaderSource(shader, 1, &amp;strFileData, NULL);</code></pre></li>
+<li><p><a href="https://www.opengl.org/sdk/docs/man4/html/glShaderSource.xhtml">glShaderSource</a> — Replaces the source code in a shader object</p></li>
+</ul>
+<figure>
+<img src="assets/apitrace/03_glCreateShader_fragment/02_glShaderSourceFragment.png" alt="02_glShaderSourceFragment.png" /><figcaption>02_glShaderSourceFragment.png</figcaption>
+</figure>
+</section><section id="glshadersource-fragment---context" class="slide level2">
+<h1>glShaderSource (fragment) - context</h1>
+<ul>
+<li>the shader with ID=2 is now loaded with source</li>
+<li>nothing else has changed</li>
+</ul>
+<p>TODO - diagram of context, with the fragment shader loaded with the source</p>
+</section><section id="glcompileshader-fragment" class="slide level2">
+<h1>glCompileShader (fragment)</h1>
+<ul>
+<li><p><a href="https://github.com/shearer12345/graphics_examples_in_git_branches/blob/glTraingleWhiteWithApiTrace/main.cpp#L162">main.cpp line 162 in our C++ code</a></p>
+<pre class="c++"><code>glCompileShader(shader);</code></pre></li>
+<li><p><a href="https://www.opengl.org/sdk/docs/man4/html/glCompileShader.xhtml">glCompileShader</a> — Compiles a shader object</p></li>
+</ul>
+<figure>
+<img src="assets/apitrace/03_glCreateShader_fragment/03_glCompileShaderFragment.png" alt="03_glCompileShaderFragment.png" /><figcaption>03_glCompileShaderFragment.png</figcaption>
+</figure>
+</section><section id="glcompileshader-fragment---context" class="slide level2">
+<h1>glCompileShader (fragment) - context</h1>
+<ul>
+<li>the shader with ID=2 has now been compiled</li>
+<li>nothing else has changed</li>
+</ul>
+<p>TODO - diagram of context, with the fragment shader loaded with the source, and compiled</p>
+</section><section id="glgetshaderiv-fragment" class="slide level2">
+<h1>glGetShaderiv (fragment)</h1>
+<ul>
+<li><p><a href="https://github.com/shearer12345/graphics_examples_in_git_branches/blob/glTraingleWhiteWithApiTrace/main.cpp#L165">main.cpp line 165 in our C++ code</a></p>
+<pre class="c++"><code>glGetShaderiv(shader, GL_COMPILE_STATUS, &amp;status);</code></pre></li>
+<li><a href="https://www.opengl.org/sdk/docs/man4/html/glGetShader.xhtml">glGetShaderiv</a> - returns a parameter from a shader object</li>
+<li>in this case the compile status, which is 1 (=ok)</li>
+<li>nothing has changed in the context, we just queried it
+<ul>
+<li>queries are <strong>expensive</strong> (relatively) operations</li>
+</ul></li>
+</ul>
+<figure>
+<img src="assets/apitrace/03_glCreateShader_fragment/04_glGetShaderivFragment.png" alt="04_glGetShaderivFragment.png" /><figcaption>04_glGetShaderivFragment.png</figcaption>
+</figure>
+</section></section>
+    </div>
+  </div>
+
+
+  <script src="reveal.js/lib/js/head.min.js"></script>
+  <script src="reveal.js/js/reveal.min.js"></script>
+
+  <script>
+
+      // Full list of configuration options available here:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+        theme: 'sky', // available themes are in /css/theme
+        transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+        // Optional libraries used to extend on reveal.js
+        dependencies: [
+          { src: 'reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: 'reveal.js/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+          { src: 'reveal.js/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } },
+//          { src: 'reveal.js/plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; }, }
+//          { src: 'reveal.js/plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+]});
+    </script>
+    </body>
+</html>

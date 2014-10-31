@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <title></title>
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <link rel="stylesheet" href="reveal.js/css/reveal.min.css"/>
+    <style type="text/css">code{white-space: pre;}</style>
+    <link rel="stylesheet" href="reveal.js/css/theme/simple.css" id="theme">
+    <!-- If the query includes 'print-pdf', include the PDF print sheet -->
+    <script>
+      if( window.location.search.match( /print-pdf/gi ) ) {
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = 'reveal.js/css/print/pdf.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+      }
+    </script>
+    <!--[if lt IE 9]>
+    <script src="reveal.js/lib/js/html5shiv.js"></script>
+    <![endif]-->
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+
+<section><section id="apitrace---generate-vertex-arrays" class="titleslide slide level1"><h1>Apitrace - Generate Vertex Arrays</h1></section><section id="glgenvertexarrays" class="slide level2">
+<h1>glGenVertexArrays</h1>
+<ul>
+<li><p><a href="https://github.com/shearer12345/graphics_examples_in_git_branches/blob/glTraingleWhiteWithApiTrace/main.cpp#L257">main.cpp line 257 in our C++ code</a></p>
+<pre class="c++"><code>glGenVertexArrays(1, &amp;vao); //create a Vertex Array Object</code></pre></li>
+<li><a href="https://www.opengl.org/sdk/docs/man4/html/glGenVertexArrays.xhtml">glGenVertexArrays</a> generate vertex array object names</li>
+<li>returns <strong>n</strong> vertex array object names in <strong>arrays</strong></li>
+<li>in this case only 1 name is asked for, and return, the ID of buffer object is <strong>1</strong></li>
+<li>a vertex array object <strong>stores all of the state needed to supply vertex data</strong> to the pipeline
+<ul>
+<li>see <a href="https://www.opengl.org/wiki/Vertex_Specification#Vertex_Array_Object" class="uri">https://www.opengl.org/wiki/Vertex_Specification#Vertex_Array_Object</a></li>
+<li>definitely worth reading - carefully</li>
+</ul></li>
+</ul>
+<figure>
+<img src="assets/apitrace/06_glGenVertexArrays/01_glGenVertexArrays.png" alt="01_glGenVertexArrays.png" /><figcaption>01_glGenVertexArrays.png</figcaption>
+</figure>
+</section><section id="glgenvertexarrays---context" class="slide level2">
+<h1>glGenVertexArrays - context</h1>
+<ul>
+<li>new vertex array object (in this case just 1) are created</li>
+<li>technicaly, the vertex array object is empty</li>
+<li>it acquires state and type only when they first bound</li>
+<li>the <strong>ID/name</strong> for the vertex array object is stored in the address passed in</li>
+<li>we will store state on the vertex array object later</li>
+<li>nothing else has changed</li>
+</ul>
+<p>TODO - diagram of context, based on <embed src="assets/apitrace/context_draft.jpg_hide" /></p>
+</section><section id="glbindvertexarray" class="slide level2">
+<h1>glBindVertexArray</h1>
+<ul>
+<li><p><a href="https://github.com/shearer12345/graphics_examples_in_git_branches/blob/glTraingleWhiteWithApiTrace/main.cpp#L245">main.cpp line 245 in our C++ code</a></p>
+<pre class="c++"><code>glBindVertexArray(vao); //make the VAO active</code></pre></li>
+<li><a href="https://www.opengl.org/sdk/docs/man4/html/glBindVertexArray.xhtml">glBindVertexArray</a> binds the specified vertex array object</li>
+<li>in this case the vertex array object with ID=<strong>1</strong> (our vao) is bound as the GL_VERTEX_ARRAY_BINDING
+<ul>
+<li>you can see this change in the OpenGL state (parameters tab)</li>
+</ul></li>
+</ul>
+<figure>
+<img src="assets/apitrace/06_glGenVertexArrays/02_glBindVertexArray.png" alt="02_glBindVertexArray.png" /><figcaption>02_glBindVertexArray.png</figcaption>
+</figure>
+</section><section id="glbindvertexarray---context" class="slide level2">
+<h1>glBindVertexArray - context</h1>
+<ul>
+<li>the <strong>GL_VERTEX_ARRAY_BINDING</strong> is now set to <strong>1</strong></li>
+<li>nothing else has changed</li>
+</ul>
+<p>TODO - diagram of context, based on <embed src="assets/apitrace/context_draft.jpg_hide" /></p>
+</section></section>
+    </div>
+  </div>
+
+
+  <script src="reveal.js/lib/js/head.min.js"></script>
+  <script src="reveal.js/js/reveal.min.js"></script>
+
+  <script>
+
+      // Full list of configuration options available here:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+        theme: 'sky', // available themes are in /css/theme
+        transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+        // Optional libraries used to extend on reveal.js
+        dependencies: [
+          { src: 'reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: 'reveal.js/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+          { src: 'reveal.js/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } },
+//          { src: 'reveal.js/plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; }, }
+//          { src: 'reveal.js/plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+]});
+    </script>
+    </body>
+</html>
