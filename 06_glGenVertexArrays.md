@@ -14,7 +14,7 @@ glGenVertexArrays(1, &vao); //create a Vertex Array Object
     - see [https://www.opengl.org/wiki/Vertex_Specification#Vertex_Array_Object](https://www.opengl.org/wiki/Vertex_Specification#Vertex_Array_Object)
     - definitely worth reading - carefully
 
-![Screenshot - 281014 - 21:02:19.png](assets/apitrace/06_glGenVertexArrays/Screenshot - 281014 - 21:02:19.png)
+![01_glGenVertexArrays.png](assets/apitrace/06_glGenVertexArrays/01_glGenVertexArrays.png)
 
 ##glGenVertexArrays - context
 
@@ -38,7 +38,7 @@ glBindVertexArray(vao); //make the VAO active
 - in this case the vertex array object with ID=**1** (our vao) is bound as the GL\_VERTEX\_ARRAY\_BINDING
     - you can see this change in the OpenGL state (parameters tab)
 
-![Screenshot - 281014 - 21:26:09.png](assets/apitrace/06_glGenVertexArrays/Screenshot - 281014 - 21:26:09.png)
+![02_glBindVertexArray.png](assets/apitrace/06_glGenVertexArrays/02_glBindVertexArray.png)
 
 ##glBindVertexArray - context
 

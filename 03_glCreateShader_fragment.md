@@ -11,7 +11,7 @@ GLuint shader = glCreateShader(eShaderType);
 - in this case a fragment shader
 - returns a non-zero value by which it can be referenced
 
-![Screenshot - 241014 - 14:20:24.png](assets/apitrace/03_glCreateShader_fragment/Screenshot - 241014 - 14:20:24.png)
+![01_createShaderFragment.png](assets/apitrace/03_glCreateShader_fragment/01_createShaderFragment.png)
 20:24.png)
 
 ##glCreateShader (fragment) - context
@@ -31,7 +31,7 @@ glShaderSource(shader, 1, &strFileData, NULL);
 
 - [glShaderSource](https://www.opengl.org/sdk/docs/man4/html/glShaderSource.xhtml) — Replaces the source code in a shader object
 
-![Screenshot - 241014 - 21:52:50.png](assets/apitrace/03_glCreateShader_fragment/Screenshot - 241014 - 21:52:50.png)
+![02_glShaderSourceFragment.png](assets/apitrace/03_glCreateShader_fragment/02_glShaderSourceFragment.png)
 
 ##glShaderSource (fragment) - context
 
@@ -49,7 +49,7 @@ glCompileShader(shader);
 
 - [glCompileShader](https://www.opengl.org/sdk/docs/man4/html/glCompileShader.xhtml) — Compiles a shader object
 
-![Screenshot - 241014 - 21:55:26.png](assets/apitrace/03_glCreateShader_fragment/Screenshot - 241014 - 21:55:26.png)
+![03_glCompileShaderFragment.png](assets/apitrace/03_glCreateShader_fragment/03_glCompileShaderFragment.png)
 
 
 ##glCompileShader (fragment) - context
@@ -71,4 +71,4 @@ glGetShaderiv(shader, GL_COMPILE_STATUS, &status);
 - nothing has changed in the context, we just queried it
     - queries are **expensive** (relatively) operations
 
-![Screenshot - 241014 - 21:57:15.png](assets/apitrace/03_glCreateShader_fragment/Screenshot - 241014 - 21:57:15.png)
+![04_glGetShaderivFragment.png](assets/apitrace/03_glCreateShader_fragment/04_glGetShaderivFragment.png)

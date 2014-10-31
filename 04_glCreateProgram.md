@@ -11,7 +11,7 @@ GLuint program = glCreateProgram();
 - returns a non-zero value by which it can be referenced
 - in this case the ID is **3**
 
-![Screenshot - 261014 - 09:24:07.png](assets/apitrace/04_glCreateProgram/Screenshot - 261014 - 09:24:07.png)
+![01_glCreateProgram.png](assets/apitrace/04_glCreateProgram/01_glCreateProgram.png)
 
 ##glCreateProgram - context
 
@@ -31,7 +31,7 @@ glAttachShader(program, shaderList[iLoop]);
 - [glCreateProgram](https://www.opengl.org/sdk/docs/man4/html/glAttachShader.xhtml) Attaches a shader object to a program object
 - in this case we are attaching to the program with ID=**3**, the shader with ID=**1 (our vertex shader)**
 
-![Screenshot - 261014 - 09:28:38.png](assets/apitrace/04_glCreateProgram/Screenshot - 261014 - 09:28:38.png)
+![02_glAttachShaderVertex.png](assets/apitrace/04_glCreateProgram/02_glAttachShaderVertex.png)
 
 ##glAttachShader (vertex) - context
 
@@ -51,7 +51,7 @@ glAttachShader(program, shaderList[iLoop]);
 - [glCreateProgram](https://www.opengl.org/sdk/docs/man4/html/glAttachShader.xhtml) Attaches a shader object to a program object
 - in this case we are attaching to the program with ID=**3**, the shader with ID=**2 (our fragment shader)**
 
-![Screenshot - 261014 - 09:33:47.png](assets/apitrace/04_glCreateProgram/Screenshot - 261014 - 09:33:47.png)
+![03_glAttachShaderFragment.png](assets/apitrace/04_glCreateProgram/03_glAttachShaderFragment.png)
 
 ##glAttachShader (fragment) - context
 
@@ -69,7 +69,7 @@ TODO - diagram of context, based on ![assets/apitrace/context_draft.jpg](assets/
 - [glBindAttribLocation](https://www.opengl.org/sdk/docs/man4/html/glBindAttribLocation.xhtml) Associates a generic vertex attribute index with a named attribute variable
 - in this case associates attribute index **0**, on our program with ID=3, with the GLSL name **position**
 
-![Screenshot - 261014 - 09:39:40.png](assets/apitrace/04_glCreateProgram/Screenshot - 261014 - 09:39:40.png)
+![04_glBindAttribLocation.png](assets/apitrace/04_glCreateProgram/04_glBindAttribLocation.png)
 
 ##glBindAttribLocation - context
 
@@ -90,7 +90,7 @@ glLinkProgram(program);
 - in this case out GLSL program with ID=**3**
 - status of the link operation will be stored as part of the program object's state
 
-![Screenshot - 261014 - 09:42:46.pn](assets/apitrace/04_glCreateProgram/Screenshot - 261014 - 09:42:46.png)
+![05_glLinkProgram.png](assets/apitrace/04_glCreateProgram/05_glLinkProgram.png)
 
 ##glLinkProgram - context
 
@@ -110,7 +110,7 @@ glGetProgramiv(program, GL_LINK_STATUS, &status););
 - [glGetProgramiv](https://www.opengl.org/sdk/docs/man4/html/glGetProgram.xhtml) Returns a parameter from a program object
 - in this case get the GL_LINK_STATUS - if the linking worked
 
-![Screenshot - 271014 - 09:57:40.png](assets/apitrace/04_glCreateProgram/Screenshot - 271014 - 09:57:40.png)
+![06_glGetProgramiv.png](assets/apitrace/04_glCreateProgram/06_glGetProgramiv.png)
 
 ##glGetProgramiv - context
 
@@ -127,7 +127,7 @@ glDetachShader(program, shaderList[iLoop]);
 - [glDetachShader](https://www.opengl.org/sdk/docs/man4/html/glDetachShader.xhtml) Detaches a shader object from a program object to which it is attached
 - in this case we are detaching from the program with ID=**3**, the shader with ID=**1 (our vertex shader)**
 
-![Screenshot - 271014 - 10:27:48.png](assets/apitrace/04_glCreateProgram/Screenshot - 271014 - 10:27:48.png)
+![07_glDetachShaderVertex.png](assets/apitrace/04_glCreateProgram/07_glDetachShaderVertex.png)
 
 ##glDetachShader (vertex) - context
 
@@ -146,7 +146,7 @@ glDetachShader(program, shaderList[iLoop]);
 - [glDetachShader](https://www.opengl.org/sdk/docs/man4/html/glDetachShader.xhtml) Detaches a shader object from a program object to which it is attached
 - in this case we are detaching from the program with ID=**3**, the shader with ID=**2 (our fragment shader)**
 
-![Screenshot - 271014 - 10:37:19.png](assets/apitrace/04_glCreateProgram/Screenshot - 271014 - 10:37:19.png)
+![08_glDetachShaderFragment.png](assets/apitrace/04_glCreateProgram/08_glDetachShaderFragment.png)
 
 ##glDetachShader (fragment) - context
 
@@ -166,7 +166,7 @@ positionLocation = glGetAttribLocation(theProgram, "position");
 - in this case we are getting the location of attribute **position** in the program with ID=**3**
 - which is 0
 
-![Screenshot - 271014 - 12:20:57.png](assets/apitrace/04_glCreateProgram/Screenshot - 271014 - 12:20:57.png)
+![09_glGetAttribLocation.png](assets/apitrace/04_glCreateProgram/09_glGetAttribLocation.png)
 
 ##glGetAttribLocation (position) - context
 
@@ -183,7 +183,7 @@ offsetLocation = glGetUniformLocation(theProgram, "offset");
 - in this case we are getting the location of uniform **offset** in the program with ID=**3**
 - which is 0
 
-![Screenshot - 271014 - 12:23:31.png](assets/apitrace/04_glCreateProgram/Screenshot - 271014 - 12:23:31.png)
+![10_glGetUniformLocation.png](assets/apitrace/04_glCreateProgram/10_glGetUniformLocation.png)
 
 ##glGetUniformLocation (offset) - context
 
@@ -201,7 +201,7 @@ for_each(shaderList.begin(), shaderList.end(), glDeleteShader);
 - frees the memory and invalidates the name associated with the shader object specified by shader.
 - in this case our shader with ID=**1** (the vertex shader) is deleted
 
-![Screenshot - 271014 - 12:28:42.png](assets/apitrace/04_glCreateProgram/Screenshot - 271014 - 12:28:42.png)
+![11_glDeleteShaderVertex.png](assets/apitrace/04_glCreateProgram/11_glDeleteShaderVertex.png)
 
 ##glDeleteShader (vertex) - context
 
@@ -221,7 +221,7 @@ for_each(shaderList.begin(), shaderList.end(), glDeleteShader);
 - frees the memory and invalidates the name associated with the shader object specified by shader.
 - in this case our shader with ID=**2** (the fragment shader) is deleted
 
-![Screenshot - 271014 - 12:29:23.png](assets/apitrace/04_glCreateProgram/Screenshot - 271014 - 12:29:23.png)
+![12_glDeleteShaderFragment.png](assets/apitrace/04_glCreateProgram/12_glDeleteShaderFragment.png)
 
 ##glDeleteShader (fragment) - context
 

@@ -11,7 +11,7 @@ glGenBuffers(1, &positionBufferObject);
 - returns n buffer object names in buffers
 - in this case only 1 name is asked for, and return, the ID of buffer object is **1**
 
-![Screenshot - 271014 - 14:19:32.png](assets/apitrace/05_glGenBuffers/Screenshot - 271014 - 14:19:32.png)
+![01_glGenBuffers.png](assets/apitrace/05_glGenBuffers/01_glGenBuffers.png)
 
 ##glGenBuffers - context
 
@@ -33,7 +33,7 @@ glBindBuffer(GL_ARRAY_BUFFER, positionBufferObject);
 - in this case the buffer object is ID=**1** (our positionBufferObject) is bound as the GL\_ARRAY\_BUFFER
     - you can see this change in the OpenGL state (parameters tab)
 
-![Screenshot - 281014 - 20:01:19.png](assets/apitrace/05_glGenBuffers/Screenshot - 281014 - 20:01:19.png)
+![02_glBindBuffer.png](assets/apitrace/05_glGenBuffers/02_glBindBuffer.png)
 
 ##glBindBuffer - context
 
@@ -61,7 +61,7 @@ glBufferData(GL_ARRAY_BUFFER, sizeof(vertexPositions), vertexPositions, GL_STATI
         - Note: it is just 48 bytes, we can choose how to interpret it
     - These are detailed more in the next section
 
-![Screenshot - 281014 - 20:43:01.png](assets/apitrace/05_glGenBuffers/Screenshot - 281014 - 20:43:01.png)
+![03_glBufferData.png](assets/apitrace/05_glGenBuffers/03_glBufferData.png)
 
 ##glBufferData (parameters)
 
@@ -88,7 +88,7 @@ glBufferData(GL_ARRAY_BUFFER, sizeof(vertexPositions), vertexPositions, GL_STATI
 - we will have to specify this when we want to use the buffer object for rendering
 - in the following example, ApiTrace is set to interpret vertices as groups of 4 GL_FLOATS, with a 16 byte jump from one group to the next
 
-![Screenshot - 281014 - 20:50:54.png](assets/apitrace/05_glGenBuffers/Screenshot - 281014 - 20:50:54.png)
+![04_glBufferDataByteInterpretation.png](assets/apitrace/05_glGenBuffers/04_glBufferDataByteInterpretation.png)
 
 ##glBufferData - context
 
@@ -112,7 +112,7 @@ glBindBuffer(GL_ARRAY_BUFFER, 0);
     - you can see this change in the OpenGL state (parameters tab)
         - GL\_ARRAY\_BUFFER\_BINDING no longer shows as it is back on its default value
 
-![Screenshot - 281014 - 20:55:19.png](assets/apitrace/05_glGenBuffers/Screenshot - 281014 - 20:55:19.png)
+![05_glBindBufferUnbind.png](assets/apitrace/05_glGenBuffers/05_glBindBufferUnbind.png)
 
 ##glBindBuffer (unbinding) - context
 

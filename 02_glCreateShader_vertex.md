@@ -10,7 +10,7 @@ GLuint shader = glCreateShader(eShaderType);
 - [glCreateShader](https://www.opengl.org/sdk/docs/man4/html/glCreateShader.xhtml) Creates a shader object
 - returns a non-zero value by which it can be referenced
 
-![Screenshot - 241014 - 14:02:20.png](assets/apitrace/glCreateShader_vertex/Screenshot - 241014 - 14:02:20.png)
+![01_glCreateShaderVertex.png](assets/apitrace/02_glCreateShader_vertex/01_glCreateShaderVertex.png)
 
 ##glCreateShader (vertex) - context
 
@@ -29,7 +29,7 @@ glShaderSource(shader, 1, &strFileData, NULL);
 
 - [glShaderSource](https://www.opengl.org/sdk/docs/man4/html/glShaderSource.xhtml) — Replaces the source code in a shader object
 
-![Screenshot - 241014 - 14:08:04.png](assets/apitrace/glCreateShader_vertex/Screenshot - 241014 - 14:08:04.png)
+![02_glShaderSourceVertex.png](assets/apitrace/02_glCreateShader_vertex/02_glShaderSourceVertex.png)
 
 
 ##glShaderSource (vertex) - context
@@ -48,7 +48,7 @@ glCompileShader(shader);
 
 - [glCompileShader](https://www.opengl.org/sdk/docs/man4/html/glCompileShader.xhtml) — Compiles a shader object
 
-![Screenshot - 241014 - 14:12:50.png](assets/apitrace/glCreateShader_vertex/Screenshot - 241014 - 14:12:50.png)
+![03_glCompileShaderVertex.png](assets/apitrace/02_glCreateShader_vertex/03_glCompileShaderVertex.png)
 
 
 ##glCompileShader (vertex) - context
@@ -70,4 +70,4 @@ glGetShaderiv(shader, GL_COMPILE_STATUS, &status);
 - nothing has changed in the context, we just queried it
     - queries are **expensive** (relatively) operations
 
-![Screenshot - 241014 - 14:15:55.png](assets/apitrace/glCreateShader_vertex/Screenshot - 241014 - 14:15:55.png)
+![04_glGetShaderivVertex.png](assets/apitrace/02_glCreateShader_vertex/04_glGetShaderivVertex.png)
