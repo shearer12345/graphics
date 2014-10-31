@@ -1,5 +1,171 @@
 #Lincoln Graphics Coursework Assignment 2014-15
 
-##To Be Announced
+##Overview
 
-- - TBA
+- The coursework assignment is be based around developing an interactive 3D scenario
+    - this year, a 3D scene fly through
+- The assignment aims to assess practical capability in writing programs that:
+  - generate 3D graphics
+  - update the 3D scene based on human input (i.e. interactive 3D graphics)
+- The specific assignment and its requirements are detailed below
+  - the marking scheme is separately in the Criterion Reference Grid
+
+##Graphics Features - summary
+
+The assignment will use the modern programmable graphics pipeline (e.g. OpenGL 3.1+) and will require a set of basic 3D graphics features, such as:
+
+- 3D geometry
+- 3D (perspective) projections
+- moving/rotating objects
+- moving/rotating view points
+- coloured objects, along with a set of advanced features, such as lighting simulation
+- texturing
+
+##Specification
+
+- You should implement a simple 3D scene fly-through
+- The specific geometry (shapes) that you use are not defined - they are up to you
+- Your scene should contain the following
+    - some kind of terrain/land - e.g. fields, mountains
+    - some kind of 2D content in the scene
+        - e.g. some triangles
+    - some kind of 3D vehicle that can be moved by the user
+        - e.g. car, helicopter
+    - other 3D objects of your choice to fulfil the CRG
+    - other features to fulfil the CRG
+- Note that 3D objects are **solid** 3D objects (e.g. cube)
+    - not just triangle in 3-space
+
+##Documentation
+
+- summary document of features implemented
+- reflection on the development process
+- at least one screenshot of your assignment running
+- see CRG
+
+##Languages / Toolkit (what you can use)
+
+- You can use any programming language that your choose
+    - the in-class content has all been C++, but you don't have to follow this
+    - BUT, if not using C++ you will need to support yourself significantly more
+- You **MUST** makes the call into OpenGL yourself
+- You **CAN** use appropriate support libraries (but can use alternates if you choose), such as:
+    - SDL2
+    - GLEW
+    - GLM
+- If in doubt - **ASK**
+    - fundamentally, you should be writing the code that makes OpenGL calls, such as `glCreateShader()`
+
+##Languages / Toolkit (what you cannot use)
+
+- You **CANNOT** use a graphics engine (e.g. Ogre3D, Irrlicht, Three.js)
+- You **CANNOT** use a games engine (e.g. Unity)
+- If using C++, you **CANNOT** use an existing object-oriented wrapper (e.g. oglplus)
+    - but you can write and use your own if you like ...
+- If in doubt - **ASK**
+    - fundamentally, you should be writing the code that makes OpenGL calls, such as `glCreateShader()`
+
+
+##Submission
+
+- Submit to Blackboard
+- A single **.zip** file containing:
+    - all your C++ source code
+    - all your shader source code (if not in your C++ source)
+    - files sufficient to create a working build environment (e.g. premake files, or just visual studio files)
+    - all your assets (textures)
+    - a compiled, running executable (it doesn't need to be able to run outside the IDE)
+    - your documentation, as PDF
+
+##Demo
+
+- The assignment will be assessed through **in-class demonstration**
+- This will take place in the **first workshop session following the submission deadline**
+- Unless you have an extension or circumstances, you **MUST** demonstrate your assignment
+
+##Feedback
+
+- you will receive both:
+    - in-class feedback (when you demonstrate)
+    - written feedback on Blackboard
+
+
+##Optional Video
+
+- You may **optionally** create a video of your assignment
+- This would be valuable to yourself as portfolio work
+- This would be valuable to the School
+    - to illustrate to students in following years what they'll be doing in the module
+    - to enhance recruitment and visibility of the School
+    - to support external examiners in seeing what your assignment looked like, without having to run code
+
+#Mark Scheme - from CRG
+
+##CRG Note
+
+- we'll walk through the CRG and weightings here, but note the separate CRG document is the definitive version
+
+##Document
+
+- summary document of features implemented and reflection on the development process
+- Standard: 8% points
+- Pass
+    - document is present, but poses obstacles for the reader in terms of style, syntax, spelling and format, though all features described or there is some reflection on the development process
+- 2:2
+    - the document covers all features and reflects on the development process. The writing is generally competent, but has some issues.
+- 2:1
+    - the document covers all features and reflects on the development process. The reflection is thoughtful and the writing is occasionally unclear
+- 1st
+    - the document covers all features and reflects on the development process. The reflection is thoughtful and insightful. The writing is clear and error free.
+
+##Overall
+
+- Overall working simulation of a scenario
+- Standard: 8% points
+- Pass
+    - the implementation meets some, but not all of the use-case requirements
+- 2:2
+    - the implementation meets most of the use-case requirements
+- 2:1
+    - the implementation meets all of the use-case requirements. The visual performance OR the code implementation follow best-practice
+- 1st
+    - the implementation meets all of the use-case requirements. The visual performance AND the code implementation follow best-practice
+
+##OpenGL 3.1
+
+- Implementation in OpenGL 3.1 or higher (or equivalent in OpenGL ES or WebGL
+- Standard: 8% points
+- OpenGL 3.1 or higher is used
+- OpenGL 3.1 or higher is used, and some of the OpenGL code is efficient OR follows best-practice
+- OpenGL 3.1 or higher is used, and the OpenGL code is efficient OR follows best-practice
+- OpenGL 3.1 or higher is used, and the OpenGL code is efficient AND follows best-practice
+
+##2D content
+
+- Some 2D content
+- Standard: 8% points
+- at least one 2D object
+- multiple 2D objects
+- a significant number of 2D objects, but the implementation may be technically or visually limited
+- a significant number of 2D objects, implemented well (technically, and visually)
+
+##Low-poly 3D
+
+- Basic (low-poly) 3D Geometry
+- Standard: 8% points
+- at least one 3D object
+- multiple 3D objects
+- a significant number of 3D objects, but the implementation may be technically or visually limited
+- a significant number of 3D objects, implemented well (technically, and visually)
+
+##etc
+
+
+##raw
+| A 3D perspective view (with the transformation applied in vertex shader) | Standard: 8% points | LO1, LO2 | 2.1.3, 2.2.4, 3.1.3 |a 3D perspective view can be enabled, or is active by default, but may have some issues and provides no evidence of viewport scaling | the perspective view has few issues (e.g. clipping issues, unrealistic perspective, viewport scaling) and the viewport scaling is correct (don't use a square window to avoid) | the perspective view has no issues (e.g. clipping issues, unrealistic perspective, viewport scaling) OR allows a dynamic resolution (in a window, or fullscreen) without distortion | the perspective view has no issues (e.g. clipping issues, unrealistic perspective, viewport scaling) AND allows a dynamic resolution (in a window, or fullscreen) without distortion |
+| objects that move or rotate (with transformation applied in vertex shader) | Standard: 8% points | LO1, LO2 | 2.1.3, 2.2.4, 3.1.3 |at least one object moves or rotates | at least one object moves or rotates, visually smoothly | multiple objects move or rotate, visually smoothly | many objects move or rotate, and at least one object moves AND rotates |
+| movement of some objects or viewpoint controlled by user input | Standard: 8% points | LO1 | 2.1.3, 2.2.4, 3.1.3 |at least one object (or the viewpoint) can be moved, with user input | at least one object (or the viewpoint) can be moved, smoothly, with user input | multiple object can be moved, smoothly, with user input OR the viewpoint can be changed in sophisticated ways under user input | multiple object can be moved, smoothly, with user input AND the viewpoint can be changed in sophisticated ways under user input |
+| Some high-poly 3D Geometry (at least 1000 vertices) | Advanced: 18% points | LO2 | 2.1.5, 2.2.4, 3.1.3 |some 3D geometry with 1,000 vertices | some 3D geometry with 10,000 vertices | some 3D geometry with 10,000 vertices that renders smoothly | some 3D geometry with 10,000 vertices that renders smoothly,  generated dynamically or read from a standard file format |
+| view point that changes (with transformation applied in vertex shader) | Advanced: 18% points | LO1, LO2  | 2.1.3, 2.2.4, 3.1.3 |the viewpoint can change, perhaps just between a set of static viewpoints | the viewpoint moves  between two viewpoints | the viewpoint moves smoothly between multiple viewpoints | the viewpoint smoothly follows a complex path |
+| coloured and/or objects (with colours/texture coordinates unique per vertex and pass in as vertex attributes) | Advanced: 18% points | LO2 | 2.1.3, 2.2.4, 3.1.3 |at least one object with more than 100 vertices has unique colours for each vertex | multiple objects with more than 100 vertices have unique colours for each vertex | multiple objects with more than 100 vertices have unique texture coordinates for each vertex | all objects are textured |
+| fragment shader lighting (or similar effect) | Advanced: 18% points | LO2 | 2.1.3, 2.2.4, 3.1.3 |at least one object has lighting applied as per-vertex lighting, but the lighting has some visual issues | at least one object has lighting applied as per-vertex lighting without visual issues | Multiple objects have lighting applied as per-vertex lighting without visual issues | Multiple objects have lighting applied as per-fragment lighting without visual issues |
