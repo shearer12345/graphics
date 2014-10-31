@@ -1,4 +1,3 @@
-
 #Lincoln Lectures On Graphics - 05
 
 #Stepping through glTriangleWhite - again
@@ -25,6 +24,49 @@
 | OS X    | yes   | yes | yes |
 | Windows | yes   | yes | yes |
 
-##Screenshot
+#Tracing
 
-![apitrace_screenshot_2014_10_24___08_53_16.png](assets/apitrace/apitrace_screenshot_2014_10_24___08_53_16.png)
+##Tracing
+
+- ApiTrace records the exact calls that are made to the OpenGL library, and the responses from OpenGL
+- It allows us to step through the trace of a program
+    - one `gl` call at a time
+    - and introspect the `gl` **state** at that point
+
+##Tracing - commands
+
+- record a trace
+```bash
+apitrace trace bin/3_1_master-debug
+```
+- open the trace with the GUI
+```bash
+qapitrace 3_1_master-debug.trace
+```
+
+##What are we tracing?
+
+- a moving white triangle on a red background
+    - [https://github.com/shearer12345/graphics_examples_in_git_branches/tree/glTraingleWhiteWithApiTrace](https://github.com/shearer12345/graphics_examples_in_git_branches/tree/glTraingleWhiteWithApiTrace)
+
+![3_1_glTraingleWhiteWithApiTrace-debug.trace](assets/apitrace/3_1_glTraingleWhiteWithApiTrace-debug.trace-2014-10-24_12.13.27.gif)
+
+##The actual trace is online, in the glTraingleWhiteWithApiTrace branch
+
+- the [binary trace](https://github.com/shearer12345/graphics_examples_in_git_branches/blob/glTraingleWhiteWithApiTrace/3_1_glTraingleWhiteWithApiTrace-debug.trace)
+- [text version of the trace](https://github.com/shearer12345/graphics_examples_in_git_branches/blob/glTraingleWhiteWithApiTrace/3_1_glTraingleWhiteWithApiTrace-debug.trace.txt)
+
+
+!INCLUDE "01_initial.md"
+
+!INCLUDE "02_glCreateShader_vertex.md"
+
+!INCLUDE "03_glCreateShader_fragment.md"
+
+!INCLUDE "04_glCreateProgram.md"
+
+!INCLUDE "05_glGenBuffers.md"
+
+
+
+
