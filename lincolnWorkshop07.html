@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <title></title>
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <link rel="stylesheet" href="reveal.js/css/reveal.min.css"/>
+    <style type="text/css">code{white-space: pre;}</style>
+    <link rel="stylesheet" href="reveal.js/css/theme/simple.css" id="theme">
+    <!-- If the query includes 'print-pdf', include the PDF print sheet -->
+    <script>
+      if( window.location.search.match( /print-pdf/gi ) ) {
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = 'reveal.js/css/print/pdf.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+      }
+    </script>
+    <!--[if lt IE 9]>
+    <script src="reveal.js/lib/js/html5shiv.js"></script>
+    <![endif]-->
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+
+<section><section id="lincoln-graphics-workshop-07---transformations-properly" class="titleslide slide level1"><h1>Lincoln Graphics Workshop 07 - Transformations Properly</h1></section><section id="transformations-properly" class="slide level2">
+<h1>Transformations Properly</h1>
+<ul>
+<li>You'll be working from glTriangleWhiteWithGLM and adding features.
+<ul>
+<li>I have set glTriangleWhiteWithGLM as the &quot;master&quot; branch for now, so a fresh clone will be on this branch by default</li>
+<li><em>note</em> don't rely on this behaviour for the longer term
+<ul>
+<li>if the master branch isn't doing what you expect then checkout this branch explicitly</li>
+<li><code>git checkout glTriangleWhiteWithGLM</code></li>
+<li>then run premake as usual</li>
+</ul></li>
+</ul></li>
+<li>If you haven't completed the standard activities from the previous weeks then you should catch up on them</li>
+<li>as a reminder, the source is at
+<ul>
+<li><a href="https://github.com/shearer12345/graphics_examples_in_git_branches" class="uri">https://github.com/shearer12345/graphics_examples_in_git_branches</a></li>
+</ul></li>
+</ul>
+</section><section id="transformations" class="slide level2">
+<h1>Transformations</h1>
+<ul>
+<li>so far you've been doing all the transformations explicitly
+<ul>
+<li>either in C++ or in GLSL</li>
+<li>doing additions yourself, or multiplications yourself</li>
+</ul></li>
+<li>more generally, all these transformations can be represented as a matrix
+<ul>
+<li>and, in fact, arbitrary combinations of them</li>
+</ul></li>
+<li>we'll cover details of transformations with matrices in the next class
+<ul>
+<li>but for now there are some places to look at</li>
+<li>https://open.gl/transformations</li>
+<li>http://www.opengl-tutorial.org/beginners-tutorials/tutorial-3-matrices/</li>
+</ul></li>
+</ul>
+</section><section id="another-new-library" class="slide level2">
+<h1>Another new library</h1>
+<ul>
+<li>to support working with matrices we're going to use GLM
+<ul>
+<li>the OpenGL Mathematics library</li>
+<li>http://glm.g-truc.net/0.9.5/index.html</li>
+</ul></li>
+<li>GLM is a <strong>header only</strong> C++ mathematics library for graphics software
+<ul>
+<li>based on the OpenGL Shading Language (GLSL) specification</li>
+<li>that means there is no <code>.lib</code> or <code>.dll</code> files - everything is built from source
+<ul>
+<li>which means the first build (or a full rebuild) can be quite slow</li>
+</ul></li>
+</ul></li>
+</ul>
+</section><section id="adding-glm-to-visual-studio" class="slide level2">
+<h1>Adding GLM to Visual Studio</h1>
+<ul>
+<li>for a reason I haven't yet figured out, adding GLM with premake doesn't work right</li>
+<li>so do it manually in visual studio</li>
+<li>right-click the project</li>
+<li>choose <code>properties</code></li>
+<li>choose <code>C/C++</code></li>
+<li>click <code>Additional Include Directories</code></li>
+<li>click the arrow on the right-hand-side</li>
+<li>hit <code>edit</code></li>
+<li>double-click a blank line</li>
+<li>click <code>...</code></li>
+<li>navigate to <code>graphics_dependencies\glm-0.9.5.4\glm</code></li>
+<li>hit <code>select folder</code></li>
+<li>hit <code>ok</code></li>
+<li>hit <code>ok</code></li>
+</ul>
+</section><section id="activities" class="slide level2">
+<h1>Activities</h1>
+<ol type="1">
+<li></li>
+<li></li>
+<li></li>
+<li></li>
+<li></li>
+</ol>
+</section><section id="stretch-activities" class="slide level2">
+<h1>Stretch Activities</h1>
+<ul>
+<li>If you've got through the standard activities then have a bash at these</li>
+</ul>
+<ol type="1">
+<li></li>
+</ol>
+</section></section>
+    </div>
+  </div>
+
+
+  <script src="reveal.js/lib/js/head.min.js"></script>
+  <script src="reveal.js/js/reveal.min.js"></script>
+
+  <script>
+
+      // Full list of configuration options available here:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+        theme: 'sky', // available themes are in /css/theme
+        transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+        // Optional libraries used to extend on reveal.js
+        dependencies: [
+          { src: 'reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: 'reveal.js/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+          { src: 'reveal.js/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } },
+//          { src: 'reveal.js/plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; }, }
+//          { src: 'reveal.js/plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+]});
+    </script>
+    </body>
+</html>
