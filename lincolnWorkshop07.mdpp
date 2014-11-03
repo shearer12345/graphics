@@ -1,0 +1,66 @@
+#Lincoln Graphics Workshop 07 - Transformations Properly
+
+##Transformations Properly
+
+- You'll be working from glTriangleWhiteWithGLM and adding features.
+    - I have set glTriangleWhiteWithGLM as the "master" branch for now, so a fresh clone will be on this branch by default
+    - *note* don't rely on this behaviour for the longer term
+        - if the master branch isn't doing what you expect then checkout this branch explicitly
+        - ```git checkout glTriangleWhiteWithGLM```
+        - then run premake as usual
+- If you haven't completed the standard activities from the previous weeks then you should catch up on them
+- as a reminder, the source is at
+    - [https://github.com/shearer12345/graphics_examples_in_git_branches](https://github.com/shearer12345/graphics_examples_in_git_branches)
+
+##Transformations
+
+- so far you've been doing all the transformations explicitly
+    - either in C++ or in GLSL
+    - doing additions yourself, or multiplications yourself
+- more generally, all these transformations can be represented as a matrix
+    - and, in fact, arbitrary combinations of them
+- we'll cover details of transformations with matrices in the next class
+    - but for now there are some places to look at
+    - https://open.gl/transformations
+    - http://www.opengl-tutorial.org/beginners-tutorials/tutorial-3-matrices/
+
+##Another new library
+
+- to support working with matrices we're going to use GLM
+    - the OpenGL Mathematics library
+    - http://glm.g-truc.net/0.9.5/index.html
+- GLM is a **header only** C++ mathematics library for graphics software
+    - based on the OpenGL Shading Language (GLSL) specification
+    - that means there is no `.lib` or `.dll` files - everything is built from source
+        - which means the first build (or a full rebuild) can be quite slow
+
+##Adding GLM to Visual Studio
+
+- for a reason I haven't yet figured out, adding GLM with premake doesn't work right
+- so do it manually in visual studio
+- right-click the project
+- choose `properties`
+- choose `C/C++`
+- click `Additional Include Directories`
+- click the arrow on the right-hand-side
+- hit `edit`
+- double-click a blank line
+- click `...`
+- navigate to `graphics_dependencies\glm-0.9.5.4\glm`
+- hit `select folder`
+- hit `ok`
+- hit `ok`
+
+##Activities
+
+1) 
+2) 
+3) 
+4) 
+5) 
+
+##Stretch Activities
+
+- If you've got through the standard activities then have a bash at these
+
+1) 

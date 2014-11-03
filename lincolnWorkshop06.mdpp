@@ -1,34 +1,4 @@
-#Lincoln Graphics Workshop 06 - Transformations Properly
+#Lincoln Graphics Workshop 06 -  continue Playing with Colors and Multiple Triangles
 
-##Transformations Properly
+##Continue with Workshop 05
 
-- As previously, you'll be working from glTriangleWhite and adding features.
-    - I have set glTriangleWhite as the "master" branch for now, so a fresh clone will be on this branch by default
-    - *note* don't rely on this behaviour for the longer term
-- If you haven't completed the standard activities from the previous weeks then you should catch up on them
-- as a reminder, the source is at
-    - [https://github.com/shearer12345/graphics_examples_in_git_branches](https://github.com/shearer12345/graphics_examples_in_git_branches)
-
-##Transformations
-
-- so far you've been doing all the transformations explicitly
-    - either in C++ or in GLSL
-    - doing additions yourself, or multiplications yourself
-- more generally, all these transformations can be represented as a matrix
-    - and, in fact, arbitrary combinations of them
-
-https://open.gl/transformations
-
-##Activities
-
-1) 
-2) 
-3) 
-4) 
-5) 
-
-##Stretch Activities
-
-- If you've got through the standard activities then have a bash at these
-
-1) 
