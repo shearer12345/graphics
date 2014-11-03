@@ -37,6 +37,7 @@
 ##Adding GLM to Visual Studio
 
 - for a reason I haven't yet figured out, adding GLM with premake doesn't work right
+  **- TODO** resolved GLM with premake and with VS
 - so do it manually in visual studio
 - right-click the project
 - choose `properties`
@@ -53,11 +54,14 @@
 
 ##Activities
 
-1) 
-2) 
-3) 
-4) 
-5) 
+1) use GLM to create a **null** matrix, pass it into GLSL and apply it
+2) create the GLM matrix to a simple translate matrix
+3) change the GLM matrix over time to move the triangle over time
+4) create the GLM matrix to do a scale
+5) change the GLM matrix to do a scale over time
+6) create the GLM matrix to do a rotation (around the z-axis)
+7) change the GLM matrix to do a scale (around the z-axis) over time
+
 
 ##Stretch Activities
 
