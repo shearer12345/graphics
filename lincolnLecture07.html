@@ -130,7 +130,6 @@ gl_Position.xy += offset;
 <ul>
 <li>this <strong>1.0</strong> will become relevant. Promise ...</li>
 </ul></li>
-<li>Matrix multiplication causes the value in the W column to be multiplied by the W coordinate of the vector (which is 1) and added to the sum of the other terms</li>
 </ul>
 </section><section id="what-is-a-matrix-and-matrix-multiplication" class="slide level2">
 <h1>What is a matrix and matrix multiplication??</h1>
@@ -154,7 +153,7 @@ gl_Position.xy += offset;
 <li>remember - we can only multiple matrices where the following are equal</li>
 <li>width of the first matrix</li>
 <li>height of the second matrix</li>
-<li>the <strong>dot</strong> juyst means multiply</li>
+<li>the <strong>dot</strong> just means multiply</li>
 </ul>
 <figure>
 <img src="assets/matrixVectorProduct.png" alt="matrixVectorProduct.png" /><figcaption>matrixVectorProduct.png</figcaption>
@@ -258,10 +257,20 @@ gl_Position.xy += offset;
 <li>around the Z-axis</li>
 </ul>
 <p><img src="assets/matrixVectorProduct.png" alt="matrixVectorProduct.png" /> <img src="assets/matrixVectorProductIdentity.png" alt="matrixVectorProductIdentity.png" /></p>
-</section><section id="rotation-matrix" class="slide level2">
-<h1>Rotation Matrix</h1>
+</section><section id="rotation-matrix-z" class="slide level2">
+<h1>Rotation Matrix Z</h1>
 <figure>
 <img src="assets/rotationMatrixZ.png" alt="rotationMatrixZ.png" /><figcaption>rotationMatrixZ.png</figcaption>
+</figure>
+</section><section id="rotation-matrix-x" class="slide level2">
+<h1>Rotation Matrix X</h1>
+<figure>
+<img src="assets/rotationMatrixX.png" alt="rotationMatrixX.png" /><figcaption>rotationMatrixX.png</figcaption>
+</figure>
+</section><section id="rotation-matrix-y" class="slide level2">
+<h1>Rotation Matrix Y</h1>
+<figure>
+<img src="assets/rotationMatrixY.png" alt="rotationMatrixY.png" /><figcaption>rotationMatrixY.png</figcaption>
 </figure>
 </section><section id="rotation-around-an-arbitrary-vector" class="slide level2">
 <h1>Rotation Around an arbitrary vector</h1>
@@ -278,8 +287,11 @@ gl_Position.xy += offset;
 </section><section id="rotation-around-an-arbitrary-vector-3" class="slide level2">
 <h1>Rotation Around an arbitrary vector 3</h1>
 <ul>
-<li>from <a href="https://open.gl/transformations" class="uri">https://open.gl/transformations</a> &gt; Don't worry about understanding the actual geometry behind this, &gt; explaining that is beyond the scope of this guide. &gt; What matters is that you have a solid idea of how a rotation is described by a rotation axis and an angle and that you've at least seen what a rotation matrix looks like.</li>
+<li>from <a href="https://open.gl/transformations" class="uri">https://open.gl/transformations</a></li>
 </ul>
+<blockquote>
+<p>Don't worry about understanding the actual geometry behind this, explaining that is beyond the scope of this guide. What matters is that you have a solid idea of how a rotation is described by a rotation axis and an angle and that you've at least seen what a rotation matrix looks like.</p>
+</blockquote>
 </section></section>
 <section><section id="examples" class="titleslide slide level1"><h1>Examples</h1></section><section id="glm" class="slide level2">
 <h1>GLM</h1>
