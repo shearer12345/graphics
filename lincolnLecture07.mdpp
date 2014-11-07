@@ -60,7 +60,6 @@ void main()
 - Translation is ultimately just that simple so let's make it needlessly complex
 - All of our position vectors are 4D vectors, with a final W coordinate that is always 1.0
     - this **1.0** will become relevant. Promise ...
-- Matrix multiplication causes the value in the W column to be multiplied by the W coordinate of the vector (which is 1) and added to the sum of the other terms
 
 ##What is a matrix and matrix multiplication??
 
@@ -78,7 +77,7 @@ void main()
 - remember - we can only multiple matrices where the following are equal
   - width of the first matrix
   - height of the second matrix
-- the **dot** juyst means multiply
+- the **dot** just means multiply
 
 ![matrixVectorProduct.png](assets/matrixVectorProduct.png)
 
@@ -162,9 +161,17 @@ void main()
 ![matrixVectorProduct.png](assets/matrixVectorProduct.png)
 ![matrixVectorProductIdentity.png](assets/matrixVectorProductIdentity.png)
 
-##Rotation Matrix
+##Rotation Matrix Z
 
 ![rotationMatrixZ.png](assets/rotationMatrixZ.png)
+
+##Rotation Matrix X
+
+![rotationMatrixX.png](assets/rotationMatrixX.png)
+
+##Rotation Matrix Y
+
+![rotationMatrixY.png](assets/rotationMatrixY.png)
 
 ##Rotation Around an arbitrary vector
 
@@ -179,6 +186,7 @@ void main()
 ##Rotation Around an arbitrary vector 3
 
 - from [https://open.gl/transformations](https://open.gl/transformations)
+
 > Don't worry about understanding the actual geometry behind this,
 > explaining that is beyond the scope of this guide.
 > What matters is that you have a solid idea of how a rotation is described by a rotation axis and an angle and that you've at least seen what a rotation matrix looks like.
