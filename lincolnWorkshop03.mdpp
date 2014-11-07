@@ -51,11 +51,16 @@ git checkout glTriangleWhite ##the glTriangle example - a helloTriangle
 ##Activity List
 
 1) GLSL is **NOT** C. What are the key differences?
+
 2) make the triangle color something different
+
 3) make the triangle appear somewhere else on the screen, but the original shape
+
 4) make the triangle larger than the original
+
 5) make the position of the triangle controlled by a **variable** that you pass in from C/C++
     - look **uniform** and **varying**
+
 6) make the position change over time, by changing that **variable** in C/C++
 
 ##Stretch Activities
@@ -64,6 +69,9 @@ git checkout glTriangleWhite ##the glTriangle example - a helloTriangle
 
 1) make the triangle be in a rotated position
     - this is **rotation**
+
 2) make the triangle rotate over time
+
 3) make the triangle translate **and** scale, over time
+
 4) make the triangle translate **and** rotate, over time!!!!!!!!!!
