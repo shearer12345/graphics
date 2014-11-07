@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <title></title>
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <link rel="stylesheet" href="reveal.js/css/reveal.min.css"/>
+    <style type="text/css">code{white-space: pre;}</style>
+    <style type="text/css">
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; }
+code > span.dt { color: #902000; }
+code > span.dv { color: #40a070; }
+code > span.bn { color: #40a070; }
+code > span.fl { color: #40a070; }
+code > span.ch { color: #4070a0; }
+code > span.st { color: #4070a0; }
+code > span.co { color: #60a0b0; font-style: italic; }
+code > span.ot { color: #007020; }
+code > span.al { color: #ff0000; font-weight: bold; }
+code > span.fu { color: #06287e; }
+code > span.er { color: #ff0000; font-weight: bold; }
+    </style>
+    <link rel="stylesheet" href="reveal.js/css/theme/simple.css" id="theme">
+    <!-- If the query includes 'print-pdf', include the PDF print sheet -->
+    <script>
+      if( window.location.search.match( /print-pdf/gi ) ) {
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = 'reveal.js/css/print/pdf.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+      }
+    </script>
+    <!--[if lt IE 9]>
+    <script src="reveal.js/lib/js/html5shiv.js"></script>
+    <![endif]-->
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+
+<section><section id="lincoln-lectures-on-graphics---07" class="titleslide slide level1"><h1>Lincoln Lectures On Graphics - 07</h1></section></section>
+<section><section id="positioning-and-transformations" class="titleslide slide level1"><h1>Positioning and Transformations</h1></section><section id="where-we-are" class="slide level2">
+<h1>Where we are</h1>
+<ul>
+<li>with the workshops and the lecture content you should now be beginning to be comfortable with:
+<ul>
+<li>the pipeline model of rendering</li>
+<li>how to setup OpenGL for rendering</li>
+<li>how to tell OpenGL how to use the data you've supplied it</li>
+<li>how to load data into OpenGL</li>
+<li>what shaders do
+<ul>
+<li>specifically, the generic data each type of shader takes in and passes out</li>
+</ul></li>
+<li>how to pass data into shaders
+<ul>
+<li>as attributes, and uniforms</li>
+</ul></li>
+</ul></li>
+</ul>
+</section><section id="where-we-are-1" class="slide level2">
+<h1>Where we are</h1>
+<ul>
+<li>in workshops we've been moving vertices around in various ways</li>
+<li><strong>transformation </strong> is the general term for moving vertices (collections of vertices) around</li>
+<li>you should have moved vertices around on both:
+<ul>
+<li>the CPU
+<ul>
+<li>by changing them in C++, then (re)uploading them</li>
+</ul></li>
+<li>on the GPU (in GLSL)
+<ul>
+<li>by passing control values into GLSL, and applying them in the vertex shader</li>
+</ul></li>
+</ul></li>
+<li>you should understand that doing the heavy lifting on the GPU is <strong>exactly</strong> what it is designed for
+<ul>
+<li>for the most-part you want <strong>always try to move computational work to the GPU</strong>
+<ul>
+<li>(though you'll notice, that actually we won't for the calculation of <em>matrices</em>)</li>
+<li>why not?</li>
+</ul></li>
+</ul></li>
+</ul>
+</section></section>
+<section><section id="translation" class="titleslide slide level1"><h1>Translation</h1></section><section id="translation-current-approach" class="slide level2">
+<h1>Translation: Current Approach</h1>
+<ul>
+<li><strong>BUT</strong>, we've been applying the transformations very manually, and only allow specific combinations</li>
+<li><p>e.g.</p>
+<pre class="c++"><code>#version 330
+layout(location = 0) in vec4 position;
+vec2 offset = vec2(0.5, -0.5);
+void main()
+{
+gl_Position = position;
+gl_Position.xy += offset;
+}</code></pre></li>
+</ul>
+<figure>
+<img src="assets/translation.png" alt="translation" /><figcaption>translation</figcaption>
+</figure>
+</section><section id="translation-1" class="slide level2">
+<h1>Translation</h1>
+<ul>
+<li>changing the position of a vector
+<ul>
+<li>keeping the length the same</li>
+<li>keeping the direction the same</li>
+</ul></li>
+<li>when applied to a collection of vectors, makes the &quot;object&quot; offset</li>
+<li>an addition to the vector</li>
+</ul>
+</section><section id="translation-matrix" class="slide level2">
+<h1>Translation Matrix</h1>
+<ul>
+<li>Translation is ultimately just that simple so let's make it needlessly complex</li>
+<li>All of our position vectors are 4D vectors, with a final W coordinate that is always 1.0
+<ul>
+<li>this <strong>1.0</strong> will become relevant. Promise ...</li>
+</ul></li>
+<li>Matrix multiplication causes the value in the W column to be multiplied by the W coordinate of the vector (which is 1) and added to the sum of the other terms</li>
+</ul>
+</section><section id="what-is-a-matrix-and-matrix-multiplication" class="slide level2">
+<h1>What is a matrix and matrix multiplication??</h1>
+<ul>
+<li>you have covered this previously in the programme
+<ul>
+<li>there are <strong>lots</strong> of resources on matrix multiplication</li>
+<li>some are on the <a href="https://github.com/shearer12345/graphics/blob/master/topics/links.md">links page</a></li>
+<li>also <a href="https://open.gl/transformations" class="uri">https://open.gl/transformations</a></li>
+</ul></li>
+<li>we are mostly interested in:
+<ul>
+<li>Matrix-Vector product</li>
+<li>Matrix-Matrix product</li>
+</ul></li>
+</ul>
+</section><section id="matrix-vector-product---generic" class="slide level2">
+<h1>Matrix-Vector product - generic</h1>
+<ul>
+<li>product, just means multiplication</li>
+<li>remember - we can only multiple matrices where the following are equal</li>
+<li>width of the first matrix</li>
+<li>height of the second matrix</li>
+<li>the <strong>dot</strong> juyst means multiply</li>
+</ul>
+<figure>
+<img src="assets/matrixVectorProduct.png" alt="matrixVectorProduct.png" /><figcaption>matrixVectorProduct.png</figcaption>
+</figure>
+</section><section id="matrix-vector-product---identity" class="slide level2">
+<h1>Matrix-Vector product - identity</h1>
+<ul>
+<li>a matrix that does absolutely nothing</li>
+<li>the resultant vector is the same as the original</li>
+<li>this is the identity matrix</li>
+</ul>
+<figure>
+<img src="assets/matrixVectorProductIdentity.png" alt="matrixVectorProductIdentity.png" /><figcaption>matrixVectorProductIdentity.png</figcaption>
+</figure>
+</section><section id="translation-matrix-2" class="slide level2">
+<h1>Translation Matrix 2</h1>
+<ul>
+<li>back to translation</li>
+<li>we <strong>somehow</strong> want to be able to represent translation with this 4x4 matrix!
+<ul>
+<li>the reasons will soon become apparent (or <em>some</em> of them)</li>
+</ul></li>
+<li>remember that translation is <strong>addition</strong></li>
+<li><strong>BUT</strong> !!</li>
+<li>we're doing multiplication of matrices!!</li>
+<li>how do we keep the matrix from doing something to the other terms?</li>
+<li>we only want this matrix to apply an offset to the position - we do not want to have it modify the position in some other way</li>
+</ul>
+</section><section id="translation-matrix-3" class="slide level2">
+<h1>Translation Matrix 3</h1>
+<ul>
+<li>what values could we put into the 4x4 matrix to only offset the vector?
+<ul>
+<li>hint: start with the identify matrix</li>
+</ul></li>
+</ul>
+<p><img src="assets/matrixVectorProduct.png" alt="matrixVectorProduct.png" /> <img src="assets/matrixVectorProductIdentity.png" alt="matrixVectorProductIdentity.png" /></p>
+</section><section id="translation-matrix-4" class="slide level2">
+<h1>Translation Matrix 4</h1>
+<figure>
+<img src="assets/translationMatrix.png" alt="translationMatrix.png" /><figcaption>translationMatrix.png</figcaption>
+</figure>
+</section></section>
+<section><section id="scaling" class="titleslide slide level1"><h1>Scaling</h1></section><section id="what-is-scaling" class="slide level2">
+<h1>What is scaling?</h1>
+<ul>
+<li>changing the length of a vector
+<ul>
+<li>either the whole vector
+<ul>
+<li>which keeps a vector in the same direction</li>
+</ul></li>
+<li>or differently for each axis
+<ul>
+<li>which changes the direction of the vector</li>
+</ul></li>
+</ul></li>
+<li>when applied to a collection of vectors, makes the &quot;object&quot; larger</li>
+<li>a multiplication of the vector</li>
+</ul>
+<figure>
+<img src="assets/scale.png" alt="scale.png" /><figcaption>scale.png</figcaption>
+</figure>
+</section><section id="how-about-a-scale-matrix" class="slide level2">
+<h1>How about a Scale Matrix?</h1>
+<ul>
+<li>what values could we put into the 4x4 matrix to only scale the vector?
+<ul>
+<li>hint: start with the identify matrix</li>
+</ul></li>
+</ul>
+<p><img src="assets/matrixVectorProduct.png" alt="matrixVectorProduct.png" /> <img src="assets/matrixVectorProductIdentity.png" alt="matrixVectorProductIdentity.png" /></p>
+</section><section id="scale-matrix" class="slide level2">
+<h1>Scale Matrix</h1>
+<figure>
+<img src="assets/scaleMatrix.png" alt="scaleMatrix.png" /><figcaption>scaleMatrix.png</figcaption>
+</figure>
+</section></section>
+<section><section id="rotation" class="titleslide slide level1"><h1>Rotation</h1></section><section id="what-is-rotation" class="slide level2">
+<h1>What is Rotation?</h1>
+<ul>
+<li>rotating a vector
+<ul>
+<li>so it points in a different direction</li>
+<li>but has the same length</li>
+</ul></li>
+<li>what <strong>point</strong> do we rotate around?</li>
+<li>what <strong>axis</strong> do we rotate around?</li>
+</ul>
+<figure>
+<img src="assets/rotation.png" alt="scale.png" /><figcaption>scale.png</figcaption>
+</figure>
+</section><section id="how-about-a-rotation-matrix" class="slide level2">
+<h1>How about a Rotation Matrix?</h1>
+<ul>
+<li>what values could we put into the 4x4 matrix to only rotate the vector?
+<ul>
+<li>hint: start with the identify matrix</li>
+</ul></li>
+<li>around the origin</li>
+<li>around the Z-axis</li>
+</ul>
+<p><img src="assets/matrixVectorProduct.png" alt="matrixVectorProduct.png" /> <img src="assets/matrixVectorProductIdentity.png" alt="matrixVectorProductIdentity.png" /></p>
+</section><section id="rotation-matrix" class="slide level2">
+<h1>Rotation Matrix</h1>
+<figure>
+<img src="assets/rotationMatrixZ.png" alt="rotationMatrixZ.png" /><figcaption>rotationMatrixZ.png</figcaption>
+</figure>
+</section><section id="rotation-around-an-arbitrary-vector" class="slide level2">
+<h1>Rotation Around an arbitrary vector</h1>
+<ul>
+<li>vectors (and therefore objects) can be rotated around any given axis</li>
+<li>ready?</li>
+<li>...</li>
+</ul>
+</section><section id="rotation-around-an-arbitrary-vector-2" class="slide level2">
+<h1>Rotation Around an arbitrary vector 2</h1>
+<figure>
+<img src="assets/rotationArbitrary.png" alt="rotationArbitrary.png" /><figcaption>rotationArbitrary.png</figcaption>
+</figure>
+</section><section id="rotation-around-an-arbitrary-vector-3" class="slide level2">
+<h1>Rotation Around an arbitrary vector 3</h1>
+<ul>
+<li>from <a href="https://open.gl/transformations" class="uri">https://open.gl/transformations</a> &gt; Don't worry about understanding the actual geometry behind this, &gt; explaining that is beyond the scope of this guide. &gt; What matters is that you have a solid idea of how a rotation is described by a rotation axis and an angle and that you've at least seen what a rotation matrix looks like.</li>
+</ul>
+</section></section>
+<section><section id="examples" class="titleslide slide level1"><h1>Examples</h1></section><section id="glm" class="slide level2">
+<h1>GLM</h1>
+<ul>
+<li>the GLM library is a C++ math library that matches as close as possible GLSL</li>
+<li>supports matrices</li>
+<li>supports applying transformations to matrices</li>
+<li>we'll do the matrix transformations in C++ with GLM, then pass the matrices to GLSL</li>
+</ul>
+</section><section id="examples-to-look-at" class="slide level2">
+<h1>Examples to look at</h1>
+<ul>
+<li>glWithGLM</li>
+<li>glmTranslate</li>
+<li>glmScale</li>
+<li>glmRotate</li>
+<li>glmConsoleOut</li>
+<li>glmRotateColor</li>
+<li>glmRotateColorCube</li>
+</ul>
+</section></section>
+<section><section id="diff-glversionindependent-glmrotate" class="titleslide slide level1"><h1>Diff glVersionIndependent glmRotate</h1></section><section id="diff-glversionindependent-glmrotate-1" class="slide level2">
+<h1>Diff glVersionIndependent glmRotate 1</h1>
+<pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">git</span> diff glVersionIndependent glmRotate main.cpp</code></pre>
+<pre class="sourceCode diff"><code class="sourceCode diff"><span class="kw">diff --git a/main.cpp b/main.cpp</span>
+index 12a8548..92c684e 100644
+<span class="dt">--- a/main.cpp</span>
+<span class="dt">+++ b/main.cpp</span>
+<span class="dt">@@ -5,6 +5,13 @@</span>
+ #include &lt;GL/glew.h&gt;
+ #include &lt;SDL.h&gt;
+ 
+<span class="ot">+#define GLM_FORCE_RADIANS //force glm to use radians //must do **before** including GLM headers </span>
+<span class="ot">+//NOTE: GLSL uses radians, so will do the same, for consistency</span>
+<span class="ot">+</span>
+<span class="ot">+#include &lt;glm/glm.hpp&gt; //include the main glm header</span>
+<span class="ot">+#include &lt;glm/gtc/matrix_transform.hpp&gt; //include functions to ease the calculation of the view and projection matrices</span>
+<span class="ot">+#include &lt;glm/gtc/type_ptr.hpp&gt; //include functionality for converting a matrix object into a float array for usage in OpenGL</span>
+<span class="ot">+</span>
+ using namespace std;
+ 
+ /////////////////////</code></pre>
+</section><section id="diff-glversionindependent-glmrotate-2" class="slide level2">
+<h1>Diff glVersionIndependent glmRotate 2</h1>
+<pre class="sourceCode diff"><code class="sourceCode diff"><span class="dt">@@ -23,11 +30,10 @@ const std::string strVertexShader(</span>
+        &quot;#version 140\n&quot;
+    #endif
+    &quot;in vec4 position;\n&quot;
+<span class="st">-   &quot;uniform vec2 offset;\n&quot;</span>
+<span class="ot">+   &quot;uniform mat4 rotateMatrix;\n&quot;</span>
+    &quot;void main()\n&quot;
+    &quot;{\n&quot;
+<span class="st">-   &quot;   gl_Position = position;\n&quot;</span>
+<span class="st">-   &quot;   gl_Position.xy += offset;\n&quot;</span>
+<span class="ot">+   &quot;   gl_Position = rotateMatrix * position;\n&quot; //multiple the position by the transformation matrix (rotate)</span>
+    &quot;}\n&quot;
+    );
+ </code></pre>
+</section><section id="diff-glversionindependent-glmrotate-3" class="slide level2">
+<h1>Diff glVersionIndependent glmRotate 3</h1>
+<pre class="sourceCode diff"><code class="sourceCode diff"><span class="dt">@@ -56,17 +62,16 @@ const float vertexPositions[] = {</span>
+    0.4330127f, -0.25f, 0.0f, 1.0f,
+ };
+ 
+<span class="st">-//the offset we&#39;ll pass to the GLSL</span>
+<span class="st">-double offsetX = -0.5; //using different values from CPU and static GLSL examples, to make it clear this is working</span>
+<span class="st">-double offsetY = -0.5; //NOTE: we could use an array and pass the pointer, to be simpler &amp; more efficent</span>
+<span class="st">-double offsetXSpeed = 0.2; //rate of change of offsetX in units per second</span>
+<span class="st">-double offsetYSpeed = 0.2; //rate of change of offsetY in units per second</span>
+<span class="ot">+//the rotate we&#39;ll pass to the GLSL</span>
+<span class="ot">+glm::mat4 rotateMatrix; // the transformation matrix for our object - which is the identity matrix by default</span>
+<span class="ot">+float rotateSpeed = 1.0f; //rate of change of the rotate - in radians per second</span>
+<span class="ot">+</span>
+ </code></pre>
+</section><section id="diff-glversionindependent-glmrotate-4" class="slide level2">
+<h1>Diff glVersionIndependent glmRotate 4</h1>
+<pre class="sourceCode diff"><code class="sourceCode diff"> //our GL and GLSL variables
+ 
+ GLuint theProgram; //GLuint that we&#39;ll fill in to refer to the GLSL program (only have 1 at this point)
+<span class="st">-GLint positionLocation; //GLuint that we&#39;ll fill in with the location of the `offset` variable in the GLSL</span>
+<span class="st">-GLint offsetLocation; //GLuint that we&#39;ll fill in with the location of the `offset` variable in the GLSL</span>
+<span class="ot">+GLint positionLocation; //GLuint that we&#39;ll fill in with the location of the `rotate` variable in the GLSL</span>
+<span class="ot">+GLint rotateMatrixLocation; //GLuint that we&#39;ll fill in with the location of the `rotate` variable in the GLSL</span>
+ 
+ GLuint positionBufferObject;
+ GLuint vao;</code></pre>
+</section><section id="diff-glversionindependent-glmrotate-5" class="slide level2">
+<h1>Diff glVersionIndependent glmRotate 5</h1>
+<pre class="sourceCode diff"><code class="sourceCode diff"><span class="dt">@@ -233,7 +238,7 @@ void initializeProgram()</span>
+    }
+ 
+    positionLocation = glGetAttribLocation(theProgram, &quot;position&quot;);
+<span class="st">-   offsetLocation = glGetUniformLocation(theProgram, &quot;offset&quot;);</span>
+<span class="ot">+   rotateMatrixLocation = glGetUniformLocation(theProgram, &quot;rotateMatrix&quot;);</span>
+    //clean up shaders (we don&#39;t need them anymore as they are no in theProgram
+    for_each(shaderList.begin(), shaderList.end(), glDeleteShader);
+ }</code></pre>
+</section><section id="diff-glversionindependent-glmrotate-6" class="slide level2">
+<h1>Diff glVersionIndependent glmRotate 6</h1>
+<pre class="sourceCode diff"><code class="sourceCode diff"><span class="dt">@@ -263,8 +268,13 @@ void loadAssets()</span>
+ 
+ void updateSimulation(double simLength) //update simulation with an amount of time to simulate for (in seconds)
+ {
+<span class="st">-   offsetX += offsetXSpeed * simLength;</span>
+<span class="st">-   offsetY += offsetYSpeed * simLength;</span>
+<span class="ot">+</span>
+<span class="ot">+   //calculate the amount of rotate for this timestep</span>
+<span class="ot">+   float rotate = (float)simLength * rotateSpeed; //simlength is a double for precision, but rotateSpeedVector in a vector of float, alternatively use glm::dvec3</span>
+<span class="ot">+   </span>
+<span class="ot">+   //modify the rotateMatrix with the rotate, as a rotate, around the z-axis</span>
+<span class="ot">+   const glm::vec3 unitZ = glm::vec3(0, 0, 1);</span>
+<span class="ot">+   rotateMatrix = glm::rotate(rotateMatrix, rotate, unitZ);</span>
+ }
+ 
+ void render()</code></pre>
+</section><section id="diff-glversionindependent-glmrotate-7" class="slide level2">
+<h1>Diff glVersionIndependent glmRotate 7</h1>
+<pre class="sourceCode diff"><code class="sourceCode diff"><span class="dt">@@ -272,8 +282,8 @@ void render()</span>
+    glUseProgram(theProgram); //installs the program object specified by program as part of current rendering state
+ 
+    //load data to GLSL that **may** have changed
+<span class="st">-   glUniform2f(offsetLocation, offsetX, offsetY);</span>
+<span class="st">-</span>
+<span class="ot">+   glUniformMatrix4fv(rotateMatrixLocation, 1, GL_FALSE, glm::value_ptr(rotateMatrix)); //uploaed the rotateMatrix to the appropriate uniform location</span>
+<span class="ot">+              // upload only one matrix, and don&#39;t transpose it</span>
+ 
+    glBindBuffer(GL_ARRAY_BUFFER, positionBufferObject); //bind positionBufferObject
+ </code></pre>
+</section><section id="next-time---matrix-matrix-product" class="slide level2">
+<h1>Next time - <strong>Matrix-Matrix product</strong></h1>
+</section></section>
+    </div>
+  </div>
+
+
+  <script src="reveal.js/lib/js/head.min.js"></script>
+  <script src="reveal.js/js/reveal.min.js"></script>
+
+  <script>
+
+      // Full list of configuration options available here:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+        theme: 'sky', // available themes are in /css/theme
+        transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+        // Optional libraries used to extend on reveal.js
+        dependencies: [
+          { src: 'reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: 'reveal.js/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+          { src: 'reveal.js/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } },
+//          { src: 'reveal.js/plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; }, }
+//          { src: 'reveal.js/plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+]});
+    </script>
+    </body>
+</html>

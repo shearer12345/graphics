@@ -32,15 +32,10 @@
 <section><section id="lincoln-graphics-workshop-07---transformations-properly" class="titleslide slide level1"><h1>Lincoln Graphics Workshop 07 - Transformations Properly</h1></section><section id="transformations-properly" class="slide level2">
 <h1>Transformations Properly</h1>
 <ul>
-<li>You'll be working from glTriangleWhiteWithGLM and adding features.
+<li>You'll be working from glWithGLM and adding features.
 <ul>
-<li>I have set glTriangleWhiteWithGLM as the &quot;master&quot; branch for now, so a fresh clone will be on this branch by default</li>
-<li><em>note</em> don't rely on this behaviour for the longer term
-<ul>
-<li>if the master branch isn't doing what you expect then checkout this branch explicitly</li>
-<li><code>git checkout glTriangleWhiteWithGLM</code></li>
+<li><code>git checkout glWithGLM</code></li>
 <li>then run premake as usual</li>
-</ul></li>
 </ul></li>
 <li>If you haven't completed the standard activities from the previous weeks then you should catch up on them</li>
 <li>as a reminder, the source is at
@@ -60,9 +55,9 @@
 <ul>
 <li>and, in fact, arbitrary combinations of them</li>
 </ul></li>
-<li>we'll cover details of transformations with matrices in the next class
+<li>we'll cover details of transformations with matrices in class
 <ul>
-<li>but for now there are some places to look at</li>
+<li>but there are, as usual, other places to look also</li>
 <li>https://open.gl/transformations</li>
 <li>http://www.opengl-tutorial.org/beginners-tutorials/tutorial-3-matrices/</li>
 </ul></li>
@@ -78,40 +73,20 @@
 <li>GLM is a <strong>header only</strong> C++ mathematics library for graphics software
 <ul>
 <li>based on the OpenGL Shading Language (GLSL) specification</li>
-<li>that means there is no <code>.lib</code> or <code>.dll</code> files - everything is built from source
-<ul>
-<li>which means the first build (or a full rebuild) can be quite slow</li>
+<li>that means there is no <code>.lib</code> or <code>.dll</code> files - everything is built from source</li>
 </ul></li>
-</ul></li>
-</ul>
-</section><section id="adding-glm-to-visual-studio" class="slide level2">
-<h1>Adding GLM to Visual Studio</h1>
-<ul>
-<li>for a reason I haven't yet figured out, adding GLM with premake doesn't work right <strong>- TODO</strong> resolved GLM with premake and with VS</li>
-<li>so do it manually in visual studio</li>
-<li>right-click the project</li>
-<li>choose <code>properties</code></li>
-<li>choose <code>C/C++</code></li>
-<li>click <code>Additional Include Directories</code></li>
-<li>click the arrow on the right-hand-side</li>
-<li>hit <code>edit</code></li>
-<li>double-click a blank line</li>
-<li>click <code>...</code></li>
-<li>navigate to <code>graphics_dependencies\glm-0.9.5.4\glm</code></li>
-<li>hit <code>select folder</code></li>
-<li>hit <code>ok</code></li>
-<li>hit <code>ok</code></li>
+<li>The GLM library and additions to the premake.lua file are all working in the branch <code>glWithGLM</code></li>
 </ul>
 </section><section id="activities" class="slide level2">
 <h1>Activities</h1>
 <ol type="1">
-<li>use GLM to create a <strong>null</strong> matrix, pass it into GLSL and apply it</li>
-<li>create the GLM matrix to a simple translate matrix</li>
-<li>change the GLM matrix over time to move the triangle over time</li>
-<li>create the GLM matrix to do a scale</li>
-<li>change the GLM matrix to do a scale over time</li>
-<li>create the GLM matrix to do a rotation (around the z-axis)</li>
-<li>change the GLM matrix to do a scale (around the z-axis) over time</li>
+<li><p>use GLM to create a <strong>null</strong> matrix, pass it into GLSL and apply it</p></li>
+<li><p>create the GLM matrix to a simple translate matrix</p></li>
+<li><p>change the GLM matrix over time to move the triangle over time</p></li>
+<li><p>create the GLM matrix to do a scale</p></li>
+<li><p>change the GLM matrix to do a scale over time</p></li>
+<li><p>create the GLM matrix to do a rotation (around the z-axis)</p></li>
+<li><p>change the GLM matrix to do a scale (around the z-axis) over time</p></li>
 </ol>
 </section><section id="stretch-activities" class="slide level2">
 <h1>Stretch Activities</h1>
@@ -119,7 +94,7 @@
 <li>If you've got through the standard activities then have a bash at these</li>
 </ul>
 <ol type="1">
-<li></li>
+<li>todo</li>
 </ol>
 </section></section>
     </div>
