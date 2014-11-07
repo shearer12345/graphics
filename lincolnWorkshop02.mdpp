@@ -31,21 +31,34 @@ git checkout glTriangleWhite ##the glTriangle example - a helloTriangle
 - This won't draw **anything** without the **loop** stages
 
 1) Create a **Window** and a **GL context**
+
 2) Load **GLSL shaders**
+
 3) Link GLSL shaders in to **GLSL programs**
+
 4) Create/Load **Geometry data** (vertices) CPU-side
+
 5) Load **Geometry** data into OpenGL
+
 6) Create **Vertex Array Objects**
 
 ##Loop stages to get a single Triangle!!
 
 1) Clear the **Back Buffer**
+
+
 2) Tell OpenGL to use a **GLSL program** that has already been created
+
 3) Tell OpenGL to use some **geometry data** that has already been loaded
+
 4) Tell OpenGL where in the **GLSL program** to put the **geometry data**
+
 5) Tell OpenGL what format the **geometry data** is in - how it is stored / how to read it
+
 6) Tell OpenGL to draw some type of **Primitive**, using some number of **Vertices**
+
 7) Clean up some OpenGL stuff
+
 8) Tell SDL to swap the **Back Buffer** and the **Front Buffer**
 
 #Update your examples
@@ -90,10 +103,13 @@ git checkout EXAMPLE ##checkout example from the repository
 
 1) glGlew
     - include the GLEW library, make SDL create an OpenGL context. **important changes here**
+
 2) glCreateShadersAndProgram
     - load some GLSL shaders into OpenGL, compile and link them. **new stuff here**
+
 3) glGenVertexBuffer
     - load some vertex data into OpenGL. **more new stuff here**
+
 4) glTriangleWhite
     - this one is the first time you'll see anything rendered
     - **yet more new stuff here**
@@ -153,6 +169,9 @@ git diff sdlHelloWorldWithFunctions glGlew .\main.cpp
 
 1) make the triangle be in a rotated position
     - this is **rotation**
+
 2) make the triangle rotate over time
+
 3) make the triangle translate **and** scale, over time
+
 4) make the triangle translate **and** rotate, over time!!!!!!!!!!
