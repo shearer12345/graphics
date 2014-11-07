@@ -1,0 +1,338 @@
+#Lincoln Lectures On Graphics - 07
+
+#Positioning and Transformations
+
+##Where we are
+
+- with the workshops and the lecture content you should now be beginning to be comfortable with:
+    - the pipeline model of rendering
+    - how to setup OpenGL for rendering
+    - how to tell OpenGL how to use the data you've supplied it
+    - how to load data into OpenGL
+    - what shaders do
+        - specifically, the generic data each type of shader takes in and passes out
+    - how to pass data into shaders
+        - as attributes, and uniforms
+
+##Where we are
+
+- in workshops we've been moving vertices around in various ways
+- **transformation ** is the general term for moving vertices (collections of vertices) around
+- you should have moved vertices around on both:
+    - the CPU
+        - by changing them in C++, then (re)uploading them
+    - on the GPU (in GLSL)
+        - by passing control values into GLSL, and applying them in the vertex shader
+- you should understand that doing the heavy lifting on the GPU is **exactly** what it is designed for
+    - for the most-part you want **always try to move computational work to the GPU**
+        - (though you'll notice, that actually we won't for the calculation of *matrices*)
+        - why not?
+
+#Translation
+
+##Translation: Current Approach
+
+- **BUT**, we've been applying the transformations very manually, and only allow specific combinations
+- e.g.
+```C++
+#version 330
+layout(location = 0) in vec4 position;
+vec2 offset = vec2(0.5, -0.5);
+void main()
+{
+    gl_Position = position;
+    gl_Position.xy += offset;
+}
+```
+
+![translation](assets/translation.png)
+
+##Translation
+
+- changing the position of a vector
+    - keeping the length the same
+    - keeping the direction the same
+- when applied to a collection of vectors, makes the "object" offset
+- an addition to the vector
+
+##Translation Matrix
+
+- Translation is ultimately just that simple so let's make it needlessly complex
+- All of our position vectors are 4D vectors, with a final W coordinate that is always 1.0
+    - this **1.0** will become relevant. Promise ...
+- Matrix multiplication causes the value in the W column to be multiplied by the W coordinate of the vector (which is 1) and added to the sum of the other terms
+
+##What is a matrix and matrix multiplication??
+
+- you have covered this previously in the programme
+    - there are **lots** of resources on matrix multiplication
+    - some are on the [links page](https://github.com/shearer12345/graphics/blob/master/topics/links.md)
+    - also [https://open.gl/transformations](https://open.gl/transformations)
+- we are mostly interested in:
+    - Matrix-Vector product
+    - Matrix-Matrix product
+
+##Matrix-Vector product - generic
+
+- product, just means multiplication
+- remember - we can only multiple matrices where the following are equal
+  - width of the first matrix
+  - height of the second matrix
+- the **dot** juyst means multiply
+
+![matrixVectorProduct.png](assets/matrixVectorProduct.png)
+
+##Matrix-Vector product - identity
+
+- a matrix that does absolutely nothing
+- the resultant vector is the same as the original
+- this is the identity matrix
+
+![matrixVectorProductIdentity.png](assets/matrixVectorProductIdentity.png)
+
+##Translation Matrix 2
+
+- back to translation
+- we **somehow** want to be able to represent translation with this 4x4 matrix!
+    - the reasons will soon become apparent (or *some* of them)
+- remember that translation is **addition**
+- **BUT** !!
+- we're doing multiplication of matrices!!
+- how do we keep the matrix from doing something to the other terms?
+- we only want this matrix to apply an offset to the position - we do not want to have it modify the position in some other way
+
+##Translation Matrix 3
+
+- what values could we put into the 4x4 matrix to only offset the vector?
+    - hint: start with the identify matrix
+
+![matrixVectorProduct.png](assets/matrixVectorProduct.png)
+![matrixVectorProductIdentity.png](assets/matrixVectorProductIdentity.png)
+
+
+##Translation Matrix 4
+
+![translationMatrix.png](assets/translationMatrix.png)
+
+#Scaling
+
+##What is scaling?
+
+- changing the length of a vector
+    - either the whole vector
+        - which keeps a vector in the same direction
+    - or differently for each axis
+        - which changes the direction of the vector
+- when applied to a collection of vectors, makes the "object" larger
+- a multiplication of the vector
+
+![scale.png](assets/scale.png)
+
+##How about a Scale Matrix?
+
+- what values could we put into the 4x4 matrix to only scale the vector?
+    - hint: start with the identify matrix
+
+![matrixVectorProduct.png](assets/matrixVectorProduct.png)
+![matrixVectorProductIdentity.png](assets/matrixVectorProductIdentity.png)
+
+##Scale Matrix
+
+![scaleMatrix.png](assets/scaleMatrix.png)
+
+#Rotation
+
+##What is Rotation?
+
+- rotating a vector
+    - so it points in a different direction
+    - but has the same length
+- what **point** do we rotate around?
+- what **axis** do we rotate around?
+
+![scale.png](assets/rotation.png)
+
+##How about a Rotation Matrix?
+
+- what values could we put into the 4x4 matrix to only rotate the vector?
+    - hint: start with the identify matrix
+- around the origin
+- around the Z-axis
+
+![matrixVectorProduct.png](assets/matrixVectorProduct.png)
+![matrixVectorProductIdentity.png](assets/matrixVectorProductIdentity.png)
+
+##Rotation Matrix
+
+![rotationMatrixZ.png](assets/rotationMatrixZ.png)
+
+##Rotation Around an arbitrary vector
+
+- vectors (and therefore objects) can be rotated around any given axis
+- ready?
+- ...
+
+##Rotation Around an arbitrary vector 2
+
+![rotationArbitrary.png](assets/rotationArbitrary.png)
+
+##Rotation Around an arbitrary vector 3
+
+- from [https://open.gl/transformations](https://open.gl/transformations)
+> Don't worry about understanding the actual geometry behind this,
+> explaining that is beyond the scope of this guide.
+> What matters is that you have a solid idea of how a rotation is described by a rotation axis and an angle and that you've at least seen what a rotation matrix looks like.
+
+#Examples
+
+##GLM
+
+- the GLM library is a C++ math library that matches as close as possible GLSL
+- supports matrices
+- supports applying transformations to matrices
+- we'll do the matrix transformations in C++ with GLM, then pass the matrices to GLSL
+
+##Examples to look at
+
+- glWithGLM
+- glmTranslate
+- glmScale
+- glmRotate
+- glmConsoleOut
+- glmRotateColor
+- glmRotateColorCube
+
+#Diff glVersionIndependent glmRotate
+
+##Diff glVersionIndependent glmRotate 1
+
+```bash
+git diff glVersionIndependent glmRotate main.cpp
+```
+
+```diff
+diff --git a/main.cpp b/main.cpp
+index 12a8548..92c684e 100644
+--- a/main.cpp
++++ b/main.cpp
+@@ -5,6 +5,13 @@
+ #include <GL/glew.h>
+ #include <SDL.h>
+ 
++#define GLM_FORCE_RADIANS //force glm to use radians //must do **before** including GLM headers 
++//NOTE: GLSL uses radians, so will do the same, for consistency
++
++#include <glm/glm.hpp> //include the main glm header
++#include <glm/gtc/matrix_transform.hpp> //include functions to ease the calculation of the view and projection matrices
++#include <glm/gtc/type_ptr.hpp> //include functionality for converting a matrix object into a float array for usage in OpenGL
++
+ using namespace std;
+ 
+ /////////////////////
+```
+
+##Diff glVersionIndependent glmRotate 2
+
+```diff
+@@ -23,11 +30,10 @@ const std::string strVertexShader(
+ 		"#version 140\n"
+ 	#endif
+ 	"in vec4 position;\n"
+-	"uniform vec2 offset;\n"
++	"uniform mat4 rotateMatrix;\n"
+ 	"void main()\n"
+ 	"{\n"
+-	"   gl_Position = position;\n"
+-	"   gl_Position.xy += offset;\n"
++	"   gl_Position = rotateMatrix * position;\n" //multiple the position by the transformation matrix (rotate)
+ 	"}\n"
+ 	);
+ 
+```
+
+##Diff glVersionIndependent glmRotate 3
+
+```diff
+@@ -56,17 +62,16 @@ const float vertexPositions[] = {
+ 	0.4330127f, -0.25f, 0.0f, 1.0f,
+ };
+ 
+-//the offset we'll pass to the GLSL
+-double offsetX = -0.5; //using different values from CPU and static GLSL examples, to make it clear this is working
+-double offsetY = -0.5; //NOTE: we could use an array and pass the pointer, to be simpler & more efficent
+-double offsetXSpeed = 0.2; //rate of change of offsetX in units per second
+-double offsetYSpeed = 0.2; //rate of change of offsetY in units per second
++//the rotate we'll pass to the GLSL
++glm::mat4 rotateMatrix; // the transformation matrix for our object - which is the identity matrix by default
++float rotateSpeed = 1.0f; //rate of change of the rotate - in radians per second
++
+ 
+```
+
+##Diff glVersionIndependent glmRotate 4
+
+```diff
+ //our GL and GLSL variables
+ 
+ GLuint theProgram; //GLuint that we'll fill in to refer to the GLSL program (only have 1 at this point)
+-GLint positionLocation; //GLuint that we'll fill in with the location of the `offset` variable in the GLSL
+-GLint offsetLocation; //GLuint that we'll fill in with the location of the `offset` variable in the GLSL
++GLint positionLocation; //GLuint that we'll fill in with the location of the `rotate` variable in the GLSL
++GLint rotateMatrixLocation; //GLuint that we'll fill in with the location of the `rotate` variable in the GLSL
+ 
+ GLuint positionBufferObject;
+ GLuint vao;
+```
+
+##Diff glVersionIndependent glmRotate 5
+
+```diff
+@@ -233,7 +238,7 @@ void initializeProgram()
+ 	}
+ 
+ 	positionLocation = glGetAttribLocation(theProgram, "position");
+-	offsetLocation = glGetUniformLocation(theProgram, "offset");
++	rotateMatrixLocation = glGetUniformLocation(theProgram, "rotateMatrix");
+ 	//clean up shaders (we don't need them anymore as they are no in theProgram
+ 	for_each(shaderList.begin(), shaderList.end(), glDeleteShader);
+ }
+```
+
+##Diff glVersionIndependent glmRotate 6
+
+```diff
+@@ -263,8 +268,13 @@ void loadAssets()
+ 
+ void updateSimulation(double simLength) //update simulation with an amount of time to simulate for (in seconds)
+ {
+-	offsetX += offsetXSpeed * simLength;
+-	offsetY += offsetYSpeed * simLength;
++
++	//calculate the amount of rotate for this timestep
++	float rotate = (float)simLength * rotateSpeed; //simlength is a double for precision, but rotateSpeedVector in a vector of float, alternatively use glm::dvec3
++	
++	//modify the rotateMatrix with the rotate, as a rotate, around the z-axis
++	const glm::vec3 unitZ = glm::vec3(0, 0, 1);
++	rotateMatrix = glm::rotate(rotateMatrix, rotate, unitZ);
+ }
+ 
+ void render()
+```
+
+##Diff glVersionIndependent glmRotate 7
+
+```diff
+@@ -272,8 +282,8 @@ void render()
+ 	glUseProgram(theProgram); //installs the program object specified by program as part of current rendering state
+ 
+ 	//load data to GLSL that **may** have changed
+-	glUniform2f(offsetLocation, offsetX, offsetY);
+-
++	glUniformMatrix4fv(rotateMatrixLocation, 1, GL_FALSE, glm::value_ptr(rotateMatrix)); //uploaed the rotateMatrix to the appropriate uniform location
++	           // upload only one matrix, and don't transpose it
+ 
+ 	glBindBuffer(GL_ARRAY_BUFFER, positionBufferObject); //bind positionBufferObject
+ 
+```
+
+##Next time - **Matrix-Matrix product**
