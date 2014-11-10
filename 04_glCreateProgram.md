@@ -19,7 +19,7 @@ GLuint program = glCreateProgram();
 - the program is empty
 - nothing else has changed
 
-TODO - diagram of context, with a new GLSL program, based on ![assets/apitrace/context_draft.jpg](assets/apitrace/context_draft.jpg_hide)
+TODO - diagram of context, with a new GLSL program, based on ![assets/apitrace/context_draft.jpg](assets/apitrace/context_draft_placeholder.jpg)
 
 ##glAttachShader (vertex)
 
@@ -39,7 +39,7 @@ glAttachShader(program, shaderList[iLoop]);
 - the program is still empty
 - nothing else has changed
 
-TODO - diagram of context, based on ![assets/apitrace/context_draft.jpg](assets/apitrace/context_draft.jpg](assets/apitrace/context_draft.jpg_hide)
+TODO - diagram of context, based on ![assets/apitrace/context_draft.jpg](assets/apitrace/context_draft.jpg](assets/apitrace/context_draft_placeholder.jpg)
 
 ##glAttachShader (fragment)
 
@@ -59,7 +59,7 @@ glAttachShader(program, shaderList[iLoop]);
 - the program is still empty
 - nothing else has changed
 
-TODO - diagram of context, based on ![assets/apitrace/context_draft.jpg](assets/apitrace/context_draft.jpg](assets/apitrace/context_draft.jpg_hide)
+TODO - diagram of context, based on ![assets/apitrace/context_draft.jpg](assets/apitrace/context_draft.jpg](assets/apitrace/context_draft_placeholder.jpg)
 
 ##glBindAttribLocation
 
@@ -77,7 +77,7 @@ TODO - diagram of context, based on ![assets/apitrace/context_draft.jpg](assets/
 - the program is still empty
 - nothing else has changed
 
-TODO - diagram of context, based on ![assets/apitrace/context_draft.jpg](assets/apitrace/context_draft.jpg](assets/apitrace/context_draft.jpg_hide)
+TODO - diagram of context, based on ![assets/apitrace/context_draft.jpg](assets/apitrace/context_draft.jpg](assets/apitrace/context_draft_placeholder.jpg)
 
 ##glLinkProgram
 
@@ -98,7 +98,7 @@ glLinkProgram(program);
 - this program exists separately from the attached shaders
 - nothing else has changed
 
-TODO - diagram of context, based on ![assets/apitrace/context_draft.jpg](assets/apitrace/context_draft.jpg](assets/apitrace/context_draft.jpg_hide)
+TODO - diagram of context, based on ![assets/apitrace/context_draft.jpg](assets/apitrace/context_draft.jpg](assets/apitrace/context_draft_placeholder.jpg)
 
 ##glGetProgramiv
 
@@ -134,7 +134,7 @@ glDetachShader(program, shaderList[iLoop]);
 - our GLSL program with ID=**3** no longer has our shader with ID=**1 (vertex)** attached
 - nothing else has changed
 
-TODO - diagram of context, based on ![assets/apitrace/context_draft.jpg](assets/apitrace/context_draft.jpg](assets/apitrace/context_draft.jpg_hide)
+TODO - diagram of context, based on ![assets/apitrace/context_draft.jpg](assets/apitrace/context_draft.jpg](assets/apitrace/context_draft_placeholder.jpg)
 
 ##glDetachShader (fragment)
 
@@ -153,7 +153,7 @@ glDetachShader(program, shaderList[iLoop]);
 - our GLSL program with ID=**3** no longer has our shader with ID=**2 (fragment)** attached
 - nothing else has changed
 
-TODO - diagram of context, based on ![assets/apitrace/context_draft.jpg](assets/apitrace/context_draft.jpg](assets/apitrace/context_draft.jpg_hide)
+TODO - diagram of context, based on ![assets/apitrace/context_draft.jpg](assets/apitrace/context_draft.jpg](assets/apitrace/context_draft_placeholder.jpg)
 
 ##glGetAttribLocation (position)
 
@@ -208,7 +208,7 @@ for_each(shaderList.begin(), shaderList.end(), glDeleteShader);
 - the shader with ID=**1** no longer exists
 - nothing else has changed
 
-TODO - diagram of context, based on ![assets/apitrace/context_draft.jpg](assets/apitrace/context_draft.jpg_hide)
+TODO - diagram of context, based on ![assets/apitrace/context_draft.jpg](assets/apitrace/context_draft_placeholder.jpg)
 
 ##glDeleteShader (fragment)
 
@@ -228,4 +228,4 @@ for_each(shaderList.begin(), shaderList.end(), glDeleteShader);
 - the shader with ID=**2** (our fragment shader) no longer exists
 - nothing else has changed
 
-TODO - diagram of context, based on ![assets/apitrace/context_draft.jpg](assets/apitrace/context_draft.jpg_hide)
+TODO - diagram of context, based on ![assets/apitrace/context_draft.jpg](assets/apitrace/context_draft_placeholder.jpg)

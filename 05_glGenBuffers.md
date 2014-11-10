@@ -20,7 +20,7 @@ glGenBuffers(1, &positionBufferObject);
 - the **ID/name** for the buffer object is stored in the address passed in
 - nothing else has changed
 
-TODO - diagram of context, based on ![assets/apitrace/context_draft.jpg](assets/apitrace/context_draft.jpg_hide)
+TODO - diagram of context, based on ![assets/apitrace/context_draft.jpg](assets/apitrace/context_draft_placeholder.jpg)
 
 ##glBindBuffer
 
@@ -40,7 +40,7 @@ glBindBuffer(GL_ARRAY_BUFFER, positionBufferObject);
 - the **GL\_ARRAY\_BUFFER\_BINDING** is now set to **1**
 - nothing else has changed
 
-TODO - diagram of context, based on ![assets/apitrace/context_draft.jpg](assets/apitrace/context_draft.jpg_hide)
+TODO - diagram of context, based on ![assets/apitrace/context_draft.jpg](assets/apitrace/context_draft_placeholder.jpg)
 
 ##glBufferData
 
@@ -97,7 +97,7 @@ glBufferData(GL_ARRAY_BUFFER, sizeof(vertexPositions), vertexPositions, GL_STATI
 - nothing else has changed
     - specifically, we **have not** told OpenGL **how** to interpret the bytes
 
-TODO - diagram of context, based on ![assets/apitrace/context_draft.jpg](assets/apitrace/context_draft.jpg_hide)
+TODO - diagram of context, based on ![assets/apitrace/context_draft.jpg](assets/apitrace/context_draft_placeholder.jpg)
 
 ##glBindBuffer (unbinding)
 
@@ -119,5 +119,5 @@ glBindBuffer(GL_ARRAY_BUFFER, 0);
 - the **GL\_ARRAY\_BUFFER\_BINDING** is now set to **0** (meaning no buffer)
 - nothing else has changed
 
-TODO - diagram of context, based on ![assets/apitrace/context_draft.jpg](assets/apitrace/context_draft.jpg_hide)
+TODO - diagram of context, based on ![assets/apitrace/context_draft.jpg](assets/apitrace/context_draft_placeholder.jpg)
 

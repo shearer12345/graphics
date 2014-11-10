@@ -20,7 +20,7 @@ GLuint shader = glCreateShader(eShaderType);
 - the shader is empty
 - nothing else has changed
 
-TODO - diagram of context, with a new fragment shader, based on ![assets/apitrace/context_draft.jpg](assets/apitrace/context_draft.jpg)
+TODO - diagram of context, with a new fragment shader, based on ![assets/apitrace/context_draft.jpg](assets/apitrace/context_draft_placeholder.jpg)
 
 ##glShaderSource (fragment)
 
