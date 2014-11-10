@@ -60,7 +60,7 @@
 
 9) change the GLM matrix to do a rotation, around both the x-axis and the z-axis, over time
 
-1 ) create a GLM matrix to do both a translation and a rotation to the triangle, changing over time
+10) create a GLM matrix to do both a translation and a rotation to the triangle, changing over time
 
 ##Stretch Activities
 
