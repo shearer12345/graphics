@@ -25,7 +25,7 @@ glGenVertexArrays(1, &vao); //create a Vertex Array Object
 - we will store state on the vertex array object later
 - nothing else has changed
 
-TODO - diagram of context, based on ![assets/apitrace/context_draft.jpg](assets/apitrace/context_draft.jpg_hide)
+TODO - diagram of context, based on ![assets/apitrace/context_draft.jpg](assets/apitrace/context_draft_placeholder.jpg)
 
 ##glBindVertexArray
 
@@ -45,4 +45,4 @@ glBindVertexArray(vao); //make the VAO active
 - the **GL\_VERTEX\_ARRAY\_BINDING** is now set to **1**
 - nothing else has changed
 
-TODO - diagram of context, based on ![assets/apitrace/context_draft.jpg](assets/apitrace/context_draft.jpg_hide)
+TODO - diagram of context, based on ![assets/apitrace/context_draft_placeholder.jpg](assets/apitrace/context_draft_placeholder.jpg)

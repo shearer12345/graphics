@@ -67,6 +67,7 @@ qapitrace 3_1_master-debug.trace
 
 !INCLUDE "05_glGenBuffers.md"
 
+!INCLUDE "06_glGenVertexArrays.md"
 
 
 
