@@ -49,7 +49,7 @@ qapitrace 3_1_master-debug.trace
 - a moving white triangle on a red background
     - [https://github.com/shearer12345/graphics_examples_in_git_branches/tree/glTraingleWhiteWithApiTrace](https://github.com/shearer12345/graphics_examples_in_git_branches/tree/glTraingleWhiteWithApiTrace)
 
-![3_1_glTraingleWhiteWithApiTrace-debug.trace](assets/apitrace/3_1_glTraingleWhiteWithApiTrace-debug.trace-2014-10-24_12.13.27.gif)
+![3_1_glTraingleWhiteWithApiTrace-debug.trace](assets/apitrace/3_1_glTraingleWhiteWithApiTrace-debug_trace.gif)
 
 ##The actual trace is online, in the glTraingleWhiteWithApiTrace branch
 
