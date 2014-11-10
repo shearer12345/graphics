@@ -32,9 +32,13 @@
 <section><section id="lincoln-graphics-workshop-07---transformations-properly" class="titleslide slide level1"><h1>Lincoln Graphics Workshop 07 - Transformations Properly</h1></section><section id="transformations-properly" class="slide level2">
 <h1>Transformations Properly</h1>
 <ul>
+<li><strong>Do a fresh clone from the repository</strong></li>
 <li>You'll be working from glWithGLM and adding features.
 <ul>
-<li><code>git checkout glWithGLM</code></li>
+<li><code>git checkout glWithGLM</code>
+<ul>
+<li>as of 2014_11_10, <code>master</code> points at <code>glWithGLM</code>, but don't count on this for the future</li>
+</ul></li>
 <li>then run premake as usual</li>
 </ul></li>
 <li>If you haven't completed the standard activities from the previous weeks then you should catch up on them</li>
@@ -77,24 +81,41 @@
 </ul></li>
 <li>The GLM library and additions to the premake.lua file are all working in the branch <code>glWithGLM</code></li>
 </ul>
-</section><section id="activities" class="slide level2">
-<h1>Activities</h1>
+</section><section id="activities-1" class="slide level2">
+<h1>Activities 1</h1>
+<ul>
+<li>Note: some of these activities are already &quot;solved&quot; in exemplar git branches, but you should still to them yourself</li>
+<li>Note2: Do these to a single triangle</li>
+</ul>
 <ol type="1">
-<li><p>use GLM to create a <strong>null</strong> matrix, pass it into GLSL and apply it</p></li>
+<li><p>use GLM to create a <strong>null</strong> matrix, pass it into GLSL and apply it to the triangle</p></li>
 <li><p>create the GLM matrix to a simple translate matrix</p></li>
 <li><p>change the GLM matrix over time to move the triangle over time</p></li>
 <li><p>create the GLM matrix to do a scale</p></li>
 <li><p>change the GLM matrix to do a scale over time</p></li>
-<li><p>create the GLM matrix to do a rotation (around the z-axis)</p></li>
-<li><p>change the GLM matrix to do a scale (around the z-axis) over time</p></li>
 </ol>
+</section><section id="activities-2" class="slide level2">
+<h1>Activities 2</h1>
+<ul>
+<li>still apply this to a triangle</li>
+</ul>
+<ol start="6" type="1">
+<li><p>create the GLM matrix to do a rotation, around the z-axis</p></li>
+<li><p>change the GLM matrix to do a rotation, around the z-axis, over time</p></li>
+<li><p>change the GLM matrix to do a rotation, around the x-axis, over time</p></li>
+<li><p>change the GLM matrix to do a rotation, around both the x-axis and the z-axis, over time</p></li>
+</ol>
+<p>1 ) create a GLM matrix to do both a translation and a rotation to the triangle, changing over time</p>
 </section><section id="stretch-activities" class="slide level2">
 <h1>Stretch Activities</h1>
 <ul>
 <li>If you've got through the standard activities then have a bash at these</li>
 </ul>
 <ol type="1">
-<li>todo</li>
+<li><p>change your triangle into a square.</p></li>
+<li><p>change your triangle into a cube. Make it rotate around the y-axis over time. Does it render correctly all the time? What's going on?</p></li>
+<li><p>enable GL_CULL_FACE (<a href="https://www.opengl.org/sdk/docs/man/docbook4/xhtml/glEnable.xml" class="uri">https://www.opengl.org/sdk/docs/man/docbook4/xhtml/glEnable.xml</a>) and apply it to a triangle rotating around the y-axis. What is the effect? How do you control it?</p></li>
+<li><p>enable GL_CULL_FACE (<a href="https://www.opengl.org/sdk/docs/man/docbook4/xhtml/glEnable.xml" class="uri">https://www.opengl.org/sdk/docs/man/docbook4/xhtml/glEnable.xml</a>) and apply it to your cube. Does it resolve the issues from 2)? Any other ways to resolve the issue that you can think of?</p></li>
 </ol>
 </section></section>
     </div>
