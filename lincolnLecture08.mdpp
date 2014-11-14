@@ -19,8 +19,8 @@
 
 ##Matrix-Matrix product - generic
 
-- Last time we say that transformation matrices can be applied to vectors (through Matrix-Vector multiplication).
-- By itself is not very useful
+- Last time we said that transformation matrices can be applied to vectors (through Matrix-Vector multiplication).
+- By itself this seems like overkill
     - It took far less effort to do a translation and scaling by hand than with matrices
 - BUT, we want to apply these transformations to thousands or millions of vertices
 - so, we need things to be efficient and still flexible
@@ -36,7 +36,8 @@
   - width of the first matrix
   - height of the second matrix
 - the **dot** just means multiply
-- ready? ...
+
+##ready? ...
 
 ##Matrix-Matrix product!! 4x4
 
@@ -55,15 +56,15 @@
 - we'll try to create a **single** matrix that
     - scales a given vector by (2,2,2)
     - then translates it by (1,2,3)
+- NOTE: we want to scale the vector first, but the scale transformation comes last in the multiplication.
+- Pay attention to this when combining transformations or you'll get the opposite of what you've asked for.
+- To figure out the transformation from the vectors perspective, read the transformation from the vector to the **LEFT!!**
 
 ![matrixMatrix_4x4_Product_translateByScale.png](assets/matrixMatrix_4x4_Product_translateByScale.png)
 
 ##Test it
 
 - let's apply that to a test vector
-- NOTE: we want to scale the vector first, but the scale transformation comes last in the multiplication.
-- Pay attention to this when combining transformations or you'll get the opposite of what you've asked for.
-- To figure out the transformation from the vectors perspective, read the transformation from the vector to the **LEFT!!**
 
 ![matrixMatrix_4x4_Product_translateByScale_applied.png](assets/matrixMatrix_4x4_Product_translateByScale_applied.png)
 
@@ -109,6 +110,10 @@
 Note: live-code. ```git checkout glmRotateColorCube``` and make changes to match ```glmRotateAndTranslateColorCube```
 
 ##What was that diff?
+
+```bash
+git diff glmRotateColorCube glmRotateAndTranslateColorCube
+```
 
 ```diff
 diff --git a/main.cpp b/main.cpp
@@ -243,3 +248,23 @@ index 7313fda..4d7c709 100644
  	{
  		//GET INPUT HERE - PLACEHOLDER
 ```
+
+##Why doing the 4x4 Matrix multiplication CPU-side (with GLM)?
+
+- isn't that less efficient?
+- YES
+- but usually we need to know the effect of the transformations CPU-side
+    - (for collision detection, for example)
+    - it means we pass less into GLSL
+    - we can change to calculations we do CPU-side more easily than GPU-side
+    - if we want now to combine 3 matrices that's easy in C++,
+    - to do it GPU-side, we'd need to change
+        - the C++
+        - the uniforms of the GLSL
+        - the main of the GLSL
+
+##Why doing the 4x4 Matrix multiplication CPU-side (with GLM)?
+
+- Except for the most common (frequency) 4x4 matrix multiplcations
+- **projectionMatrix \* viewMatrix \* modelMatrix**
+- Which we'll look at next week
