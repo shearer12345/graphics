@@ -1,0 +1,245 @@
+#Lincoln Lectures On Graphics - 08
+
+#Transformations and 3D
+
+##Where we are
+
+- with the workshops and the lecture content you should now be beginning to be comfortable with:
+    - the pipeline model of rendering
+    - how to setup OpenGL for rendering
+    - how to tell OpenGL how to use the data you've supplied it
+    - how to load data into OpenGL
+    - what shaders do
+        - specifically, the generic data each type of shader takes in and passes out
+    - how to pass data into shaders
+        - as attributes, and uniforms
+    - how to move an object around using GLM and matrices
+
+#Matrix-Matrix product
+
+##Matrix-Matrix product - generic
+
+- Last time we say that transformation matrices can be applied to vectors (through Matrix-Vector multiplication).
+- By itself is not very useful
+    - It took far less effort to do a translation and scaling by hand than with matrices
+- BUT, we want to apply these transformations to thousands or millions of vertices
+- so, we need things to be efficient and still flexible
+- This is the real power of matrices
+    - we can combine **as many transformations as we want** into a single matrix
+    - by multiplying the matrices together
+- to allow the most complex transformations to any vertex with a simple (matrix) multiplication
+
+##Matrix-Matrix product
+
+- product, just means multiplication
+- remember - we can only multiple matrices where the following are equal
+  - width of the first matrix
+  - height of the second matrix
+- the **dot** just means multiply
+- ready? ...
+
+##Matrix-Matrix product!! 4x4
+
+![matrixMatrix_4x4_Product.png](assets/matrixMatrix_4x4_Product.png)
+
+##Matrix-Vector product - 2x2
+
+- the 4x4 is pretty overwhelming
+- let's briefly look at a 2x2 to get a handle on this
+- with some fixed numbers
+
+![matrixMatrix_2x2_Product.png](assets/matrixMatrix_2x2_Product.png)
+
+##Let's try
+
+- we'll try to create a **single** matrix that
+    - scales a given vector by (2,2,2)
+    - then translates it by (1,2,3)
+
+![matrixMatrix_4x4_Product_translateByScale.png](assets/matrixMatrix_4x4_Product_translateByScale.png)
+
+##Test it
+
+- let's apply that to a test vector
+- NOTE: we want to scale the vector first, but the scale transformation comes last in the multiplication.
+- Pay attention to this when combining transformations or you'll get the opposite of what you've asked for.
+- To figure out the transformation from the vectors perspective, read the transformation from the vector to the **LEFT!!**
+
+![matrixMatrix_4x4_Product_translateByScale_applied.png](assets/matrixMatrix_4x4_Product_translateByScale_applied.png)
+
+#Matrix-Matrix product in practice
+
+##Matrix-Matrix product in practice
+
+- both GLM (CPU-side) and GLSL (GPU-side) support Matrix-Matrix multiplication
+- GLM has a whole bunch of methods to support creating matrices for specific cases, including:
+    - rotation
+    - translation
+    - scale
+    - setting up a viewpoint
+    - setting up a perspective view
+- we're finally heading towards 3D
+
+##3D?
+
+- in fact, **everything** we've been doing so far has **already** been in 3D
+- we just were only creating triangles, and usually just with a constant z-value
+- to see 3D things we need to:
+    - use different z-values
+    - usually create solid-looking objects
+        - out of collections of triangles
+    - usually create some kind of perspective view so that objects (triangles) further away appear smaller
+- see branch glmRotateColorCube
+
+##**Model** transformation
+
+- this control of the position, orientation and scale of an object is called the **Model** transformation
+- we generically call the matrix to represent this the:
+    - **ModelMatrix**
+    - it's job is to represent the position, orientation and scale of an object
+    - but not anything about the viewpoint, or the projection
+    - there are other matrices we use for that
+    - **separation of concerns**
+
+##Let's try this is the Cube
+
+- can we translate and rotate it?
+- what **exactly** do we want to happen?
+
+Note: live-code. ```git checkout glmRotateColorCube``` and make changes to match ```glmRotateAndTranslateColorCube```
+
+##What was that diff?
+
+```diff
+diff --git a/main.cpp b/main.cpp
+index 7313fda..4d7c709 100644
+--- a/main.cpp
++++ b/main.cpp
+```
+
+##
+
+```diff
+@@ -31,11 +31,11 @@ const std::string strVertexShader(
+ 	#endif
+ 	"in vec4 position;\n"
+ 	"in vec4 color;\n"
+-	"uniform mat4 rotateMatrix;\n"
++	"uniform mat4 modelMatrix;\n"
+ 	"smooth out vec4 theColor;\n"
+ 	"void main()\n"
+ 	"{\n"
+-	"   gl_Position = rotateMatrix * position;\n" //multiple the position by the transformation matrix (rotate)
++	"   gl_Position = modelMatrix * position;\n" //multiple the position by the transformation matrix (rotate)
+ 	"   theColor = color;\n" //just pass on the color. It's a **smooth**, so will be interpolated
+ 	"}\n"
+ 	);
+```
+
+##
+
+```diff
+@@ -165,16 +165,20 @@ const float vertexData[] = {
+ };
+ 
+ //the rotate we'll pass to the GLSL
+-glm::mat4 rotateMatrix; // the transformation matrix for our object - which is the identity matrix by default
+-float rotateSpeed = 1.0f; //rate of change of the rotate - in radians per second
++glm::mat4 modelMatrix; // the transformation matrix for our object - which is the identity matrix by default
+ 
++glm::mat4 rotationMatrix; // the rotationMatrix for our object - which is the identity matrix by default
++glm::mat4 translationMatrix; // the translationMatrix for our object - which is the identity matrix by default
++
++float rotateSpeed = 1.0f; //rate of change of the rotate - in radians per second
++glm::vec3 translateSpeed = glm::vec3(0.1f, 0.1f, 0.0f);
+
+```
+
+##
+
+```diff
+
+ //our GL and GLSL variables
+ 
+ GLuint theProgram; //GLuint that we'll fill in to refer to the GLSL program (only have 1 at this point)
+ GLint positionLocation; //GLuint that we'll fill in with the location of the `position` attribute in the GLSL
+ GLint colorLocation; //GLuint that we'll fill in with the location of the `color` attribute in the GLSL
+-GLint rotateMatrixLocation; //GLuint that we'll fill in with the location of the `rotateMatrix` variable in the GLSL
++GLint modelMatrixLocation; //GLuint that we'll fill in with the location of the `modelMatrix` variable in the GLSL
+ 
+ GLuint vertexBufferObject;
+ GLuint vao;
+```
+
+##
+
+```diff
+@@ -342,7 +346,7 @@ void initializeProgram()
+ 
+ 	positionLocation = glGetAttribLocation(theProgram, "position");
+ 	colorLocation = glGetAttribLocation(theProgram, "color");
+-	rotateMatrixLocation = glGetUniformLocation(theProgram, "rotateMatrix");
++	modelMatrixLocation = glGetUniformLocation(theProgram, "modelMatrix");
+ 	//clean up shaders (we don't need them anymore as they are no in theProgram
+ 	for_each(shaderList.begin(), shaderList.end(), glDeleteShader);
+ }
+```
+
+##
+
+```diff
+@@ -383,12 +387,18 @@ void updateSimulation(double simLength) //update simulation with an amount of ti
+ 	//calculate the amount of rotate for this timestep
+ 	float rotate = (float)simLength * rotateSpeed; //simlength is a double for precision, but rotateSpeedVector in a vector of float, alternatively use glm::dvec3
+ 
+-	//modify the rotateMatrix with the rotate, as a rotate, around the z-axis
++	//modify the rotationMatrix with the rotate, as a rotate, around the z-axis
+ 	const glm::vec3 unitX = glm::vec3(1, 0, 0);
+ 	const glm::vec3 unitY = glm::vec3(0, 1, 0);
+ 	const glm::vec3 unitZ = glm::vec3(0, 0, 1);
+ 	const glm::vec3 unit45 = glm::normalize(glm::vec3(0, 1, 1));
+-	rotateMatrix = glm::rotate(rotateMatrix, rotate, unit45);
++	
++	rotationMatrix = glm::rotate(rotationMatrix, rotate, unit45);
+```
+
+##
+
+```diff
++
++	glm::vec3 translate = float(simLength) * translateSpeed; //scale the translationSpeed by time to get the translation amount
++	translationMatrix = glm::translate(translationMatrix, translate);
++
++	modelMatrix = translationMatrix * rotationMatrix;
+ }
+ 
+ void render()
+```
+
+##
+
+```diff
+@@ -396,7 +406,7 @@ void render()
+ 	glUseProgram(theProgram); //installs the program object specified by program as part of current rendering state
+ 
+ 	//load data to GLSL that **may** have changed
+-	glUniformMatrix4fv(rotateMatrixLocation, 1, GL_FALSE, glm::value_ptr(rotateMatrix)); //uploaed the rotateMatrix to the appropriate uniform location
++	glUniformMatrix4fv(modelMatrixLocation, 1, GL_FALSE, glm::value_ptr(modelMatrix)); //uploaed the modelMatrix to the appropriate uniform location
+ 	           // upload only one matrix, and don't transpose it
+ 
+     size_t colorData = sizeof(vertexData) / 2;
+```
+
+##
+
+```diff
+@@ -438,7 +448,7 @@ int main( int argc, char* args[] )
+ 	loadAssets();
+ 
+ 
+-	while (!done && (SDL_GetTicks() < 5000)) //LOOP FROM HERE, for 2000ms (or if done flag is set)
++	while (!done && (SDL_GetTicks() < 15000)) //LOOP FROM HERE, for 2000ms (or if done flag is set)
+ 		//WARNING: SDL_GetTicks is only accurate to milliseconds, use SDL_GetPerformanceCounter and SDL_GetPerformanceFrequency for higher accuracy
+ 	{
+ 		//GET INPUT HERE - PLACEHOLDER
+```
