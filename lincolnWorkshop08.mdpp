@@ -1,0 +1,88 @@
+#Lincoln Graphics Workshop 08 - Moving into 3D!! finally!!
+
+##Moving into 3D!! finally!!
+
+- **Do a fresh clone from the repository**
+    - delete the whole ```graphics_examples_in_git_branches``` directory
+    - ```git clone --recursive https://github.com/shearer12345/graphics_examples_in_git_branches.git```
+    - ```py branchAndTrack.py```
+- You'll be working from ```glWithGLM``` and adding features.
+    - ```git checkout glWithGLM```
+        - as of 2014_11_10, ```master``` points at ```glWithGLM```, but don't count on this for the future
+    - then run premake as usual
+        - ```.\premake4.bat vs2012```
+- If you haven't completed the standard activities from the previous weeks then you should catch up on them
+- as a reminder, the source is at
+    - [https://github.com/shearer12345/graphics_examples_in_git_branches](https://github.com/shearer12345/graphics_examples_in_git_branches)
+
+#Activities
+
+##Activity 1
+
+- change the triangle into a square
+
+##Activity 2
+
+- change the triangle into a cube
+
+    - for your reference there is a header file in the branch ```glCube``` that defines some vertices (and colours)
+        - [glCube/cubeWithColor.h](https://github.com/shearer12345/graphics_examples_in_git_branches/blob/glCube/cubeWithColor.h)
+        - you **can** use this, but don't have to
+
+##Activity 3
+
+- make the triangle have a different colour for each face
+
+    - [glCube/cubeWithColor.h](https://github.com/shearer12345/graphics_examples_in_git_branches/blob/glCube/cubeWithColor.h) already has colour data per face in it, you just need to use it
+    - what's wrong with the rendering?
+        - why couldn't we tell previously?
+        - don't try to fix this yet, but explore what's going on
+        - control **which** triangles are drawn (```glDrawArrays``` call) to help explore this
+
+##Activity 4
+
+- make the cube rotate around the y-axis (vertical) over time.
+    - does that make it clearer what's going on
+        - again, control **which** triangles are drawn to help explore this
+    - explain to one of the demonstrators **exactly** what you think is happening?
+
+##Activity 5
+
+- add "face culling" to the cube
+    - there are a number of approaches to resolving this rendering issue
+    - it doesn't occur when only drawing a single triangle
+    - it **always** happens (from at least one viewpoint) when drawing 3D shapes representing solid objects (e.g. a cube)
+    - for these 3D shapes representing solid objects , you can use "face culling"
+    - [https://www.opengl.org/wiki/Face_Culling](https://www.opengl.org/wiki/Face_Culling)
+
+##Activity 6
+
+- make your program draw two cubes
+    - using the same vertices
+    - in different places
+    - neither has to move at this point
+
+##Activity 7
+
+- make one cube rotate (around the y-axis) and the other translate
+    - what happens if they are on top of each other??
+        - There's another technique to help with that effect, called z-test (or depth test)
+
+##Activity 8
+
+- make one cube rotate in an orbit (around the z-axis) around the center point, but always facing the same way
+
+##Activity 9
+
+- make one cube rotate in an orbit (around the z-axis) while also rotating around the y-axis
+
+##Stretch Activities
+
+**If you've got through the standard activities then have a bash at these**
+
+1) make a cube rotate in an orbit around the center point, but always oriented tangentially (at right angles) to the line to the centre
+2) make two cubes - cube A and cube B should both orbit the center point, but not be on top of each other
+3) make cube A and cube B orbit at different speeds
+4) make 5 cubes, all orbiting at different distances from the center and at different speeds (you might want to have a cube at the center, to mark it)
+5) make cube A orbit the center, and cube B orbit cube A (like a moon)
+
