@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <title></title>
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <link rel="stylesheet" href="reveal.js/css/reveal.min.css"/>
+    <style type="text/css">code{white-space: pre;}</style>
+    <link rel="stylesheet" href="reveal.js/css/theme/simple.css" id="theme">
+    <!-- If the query includes 'print-pdf', include the PDF print sheet -->
+    <script>
+      if( window.location.search.match( /print-pdf/gi ) ) {
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = 'reveal.js/css/print/pdf.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+      }
+    </script>
+    <!--[if lt IE 9]>
+    <script src="reveal.js/lib/js/html5shiv.js"></script>
+    <![endif]-->
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+
+<section><section id="lincoln-graphics-workshop-08---moving-into-3d-finally" class="titleslide slide level1"><h1>Lincoln Graphics Workshop 08 - Moving into 3D!! finally!!</h1></section><section id="moving-into-3d-finally" class="slide level2">
+<h1>Moving into 3D!! finally!!</h1>
+<ul>
+<li><strong>Do a fresh clone from the repository</strong>
+<ul>
+<li>delete the whole <code>graphics_examples_in_git_branches</code> directory</li>
+<li><code>git clone --recursive https://github.com/shearer12345/graphics_examples_in_git_branches.git</code></li>
+<li><code>py branchAndTrack.py</code></li>
+</ul></li>
+<li>You'll be working from <code>glWithGLM</code> and adding features.
+<ul>
+<li><code>git checkout glWithGLM</code>
+<ul>
+<li>as of 2014_11_10, <code>master</code> points at <code>glWithGLM</code>, but don't count on this for the future</li>
+</ul></li>
+<li>then run premake as usual
+<ul>
+<li><code>.\premake4.bat vs2012</code></li>
+</ul></li>
+</ul></li>
+<li>If you haven't completed the standard activities from the previous weeks then you should catch up on them</li>
+<li>as a reminder, the source is at
+<ul>
+<li><a href="https://github.com/shearer12345/graphics_examples_in_git_branches" class="uri">https://github.com/shearer12345/graphics_examples_in_git_branches</a></li>
+</ul></li>
+</ul>
+</section></section>
+<section><section id="activities" class="titleslide slide level1"><h1>Activities</h1></section><section id="activity-1" class="slide level2">
+<h1>Activity 1</h1>
+<ul>
+<li>change the triangle into a square</li>
+</ul>
+</section><section id="activity-2" class="slide level2">
+<h1>Activity 2</h1>
+<ul>
+<li><p>change the triangle into a cube</p>
+<ul>
+<li>for your reference there is a header file in the branch <code>glCube</code> that defines some vertices (and colours)
+<ul>
+<li><a href="https://github.com/shearer12345/graphics_examples_in_git_branches/blob/glCube/cubeWithColor.h">glCube/cubeWithColor.h</a></li>
+<li>you <strong>can</strong> use this, but don't have to</li>
+</ul></li>
+</ul></li>
+</ul>
+</section><section id="activity-3" class="slide level2">
+<h1>Activity 3</h1>
+<ul>
+<li><p>make the triangle have a different colour for each face</p>
+<ul>
+<li><a href="https://github.com/shearer12345/graphics_examples_in_git_branches/blob/glCube/cubeWithColor.h">glCube/cubeWithColor.h</a> already has colour data per face in it, you just need to use it</li>
+<li>what's wrong with the rendering?
+<ul>
+<li>why couldn't we tell previously?</li>
+<li>don't try to fix this yet, but explore what's going on</li>
+<li>control <strong>which</strong> triangles are drawn (<code>glDrawArrays</code> call) to help explore this</li>
+</ul></li>
+</ul></li>
+</ul>
+</section><section id="activity-4" class="slide level2">
+<h1>Activity 4</h1>
+<ul>
+<li>make the cube rotate around the y-axis (vertical) over time.
+<ul>
+<li>does that make it clearer what's going on
+<ul>
+<li>again, control <strong>which</strong> triangles are drawn to help explore this</li>
+</ul></li>
+<li>explain to one of the demonstrators <strong>exactly</strong> what you think is happening?</li>
+</ul></li>
+</ul>
+</section><section id="activity-5" class="slide level2">
+<h1>Activity 5</h1>
+<ul>
+<li>add &quot;face culling&quot; to the cube
+<ul>
+<li>there are a number of approaches to resolving this rendering issue</li>
+<li>it doesn't occur when only drawing a single triangle</li>
+<li>it <strong>always</strong> happens (from at least one viewpoint) when drawing 3D shapes representing solid objects (e.g. a cube)</li>
+<li>for these 3D shapes representing solid objects , you can use &quot;face culling&quot;</li>
+<li><a href="https://www.opengl.org/wiki/Face_Culling" class="uri">https://www.opengl.org/wiki/Face_Culling</a></li>
+</ul></li>
+</ul>
+</section><section id="activity-6" class="slide level2">
+<h1>Activity 6</h1>
+<ul>
+<li>make your program draw two cubes
+<ul>
+<li>using the same vertices</li>
+<li>in different places</li>
+<li>neither has to move at this point</li>
+</ul></li>
+</ul>
+</section><section id="activity-7" class="slide level2">
+<h1>Activity 7</h1>
+<ul>
+<li>make one cube rotate (around the y-axis) and the other translate
+<ul>
+<li>what happens if they are on top of each other??
+<ul>
+<li>There's another technique to help with that effect, called z-test (or depth test)</li>
+</ul></li>
+</ul></li>
+</ul>
+</section><section id="activity-8" class="slide level2">
+<h1>Activity 8</h1>
+<ul>
+<li>make one cube rotate in an orbit (around the z-axis) around the center point, but always facing the same way</li>
+</ul>
+</section><section id="activity-9" class="slide level2">
+<h1>Activity 9</h1>
+<ul>
+<li>make one cube rotate in an orbit (around the z-axis) while also rotating around the y-axis</li>
+</ul>
+</section><section id="stretch-activities" class="slide level2">
+<h1>Stretch Activities</h1>
+<p><strong>If you've got through the standard activities then have a bash at these</strong></p>
+<ol type="1">
+<li>make a cube rotate in an orbit around the center point, but always oriented tangentially (at right angles) to the line to the centre</li>
+<li>make two cubes - cube A and cube B should both orbit the center point, but not be on top of each other</li>
+<li>make cube A and cube B orbit at different speeds</li>
+<li>make 5 cubes, all orbiting at different distances from the center and at different speeds (you might want to have a cube at the center, to mark it)</li>
+<li>make cube A orbit the center, and cube B orbit cube A (like a moon)</li>
+</ol>
+</section></section>
+    </div>
+  </div>
+
+
+  <script src="reveal.js/lib/js/head.min.js"></script>
+  <script src="reveal.js/js/reveal.min.js"></script>
+
+  <script>
+
+      // Full list of configuration options available here:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+        theme: 'sky', // available themes are in /css/theme
+        transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+        // Optional libraries used to extend on reveal.js
+        dependencies: [
+          { src: 'reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: 'reveal.js/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+          { src: 'reveal.js/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } },
+//          { src: 'reveal.js/plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; }, }
+//          { src: 'reveal.js/plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+]});
+    </script>
+    </body>
+</html>
