@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <title></title>
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <link rel="stylesheet" href="reveal.js/css/reveal.min.css"/>
+    <style type="text/css">code{white-space: pre;}</style>
+    <link rel="stylesheet" href="reveal.js/css/theme/simple.css" id="theme">
+    <!-- If the query includes 'print-pdf', include the PDF print sheet -->
+    <script>
+      if( window.location.search.match( /print-pdf/gi ) ) {
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = 'reveal.js/css/print/pdf.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+      }
+    </script>
+    <!--[if lt IE 9]>
+    <script src="reveal.js/lib/js/html5shiv.js"></script>
+    <![endif]-->
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+
+<section><section id="lincoln-lectures-on-graphics---09" class="titleslide slide level1"><h1>Lincoln Lectures On Graphics - 09</h1></section></section>
+<section><section id="view-and-projection-matrices" class="titleslide slide level1"><h1>View and Projection Matrices</h1></section><section id="where-we-are" class="slide level2">
+<h1>Where we are</h1>
+<ul>
+<li>with the workshops and the lecture content you should now be beginning to be comfortable with:
+<ul>
+<li>the pipeline model of rendering</li>
+<li>how to setup OpenGL for rendering</li>
+<li>how to tell OpenGL how to use the data you've supplied it</li>
+<li>how to load data into OpenGL</li>
+<li>what shaders do
+<ul>
+<li>specifically, the generic data each type of shader takes in and passes out</li>
+</ul></li>
+<li>how to pass data into shaders
+<ul>
+<li>as attributes, and uniforms</li>
+</ul></li>
+<li>how to move an object around using GLM and matrices</li>
+<li>how to combine GLM matrices for more complex transformations</li>
+</ul></li>
+</ul>
+</section><section id="why-doing-the-4x4-matrix-multiplication-cpu-side-with-glm" class="slide level2">
+<h1>Why doing the 4x4 Matrix multiplication CPU-side (with GLM)?</h1>
+<ul>
+<li>isn't that less efficient?</li>
+<li>YES</li>
+<li>but usually we need to know the effect of the transformations CPU-side
+<ul>
+<li>(for collision detection, for example)</li>
+<li>it means we pass less into GLSL</li>
+<li>we can change to calculations we do CPU-side more easily than GPU-side</li>
+<li>we can use the <strong>same</strong> GLSL code with very different input</li>
+<li>if we want now to combine 3 matrices that's easy in C++,</li>
+<li>to do it GPU-side, we'd need to change
+<ul>
+<li>the C++</li>
+<li>the uniforms of the GLSL</li>
+<li>the main of the GLSL</li>
+</ul></li>
+</ul></li>
+</ul>
+</section><section id="why-doing-the-4x4-matrix-multiplication-cpu-side-with-glm-1" class="slide level2">
+<h1>Why doing the 4x4 Matrix multiplication CPU-side (with GLM)?</h1>
+<ul>
+<li>Except for the most common (frequency) 4x4 matrix multiplcations</li>
+<li><strong>projectionMatrix * viewMatrix * modelMatrix</strong></li>
+<li>because <strong>almost all</strong> 3D scenes have these</li>
+</ul>
+<blockquote>
+<p>OpenGL allows you to decide on these steps yourself, all 3D graphics applications use a variation of the process described here - https://open.gl/transformations</p>
+</blockquote>
+</section><section id="what-does-each-matrix-do" class="slide level2">
+<h1>What does each matrix <strong>do</strong>?</h1>
+<ul>
+<li>we pass these 3 matrices separately to GLSL because:
+<ul>
+<li><ol type="a">
+<li>we use them for different purposes</li>
+</ol>
+<ul>
+<li>Model Matrix = position, orientation and scale of the model</li>
+<li>View Matrix = position and orientation of the camera</li>
+<li>Projection Matrix = how the camera goes from 3D to 2D</li>
+</ul></li>
+<li><ol start="2" type="a">
+<li>they change at different frequencies</li>
+</ol></li>
+</ul></li>
+</ul>
+<figure>
+<img src="assets/modelViewProjectionMatricesInPipeline.png" alt="modelViewProjectionMatricesInPipeline.png" /><figcaption>modelViewProjectionMatricesInPipeline.png</figcaption>
+</figure>
+</section><section id="how-often-does-each-change" class="slide level2">
+<h1>How often does each change?</h1>
+<ul>
+<li>???</li>
+<li>Model Matrix = position and orientation of the model</li>
+<li>View Matrix = position and orientation of the camera</li>
+<li>Projection Matrix = how the camera goes from 3D to 2D</li>
+</ul>
+<figure>
+<img src="assets/modelViewProjectionMatricesInPipeline.png" alt="modelViewProjectionMatricesInPipeline.png" /><figcaption>modelViewProjectionMatricesInPipeline.png</figcaption>
+</figure>
+</section><section id="how-often-does-the-model-matrix-change" class="slide level2">
+<h1>How often does the Model Matrix change?</h1>
+<ul>
+<li>Model Matrix = position and orientation of the model
+<ul>
+<li>for every model (object) we render</li>
+<li>many times per frame</li>
+</ul></li>
+</ul>
+</section><section id="how-often-does-the-view-matrix-change" class="slide level2">
+<h1>How often does the View Matrix change?</h1>
+<ul>
+<li>View Matrix = position and orientation of the camera
+<ul>
+<li>each time we change the viewpoint</li>
+<li>assuming a single render per frame (no HUD, no 2nd viewport)</li>
+<li>each time the camera moves</li>
+<li>~= 1 per frame</li>
+</ul></li>
+</ul>
+</section><section id="how-often-does-the-projection-matrix-change" class="slide level2">
+<h1>How often does the Projection Matrix change?</h1>
+<ul>
+<li>Projection Matrix = how the camera goes from 3D to 2D
+<ul>
+<li>each time we change the projection</li>
+<li>assuming a single render per frame (no HUD, no 2nd viewport)</li>
+<li>rarely</li>
+</ul></li>
+</ul>
+</section></section>
+<section><section id="view-control" class="titleslide slide level1"><h1>View Control</h1></section><section id="view-control-1" class="slide level2">
+<h1>View Control</h1>
+<ul>
+<li>OpenGL doesn't really have a concept of a camera</li>
+<li>In fact, the view is <strong>ALWAYS</strong>:
+<ul>
+<li>from the origin (0,0,0)</li>
+<li>looking down the negative z-axis</li>
+</ul></li>
+<li>How do create a view that we want?</li>
+</ul>
+</section><section id="creating-the-view-we-want" class="slide level2">
+<h1>Creating the view we want</h1>
+<ul>
+<li>move the whole world instead!!</li>
+<li>with the inverse transformation that we want applied to the &quot;camera&quot;!!</li>
+<li>e.g. to simulate the camera moving left, move <strong>everything</strong> in the world to right
+<ul>
+<li>before they are rendered</li>
+<li>i.e. in the vertex shader</li>
+</ul></li>
+</ul>
+</section><section id="compared-to-old-style-opengl" class="slide level2">
+<h1>Compared to &quot;old-style&quot; OpenGL</h1>
+<ul>
+<li>in &quot;old-style&quot; OpenGL (i.e. prior to OpenGL 3.0)</li>
+<li>you <strong>only</strong> had a <strong>projection</strong> matrix and a combined <strong>modelview</strong> matrix</li>
+<li>having a <strong>view matrix</strong> separately has obvious advantages
+<ul>
+<li>we want to be able to control them separately</li>
+</ul></li>
+</ul>
+</section><section id="how-to-set-view-matrix-in-cglsl" class="slide level2">
+<h1>How to set View Matrix in C++/GLSL</h1>
+<ul>
+<li>do it by hand</li>
+<li>just pass an array of 16-floats into OpenGL as a uniformMat4
+<ul>
+<li>and use it in GLSL</li>
+</ul></li>
+<li>OR, use GLM</li>
+<li>just the same as controlling the transformations applied to models
+<ul>
+<li>control the transformation applied to all models after the modelMatrix has been applied</li>
+<li>???</li>
+</ul></li>
+<li>Remember the viewMatrix has to transform the world with the <strong>inverse</strong> of the transform you want applied to the &quot;camera&quot;</li>
+</ul>
+</section><section id="how-to-set-view-matrix-in-cglsl-1" class="slide level2">
+<h1>How to set View Matrix in C++/GLSL</h1>
+<ul>
+<li>Examples:
+<ul>
+<li><code>glmViewMatrixTranslate</code></li>
+<li><code>glmViewMatrixTranslateWithTwoCubes</code></li>
+<li><code>glmLookAt</code></li>
+</ul></li>
+</ul>
+</section></section>
+<section><section id="projection" class="titleslide slide level1"><h1>Projection</h1></section><section id="projection-1" class="slide level2">
+<h1>Projection</h1>
+<ul>
+<li>how the camera goes from 3D to 2D</li>
+<li><strong>Orthographic</strong> projection</li>
+<li>or <strong>Perspective</strong> projection</li>
+<li>before projection our vertices are in <strong>Camera Space</strong></li>
+</ul>
+</section><section id="orthographic-projection-diagram" class="slide level2">
+<h1>Orthographic Projection diagram</h1>
+<ul>
+<li>things further away are the same size as if they are near</li>
+<li>frustum is <strong>always a cuboid</strong></li>
+</ul>
+<figure>
+<img src="assets/projectionOrthographic.png" alt="http://www.labri.fr/perso/nrougier/teaching/opengl/images/ViewFrustum.png" /><figcaption>http://www.labri.fr/perso/nrougier/teaching/opengl/images/ViewFrustum.png</figcaption>
+</figure>
+</section><section id="orthographic-projection" class="slide level2">
+<h1>Orthographic Projection</h1>
+<ul>
+<li><code>glm::ortho(-1, 1, -1, 1, -1, 1);</code>
+<ul>
+<li>the default we've already been using</li>
+<li>is the <strong>identity</strong> matrix</li>
+</ul></li>
+<li><code>glm::ortho(left, right, bottom, top, near, far);</code></li>
+<li>also called <strong>Orthogonal</strong> projection</li>
+</ul>
+</section><section id="orthographic-projection-example" class="slide level2">
+<h1>Orthographic Projection example</h1>
+<ul>
+<li><code>glmProjectionOrtho</code></li>
+</ul>
+</section><section id="perspective-projection" class="slide level2">
+<h1>Perspective Projection</h1>
+<ul>
+<li>a vertex at (0,0,?) should be rendered at the centre of the viewport</li>
+<li><strong>BUT</strong> the distance to the camera in <strong>z</strong> also matters</li>
+<li>with two vertices with the same x and y coordinates
+<ul>
+<li>but one with a larger z-value</li>
+<li>the larger z-valued vertex with be nearer the centre of the viewport</li>
+</ul></li>
+<li>this is <strong>perspective projection</strong></li>
+</ul>
+</section><section id="perspective-projection-diagram" class="slide level2">
+<h1>Perspective Projection diagram</h1>
+<ul>
+<li>frustum is a rectangular based pyramid with the point chopped off</li>
+</ul>
+<figure>
+<img src="assets/projectionPerspective.png" alt="http://www.labri.fr/perso/nrougier/teaching/opengl/images/ViewFrustum.png" /><figcaption>http://www.labri.fr/perso/nrougier/teaching/opengl/images/ViewFrustum.png</figcaption>
+</figure>
+</section><section id="perspective-projection-vs-orthographic-projection" class="slide level2">
+<h1>Perspective Projection VS Orthographic Projection</h1>
+<figure>
+<img src="assets/projectionPerspectiveVSOrthographic.png" alt="http://www.labri.fr/perso/nrougier/teaching/opengl/images/ViewFrustum.png" /><figcaption>http://www.labri.fr/perso/nrougier/teaching/opengl/images/ViewFrustum.png</figcaption>
+</figure>
+</section><section id="representing-perspective-projection" class="slide level2">
+<h1>Representing Perspective Projection</h1>
+<ul>
+<li>A 4x4 Matrix can represent this projection</li>
+<li><p>Easy to create with GLM</p>
+<pre class="c++"><code>glm::mat4 projectionMatrix = glm::perspective(
+fovy         // The Field of View in y (vertically)
+4.0f / 3.0f, // Aspect Ratio. Depends on the size of your window/viewport.
+0.1f,        // Near clipping plane. Keep as big **as possible**, or you&#39;ll get precision issues.
+100.0f       // Far clipping plane. Keep as http://i.stack.imgur.com/XLpXa.gif.
+);</code></pre></li>
+</ul>
+</section><section id="perspective-projection-perspective-non-deformed" class="slide level2">
+<h1>Perspective Projection Perspective Non-Deformed</h1>
+<figure>
+<img src="assets%20/projectionPerspectiveNonDeformed.png" alt="http://www.opengl-tutorial.org/beginners-tutorials/tutorial-3-matrices/#The_Projection_matrix" /><figcaption>http://www.opengl-tutorial.org/beginners-tutorials/tutorial-3-matrices/#The_Projection_matrix</figcaption>
+</figure>
+</section><section id="perspective-projection-deformed" class="slide level2">
+<h1>Perspective Projection Deformed</h1>
+<figure>
+<img src="assets%20/projectionPerspectiveDeformed.png" alt="http://www.opengl-tutorial.org/beginners-tutorials/tutorial-3-matrices/#The_Projection_matrix" /><figcaption>http://www.opengl-tutorial.org/beginners-tutorials/tutorial-3-matrices/#The_Projection_matrix</figcaption>
+</figure>
+</section><section id="view-from-behind-frustum" class="slide level2">
+<h1>View From Behind Frustum</h1>
+<figure>
+<img src="assets%20/ProjectionPerspectiveBehindFrustum.png" alt="http://www.opengl-tutorial.org/beginners-tutorials/tutorial-3-matrices/#The_Projection_matrix" /><figcaption>http://www.opengl-tutorial.org/beginners-tutorials/tutorial-3-matrices/#The_Projection_matrix</figcaption>
+</figure>
+</section><section id="view-from-behind-frustum-in-screen-coordinates" class="slide level2">
+<h1>View From Behind Frustum In Screen Coordinates</h1>
+<figure>
+<img src="assets%20/projectionPerspectiveBehindFrustumInScreenCoordinates.png" alt="http://www.opengl-tutorial.org/beginners-tutorials/tutorial-3-matrices/#The_Projection_matrix" /><figcaption>http://www.opengl-tutorial.org/beginners-tutorials/tutorial-3-matrices/#The_Projection_matrix</figcaption>
+</figure>
+<ul>
+<li>a vertex at (0,0,?) should be rendered at the centre of the viewport</li>
+<li><strong>BUT</strong> the distance to the camera in <strong>z</strong> also matters</li>
+<li>with two vertices with the same x and y coordinates
+<ul>
+<li>but one with a larger z-value</li>
+<li>the larger z-valued vertex with be nearer the centre of the viewport</li>
+</ul></li>
+<li>this is <strong>perspective projection</strong></li>
+</ul>
+</section><section id="perspective-projection-diagram-1" class="slide level2">
+<h1>Perspective Projection diagram</h1>
+<ul>
+<li>frustum is a rectangular-based pyramid with the point chopped off</li>
+</ul>
+<figure>
+<img src="assets/projectionPerspective.png" alt="http://www.labri.fr/perso/nrougier/teaching/opengl/images/ViewFrustum.png" /><figcaption>http://www.labri.fr/perso/nrougier/teaching/opengl/images/ViewFrustum.png</figcaption>
+</figure>
+</section><section id="perspective-projection-vs-orthographic-projection-1" class="slide level2">
+<h1>Perspective Projection VS Orthographic Projection</h1>
+<figure>
+<img src="assets/projectionPerspectiveVSOrthographic.png" alt="http://www.labri.fr/perso/nrougier/teaching/opengl/images/ViewFrustum.png" /><figcaption>http://www.labri.fr/perso/nrougier/teaching/opengl/images/ViewFrustum.png</figcaption>
+</figure>
+</section><section id="representing-perspective-projection-1" class="slide level2">
+<h1>Representing Perspective Projection</h1>
+<ul>
+<li>A 4x4 Matrix can represent this projection</li>
+<li>Easy to create with GLM</li>
+</ul>
+<figure>
+<img src="assets/projectionPerspectiveWithParameters.png" alt="http://i.stack.imgur.com/XLpXa.gif" /><figcaption>http://i.stack.imgur.com/XLpXa.gif</figcaption>
+</figure>
+</section><section id="representing-perspective-projection---glm" class="slide level2">
+<h1>Representing Perspective Projection - GLM</h1>
+<pre class="c++"><code>glm::mat4 projectionMatrix = glm::perspective(
+    fovy         // The Field of View in y (vertically)
+    4.0f / 3.0f, // Aspect Ratio. Depends on the size of your window/viewport.
+    0.1f,        // Near clipping plane. Keep as big **as possible**, or you&#39;ll get precision issues.
+    100.0f       // Far clipping plane. Keep as http://i.stack.imgur.com/XLpXa.gif.
+);</code></pre>
+</section><section id="perspective-projection-perspective-non-deformed-1" class="slide level2">
+<h1>Perspective Projection Perspective Non-Deformed</h1>
+<figure>
+<img src="assets%20/projectionPerspectiveNonDeformed.png" alt="http://www.opengl-tutorial.org/beginners-tutorials/tutorial-3-matrices/#The_Projection_matrix" /><figcaption>http://www.opengl-tutorial.org/beginners-tutorials/tutorial-3-matrices/#The_Projection_matrix</figcaption>
+</figure>
+</section><section id="perspective-projection-deformed-1" class="slide level2">
+<h1>Perspective Projection Deformed</h1>
+<figure>
+<img src="assets%20/projectionPerspectiveDeformed.png" alt="http://www.opengl-tutorial.org/beginners-tutorials/tutorial-3-matrices/#The_Projection_matrix" /><figcaption>http://www.opengl-tutorial.org/beginners-tutorials/tutorial-3-matrices/#The_Projection_matrix</figcaption>
+</figure>
+</section><section id="view-from-behind-frustum-1" class="slide level2">
+<h1>View From Behind Frustum</h1>
+<figure>
+<img src="assets%20/ProjectionPerspectiveBehindFrustum.png" alt="http://www.opengl-tutorial.org/beginners-tutorials/tutorial-3-matrices/#The_Projection_matrix" /><figcaption>http://www.opengl-tutorial.org/beginners-tutorials/tutorial-3-matrices/#The_Projection_matrix</figcaption>
+</figure>
+</section><section id="view-from-behind-frustum-in-screen-coordinates-1" class="slide level2">
+<h1>View From Behind Frustum In Screen Coordinates</h1>
+<figure>
+<img src="assets%20/projectionPerspectiveBehindFrustumInScreenCoordinates.png" alt="http://www.opengl-tutorial.org/beginners-tutorials/tutorial-3-matrices/#The_Projection_matrix" /><figcaption>http://www.opengl-tutorial.org/beginners-tutorials/tutorial-3-matrices/#The_Projection_matrix</figcaption>
+</figure>
+</section><section id="perspective-projection-example" class="slide level2">
+<h1>Perspective Projection example</h1>
+<p><code>glmProjection</code></p>
+</section></section>
+    </div>
+  </div>
+
+
+  <script src="reveal.js/lib/js/head.min.js"></script>
+  <script src="reveal.js/js/reveal.min.js"></script>
+
+  <script>
+
+      // Full list of configuration options available here:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+        theme: 'sky', // available themes are in /css/theme
+        transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+        // Optional libraries used to extend on reveal.js
+        dependencies: [
+          { src: 'reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: 'reveal.js/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+          { src: 'reveal.js/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } },
+//          { src: 'reveal.js/plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; }, }
+//          { src: 'reveal.js/plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+]});
+    </script>
+    </body>
+</html>
