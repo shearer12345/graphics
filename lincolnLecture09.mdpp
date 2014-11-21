@@ -119,15 +119,95 @@
 
 ##How to set View Matrix in C++/GLSL
 
-- Example - glm
-
+- Examples:
+    - ```glmViewMatrixTranslate```
+    - ```glmViewMatrixTranslateWithTwoCubes```
+    - ```glmLookAt```
 
 #Projection
 
 ##Projection
 
+- how the camera goes from 3D to 2D
+- **Orthographic** projection
+- or **Perspective** projection
+- before projection our vertices are in **Camera Space**
+
+##Orthographic Projection diagram
+
+- things further away are the same size as if they are near
+- frustum is **always a cuboid**
+
+![http://www.labri.fr/perso/nrougier/teaching/opengl/images/ViewFrustum.png](assets/projectionOrthographic.png)
+
+##Orthographic Projection
+
+- ```glm::ortho(-1, 1, -1, 1, -1, 1);```
+    - the default we've already been using
+    - is the **identity** matrix
+- ```glm::ortho(left, right, bottom, top, near, far);```
+- also called **Orthogonal** projection
+
+##Orthographic Projection example
+
+- ```glmProjectionOrtho```
 
 
+##Perspective Projection
+
+- a vertex at (0,0,?) should be rendered at the centre of the viewport
+- **BUT** the distance to the camera in **z** also matters
+- with two vertices with the same x and y coordinates
+    - but one with a larger z-value
+    - the larger z-valued vertex with be nearer the centre of the viewport
+- this is **perspective projection**
+
+##Perspective Projection diagram
+- 	frustum is a rectangular based pyramid with the point chopped off
+
+![http://www.labri.fr/perso/nrougier/teaching/opengl/images/ViewFrustum.png](assets/projectionPerspective.png)
+
+##Perspective Projection VS Orthographic Projection
+
+![http://www.labri.fr/perso/nrougier/teaching/opengl/images/ViewFrustum.png](assets/projectionPerspectiveVSOrthographic.png)
+
+##Representing Perspective Projection
+
+- A 4x4 Matrix can represent this projection
+- Easy to create with GLM
+```C++
+glm::mat4 projectionMatrix = glm::perspective(
+    fovy         // The Field of View in y (vertically)
+    4.0f / 3.0f, // Aspect Ratio. Depends on the size of your window/viewport.
+    0.1f,        // Near clipping plane. Keep as big **as possible**, or you'll get precision issues.
+    100.0f       // Far clipping plane. Keep as http://i.stack.imgur.com/XLpXa.gif.
+);
+```
+
+##Perspective Projection Perspective Non-Deformed
+
+![http://www.opengl-tutorial.org/beginners-tutorials/tutorial-3-matrices/#The_Projection_matrix](assets
+/projectionPerspectiveNonDeformed.png)
+
+##Perspective Projection Deformed
+
+![http://www.opengl-tutorial.org/beginners-tutorials/tutorial-3-matrices/#The_Projection_matrix](assets
+/projectionPerspectiveDeformed.png)
+
+##View From Behind Frustum
+
+![http://www.opengl-tutorial.org/beginners-tutorials/tutorial-3-matrices/#The_Projection_matrix](assets
+/ProjectionPerspectiveBehindFrustum.png)
+
+##View From Behind Frustum In Screen Coordinates
+
+![http://www.opengl-tutorial.org/beginners-tutorials/tutorial-3-matrices/#The_Projection_matrix](assets
+/projectionPerspectiveBehindFrustumInScreenCoordinates.png)
+
+
+
+
+![http://i.stack.imgur.com/XLpXa.gif](assets/projectionPerspectiveWithParameters.png)
 
 http://www.opengl-tutorial.org/beginners-tutorials/tutorial-3-matrices/#The_Projection_matrix
 
@@ -135,9 +215,9 @@ http://www.cprogramming.com/tutorial/opengl_projections.html
 
 
 
+##Perspective Projection example
 
-
-
+```glmProjection```
 
 
 
