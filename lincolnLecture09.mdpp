@@ -240,23 +240,19 @@ glm::mat4 projectionMatrix = glm::perspective(
 
 ##Perspective Projection Perspective Non-Deformed
 
-![http://www.opengl-tutorial.org/beginners-tutorials/tutorial-3-matrices/#The_Projection_matrix](assets
-/projectionPerspectiveNonDeformed.png)
+![http://www.opengl-tutorial.org/beginners-tutorials/tutorial-3-matrices/#The_Projection_matrix](assets/projectionPerspectiveNonDeformed.png)
 
 ##Perspective Projection Deformed
 
-![http://www.opengl-tutorial.org/beginners-tutorials/tutorial-3-matrices/#The_Projection_matrix](assets
-/projectionPerspectiveDeformed.png)
+![http://www.opengl-tutorial.org/beginners-tutorials/tutorial-3-matrices/#The_Projection_matrix](assets/projectionPerspectiveDeformed.png)
 
 ##View From Behind Frustum
 
-![http://www.opengl-tutorial.org/beginners-tutorials/tutorial-3-matrices/#The_Projection_matrix](assets
-/ProjectionPerspectiveBehindFrustum.png)
+![http://www.opengl-tutorial.org/beginners-tutorials/tutorial-3-matrices/#The_Projection_matrix](assets/ProjectionPerspectiveBehindFrustum.png)
 
 ##View From Behind Frustum In Screen Coordinates
 
-![http://www.opengl-tutorial.org/beginners-tutorials/tutorial-3-matrices/#The_Projection_matrix](assets
-/projectionPerspectiveBehindFrustumInScreenCoordinates.png)
+![http://www.opengl-tutorial.org/beginners-tutorials/tutorial-3-matrices/#The_Projection_matrix](assets/projectionPerspectiveBehindFrustumInScreenCoordinates.png)
 
 ##Perspective Projection example
 
