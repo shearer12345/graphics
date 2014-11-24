@@ -273,49 +273,6 @@ fovy         // The Field of View in y (vertically)
 100.0f       // Far clipping plane. Keep as http://i.stack.imgur.com/XLpXa.gif.
 );</code></pre></li>
 </ul>
-</section><section id="perspective-projection-perspective-non-deformed" class="slide level2">
-<h1>Perspective Projection Perspective Non-Deformed</h1>
-<figure>
-<img src="assets%20/projectionPerspectiveNonDeformed.png" alt="http://www.opengl-tutorial.org/beginners-tutorials/tutorial-3-matrices/#The_Projection_matrix" /><figcaption>http://www.opengl-tutorial.org/beginners-tutorials/tutorial-3-matrices/#The_Projection_matrix</figcaption>
-</figure>
-</section><section id="perspective-projection-deformed" class="slide level2">
-<h1>Perspective Projection Deformed</h1>
-<figure>
-<img src="assets%20/projectionPerspectiveDeformed.png" alt="http://www.opengl-tutorial.org/beginners-tutorials/tutorial-3-matrices/#The_Projection_matrix" /><figcaption>http://www.opengl-tutorial.org/beginners-tutorials/tutorial-3-matrices/#The_Projection_matrix</figcaption>
-</figure>
-</section><section id="view-from-behind-frustum" class="slide level2">
-<h1>View From Behind Frustum</h1>
-<figure>
-<img src="assets%20/ProjectionPerspectiveBehindFrustum.png" alt="http://www.opengl-tutorial.org/beginners-tutorials/tutorial-3-matrices/#The_Projection_matrix" /><figcaption>http://www.opengl-tutorial.org/beginners-tutorials/tutorial-3-matrices/#The_Projection_matrix</figcaption>
-</figure>
-</section><section id="view-from-behind-frustum-in-screen-coordinates" class="slide level2">
-<h1>View From Behind Frustum In Screen Coordinates</h1>
-<figure>
-<img src="assets%20/projectionPerspectiveBehindFrustumInScreenCoordinates.png" alt="http://www.opengl-tutorial.org/beginners-tutorials/tutorial-3-matrices/#The_Projection_matrix" /><figcaption>http://www.opengl-tutorial.org/beginners-tutorials/tutorial-3-matrices/#The_Projection_matrix</figcaption>
-</figure>
-<ul>
-<li>a vertex at (0,0,?) should be rendered at the centre of the viewport</li>
-<li><strong>BUT</strong> the distance to the camera in <strong>z</strong> also matters</li>
-<li>with two vertices with the same x and y coordinates
-<ul>
-<li>but one with a larger z-value</li>
-<li>the larger z-valued vertex with be nearer the centre of the viewport</li>
-</ul></li>
-<li>this is <strong>perspective projection</strong></li>
-</ul>
-</section><section id="perspective-projection-diagram-1" class="slide level2">
-<h1>Perspective Projection diagram</h1>
-<ul>
-<li>frustum is a rectangular-based pyramid with the point chopped off</li>
-</ul>
-<figure>
-<img src="assets/projectionPerspective.png" alt="http://www.labri.fr/perso/nrougier/teaching/opengl/images/ViewFrustum.png" /><figcaption>http://www.labri.fr/perso/nrougier/teaching/opengl/images/ViewFrustum.png</figcaption>
-</figure>
-</section><section id="perspective-projection-vs-orthographic-projection-1" class="slide level2">
-<h1>Perspective Projection VS Orthographic Projection</h1>
-<figure>
-<img src="assets/projectionPerspectiveVSOrthographic.png" alt="http://www.labri.fr/perso/nrougier/teaching/opengl/images/ViewFrustum.png" /><figcaption>http://www.labri.fr/perso/nrougier/teaching/opengl/images/ViewFrustum.png</figcaption>
-</figure>
 </section><section id="representing-perspective-projection-1" class="slide level2">
 <h1>Representing Perspective Projection</h1>
 <ul>
@@ -325,37 +282,31 @@ fovy         // The Field of View in y (vertically)
 <figure>
 <img src="assets/projectionPerspectiveWithParameters.png" alt="http://i.stack.imgur.com/XLpXa.gif" /><figcaption>http://i.stack.imgur.com/XLpXa.gif</figcaption>
 </figure>
-</section><section id="representing-perspective-projection---glm" class="slide level2">
-<h1>Representing Perspective Projection - GLM</h1>
-<pre class="c++"><code>glm::mat4 projectionMatrix = glm::perspective(
-    fovy         // The Field of View in y (vertically)
-    4.0f / 3.0f, // Aspect Ratio. Depends on the size of your window/viewport.
-    0.1f,        // Near clipping plane. Keep as big **as possible**, or you&#39;ll get precision issues.
-    100.0f       // Far clipping plane. Keep as http://i.stack.imgur.com/XLpXa.gif.
-);</code></pre>
-</section><section id="perspective-projection-perspective-non-deformed-1" class="slide level2">
+</section><section id="perspective-projection-perspective-non-deformed" class="slide level2">
 <h1>Perspective Projection Perspective Non-Deformed</h1>
 <figure>
-<img src="assets%20/projectionPerspectiveNonDeformed.png" alt="http://www.opengl-tutorial.org/beginners-tutorials/tutorial-3-matrices/#The_Projection_matrix" /><figcaption>http://www.opengl-tutorial.org/beginners-tutorials/tutorial-3-matrices/#The_Projection_matrix</figcaption>
+<img src="assets/projectionPerspectiveNonDeformed.png" alt="http://www.opengl-tutorial.org/beginners-tutorials/tutorial-3-matrices/#The_Projection_matrix" /><figcaption>http://www.opengl-tutorial.org/beginners-tutorials/tutorial-3-matrices/#The_Projection_matrix</figcaption>
 </figure>
-</section><section id="perspective-projection-deformed-1" class="slide level2">
+</section><section id="perspective-projection-deformed" class="slide level2">
 <h1>Perspective Projection Deformed</h1>
 <figure>
-<img src="assets%20/projectionPerspectiveDeformed.png" alt="http://www.opengl-tutorial.org/beginners-tutorials/tutorial-3-matrices/#The_Projection_matrix" /><figcaption>http://www.opengl-tutorial.org/beginners-tutorials/tutorial-3-matrices/#The_Projection_matrix</figcaption>
+<img src="assets/projectionPerspectiveDeformed.png" alt="http://www.opengl-tutorial.org/beginners-tutorials/tutorial-3-matrices/#The_Projection_matrix" /><figcaption>http://www.opengl-tutorial.org/beginners-tutorials/tutorial-3-matrices/#The_Projection_matrix</figcaption>
 </figure>
-</section><section id="view-from-behind-frustum-1" class="slide level2">
+</section><section id="view-from-behind-frustum" class="slide level2">
 <h1>View From Behind Frustum</h1>
 <figure>
-<img src="assets%20/ProjectionPerspectiveBehindFrustum.png" alt="http://www.opengl-tutorial.org/beginners-tutorials/tutorial-3-matrices/#The_Projection_matrix" /><figcaption>http://www.opengl-tutorial.org/beginners-tutorials/tutorial-3-matrices/#The_Projection_matrix</figcaption>
+<img src="assets/ProjectionPerspectiveBehindFrustum.png" alt="http://www.opengl-tutorial.org/beginners-tutorials/tutorial-3-matrices/#The_Projection_matrix" /><figcaption>http://www.opengl-tutorial.org/beginners-tutorials/tutorial-3-matrices/#The_Projection_matrix</figcaption>
 </figure>
-</section><section id="view-from-behind-frustum-in-screen-coordinates-1" class="slide level2">
+</section><section id="view-from-behind-frustum-in-screen-coordinates" class="slide level2">
 <h1>View From Behind Frustum In Screen Coordinates</h1>
 <figure>
-<img src="assets%20/projectionPerspectiveBehindFrustumInScreenCoordinates.png" alt="http://www.opengl-tutorial.org/beginners-tutorials/tutorial-3-matrices/#The_Projection_matrix" /><figcaption>http://www.opengl-tutorial.org/beginners-tutorials/tutorial-3-matrices/#The_Projection_matrix</figcaption>
+<img src="assets/projectionPerspectiveBehindFrustumInScreenCoordinates.png" alt="http://www.opengl-tutorial.org/beginners-tutorials/tutorial-3-matrices/#The_Projection_matrix" /><figcaption>http://www.opengl-tutorial.org/beginners-tutorials/tutorial-3-matrices/#The_Projection_matrix</figcaption>
 </figure>
 </section><section id="perspective-projection-example" class="slide level2">
 <h1>Perspective Projection example</h1>
-<p><code>glmProjection</code></p>
+<ul>
+<li><code>glmProjection</code></li>
+</ul>
 </section></section>
     </div>
   </div>
