@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <title></title>
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <link rel="stylesheet" href="reveal.js/css/reveal.min.css"/>
+    <style type="text/css">code{white-space: pre;}</style>
+    <link rel="stylesheet" href="reveal.js/css/theme/simple.css" id="theme">
+    <!-- If the query includes 'print-pdf', include the PDF print sheet -->
+    <script>
+      if( window.location.search.match( /print-pdf/gi ) ) {
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = 'reveal.js/css/print/pdf.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+      }
+    </script>
+    <!--[if lt IE 9]>
+    <script src="reveal.js/lib/js/html5shiv.js"></script>
+    <![endif]-->
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+
+<section><section id="lincoln-graphics-workshop-09---seeing-in-3d-view-and-projection" class="titleslide slide level1"><h1>Lincoln Graphics Workshop 09 - Seeing in 3D!! View and Projection</h1></section><section id="seeing-in-3d-view-and-projection" class="slide level2">
+<h1>Seeing in 3D!! View and Projection</h1>
+<ul>
+<li>So far, we've only been sending a single 4x4 Matrix into GLSL
+<ul>
+<li>representing the transformation applied to the model (3D object)</li>
+</ul></li>
+<li>In general, we also want to be able to control the View (the &quot;Camera&quot;) and the Projection (how to go from 3D to 2D) independently from the Model</li>
+<li>We do this by also passing 4x4 Matrices for those transformation to GLSL
+<ul>
+<li>viewMatrix</li>
+<li>projectionMatrix</li>
+</ul></li>
+<li>and applying them in the vertex shader
+<ul>
+<li><code>gl_Position = projectionMatrix * viewMatrix * modelMatrix * position;</code></li>
+</ul></li>
+</ul>
+</section></section>
+<section><section id="activities" class="titleslide slide level1"><h1>Activities</h1></section><section id="activity-1" class="slide level2">
+<h1>Activity 1</h1>
+<ul>
+<li>Starting with a cube (e.g. branch <code>glCube</code>)</li>
+<li>Remember that the Identity Matrix has no effect on vertices
+<ul>
+<li>it changes a vertex into itself</li>
+</ul></li>
+<li>Add a &quot;viewMatrix&quot; to your C++, and set it to the identity Matrix</li>
+<li>pass it into your GLSL, and apply it in your GLSL</li>
+<li>This should have <strong>no</strong> effect - should render as before</li>
+</ul>
+</section><section id="activity-2" class="slide level2">
+<h1>Activity 2</h1>
+<ul>
+<li>Remember that to simulate a &quot;Camera&quot;
+<ul>
+<li>we transform the whole world with the opposite transformation</li>
+<li>that we want to transform the &quot;Camera&quot;</li>
+</ul></li>
+<li>Alter your viewMatrix (in C++) to transform the view
+<ul>
+<li>e.g. to translate the &quot;Camera&quot; to the left</li>
+<li>do this &quot;manually&quot;, don't use the <code>lookAt</code> function</li>
+</ul></li>
+</ul>
+</section><section id="activity-3" class="slide level2">
+<h1>Activity 3</h1>
+<ul>
+<li>Alter your viewMatrix using <code>glm::lookAt</code>
+<ul>
+<li>to show the cube from a different viewPoint</li>
+</ul></li>
+</ul>
+</section><section id="activity-4" class="slide level2">
+<h1>Activity 4</h1>
+<ul>
+<li>Alter your viewMatrix using <code>glm::lookAt</code> over time
+<ul>
+<li>to show the cube from a changing viewPoint</li>
+</ul></li>
+</ul>
+</section><section id="activity-5" class="slide level2">
+<h1>Activity 5</h1>
+<ul>
+<li>Add a &quot;projectionMatrix&quot; to your C++, and set it to the identity Matrix</li>
+<li>pass it into your GLSL, and apply it in your GLSL</li>
+<li>This should have <strong>no</strong> effect - should render as before</li>
+</ul>
+</section><section id="activity-6" class="slide level2">
+<h1>Activity 6</h1>
+<ul>
+<li>set the projectionMatrix using <code>glm::ortho</code>
+<ul>
+<li>but make it have no effect - should render as before</li>
+</ul></li>
+</ul>
+</section><section id="activity-7" class="slide level2">
+<h1>Activity 7</h1>
+<ul>
+<li>set the projectionMatrix using <code>glm::ortho</code>
+<ul>
+<li>but make the cube appear half the size</li>
+</ul></li>
+</ul>
+</section><section id="activity-8" class="slide level2">
+<h1>Activity 8</h1>
+<ul>
+<li>set the projectionMatrix using <code>glm::perspective</code>
+<ul>
+<li>experiment with the parameters</li>
+</ul></li>
+</ul>
+</section><section id="activity-9" class="slide level2">
+<h1>Activity 9</h1>
+<ul>
+<li>set the projectionMatrix using <code>glm::perspective</code></li>
+<li>and the viewMatrix using any techniques you like</li>
+<li>to show the cube in 3D, with a moving viewpoint</li>
+</ul>
+</section><section id="stretch-activities" class="slide level2">
+<h1>Stretch Activities</h1>
+<p><strong>If you've got through the standard activities then have a bash at these</strong></p>
+<ol type="1">
+<li>Render two cubes (not on top of each other), with a common viewpoint</li>
+<li>Render two cubes and a big flat landscape, with a common viewpoint</li>
+<li>as 2), but change the viewpoint over time</li>
+<li>Make a viewpoint that orbits around the origin</li>
+<li>Make a viewpoint that orbits around a moving cube</li>
+</ol>
+</section></section>
+    </div>
+  </div>
+
+
+  <script src="reveal.js/lib/js/head.min.js"></script>
+  <script src="reveal.js/js/reveal.min.js"></script>
+
+  <script>
+
+      // Full list of configuration options available here:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+        theme: 'sky', // available themes are in /css/theme
+        transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+        // Optional libraries used to extend on reveal.js
+        dependencies: [
+          { src: 'reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: 'reveal.js/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+          { src: 'reveal.js/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } },
+//          { src: 'reveal.js/plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; }, }
+//          { src: 'reveal.js/plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+]});
+    </script>
+    </body>
+</html>
