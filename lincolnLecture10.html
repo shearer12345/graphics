@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <title></title>
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <link rel="stylesheet" href="reveal.js/css/reveal.min.css"/>
+    <style type="text/css">code{white-space: pre;}</style>
+    <link rel="stylesheet" href="reveal.js/css/theme/simple.css" id="theme">
+    <!-- If the query includes 'print-pdf', include the PDF print sheet -->
+    <script>
+      if( window.location.search.match( /print-pdf/gi ) ) {
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = 'reveal.js/css/print/pdf.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+      }
+    </script>
+    <!--[if lt IE 9]>
+    <script src="reveal.js/lib/js/html5shiv.js"></script>
+    <![endif]-->
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+
+<section><section id="lincoln-lectures-on-graphics---10" class="titleslide slide level1"><h1>Lincoln Lectures On Graphics - 10</h1></section></section>
+<section><section id="user-input-culling-and-depth-testing" class="titleslide slide level1"><h1>User Input, Culling, and Depth Testing</h1></section><section id="where-we-are" class="slide level2">
+<h1>Where we are</h1>
+<ul>
+<li>with the workshops and the lecture content you should now be beginning to be comfortable with:
+<ul>
+<li>the pipeline model of rendering</li>
+<li>how to setup OpenGL for rendering</li>
+<li>how to load data into OpenGL</li>
+<li>how to tell OpenGL how to use the data you've supplied it</li>
+<li>what shaders do</li>
+<li>how to pass data into shaders</li>
+<li>how to use matrices to transform objects using GLM</li>
+<li>how to use matrices for a <strong>view</strong> transformation and a <strong>projection</strong> transformation</li>
+</ul></li>
+</ul>
+</section></section>
+<section><section id="user-input" class="titleslide slide level1"><h1>User Input</h1></section><section id="keyboard-input" class="slide level2">
+<h1>Keyboard Input</h1>
+<ul>
+<li>we'll focus on Keyboard Input here</li>
+<li>Mice, Joysticks, and Joypads are <strong>all</strong> supported by SDL</li>
+<li>Input is <strong>outside the scope</strong> of OpenGL
+<ul>
+<li>remember: <strong>OpenGL just does rendering</strong></li>
+</ul></li>
+</ul>
+</section><section id="polling-or-event-based" class="slide level2">
+<h1>Polling or Event-based</h1>
+<ul>
+<li>There are two fundamental approaches to input (from a user or otherwise)
+<ul>
+<li>Polling
+<ul>
+<li>Ask what the state is right now</li>
+</ul></li>
+<li>Event-based
+<ul>
+<li>Every time something changes, an event is raised</li>
+<li>or written to an event list</li>
+</ul></li>
+</ul></li>
+</ul>
+</section><section id="polling-or-event-based---proscons" class="slide level2">
+<h1>Polling or Event-based - Pros/Cons</h1>
+<ul>
+<li>Polling vs Event-based
+<ul>
+<li>what do you think?</li>
+</ul></li>
+</ul>
+</section><section id="polling-or-event-based---proscons-1" class="slide level2">
+<h1>Polling or Event-based - Pros/Cons</h1>
+<ul>
+<li>Event-based
+<ul>
+<li>Con = more complex than Polling</li>
+<li>Pro = very flexible</li>
+<li>Pro = don't miss events
+<ul>
+<li>important if we undo things on key-up</li>
+<li>see branch<code>sdlKeyboardInputEventBased</code></li>
+</ul></li>
+<li>Pro = get events in order</li>
+<li>Pro = Polling always uses event-based underneath
+<ul>
+<li>the <strong>hardware</strong> is event-based (USB, etc)</li>
+</ul></li>
+</ul></li>
+<li>Polling
+<ul>
+<li>the opposite</li>
+</ul></li>
+</ul>
+</section><section id="keyboard-limitations-hardware-usually" class="slide level2">
+<h1>Keyboard limitations (hardware, usually)</h1>
+<figure>
+<img src="assets/1280px-Inside_Computer_keyboard.jpg" alt="http://en.wikipedia.org/wiki/File:Inside_Computer_keyboard.jpg" /><figcaption>http://en.wikipedia.org/wiki/File:Inside_Computer_keyboard.jpg</figcaption>
+</figure>
+</section><section id="keyboard-limitations-hardware-usually-2" class="slide level2">
+<h1>Keyboard limitations (hardware, usually) 2</h1>
+<figure>
+<img src="assets/Keyboard_Construction_Button_Press.jpg" alt="http://en.wikipedia.org/wiki/File:Keyboard_Construction_Button_Press.JPG" /><figcaption>http://en.wikipedia.org/wiki/File:Keyboard_Construction_Button_Press.JPG</figcaption>
+</figure>
+</section><section id="keyboard-limitations-hardware-usually-3" class="slide level2">
+<h1>Keyboard limitations (hardware, usually) 3</h1>
+<ul>
+<li>in most keyboards, this leads to a limit on detecting 3 or 4 unique key presses concurrently</li>
+</ul>
+</section><section id="keyboard-input-with-sdl---polling" class="slide level2">
+<h1>Keyboard input with SDL - Polling</h1>
+<ul>
+<li>we can get a snapshot of the current state of the keyboard
+<ul>
+<li>SDL constructs this state array for us</li>
+<li><code>SDL_GetKeyboardState()</code></li>
+<li>https://wiki.libsdl.org/SDL_GetKeyboardState</li>
+</ul></li>
+<li>gives you the current state <strong>after</strong> all events have been processed
+<ul>
+<li>we <strong>MUST</strong> process all the events <strong>first</strong></li>
+<li>with <code>SDL_PumpEvents()</code></li>
+<li>https://wiki.libsdl.org/SDL_PumpEvents</li>
+</ul></li>
+<li>we can then check the state array for scancodes that we're interested in
+<ul>
+<li>and do <strong>whatever</strong> we like with them</li>
+<li>this can be complex and is up to you</li>
+</ul></li>
+</ul>
+</section><section id="keyboard-input-with-sdl---polling-example-1" class="slide level2">
+<h1>Keyboard input with SDL - Polling, example 1</h1>
+<ul>
+<li>branch <code>sdlKeyboardInputPollBased</code></li>
+<li>called <strong>every</strong> frame</li>
+</ul>
+<pre class="c++"><code>void handleInput()
+{
+    SDL_PumpEvents();
+
+    const Uint8 *state = SDL_GetKeyboardState(NULL); //somewhere to store an event
+
+    if (state[SDL_SCANCODE_ESCAPE])
+        done = true; //hit escape to exit
+
+    if (state[SDL_SCANCODE_LEFT] != state[SDL_SCANCODE_RIGHT]) //just one pressed
+    {
+        if (state[SDL_SCANCODE_LEFT]) //left pressed
+            translateSpeed.x = translateSpeedDefault.x - translateAcceleration.x;
+        else //right pressed
+            translateSpeed.x = translateSpeedDefault.x + translateAcceleration.x;
+    }
+    else
+        translateSpeed.x = translateSpeedDefault.x;</code></pre>
+<ul>
+<li>what about up and down?</li>
+</ul>
+</section><section id="keyboard-input-with-sdl---polling-example-2" class="slide level2">
+<h1>Keyboard input with SDL - Polling, example 2</h1>
+<pre class="c++"><code>    if (state[SDL_SCANCODE_UP] != state[SDL_SCANCODE_DOWN]) //just one pressed
+    {
+        if (state[SDL_SCANCODE_DOWN]) //left pressed
+            translateSpeed.y = translateSpeedDefault.y - translateAcceleration.y;
+        else //right pressed
+            translateSpeed.y = translateSpeedDefault.y + translateAcceleration.y;
+    }
+    else
+        translateSpeed.y = translateSpeedDefault.y;
+}</code></pre>
+</section><section id="keyboard-input-with-sdl---event-based" class="slide level2">
+<h1>Keyboard input with SDL - Event-based</h1>
+<ul>
+<li>SDL maintains a list of events
+<ul>
+<li>from the keyboard, mouse, window, ...</li>
+</ul></li>
+<li>we can pull an <strong>event</strong> off this list, look at it and decide what to do</li>
+<li>there <strong>may</strong> be multiple events between frames
+<ul>
+<li>make sure the pull off <strong>all</strong> events every frame</li>
+<li>otherwise wierd stuff can happen, especially with mouse input</li>
+<li>a while loop</li>
+</ul></li>
+<li>we get <strong>separate</strong> events for KeyDown and KeyUp</li>
+</ul>
+</section><section id="keyboard-input-with-sdl---event-based-example-1" class="slide level2">
+<h1>Keyboard input with SDL - Event-based, example 1</h1>
+<ul>
+<li>branch <code>sdlKeyboardInputEventBased</code></li>
+<li>called <strong>every</strong> frame</li>
+</ul>
+<pre class="c++"><code>    SDL_Event event; //somewhere to store an event
+
+    //loop until SDL_PollEvent returns 0 (meaning no more events)
+    while (SDL_PollEvent(&amp;event)) {
+        switch (event.type)
+        {
+        case SDL_QUIT:
+            //set done flag if SDL wants to quit
+            done = true;
+            break;</code></pre>
+</section><section id="keyboard-input-with-sdl---event-based-example-2" class="slide level2">
+<h1>Keyboard input with SDL - Event-based, example 2</h1>
+<pre class="c++"><code>        case SDL_KEYDOWN:
+            //  - a &quot;repeat&quot; flag is set on the keyboard event, if this is a repeat event
+            //  - https://wiki.libsdl.org/SDL_KeyboardEvent
+            if (!event.key.repeat)
+            switch (event.key.keysym.sym)
+            {
+                //hit escape to exit
+                case SDLK_ESCAPE: done = true;
+
+                case SDLK_LEFT:  translateSpeed.x -= translateAcceleration.x; break;
+                case SDLK_RIGHT: translateSpeed.x += translateAcceleration.x; break;
+
+                case SDLK_UP:    translateSpeed.y += translateAcceleration.y; break;
+                case SDLK_DOWN:  translateSpeed.y -= translateAcceleration.y; break;
+            }
+            break;</code></pre>
+<ul>
+<li>KeyUp handling?</li>
+</ul>
+</section><section id="keyboard-input-with-sdl---event-based-example-3" class="slide level2">
+<h1>Keyboard input with SDL - Event-based, example 3</h1>
+<pre class="c++"><code>        //Do the opposite of keyDown (in this case)
+        case SDL_KEYUP:
+            switch (event.key.keysym.sym)
+            {
+                case SDLK_LEFT:  translateSpeed.x += translateAcceleration.x; break;
+                case SDLK_RIGHT: translateSpeed.x -= translateAcceleration.x; break;
+
+                case SDLK_UP:    translateSpeed.y -= translateAcceleration.y; break;
+                case SDLK_DOWN:  translateSpeed.y += translateAcceleration.y; break;
+            }
+            break;</code></pre>
+</section></section>
+<section><section id="face-culling" class="titleslide slide level1"><h1>Face Culling</h1></section><section id="what-is-face-culling" class="slide level2">
+<h1>What is Face Culling</h1>
+<ul>
+<li>Triangle primitives after all transformation steps have a particular facing</li>
+<li>This is defined by the apparent order on-screen of the three vertices</li>
+<li>Triangles can be discarded based on their apparent facing, a process known as Face Culling</li>
+</ul>
+</section><section id="what-is-face-culling-2" class="slide level2">
+<h1>What is Face Culling 2</h1>
+<ul>
+<li>Triangle primitives after all transformation steps have a particular facing</li>
+<li>This is defined by the apparent order on-screen of the three vertices</li>
+<li>Triangles can be discarded based on their apparent facing, a process known as Face Culling</li>
+</ul>
+</section><section id="winding-order" class="slide level2">
+<h1>Winding order</h1>
+<ul>
+<li>every vertex in every part of the rendering pipeline has a specific order</li>
+<li>we submit vertices in a specific sequence</li>
+<li>each vertex in the Primitive Assembly stage is still ordered</li>
+<li>the order of the vertices in a triangle can be combined with their relative visual orientation to determine whether the triangle is being seen from the &quot;front&quot; or the &quot;back&quot; side
+<ul>
+<li>this is the <strong>winding order</strong></li>
+</ul></li>
+</ul>
+</section><section id="winding-order-2" class="slide level2">
+<h1>Winding order 2</h1>
+<figure>
+<img src="assets/WindingOrder.svg" alt="WindingOrder.svg" /><figcaption>WindingOrder.svg</figcaption>
+</figure>
+</section><section id="front-face" class="slide level2">
+<h1>Front face</h1>
+<ul>
+<li>the face to be the &quot;front&quot; face is controlled by:
+<ul>
+<li><code>glFrontFace(mode)</code></li>
+<li><code>mode</code> may be <code>GL_CW</code> or <code>GL_CCW</code></li>
+<li>This is global state
+<ul>
+<li>but, you can change it between rendering each object</li>
+</ul></li>
+<li>Default is <code>GL_CCW</code></li>
+</ul></li>
+</ul>
+</section><section id="face-culling-effciency-1" class="slide level2">
+<h1>Face Culling Effciency 1</h1>
+<ul>
+<li>an <strong>optimization</strong>
+<ul>
+<li>for solid objects stops at least 50% of triangles (see next)</li>
+<li>occurs after the vertex shader, before rasterization</li>
+</ul></li>
+<li>in limited cases, can help things render correctly
+<ul>
+<li>i.e. when not using depth testing, but rendering a single, solid object</li>
+</ul></li>
+<li>https://www.opengl.org/wiki/Culling</li>
+</ul>
+</section><section id="face-culling-efficiency-2" class="slide level2">
+<h1>Face Culling Efficiency 2</h1>
+<ul>
+<li>A cube is made of 12 triangles</li>
+<li>6 of them will be facing in the opposite direction from the other 6</li>
+<li>Unless the cube is <strong>transparent</strong>:
+<ul>
+<li>6 of the triangles will always be covered up by the other 6</li>
+<li>In fact, depending on the projection, more than 6 triangles could be covered</li>
+</ul></li>
+<li>Face culling allows non-visible triangles of closed surfaces to be culled before expensive Rasterization and Fragment Shader operations.</li>
+</ul>
+</section><section id="face-culling-example-branches" class="slide level2">
+<h1>Face Culling Example Branches</h1>
+<ul>
+<li><code>glmRotateColorCubeNoCullingNoDepthTest</code></li>
+<li><p><code>glmRotateColorCubeWithCullingNoDepthTest</code></p></li>
+<li><p>anywhere before rendering</p>
+<pre class="c++"><code>//setup face culling details.
+glEnable(GL_CULL_FACE);
+glCullFace(GL_BACK); //cull back faces (default)
+glFrontFace(GL_CCW); //front faces are counter-clockwise (default)</code></pre></li>
+</ul>
+</section></section>
+<section><section id="depth-test" class="titleslide slide level1"><h1>Depth Test</h1></section><section id="why-depth-testing" class="slide level2">
+<h1>Why depth testing</h1>
+<ul>
+<li>without depth testing each triangle rendered draws on top of previous pixels</li>
+<li>this causes problems (<code>glmRotateColorCubeNoCullingNoDepthTest</code>)</li>
+<li>we could try to draw all far away triangles first</li>
+<li>then draw nearer ones
+<ul>
+<li>requires <strong>sorting</strong> the triangles</li>
+<li>doesn't work for all cases ...</li>
+</ul></li>
+</ul>
+</section><section id="what-is-depth-testing" class="slide level2">
+<h1>What is Depth Testing</h1>
+<ul>
+<li>depth test is a per-sample operation performed conceptually after the Fragment Shader
+<ul>
+<li>under some circumstances it can occur <strong>before</strong> frag shader, but ...</li>
+</ul></li>
+<li>output depth may be tested against the depth of the sample being written to</li>
+<li>if the test fails, the fragment is discarded</li>
+<li>if the test passes, the depth buffer may be written to</li>
+<li>writing to the depth/colour buffer is a relatively slow operation, so minimizing writes is a good optimization
+<ul>
+<li>how could depth testing support this?</li>
+</ul></li>
+</ul>
+</section><section id="depth-test-example-branches" class="slide level2">
+<h1>Depth Test Example Branches</h1>
+<ul>
+<li><code>glmRotateColorCubeNoCullingWithDepthTest</code></li>
+<li><p><code>glmRotateColorCubeWithCullingWithDepthTest</code></p></li>
+<li><p>setup depth testing - anywhere before rendering</p>
+<pre class="c++"><code>glEnable(GL_DEPTH_TEST);
+glDepthFunc(GL_LESS); //only write if z is less (nearer)</code></pre></li>
+<li><p>//clear depth buffer before rendering</p>
+<pre class="c++"><code>glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);</code></pre></li>
+</ul>
+</section></section>
+    </div>
+  </div>
+
+
+  <script src="reveal.js/lib/js/head.min.js"></script>
+  <script src="reveal.js/js/reveal.min.js"></script>
+
+  <script>
+
+      // Full list of configuration options available here:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+        theme: 'sky', // available themes are in /css/theme
+        transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+        // Optional libraries used to extend on reveal.js
+        dependencies: [
+          { src: 'reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: 'reveal.js/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+          { src: 'reveal.js/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } },
+//          { src: 'reveal.js/plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; }, }
+//          { src: 'reveal.js/plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+]});
+    </script>
+    </body>
+</html>
