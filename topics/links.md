@@ -9,6 +9,9 @@
 - [http://open.gl/](http://open.gl/)
 - [http://duriansoftware.com/joe/An-intro-to-modern-OpenGL.-Chapter-1%3a-The-Graphics-Pipeline.html](http://duriansoftware.com/joe/An-intro-to-modern-OpenGL.-Chapter-1%3a-The-Graphics-Pipeline.html)
 - [http://www.arcsynthesis.org/gltut/](http://www.arcsynthesis.org/gltut/)
+- http://antongerdelan.net/opengl/index.html
+    - https://github.com/capnramses/antons_opengl_tutorials_book
+    - Kindle Book (~£3.62) - http://www.amazon.co.uk/Antons-OpenGL-Tutorials-Anton-Gerdelan-ebook/dp/B00LAMQYF2
 - [https://bitbucket.org/alfonse/gltut/src](https://bitbucket.org/alfonse/gltut/src)
 - [http://en.wikibooks.org/wiki/OpenGL_Programming/Modern_OpenGL_Introduction](http://en.wikibooks.org/wiki/OpenGL_Programming/Modern_OpenGL_Introduction)
 - [http://www.daveshreiner.com/SIGGRAPH/s11/Modern-OpenGL.pdf](http://www.daveshreiner.com/SIGGRAPH/s11/Modern-OpenGL.pdf)
