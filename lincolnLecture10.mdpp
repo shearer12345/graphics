@@ -1,0 +1,298 @@
+#Lincoln Lectures On Graphics - 10
+
+#User Input, Culling, and Depth Testing
+
+##Where we are
+
+- with the workshops and the lecture content you should now be beginning to be comfortable with:
+    - the pipeline model of rendering
+    - how to setup OpenGL for rendering
+    - how to load data into OpenGL
+    - how to tell OpenGL how to use the data you've supplied it
+    - what shaders do
+    - how to pass data into shaders
+    - how to use matrices to transform objects using GLM
+    - how to use matrices for a **view** transformation and a **projection** transformation
+
+
+
+#User Input
+
+##Keyboard Input
+
+- we'll focus on Keyboard Input here
+- Mice, Joysticks, and Joypads are **all** supported by SDL
+- Input is **outside the scope** of OpenGL
+    - remember: **OpenGL just does rendering**
+
+##Polling or Event-based
+
+- There are two fundamental approaches to input (from a user or otherwise)
+    - Polling
+        - Ask what the state is right now
+    - Event-based
+        - Every time something changes, an event is raised
+        - or written to an event list
+
+##Polling or Event-based - Pros/Cons
+
+- Polling vs Event-based
+    - what do you think?
+
+##Polling or Event-based - Pros/Cons
+
+- Event-based
+    - Con = more complex than Polling
+    - Pro = very flexible
+    - Pro = don't miss events
+        - important if we undo things on key-up
+        - see branch```sdlKeyboardInputEventBased```
+    - Pro = get events in order
+    - Pro = Polling always uses event-based underneath
+        - the **hardware** is event-based (USB, etc)
+- Polling
+    - the opposite
+
+##Keyboard limitations (hardware, usually)
+
+![http://en.wikipedia.org/wiki/File:Inside_Computer_keyboard.jpg](assets/1280px-Inside_Computer_keyboard.jpg)
+
+##Keyboard limitations (hardware, usually) 2
+
+![http://en.wikipedia.org/wiki/File:Keyboard_Construction_Button_Press.JPG](assets/Keyboard_Construction_Button_Press.jpg)
+
+##Keyboard limitations (hardware, usually) 3
+
+- in most keyboards, this leads to a limit on detecting 3 or 4 unique key presses concurrently
+
+##Keyboard input with SDL - Polling
+
+- we can get a snapshot of the current state of the keyboard
+    - SDL constructs this state array for us
+    - ```SDL_GetKeyboardState()```
+    - https://wiki.libsdl.org/SDL_GetKeyboardState
+- gives you the current state **after** all events have been processed
+    - we **MUST** process all the events **first**
+    - with ```SDL_PumpEvents()```
+    - https://wiki.libsdl.org/SDL_PumpEvents
+- we can then check the state array for scancodes that we're interested in
+    - and do **whatever** we like with them
+    - this can be complex and is up to you
+
+##Keyboard input with SDL - Polling, example 1
+
+- branch ```sdlKeyboardInputPollBased```
+- called **every** frame
+
+```C++
+void handleInput()
+{
+	SDL_PumpEvents();
+
+	const Uint8 *state = SDL_GetKeyboardState(NULL); //somewhere to store an event
+
+	if (state[SDL_SCANCODE_ESCAPE])
+		done = true; //hit escape to exit
+
+	if (state[SDL_SCANCODE_LEFT] != state[SDL_SCANCODE_RIGHT]) //just one pressed
+	{
+		if (state[SDL_SCANCODE_LEFT]) //left pressed
+			translateSpeed.x = translateSpeedDefault.x - translateAcceleration.x;
+		else //right pressed
+			translateSpeed.x = translateSpeedDefault.x + translateAcceleration.x;
+	}
+	else
+		translateSpeed.x = translateSpeedDefault.x;
+```
+
+- what about up and down?
+
+##Keyboard input with SDL - Polling, example 2
+
+```C++
+	if (state[SDL_SCANCODE_UP] != state[SDL_SCANCODE_DOWN]) //just one pressed
+	{
+		if (state[SDL_SCANCODE_DOWN]) //left pressed
+			translateSpeed.y = translateSpeedDefault.y - translateAcceleration.y;
+		else //right pressed
+			translateSpeed.y = translateSpeedDefault.y + translateAcceleration.y;
+	}
+	else
+		translateSpeed.y = translateSpeedDefault.y;
+}
+```
+
+##Keyboard input with SDL - Event-based
+
+- SDL maintains a list of events
+    - from the keyboard, mouse, window, ...
+- we can pull an **event** off this list, look at it and decide what to do
+- there **may** be multiple events between frames
+    - make sure the pull off **all** events every frame
+    - otherwise wierd stuff can happen, especially with mouse input
+    - a while loop
+- we get **separate** events for KeyDown and KeyUp
+
+
+##Keyboard input with SDL - Event-based, example 1
+
+- branch ```sdlKeyboardInputEventBased```
+- called **every** frame
+
+```C++
+    SDL_Event event; //somewhere to store an event
+
+    //loop until SDL_PollEvent returns 0 (meaning no more events)
+    while (SDL_PollEvent(&event)) {
+        switch (event.type)
+        {
+        case SDL_QUIT:
+            //set done flag if SDL wants to quit
+            done = true;
+            break;
+```
+
+##Keyboard input with SDL - Event-based, example 2
+
+```C++
+        case SDL_KEYDOWN:
+            //  - a "repeat" flag is set on the keyboard event, if this is a repeat event
+            //  - https://wiki.libsdl.org/SDL_KeyboardEvent
+            if (!event.key.repeat)
+            switch (event.key.keysym.sym)
+            {
+                //hit escape to exit
+                case SDLK_ESCAPE: done = true;
+
+                case SDLK_LEFT:  translateSpeed.x -= translateAcceleration.x; break;
+                case SDLK_RIGHT: translateSpeed.x += translateAcceleration.x; break;
+
+                case SDLK_UP:    translateSpeed.y += translateAcceleration.y; break;
+                case SDLK_DOWN:  translateSpeed.y -= translateAcceleration.y; break;
+            }
+            break;
+```
+
+- KeyUp handling?
+
+##Keyboard input with SDL - Event-based, example 3
+
+```C++
+        //Do the opposite of keyDown (in this case)
+        case SDL_KEYUP:
+            switch (event.key.keysym.sym)
+            {
+                case SDLK_LEFT:  translateSpeed.x += translateAcceleration.x; break;
+                case SDLK_RIGHT: translateSpeed.x -= translateAcceleration.x; break;
+
+                case SDLK_UP:    translateSpeed.y -= translateAcceleration.y; break;
+                case SDLK_DOWN:  translateSpeed.y += translateAcceleration.y; break;
+            }
+            break;
+```
+
+
+#Face Culling
+
+##What is Face Culling
+
+- Triangle primitives after all transformation steps have a particular facing
+- This is defined by the apparent order on-screen of the three vertices
+- Triangles can be discarded based on their apparent facing, a process known as Face Culling
+
+##What is Face Culling 2
+
+- Triangle primitives after all transformation steps have a particular facing
+- This is defined by the apparent order on-screen of the three vertices
+- Triangles can be discarded based on their apparent facing, a process known as Face Culling
+
+##Winding order
+
+- every vertex in every part of the rendering pipeline has a specific order
+- we submit vertices in a specific sequence
+- each vertex in the Primitive Assembly stage is still ordered
+- the order of the vertices in a triangle can be combined with their relative visual orientation to determine whether the triangle is being seen from the "front" or the "back" side
+    - this is the **winding order**
+
+##Winding order 2
+
+![WindingOrder.svg](assets/WindingOrder.svg)
+
+##Front face
+
+- the face to be the "front" face is controlled by:
+    - ```glFrontFace(mode)```
+    - ```mode``` may be ```GL_CW``` or ```GL_CCW```
+    - This is global state
+        - but, you can change it between rendering each object
+    - Default is ```GL_CCW```
+
+##Face Culling Effciency 1
+
+- an **optimization**
+    - for solid objects stops at least 50% of triangles (see next)
+    - occurs after the vertex shader, before rasterization
+- in limited cases, can help things render correctly
+    - i.e. when not using depth testing, but rendering a single, solid object
+- https://www.opengl.org/wiki/Culling
+
+##Face Culling Efficiency 2
+
+- A cube is made of 12 triangles
+- 6 of them will be facing in the opposite direction from the other 6
+- Unless the cube is **transparent**:
+    - 6 of the triangles will always be covered up by the other 6
+    - In fact, depending on the projection, more than 6 triangles could be covered
+- Face culling allows non-visible triangles of closed surfaces to be culled before expensive Rasterization and Fragment Shader operations.
+
+##Face Culling Example Branches
+
+- ```glmRotateColorCubeNoCullingNoDepthTest```
+- ```glmRotateColorCubeWithCullingNoDepthTest```
+
+- anywhere before rendering
+```C++
+    //setup face culling details.
+    glEnable(GL_CULL_FACE);
+    glCullFace(GL_BACK); //cull back faces (default)
+    glFrontFace(GL_CCW); //front faces are counter-clockwise (default)
+```
+
+
+
+#Depth Test
+
+##Why depth testing
+
+- without depth testing each triangle rendered draws on top of previous pixels
+- this causes problems (```glmRotateColorCubeNoCullingNoDepthTest```)
+- we could try to draw all far away triangles first
+- then draw nearer ones
+    - requires **sorting** the triangles
+    - doesn't work for all cases ...
+
+##What is Depth Testing
+
+- depth test is a per-sample operation performed conceptually after the Fragment Shader
+    - under some circumstances it can occur **before** frag shader, but ...
+- output depth may be tested against the depth of the sample being written to
+- if the test fails, the fragment is discarded
+- if the test passes, the depth buffer may be written to
+- writing to the depth/colour buffer is a relatively slow operation, so minimizing writes is a good optimization
+    - how could depth testing support this?
+
+##Depth Test Example Branches
+
+- ```glmRotateColorCubeNoCullingWithDepthTest```
+- ```glmRotateColorCubeWithCullingWithDepthTest```
+
+- setup depth testing - anywhere before rendering
+```C++
+	glEnable(GL_DEPTH_TEST);
+	glDepthFunc(GL_LESS); //only write if z is less (nearer)
+```
+
+- //clear depth buffer before rendering
+```C++
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+```
