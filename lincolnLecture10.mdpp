@@ -240,7 +240,7 @@ void handleInput()
 
 - A cube is made of 12 triangles
 - 6 of them will be facing in the opposite direction from the other 6
-- Unless the cube is transparent:
+- Unless the cube is **transparent**:
     - 6 of the triangles will always be covered up by the other 6
     - In fact, depending on the projection, more than 6 triangles could be covered
 - Face culling allows non-visible triangles of closed surfaces to be culled before expensive Rasterization and Fragment Shader operations.
@@ -260,24 +260,39 @@ void handleInput()
 
 
 
-##Depth Test
+#Depth Test
 
+##Why depth testing
+
+- without depth testing each triangle rendered draws on top of previous pixels
+- this causes problems (```glmRotateColorCubeNoCullingNoDepthTest```)
+- we could try to draw all far away triangles first
+- then draw nearer ones
+    - requires **sorting** the triangles
+    - doesn't work for all cases ...
+
+##What is Depth Testing
+
+- depth test is a per-sample operation performed conceptually after the Fragment Shader
+    - under some circumstances it can occur **before** frag shader, but ...
+- output depth may be tested against the depth of the sample being written to
+- if the test fails, the fragment is discarded
+- if the test passes, the depth buffer may be written to
+- writing to the depth/colour buffer is a relatively slow operation, so minimizing writes is a good optimization
+    - how could depth testing support this?
+
+##Depth Test Example Branches
 
 - ```glmRotateColorCubeNoCullingWithDepthTest```
 - ```glmRotateColorCubeWithCullingWithDepthTest```
 
-The Depth Test is a per-sample operation performed conceptually after the Fragment Shader. The output depth may be tested against the depth of the sample being written to. If the test fails, the fragment is discarded. If the test passes, the depth buffer may be written to.
-Steps
+- setup depth testing - anywhere before rendering
+```C++
+	glEnable(GL_DEPTH_TEST);
+	glDepthFunc(GL_LESS); //only write if z is less (nearer)
+```
 
-If the depth buffer exists, the value it is cleared to can be assigned with glClearDepth​ or retrieved with glGet​...(GL_DEPTH_CLEAR_VALUE​), and then the buffer itself is cleared using glClear​(GL_DEPTH_BUFFER_BIT​).
-
-After clipping and division by w, depth coordinates range from -1 to 1, corresponding to the near and far clipping planes. Each viewport has an independent depth range specified as a linear mapping of the normalized depth coordinates in this range to window depth coordinates. Regardless of the actual depth buffer implementation, window coordinate depth values are treated as though they range from 0 through 1 (like color components). The depth values are mapped from window coordinates to normalized device coordinates using glDepthRange​(GLdouble nearVal​, GLdouble farVal​), which can be retrieved as a pair using glGet​...(GL_DEPTH_RANGE​); the initial values are 0 and 1 respectively. When there are multiple viewports, glDepthRangeIndexed​(GLuint index​, GLdouble nearVal​, GLdouble farVal​) and glDepthRangeArray​(GLuint first​, GLsizei count​, const GLdouble *v​) are used.
-
-The depth test does not occur unless if GL_DEPTH_TEST​ is enabled; the initial value is false. The depth of the sample being written to (s) is compared to the value in the depth buffer (d) using the function specified by glDepthFunc​(GLenum func​), which is retrieved with glGet​...(GL_DEPTH_FUNC​). This can be GL_NEVER​ (false), GL_LESS​ (s < d), GL_EQUAL​ (s = d), GL_LEQUAL​ (s ≤ d), GL_GREATER​ (s > d), GL_NOTEQUAL​ (s ≠ d), GL_GEQUAL​ (s ≥ d), or GL_ALWAYS​ (true). The initial value is GL_LESS​.
-
-If the test passes or is disabled, the depth value may then be written to the depth buffer. To control whether to write to the depth buffer, call glDepthMask​(GLboolean flag​) or retrieve the current setting with glGet​...(GL_DEPTH_WRITEMASK​​). The default is true.
-Associated Gets
-
-glGet​ with argument GL_DEPTH_CLEAR_VALUE​, GL_DEPTH_FUNC​, GL_DEPTH_RANGE​, GL_DEPTH_WRITEMASK​​
-
-glIsEnabled​ with argument GL_DEPTH_TEST​
+- //clear depth buffer before rendering
+```C++
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+```
