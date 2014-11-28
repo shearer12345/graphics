@@ -30,7 +30,7 @@
 
 
 <section><section id="lincoln-lectures-on-graphics---10" class="titleslide slide level1"><h1>Lincoln Lectures On Graphics - 10</h1></section></section>
-<section><section id="user-input-culling-and-depth-testing" class="titleslide slide level1"><h1>User Input, Culling, and Depth Testing</h1></section><section id="where-we-are" class="slide level2">
+<section><section id="keyboard-input-depth-testing-and-culling" class="titleslide slide level1"><h1>Keyboard Input, Depth Testing and Culling</h1></section><section id="where-we-are" class="slide level2">
 <h1>Where we are</h1>
 <ul>
 <li>with the workshops and the lecture content you should now be beginning to be comfortable with:
@@ -46,7 +46,7 @@
 </ul></li>
 </ul>
 </section></section>
-<section><section id="user-input" class="titleslide slide level1"><h1>User Input</h1></section><section id="keyboard-input" class="slide level2">
+<section><section id="keyboard-input" class="titleslide slide level1"><h1>Keyboard Input</h1></section><section id="keyboard-input-1" class="slide level2">
 <h1>Keyboard Input</h1>
 <ul>
 <li>we'll focus on Keyboard Input here</li>
@@ -245,6 +245,45 @@
             }
             break;</code></pre>
 </section></section>
+<section><section id="depth-testing" class="titleslide slide level1"><h1>Depth Testing</h1></section><section id="why-depth-testing" class="slide level2">
+<h1>Why depth testing</h1>
+<ul>
+<li>without depth testing each triangle rendered draws on top of previous pixels</li>
+<li>this causes problems (<code>glmRotateColorCubeNoCullingNoDepthTest</code>)</li>
+<li>we could try to draw all far away triangles first</li>
+<li>then draw nearer ones
+<ul>
+<li>requires <strong>sorting</strong> the triangles</li>
+<li>doesn't work for all cases ...</li>
+</ul></li>
+</ul>
+</section><section id="what-is-depth-testing" class="slide level2">
+<h1>What is Depth Testing</h1>
+<ul>
+<li>depth test is a per-sample operation performed conceptually after the Fragment Shader
+<ul>
+<li>under some circumstances it can occur <strong>before</strong> frag shader, but ...</li>
+</ul></li>
+<li>output depth may be tested against the depth of the sample being written to</li>
+<li>if the test fails, the fragment is discarded</li>
+<li>if the test passes, the depth buffer may be written to</li>
+<li>writing to the depth/colour buffer is a relatively slow operation, so minimizing writes is a good optimization
+<ul>
+<li>how could depth testing support this?</li>
+</ul></li>
+</ul>
+</section><section id="depth-test-example-branches" class="slide level2">
+<h1>Depth Test Example Branches</h1>
+<ul>
+<li><code>glmRotateColorCubeNoCullingWithDepthTest</code></li>
+<li><p><code>glmRotateColorCubeWithCullingWithDepthTest</code></p></li>
+<li><p>setup depth testing - anywhere before rendering</p>
+<pre class="c++"><code>glEnable(GL_DEPTH_TEST);
+glDepthFunc(GL_LESS); //only write if z is less (nearer)</code></pre></li>
+<li><p>//clear depth buffer before rendering</p>
+<pre class="c++"><code>glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);</code></pre></li>
+</ul>
+</section></section>
 <section><section id="face-culling" class="titleslide slide level1"><h1>Face Culling</h1></section><section id="what-is-face-culling" class="slide level2">
 <h1>What is Face Culling</h1>
 <ul>
@@ -325,45 +364,6 @@
 glEnable(GL_CULL_FACE);
 glCullFace(GL_BACK); //cull back faces (default)
 glFrontFace(GL_CCW); //front faces are counter-clockwise (default)</code></pre></li>
-</ul>
-</section></section>
-<section><section id="depth-test" class="titleslide slide level1"><h1>Depth Test</h1></section><section id="why-depth-testing" class="slide level2">
-<h1>Why depth testing</h1>
-<ul>
-<li>without depth testing each triangle rendered draws on top of previous pixels</li>
-<li>this causes problems (<code>glmRotateColorCubeNoCullingNoDepthTest</code>)</li>
-<li>we could try to draw all far away triangles first</li>
-<li>then draw nearer ones
-<ul>
-<li>requires <strong>sorting</strong> the triangles</li>
-<li>doesn't work for all cases ...</li>
-</ul></li>
-</ul>
-</section><section id="what-is-depth-testing" class="slide level2">
-<h1>What is Depth Testing</h1>
-<ul>
-<li>depth test is a per-sample operation performed conceptually after the Fragment Shader
-<ul>
-<li>under some circumstances it can occur <strong>before</strong> frag shader, but ...</li>
-</ul></li>
-<li>output depth may be tested against the depth of the sample being written to</li>
-<li>if the test fails, the fragment is discarded</li>
-<li>if the test passes, the depth buffer may be written to</li>
-<li>writing to the depth/colour buffer is a relatively slow operation, so minimizing writes is a good optimization
-<ul>
-<li>how could depth testing support this?</li>
-</ul></li>
-</ul>
-</section><section id="depth-test-example-branches" class="slide level2">
-<h1>Depth Test Example Branches</h1>
-<ul>
-<li><code>glmRotateColorCubeNoCullingWithDepthTest</code></li>
-<li><p><code>glmRotateColorCubeWithCullingWithDepthTest</code></p></li>
-<li><p>setup depth testing - anywhere before rendering</p>
-<pre class="c++"><code>glEnable(GL_DEPTH_TEST);
-glDepthFunc(GL_LESS); //only write if z is less (nearer)</code></pre></li>
-<li><p>//clear depth buffer before rendering</p>
-<pre class="c++"><code>glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);</code></pre></li>
 </ul>
 </section></section>
     </div>
