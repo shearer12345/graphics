@@ -34,7 +34,7 @@
 - [https://www.youtube.com/watch?v=MeMPCSqQ-34](https://www.youtube.com/watch?v=MeMPCSqQ-34)
 - [https://github.com/BennyQBD/ModernOpenGLTutorial](https://github.com/BennyQBD/ModernOpenGLTutorial)
 - [https://www.youtube.com/watch?v=ftiKrP3gW3k&list=PLEETnX-uPtBXT9T-hD0Bj31DSnwio-ywh](https://www.youtube.com/watch?v=ftiKrP3gW3k&list=PLEETnX-uPtBXT9T-hD0Bj31DSnwio-ywh)
-- Setting up SDL2 in Visual Studio (2013 or any other) [www.programmersranch.com/2014/02/sdl2-setting-up-sdl2-in-visual-studio.html](www.programmersranch.com/2014/02/sdl2-setting-up-sdl2-in-visual-studio.html)
+- Setting up SDL2 in Visual Studio (2013 or any other) [http://www.programmersranch.com/2014/02/sdl2-setting-up-sdl2-in-visual-studio.html](http://www.programmersranch.com/2014/02/sdl2-setting-up-sdl2-in-visual-studio.html)
 - 2D tutorials with SDL2 [http://lazyfoo.net/tutorials/SDL/index.php](http://lazyfoo.net/tutorials/SDL/index.php)
 - SDL2 migration guide [https://wiki.libsdl.org/MigrationGuide](https://wiki.libsdl.org/MigrationGuide)
 
@@ -158,7 +158,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 
 ##Debugging tools
 
-- [apitrace - http://apitrace.github.io/](apitrace - http://apitrace.github.io/)
+- [apitrace - http://apitrace.github.io/](http://apitrace - http://apitrace.github.io/)
 - VOGL:
     - [http://richg42.blogspot.de/2014/01/vogl-opengl-tracerdebugger-bonus-content.html](http://richg42.blogspot.de/2014/01/vogl-opengl-tracerdebugger-bonus-content.html)
     - [https://github.com/ValveSoftware/vogl](https://github.com/ValveSoftware/vogl)
@@ -173,7 +173,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 
 ##Matrices
 
-- [www.opengl-tutorial.org/beginners-tutorials/tutorial-3-matrices/](www.opengl-tutorial.org/beginners-tutorials/tutorial-3-matrices/)
+- [http://www.opengl-tutorial.org/beginners-tutorials/tutorial-3-matrices/](http://www.opengl-tutorial.org/beginners-tutorials/tutorial-3-matrices/)
 
 ##Coordinate Systems
 
@@ -205,9 +205,9 @@ http://www.songho.ca/math/homogeneous/homogeneous.html
 
 **Note that SDL2 can load standard `.bmp` files on its own, but no other image formats**
 
-- Open Asset Import Library [assimp.sourceforge.net/index.html](assimp.sourceforge.net/index.html)
-- Resilient Image Library [sourceforge.net/projects/resil/](sourceforge.net/projects/resil/)
-- Simple OpenGL Image Library [www.opengl-tutorial.org/miscellaneous/useful-tools-links/](www.opengl-tutorial.org/miscellaneous/useful-tools-links/)
+- Open Asset Import Library [http://assimp.sourceforge.net/index.html](http://assimp.sourceforge.net/index.html)
+- Resilient Image Library [http://sourceforge.net/projects/resil/](http://sourceforge.net/projects/resil/)
+- Simple OpenGL Image Library [http://www.opengl-tutorial.org/miscellaneous/useful-tools-links/](http://www.opengl-tutorial.org/miscellaneous/useful-tools-links/)
 
 ##other
 
