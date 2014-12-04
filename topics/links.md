@@ -37,6 +37,12 @@
 - http://www.mbsoftworks.sk/index.php?page=tutorials&series=1&tutorial=9
 - http://www.lighthouse3d.com/tutorials/glsl-core-tutorial/glsl-core-tutorial-texturing-with-images/
 
+##Lighting
+
+- http://www.lighthouse3d.com/tutorials/glsl-core-tutorial/directional-lights/
+- http://en.wikibooks.org/wiki/GLSL_Programming/GLUT/Specular_Highlights
+- http://www.gamedev.net/page/resources/_/technical/opengl/the-basics-of-glsl-40-shaders-r2861
+
 ##Context Creation (mostly SDL2)
 
 - https://open.gl/context
