@@ -30,8 +30,12 @@
 ##Texturing
 
 - http://www.tomdalling.com/blog/modern-opengl/02-textures/
-- https://wiki.libsdl.org/SDL_CreateTexture
+- https://www.opengl.org/wiki/Texture
+- http://ogldev.atspace.co.uk/www/tutorial16/tutorial16.html
+- https://github.com/progschj/OpenGL-Examples/blob/master/03texture.cpp
 - https://www.youtube.com/watch?v=UBxB8H4e_5I&list=UUL5m1_llmeiAdZMo_ZanIvg
+- http://www.mbsoftworks.sk/index.php?page=tutorials&series=1&tutorial=9
+- http://www.lighthouse3d.com/tutorials/glsl-core-tutorial/glsl-core-tutorial-texturing-with-images/
 
 ##Context Creation (mostly SDL2)
 
