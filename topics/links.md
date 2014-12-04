@@ -27,6 +27,12 @@
 - Swiftless tutorials [http://www.swiftless.com/opengl4tuts.html](http://www.swiftless.com/opengl4tuts.html)
 - http://www.tomdalling.com/blog/category/modern-opengl/
 
+##Texturing
+
+- http://www.tomdalling.com/blog/modern-opengl/02-textures/
+- https://wiki.libsdl.org/SDL_CreateTexture
+- https://www.youtube.com/watch?v=UBxB8H4e_5I&list=UUL5m1_llmeiAdZMo_ZanIvg
+
 ##Context Creation (mostly SDL2)
 
 - https://open.gl/context
