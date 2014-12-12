@@ -140,42 +140,70 @@ glGenerateMipmap(GL_TEXTURE_2D); //generate mipmaps for the present texture
 
 ##Loading texture images
 
-Now that the texture object has been configured it's time to load the texture image. This is done by simply loading an array of pixels into it:
+- so far we've only setup a texture object
+- next step is to load that object with data
+    - usually an image
+    - but, generally, just an set of bytes
 
+##An example texture image in C++
+
+```C++
 // Black/white checkerboard
-float pixels[] = {
+float pixels[] = { //a simple 2x2 image
     0.0f, 0.0f, 0.0f,   1.0f, 1.0f, 1.0f,
     1.0f, 1.0f, 1.0f,   0.0f, 0.0f, 0.0f
 };
 glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, 2, 2, 0, GL_RGB, GL_FLOAT, pixels);
+```
 
-The first parameter after the texture target is the level-of-detail, where 0 is the base image. This parameter can be used to load your own mipmap images. The second parameter specifies the internal pixel format, the format in which pixels should be stored on the graphics card. Many different formats are available, including compressed formats, so it's certainly worth taking a look at all of the options. The third and fourth parameters specify the width and height of the image. The fifth parameter should always have a value of 0 per the specification. The next two parameter describe the format of the pixels in the array that will be loaded and the final parameter specifies the array itself. The function begins loading the image at coordinate (0,0), so pay attention to this.
+##glTexImage2D parameters
 
-But how is the pixel array itself established? Textures in graphics applications will usually be a lot more sophisticated than simple patterns and will be loaded from files. Best practice is to have your files in a format that is natively supported by the hardware, but it may sometimes be more convenient to load textures from common image formats like JPG and PNG. Unfortunately OpenGL doesn't offer any helper functions to load pixels from these image files, but that's where third-party libraries come in handy again! The SOIL library will be discussed here along with some of the alternatives.
-SOIL
+```glTexImage2D(textureTarget, levelOfDetail, internalPixelFormat, width, height, alwaysZero, externalPixelFormat, externalPixelType, pixelData);```
 
-SOIL (Simple OpenGL Image Library) is a small and easy-to-use library that loads image files directly into texture objects or creates them for you. You can start using it in your project by linking with SOIL and adding the src directory to your include path. It includes Visual Studio project files to compile it yourself.
+- textureTarget = `GL_TEXTURE_1D`, `GL_TEXTURE_2D`, `GL_TEXTURE_3D`
+- levelOfDetail = level-of-detail, where 0 is the base image
+    - used for loading mipmap images - where you can control each level
+- internalPixelFormat = the format pixels should be stored on the **graphics card**
+    -  lots of formats are available, including compressed formats
+- width = of the image (2D array of data)
+- height = of the image (2D array of data)
+- alwaysZero = should always have a value of 0 per the specification
+- externalPixelFormat = format of the pixels in the array that will be loaded
+    - e.g. RGB, RGBA, BGR, ...
+- externalPixelType = type for each component
+    - e.g. float, uint, ...
+- pixelData = the data array itself
+    - begins loading the image at coordinate (0,0)
 
-Although SOIL includes functions to automatically create a texture from an image, it uses features that aren't available in modern OpenGL. Because of this we'll simply use SOIL as image loader and create the texture ourselves.
+##Loading texture images from files
 
-int width, height;
-unsigned char* image =
-    SOIL_load_image("img.png", &width, &height, 0, SOIL_LOAD_RGB);
-glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB,
-              GL_UNSIGNED_BYTE, image);
+- textures can be in formats natively supported by the hardware
+    - e.g. DDS
+- or in a more common image format
+    - e.g. JPEG, PNG, BMP
+- OpenGL just does rendering
+    - no support for load pixels from image files
+- SDL2 supports loading BMP images
+- other libraries can help loading other formats
+    - e.g. Soil, Resil
 
-You can start configuring the texture parameters and generating mipmaps after this.
+```C++
+SDL_Surface* image = SDL_LoadBMP("assets/hello.bmp");
+```
 
-SOIL_free_image_data(image);
+##Texture Coordinates
 
-You can clean up the image data right after you've loaded it into the texture.
-Alternative options
+- Textures are sampled using texture coordinates
+    - UV or ST coordinates
+- We have to add these as attributes to the GLSL
+- and load texture coordinates into a vertexBufferObject
+    - usually the same VBO as the position data
+    - either [allPositions, allTextureCoordnates]
+    - or [position0, textureCoordinate0, position1, textureCoordinate1, ...]
 
-Other libraries that support a wide range of file types like SOIL are DevIL and FreeImage. If you're just interested in one file type, it's also possible to use libraries like libpng and libjpeg directly. If you're looking for more of an adventure, have a look at the specification of the BMP and TGA file formats, it's not that hard to implement a loader for them yourself.
-Using a texture
+##Texture Coordinate example
 
-As you've seen, textures are sampled using texture coordinates and you'll have to add these as attributes to your vertices. Let's modify the last sample from the previous chapter to include these texture coordinates. The new vertex array will now include the s and t coordinates for each vertex:
-
+```C++
 float vertices[] = {
 //  Position      Color             Texcoords
     -0.5f,  0.5f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f, // Top-left
@@ -183,118 +211,47 @@ float vertices[] = {
      0.5f, -0.5f, 0.0f, 0.0f, 1.0f, 1.0f, 1.0f, // Bottom-right
     -0.5f, -0.5f, 1.0f, 1.0f, 1.0f, 0.0f, 1.0f  // Bottom-left
 };
+```
+
+##Example vertex shader
 
 The vertex shader needs to be modified so that the texture coordinates are interpolated over the fragments:
 
+```C++
 ...
-
 in vec2 texcoord;
-
 out vec3 Color;
 out vec2 Texcoord;
-
 ...
-
 void main()
 {
     Texcoord = texcoord;
+...
+```
 
-Just like when the color attribute was added, the attribute pointers need to be adapted to the new format:
+##Example fragment shader
 
-glVertexAttribPointer(posAttrib, 2, GL_FLOAT, GL_FALSE,
-                       7*sizeof(float), 0);
-glVertexAttribPointer(colAttrib, 3, GL_FLOAT, GL_FALSE,
-                       7*sizeof(float), (void*)(2*sizeof(float)));
-
-GLint texAttrib = glGetAttribLocation(shaderProgram, "texcoord");
-glEnableVertexAttribArray(texAttrib);
-glVertexAttribPointer(texAttrib, 2, GL_FLOAT, GL_FALSE,
-                       7*sizeof(float), (void*)(5*sizeof(float)));
-
-As two floats were added for the coordinates, one vertex is now 7 floats in size and the texture coordinate attribute consists of 2 of those floats.
-
-Now just one thing remains: providing access to the texture in the fragment shader to sample pixels from it. This is done by adding a uniform of type sampler2D, which will have a default value of 0. This only needs to be changed when access has to be provided to multiple textures, which will be considered in the next section.
-
-For this sample, the image of the kitten used above will be loaded using the SOIL library. Make sure that it is located in the working directory of the application.
-
-int width, height;
-unsigned char* image =
-    SOIL_load_image("sample.png", &width, &height, 0, SOIL_LOAD_RGB);
-glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB,
-              GL_UNSIGNED_BYTE, image);
-SOIL_free_image_data(image);
-
-To sample a pixel from a 2D texture using the sampler, the function texture can be called with the relevant sampler and texture coordinate as parameters. We'll also multiply the sampled color with the color attribute to get an interesting effect. Your fragment shader will now look like this:
-
+```C++
 #version 150
-
 in vec3 Color;
 in vec2 Texcoord;
-
 out vec4 outColor;
-
 uniform sampler2D tex;
-
 void main()
 {
     outColor = texture(tex, Texcoord) * vec4(Color, 1.0);
 }
+```
 
-When running this application, you should get the following result:
+##Texture Units
 
-If you get a black screen, make sure that your shaders compiled successfully and that the image is correctly loaded. If you can't find the problem, try comparing your code to the sample code.
-Texture units
-
-The sampler in your fragment shader is bound to texture unit 0. Texture units are references to texture objects that can be sampled in a shader. Textures are bound to texture units using the glBindTexture function you've used before. Because you didn't explicitly specify which texture unit to use, the texture was bound to GL_TEXTURE0. That's why the default value of 0 for the sampler in your shader worked fine.
-
-The function glActiveTexture specifies which texture unit a texture object is bound to when glBindTexture is called.
-
-glActiveTexture(GL_TEXTURE0);
-
-The amount of texture units supported differs per graphics card, but it will be at least 48. It is safe to say that you will never hit this limit in even the most extreme graphics applications.
-
-To practice with sampling from multiple textures, let's try blending the images of the kitten and one of a puppy to get the best of both worlds! Let's first modify the fragment shader to sample from two textures and blend the pixels:
-
-...
-
-uniform sampler2D texKitten;
-uniform sampler2D texPuppy;
-
-void main()
-{
-    vec4 colKitten = texture(texKitten, Texcoord);
-    vec4 colPuppy = texture(texPuppy, Texcoord);
-    outColor = mix(colKitten, colPuppy, 0.5);
-}
-
-The mix function here is a special GLSL function that linearly interpolates between two variables based on the third parameter. A value of 0.0 will result in the first value, a value of 1.0 will result in the second value and a value in between will result in a mixture of both values. You'll have the chance to experiment with this in the exercises.
-
-Now that the two samplers are ready, you'll have to assign the first two texture units to them and bind the two textures to those units. This is done by adding the proper glActiveTexture calls to the texture loading code.
-
-GLuint textures[2];
-glGenTextures(2, textures);
-
-int width, height;
-unsigned char* image;
-
-glActiveTexture(GL_TEXTURE0);
-glBindTexture(GL_TEXTURE_2D, textures[0]);
-image = SOIL_load_image("sample.png", &width, &height, 0, SOIL_LOAD_RGB);
-glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB,
-              GL_UNSIGNED_BYTE, image);
-SOIL_free_image_data(image);
-glUniform1i(glGetUniformLocation(shaderProgram, "texKitten"), 0);
-
-glActiveTexture(GL_TEXTURE1);
-glBindTexture(GL_TEXTURE_2D, textures[1]);
-image = SOIL_load_image("sample2.png", &width, &height, 0, SOIL_LOAD_RGB);
-glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB,
-              GL_UNSIGNED_BYTE, image);
-SOIL_free_image_data(image);
-glUniform1i(glGetUniformLocation(shaderProgram, "texPuppy"), 1);
-
-The texture units of the samplers are set using the glUniform function you've seen in the previous chapter. It simply accepts an integer specifying the texture unit. This code should result in the following image.
-
-As always, have a look at the sample source code if you have trouble getting the program to work.
-
-Now that texture sampling has been covered in this chapter, you're finally ready to dive into transformations and ultimately 3D. The knowledge you have at this point should be sufficient for producing most types of 2D games, except for transformations like rotation and scaling which will be covered in the next chapter.
+- each sampler in bound to a texture unit
+   - by default texture unit 0
+- texture units are references to texture objects that can be sampled in a shader
+- use `glBindTexture` to bind to a texture object to the active texture unit
+- use `glActiveTexture` to make a specific textureUnit the active one
+    - e.g. ```glActiveTexture(GL_TEXTURE0);```
+- the OpenGL specification says that at least 48 texture units should be supported
+    - which means we can have multiple texture units in one GLSL program
+    - and therefore multiple samplers and texture objects
+    - this allows lots of flexibility and for features such as **multiTexturing**
