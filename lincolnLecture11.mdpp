@@ -1,0 +1,14 @@
+#Lincoln Lectures On Graphics - 11
+
+#Texturing and Lighting - in OpenGL - no theory
+
+##Just looking at code
+
+- there are no slides this week
+- just working through 4 code examples
+  - glCubeWithTextureCoordinatesButNoTextureImage
+  - glCubeWithTexture
+  - glCubeWithNormalsButNoLighting
+  - glCubeLightingPerVertexDiffuse
+- we'll cover the theory on these next week
+

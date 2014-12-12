@@ -1,0 +1,257 @@
+#Textures
+
+##Why use textures
+
+- Textures are typically used to add visual detail to models without adding geometric detail
+- Textures are in fact just data stores, much like VertexBufferObjects
+    - we can use them to store all sort of things
+    - access this data (fairly) arbitrarily from GLSL (unlike VBOs)
+- It's possible to have 1D, 2D and even 3D textures
+- We'll focus on using textures for images, and applying them to geometry
+
+##Creating Textures and Binding
+
+- Similarly to VertexBufferObjects, we have to ask OpenGL to create Textures (or texture objects) for us
+
+```C++
+GLuint textureID; //storage for a textureID
+glGenTextures(1, &textureID); //create 1 texture id and store it in textureID
+```
+
+- In order to do things with a texture object, we have to bind it
+    - we'll bind to GL\_TEXTURE_2D as images are 2D arrays of pixels
+
+```C++
+glBindTexture(GL_TEXTURE_2D, tex); //make textureID the active 2D texture
+```
+
+##Texture Coordinates
+
+- When drawing we want to able to refer to parts of a texture
+- We do this with **Texture Coordinates**
+    - aka *UV Coordinates* or *ST Coordinates*
+- Texture Coordinates range from `0.0` to `1.0`
+- `(0,0)` is usually the bottom-left of the image
+- `(1,1)` is usually the top-right of the image
+
+##Getting data from textures
+
+- **Sampling** is the process of retrieving data from a texture object
+    - usually color data
+- We can control how the sampling occurs, to match our circumstances
+
+##Texture Wrapping
+
+- What should happen if we try to sample a texture outside the `0.0` to `1.0` range?
+    - we still want the sampler to return a value
+    - ```GL_REPEAT``` - the integer part of the coordinate will be ignored and a repeating pattern is formed
+    - ```GL_MIRRORED_REPEAT``` - the texture will also be repeated, but it will be **mirrored** when the integer part of the coordinate is odd
+    - ```GL_CLAMP_TO_EDGE``` - coordinates will be **clamped** to the `0.0` to `1.0` range
+    - ```GL_CLAMP_TO_BORDER``` - coordinates outside the range will be given a specific border color
+
+##Texture Wrapping examples
+
+- from https://open.gl/textures
+
+![Texture Clamping](assets/textureClamping.png)
+
+##S, T, R coordinates and wrapping
+
+- texture coordinates are just vectors:
+    - 1D texturing - `float`
+    - 2D texturing - `vec2`
+    - 3D texturing - `vec3`
+- when using a `vec` for textures we call the coordinates `s`, `t`, and `r`
+    - instead of `x`, `y`, and `z`
+- coordinate wrapping can be set per coordinate
+    - i.e. it can be different on each axis
+
+##Setting texture wrapping
+
+- texture parameters are set with the `glTexParameter*` command
+    - the star refers to the `type` of value you wish to set
+
+```C++
+glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+```
+
+##Texture filtering
+
+- texture coordinates are resolution independent
+- usually, they don't always match a pixel exactly
+    - so a texture image is stretched beyond its original size
+    - or it's sized down
+
+##Texture filtering options
+
+- we can ask OpenGL to use specifics methods in deciding on the sampled color
+    - ```GL_NEAREST``` - returns the pixel that is closest to the coordinates
+    - ```GL_LINEAR``` - returns the weighted average of the 4 pixels surrounding the given coordinates
+    - ```GL_NEAREST_MIPMAP_NEAREST``` - later
+    - ```GL_LINEAR_MIPMAP_NEAREST``` - later
+    - ```GL_NEAREST_MIPMAP_LINEAR``` - later
+    - ```GL_LINEAR_MIPMAP_LINEAR``` - later
+
+##Texture filtering example
+
+- from https://open.gl/textures
+
+![textureFiltering](assets/textureFiltering.png)
+
+##Texture filtering example 2
+
+- from http://www.proun-game.com/Oogst3D/index.php?file=CODING/Raytracer/History.txt
+
+![textureFilteringZoomed](assets/textureFilteringZoomed.png)
+
+##Specifying Texture Filtering
+
+- we can specify the kind of interpolation separately for:
+    - scaling the image down - "*minification*" - `GL_TEXTURE_MIN_FILTER`
+    - scaling the image up - "*magnification*" - `GL_TEXTURE_MAG_FILTER`
+
+```C++
+glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+```
+
+##MipMaps !!!
+
+- we previously mentioned Mipmaps for texturing, but didn't define them
+- Mipmaps are smaller copies of your texture that have been sized down and filtered in advance
+- It is recommended that you use them because they result in both a higher quality and higher performance
+
+```C++
+glGenerateMipmap(GL_TEXTURE_2D); //generate mipmaps for the present texture
+```
+
+##Mipmap Examples
+
+![mipmapExample](assets/mipmapExample.jpg)
+
+##Using mipmaps
+
+- just set the filtering method
+    - ```GL_NEAREST_MIPMAP_NEAREST``` - use the mipmap that most closely matches the size of the pixel being textured and sample it with nearest neighbour interpolation
+    - ```GL_LINEAR_MIPMAP_NEAREST``` - samples the closest mipmap with linear interpolation
+    - ```GL_NEAREST_MIPMAP_LINEAR``` - uses the two mipmaps that most closely match the size of the pixel being textured and samples with nearest neighbour interpolation
+    - ```GL_LINEAR_MIPMAP_LINEAR` - samples closest two mipmaps with linear interpolation
+
+##Loading texture images
+
+- so far we've only setup a texture object
+- next step is to load that object with data
+    - usually an image
+    - but, generally, just an set of bytes
+
+##An example texture image in C++
+
+```C++
+// Black/white checkerboard
+float pixels[] = { //a simple 2x2 image
+    0.0f, 0.0f, 0.0f,   1.0f, 1.0f, 1.0f,
+    1.0f, 1.0f, 1.0f,   0.0f, 0.0f, 0.0f
+};
+glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, 2, 2, 0, GL_RGB, GL_FLOAT, pixels);
+```
+
+##glTexImage2D parameters
+
+```glTexImage2D(textureTarget, levelOfDetail, internalPixelFormat, width, height, alwaysZero, externalPixelFormat, externalPixelType, pixelData);```
+
+- textureTarget = `GL_TEXTURE_1D`, `GL_TEXTURE_2D`, `GL_TEXTURE_3D`
+- levelOfDetail = level-of-detail, where 0 is the base image
+    - used for loading mipmap images - where you can control each level
+- internalPixelFormat = the format pixels should be stored on the **graphics card**
+    -  lots of formats are available, including compressed formats
+- width = of the image (2D array of data)
+- height = of the image (2D array of data)
+- alwaysZero = should always have a value of 0 per the specification
+- externalPixelFormat = format of the pixels in the array that will be loaded
+    - e.g. RGB, RGBA, BGR, ...
+- externalPixelType = type for each component
+    - e.g. float, uint, ...
+- pixelData = the data array itself
+    - begins loading the image at coordinate (0,0)
+
+##Loading texture images from files
+
+- textures can be in formats natively supported by the hardware
+    - e.g. DDS
+- or in a more common image format
+    - e.g. JPEG, PNG, BMP
+- OpenGL just does rendering
+    - no support for load pixels from image files
+- SDL2 supports loading BMP images
+- other libraries can help loading other formats
+    - e.g. Soil, Resil
+
+```C++
+SDL_Surface* image = SDL_LoadBMP("assets/hello.bmp");
+```
+
+##Texture Coordinates
+
+- Textures are sampled using texture coordinates
+    - UV or ST coordinates
+- We have to add these as attributes to the GLSL
+- and load texture coordinates into a vertexBufferObject
+    - usually the same VBO as the position data
+    - either [allPositions, allTextureCoordnates]
+    - or [position0, textureCoordinate0, position1, textureCoordinate1, ...]
+
+##Texture Coordinate example
+
+```C++
+float vertices[] = {
+//  Position      Color             Texcoords
+    -0.5f,  0.5f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f, // Top-left
+     0.5f,  0.5f, 0.0f, 1.0f, 0.0f, 1.0f, 0.0f, // Top-right
+     0.5f, -0.5f, 0.0f, 0.0f, 1.0f, 1.0f, 1.0f, // Bottom-right
+    -0.5f, -0.5f, 1.0f, 1.0f, 1.0f, 0.0f, 1.0f  // Bottom-left
+};
+```
+
+##Example vertex shader
+
+The vertex shader needs to be modified so that the texture coordinates are interpolated over the fragments:
+
+```C++
+...
+in vec2 texcoord;
+out vec3 Color;
+out vec2 Texcoord;
+...
+void main()
+{
+    Texcoord = texcoord;
+...
+```
+
+##Example fragment shader
+
+```C++
+#version 150
+in vec3 Color;
+in vec2 Texcoord;
+out vec4 outColor;
+uniform sampler2D tex;
+void main()
+{
+    outColor = texture(tex, Texcoord) * vec4(Color, 1.0);
+}
+```
+
+##Texture Units
+
+- each sampler in bound to a texture unit
+   - by default texture unit 0
+- texture units are references to texture objects that can be sampled in a shader
+- use `glBindTexture` to bind to a texture object to the active texture unit
+- use `glActiveTexture` to make a specific textureUnit the active one
+    - e.g. ```glActiveTexture(GL_TEXTURE0);```
+- the OpenGL specification says that at least 48 texture units should be supported
+    - which means we can have multiple texture units in one GLSL program
+    - and therefore multiple samplers and texture objects
+    - this allows lots of flexibility and for features such as **multiTexturing**

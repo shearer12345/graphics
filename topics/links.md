@@ -26,6 +26,23 @@
 - OpenGL 4.3/4.4 example using SDL2 and GLM [http://openme.gl/opengl-4-x-example-using-sdl2-and-glm/](http://openme.gl/opengl-4-x-example-using-sdl2-and-glm/)
 - Swiftless tutorials [http://www.swiftless.com/opengl4tuts.html](http://www.swiftless.com/opengl4tuts.html)
 - http://www.tomdalling.com/blog/category/modern-opengl/
+- NYU graphics slides (and example code, and some CC0 assets - https://github.com/ivansafrin/CS3113/tree/master/class_slides - NOTE: most of this is only using *modern* (3.0+) OpenGL through extensions. So be aware that a number of the features being used no longer exist. But the concepts are clear.
+
+##Texturing
+
+- http://www.tomdalling.com/blog/modern-opengl/02-textures/
+- https://www.opengl.org/wiki/Texture
+- http://ogldev.atspace.co.uk/www/tutorial16/tutorial16.html
+- https://github.com/progschj/OpenGL-Examples/blob/master/03texture.cpp
+- https://www.youtube.com/watch?v=UBxB8H4e_5I&list=UUL5m1_llmeiAdZMo_ZanIvg
+- http://www.mbsoftworks.sk/index.php?page=tutorials&series=1&tutorial=9
+- http://www.lighthouse3d.com/tutorials/glsl-core-tutorial/glsl-core-tutorial-texturing-with-images/
+
+##Lighting
+
+- http://www.lighthouse3d.com/tutorials/glsl-core-tutorial/directional-lights/
+- http://en.wikibooks.org/wiki/GLSL_Programming/GLUT/Specular_Highlights
+- http://www.gamedev.net/page/resources/_/technical/opengl/the-basics-of-glsl-40-shaders-r2861
 
 ##Context Creation (mostly SDL2)
 
@@ -34,7 +51,7 @@
 - [https://www.youtube.com/watch?v=MeMPCSqQ-34](https://www.youtube.com/watch?v=MeMPCSqQ-34)
 - [https://github.com/BennyQBD/ModernOpenGLTutorial](https://github.com/BennyQBD/ModernOpenGLTutorial)
 - [https://www.youtube.com/watch?v=ftiKrP3gW3k&list=PLEETnX-uPtBXT9T-hD0Bj31DSnwio-ywh](https://www.youtube.com/watch?v=ftiKrP3gW3k&list=PLEETnX-uPtBXT9T-hD0Bj31DSnwio-ywh)
-- Setting up SDL2 in Visual Studio (2013 or any other) [www.programmersranch.com/2014/02/sdl2-setting-up-sdl2-in-visual-studio.html](www.programmersranch.com/2014/02/sdl2-setting-up-sdl2-in-visual-studio.html)
+- Setting up SDL2 in Visual Studio (2013 or any other) [http://www.programmersranch.com/2014/02/sdl2-setting-up-sdl2-in-visual-studio.html](http://www.programmersranch.com/2014/02/sdl2-setting-up-sdl2-in-visual-studio.html)
 - 2D tutorials with SDL2 [http://lazyfoo.net/tutorials/SDL/index.php](http://lazyfoo.net/tutorials/SDL/index.php)
 - SDL2 migration guide [https://wiki.libsdl.org/MigrationGuide](https://wiki.libsdl.org/MigrationGuide)
 
@@ -158,7 +175,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 
 ##Debugging tools
 
-- [apitrace - http://apitrace.github.io/](apitrace - http://apitrace.github.io/)
+- [apitrace - http://apitrace.github.io/](http://apitrace - http://apitrace.github.io/)
 - VOGL:
     - [http://richg42.blogspot.de/2014/01/vogl-opengl-tracerdebugger-bonus-content.html](http://richg42.blogspot.de/2014/01/vogl-opengl-tracerdebugger-bonus-content.html)
     - [https://github.com/ValveSoftware/vogl](https://github.com/ValveSoftware/vogl)
@@ -173,7 +190,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 
 ##Matrices
 
-- [www.opengl-tutorial.org/beginners-tutorials/tutorial-3-matrices/](www.opengl-tutorial.org/beginners-tutorials/tutorial-3-matrices/)
+- [http://www.opengl-tutorial.org/beginners-tutorials/tutorial-3-matrices/](http://www.opengl-tutorial.org/beginners-tutorials/tutorial-3-matrices/)
 
 ##Coordinate Systems
 
@@ -205,9 +222,9 @@ http://www.songho.ca/math/homogeneous/homogeneous.html
 
 **Note that SDL2 can load standard `.bmp` files on its own, but no other image formats**
 
-- Open Asset Import Library [assimp.sourceforge.net/index.html](assimp.sourceforge.net/index.html)
-- Resilient Image Library [sourceforge.net/projects/resil/](sourceforge.net/projects/resil/)
-- Simple OpenGL Image Library [www.opengl-tutorial.org/miscellaneous/useful-tools-links/](www.opengl-tutorial.org/miscellaneous/useful-tools-links/)
+- Open Asset Import Library [http://assimp.sourceforge.net/index.html](http://assimp.sourceforge.net/index.html)
+- Resilient Image Library [http://sourceforge.net/projects/resil/](http://sourceforge.net/projects/resil/)
+- Simple OpenGL Image Library [http://www.opengl-tutorial.org/miscellaneous/useful-tools-links/](http://www.opengl-tutorial.org/miscellaneous/useful-tools-links/)
 
 ##other
 

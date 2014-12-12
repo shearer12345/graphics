@@ -1,0 +1,7 @@
+#Lincoln Lectures On Graphics - 12
+
+#Textures and Lighting
+
+!INCLUDE "topics/textures.md"
+
+!INCLUDE "topics/lighting.md"
