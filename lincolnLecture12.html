@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <title></title>
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <link rel="stylesheet" href="reveal.js/css/reveal.min.css"/>
+    <style type="text/css">code{white-space: pre;}</style>
+    <link rel="stylesheet" href="reveal.js/css/theme/simple.css" id="theme">
+    <!-- If the query includes 'print-pdf', include the PDF print sheet -->
+    <script>
+      if( window.location.search.match( /print-pdf/gi ) ) {
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = 'reveal.js/css/print/pdf.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+      }
+    </script>
+    <!--[if lt IE 9]>
+    <script src="reveal.js/lib/js/html5shiv.js"></script>
+    <![endif]-->
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+
+<section><section id="lincoln-lectures-on-graphics---12" class="titleslide slide level1"><h1>Lincoln Lectures On Graphics - 12</h1></section></section>
+<section><section id="textures-and-lighting" class="titleslide slide level1"><h1>Textures and Lighting</h1></section></section>
+<section><section id="textures" class="titleslide slide level1"><h1>Textures</h1></section><section id="why-use-textures" class="slide level2">
+<h1>Why use textures</h1>
+<ul>
+<li>Textures are typically used to add visual detail to models without adding geometric detail</li>
+<li>Textures are in fact just data stores, much like VertexBufferObjects
+<ul>
+<li>we can use them to store all sort of things</li>
+<li>access this data (fairly) arbitrarily from GLSL (unlike VBOs)</li>
+</ul></li>
+<li>It's possible to have 1D, 2D and even 3D textures</li>
+<li>We'll focus on using textures for images, and applying them to geometry</li>
+</ul>
+</section><section id="creating-textures-and-binding" class="slide level2">
+<h1>Creating Textures and Binding</h1>
+<ul>
+<li>Similarly to VertexBufferObjects, we have to ask OpenGL to create Textures (or texture objects) for us</li>
+</ul>
+<pre class="c++"><code>GLuint textureID; //storage for a textureID
+glGenTextures(1, &amp;textureID); //create 1 texture id and store it in textureID</code></pre>
+<ul>
+<li>In order to do things with a texture object, we have to bind it
+<ul>
+<li>we'll bind to GL_TEXTURE_2D as images are 2D arrays of pixels</li>
+</ul></li>
+</ul>
+<pre class="c++"><code>glBindTexture(GL_TEXTURE_2D, tex); //make textureID the active 2D texture</code></pre>
+</section><section id="texture-coordinates" class="slide level2">
+<h1>Texture Coordinates</h1>
+<ul>
+<li>When drawing we want to able to refer to parts of a texture</li>
+<li>We do this with <strong>Texture Coordinates</strong>
+<ul>
+<li>aka <em>UV Coordinates</em> or <em>ST Coordinates</em></li>
+</ul></li>
+<li>Texture Coordinates range from <code>0.0</code> to <code>1.0</code></li>
+<li><code>(0,0)</code> is usually the bottom-left of the image</li>
+<li><code>(1,1)</code> is usually the top-right of the image</li>
+</ul>
+</section><section id="getting-data-from-textures" class="slide level2">
+<h1>Getting data from textures</h1>
+<ul>
+<li><strong>Sampling</strong> is the process of retrieving data from a texture object
+<ul>
+<li>usually color data</li>
+</ul></li>
+<li>We can control how the sampling occurs, to match our circumstances</li>
+</ul>
+</section><section id="texture-wrapping" class="slide level2">
+<h1>Texture Wrapping</h1>
+<ul>
+<li>What should happen if we try to sample a texture outside the <code>0.0</code> to <code>1.0</code> range?
+<ul>
+<li>we still want the sampler to return a value</li>
+<li><code>GL_REPEAT</code> - the integer part of the coordinate will be ignored and a repeating pattern is formed</li>
+<li><code>GL_MIRRORED_REPEAT</code> - the texture will also be repeated, but it will be <strong>mirrored</strong> when the integer part of the coordinate is odd</li>
+<li><code>GL_CLAMP_TO_EDGE</code> - coordinates will be <strong>clamped</strong> to the <code>0.0</code> to <code>1.0</code> range</li>
+<li><code>GL_CLAMP_TO_BORDER</code> - coordinates outside the range will be given a specific border color</li>
+</ul></li>
+</ul>
+</section><section id="texture-wrapping-examples" class="slide level2">
+<h1>Texture Wrapping examples</h1>
+<ul>
+<li>from https://open.gl/textures</li>
+</ul>
+<figure>
+<img src="assets/textureClamping.png" alt="Texture Clamping" /><figcaption>Texture Clamping</figcaption>
+</figure>
+</section><section id="s-t-r-coordinates-and-wrapping" class="slide level2">
+<h1>S, T, R coordinates and wrapping</h1>
+<ul>
+<li>texture coordinates are just vectors:
+<ul>
+<li>1D texturing - <code>float</code></li>
+<li>2D texturing - <code>vec2</code></li>
+<li>3D texturing - <code>vec3</code></li>
+</ul></li>
+<li>when using a <code>vec</code> for textures we call the coordinates <code>s</code>, <code>t</code>, and <code>r</code>
+<ul>
+<li>instead of <code>x</code>, <code>y</code>, and <code>z</code></li>
+</ul></li>
+<li>coordinate wrapping can be set per coordinate
+<ul>
+<li>i.e. it can be different on each axis</li>
+</ul></li>
+</ul>
+</section><section id="setting-texture-wrapping" class="slide level2">
+<h1>Setting texture wrapping</h1>
+<ul>
+<li>texture parameters are set with the <code>glTexParameter*</code> command
+<ul>
+<li>the star refers to the <code>type</code> of value you wish to set</li>
+</ul></li>
+</ul>
+<pre class="c++"><code>glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);</code></pre>
+</section><section id="texture-filtering" class="slide level2">
+<h1>Texture filtering</h1>
+<ul>
+<li>texture coordinates are resolution independent</li>
+<li>usually, they don't always match a pixel exactly
+<ul>
+<li>so a texture image is stretched beyond its original size</li>
+<li>or it's sized down</li>
+</ul></li>
+</ul>
+</section><section id="texture-filtering-options" class="slide level2">
+<h1>Texture filtering options</h1>
+<ul>
+<li>we can ask OpenGL to use specifics methods in deciding on the sampled color
+<ul>
+<li><code>GL_NEAREST</code> - returns the pixel that is closest to the coordinates</li>
+<li><code>GL_LINEAR</code> - returns the weighted average of the 4 pixels surrounding the given coordinates</li>
+<li><code>GL_NEAREST_MIPMAP_NEAREST</code> - later</li>
+<li><code>GL_LINEAR_MIPMAP_NEAREST</code> - later</li>
+<li><code>GL_NEAREST_MIPMAP_LINEAR</code> - later</li>
+<li><code>GL_LINEAR_MIPMAP_LINEAR</code> - later</li>
+</ul></li>
+</ul>
+</section><section id="texture-filtering-example" class="slide level2">
+<h1>Texture filtering example</h1>
+<ul>
+<li>from https://open.gl/textures</li>
+</ul>
+<figure>
+<img src="assets/textureFiltering.png" alt="textureFiltering" /><figcaption>textureFiltering</figcaption>
+</figure>
+</section><section id="texture-filtering-example-2" class="slide level2">
+<h1>Texture filtering example 2</h1>
+<ul>
+<li>from http://www.proun-game.com/Oogst3D/index.php?file=CODING/Raytracer/History.txt</li>
+</ul>
+<figure>
+<img src="assets/textureFilteringZoomed.png" alt="textureFilteringZoomed" /><figcaption>textureFilteringZoomed</figcaption>
+</figure>
+</section><section id="specifying-texture-filtering" class="slide level2">
+<h1>Specifying Texture Filtering</h1>
+<ul>
+<li>we can specify the kind of interpolation separately for:
+<ul>
+<li>scaling the image down - &quot;<em>minification</em>&quot; - <code>GL_TEXTURE_MIN_FILTER</code></li>
+<li>scaling the image up - &quot;<em>magnification</em>&quot; - <code>GL_TEXTURE_MAG_FILTER</code></li>
+</ul></li>
+</ul>
+<pre class="c++"><code>glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);</code></pre>
+</section><section id="mipmaps" class="slide level2">
+<h1>MipMaps !!!</h1>
+<ul>
+<li>we previously mentioned Mipmaps for texturing, but didn't define them</li>
+<li>Mipmaps are smaller copies of your texture that have been sized down and filtered in advance</li>
+<li>It is recommended that you use them because they result in both a higher quality and higher performance</li>
+</ul>
+<pre class="c++"><code>glGenerateMipmap(GL_TEXTURE_2D); //generate mipmaps for the present texture</code></pre>
+</section><section id="mipmap-examples" class="slide level2">
+<h1>Mipmap Examples</h1>
+<figure>
+<img src="assets/mipmapExample.jpg" alt="mipmapExample" /><figcaption>mipmapExample</figcaption>
+</figure>
+</section><section id="using-mipmaps" class="slide level2">
+<h1>Using mipmaps</h1>
+<ul>
+<li>just set the filtering method
+<ul>
+<li><code>GL_NEAREST_MIPMAP_NEAREST</code> - use the mipmap that most closely matches the size of the pixel being textured and sample it with nearest neighbour interpolation</li>
+<li><code>GL_LINEAR_MIPMAP_NEAREST</code> - samples the closest mipmap with linear interpolation</li>
+<li><code>GL_NEAREST_MIPMAP_LINEAR</code> - uses the two mipmaps that most closely match the size of the pixel being textured and samples with nearest neighbour interpolation</li>
+<li>``<code>GL_LINEAR_MIPMAP_LINEAR</code> - samples closest two mipmaps with linear interpolation</li>
+</ul></li>
+</ul>
+</section><section id="loading-texture-images" class="slide level2">
+<h1>Loading texture images</h1>
+<ul>
+<li>so far we've only setup a texture object</li>
+<li>next step is to load that object with data
+<ul>
+<li>usually an image</li>
+<li>but, generally, just an set of bytes</li>
+</ul></li>
+</ul>
+</section><section id="an-example-texture-image-in-c" class="slide level2">
+<h1>An example texture image in C++</h1>
+<pre class="c++"><code>// Black/white checkerboard
+float pixels[] = { //a simple 2x2 image
+    0.0f, 0.0f, 0.0f,   1.0f, 1.0f, 1.0f,
+    1.0f, 1.0f, 1.0f,   0.0f, 0.0f, 0.0f
+};
+glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, 2, 2, 0, GL_RGB, GL_FLOAT, pixels);</code></pre>
+</section><section id="glteximage2d-parameters" class="slide level2">
+<h1>glTexImage2D parameters</h1>
+<p><code>glTexImage2D(textureTarget, levelOfDetail, internalPixelFormat, width, height, alwaysZero, externalPixelFormat, externalPixelType, pixelData);</code></p>
+<ul>
+<li>textureTarget = <code>GL_TEXTURE_1D</code>, <code>GL_TEXTURE_2D</code>, <code>GL_TEXTURE_3D</code></li>
+<li>levelOfDetail = level-of-detail, where 0 is the base image
+<ul>
+<li>used for loading mipmap images - where you can control each level</li>
+</ul></li>
+<li>internalPixelFormat = the format pixels should be stored on the <strong>graphics card</strong>
+<ul>
+<li>lots of formats are available, including compressed formats</li>
+</ul></li>
+<li>width = of the image (2D array of data)</li>
+<li>height = of the image (2D array of data)</li>
+<li>alwaysZero = should always have a value of 0 per the specification</li>
+<li>externalPixelFormat = format of the pixels in the array that will be loaded
+<ul>
+<li>e.g. RGB, RGBA, BGR, ...</li>
+</ul></li>
+<li>externalPixelType = type for each component
+<ul>
+<li>e.g. float, uint, ...</li>
+</ul></li>
+<li>pixelData = the data array itself
+<ul>
+<li>begins loading the image at coordinate (0,0)</li>
+</ul></li>
+</ul>
+</section><section id="loading-texture-images-from-files" class="slide level2">
+<h1>Loading texture images from files</h1>
+<ul>
+<li>textures can be in formats natively supported by the hardware
+<ul>
+<li>e.g. DDS</li>
+</ul></li>
+<li>or in a more common image format
+<ul>
+<li>e.g. JPEG, PNG, BMP</li>
+</ul></li>
+<li>OpenGL just does rendering
+<ul>
+<li>no support for load pixels from image files</li>
+</ul></li>
+<li>SDL2 supports loading BMP images</li>
+<li>other libraries can help loading other formats
+<ul>
+<li>e.g. Soil, Resil</li>
+</ul></li>
+</ul>
+<pre class="c++"><code>SDL_Surface* image = SDL_LoadBMP(&quot;assets/hello.bmp&quot;);</code></pre>
+</section><section id="texture-coordinates-1" class="slide level2">
+<h1>Texture Coordinates</h1>
+<ul>
+<li>Textures are sampled using texture coordinates
+<ul>
+<li>UV or ST coordinates</li>
+</ul></li>
+<li>We have to add these as attributes to the GLSL</li>
+<li>and load texture coordinates into a vertexBufferObject
+<ul>
+<li>usually the same VBO as the position data</li>
+<li>either [allPositions, allTextureCoordnates]</li>
+<li>or [position0, textureCoordinate0, position1, textureCoordinate1, ...]</li>
+</ul></li>
+</ul>
+</section><section id="texture-coordinate-example" class="slide level2">
+<h1>Texture Coordinate example</h1>
+<pre class="c++"><code>float vertices[] = {
+//  Position      Color             Texcoords
+    -0.5f,  0.5f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f, // Top-left
+     0.5f,  0.5f, 0.0f, 1.0f, 0.0f, 1.0f, 0.0f, // Top-right
+     0.5f, -0.5f, 0.0f, 0.0f, 1.0f, 1.0f, 1.0f, // Bottom-right
+    -0.5f, -0.5f, 1.0f, 1.0f, 1.0f, 0.0f, 1.0f  // Bottom-left
+};</code></pre>
+</section><section id="example-vertex-shader" class="slide level2">
+<h1>Example vertex shader</h1>
+<p>The vertex shader needs to be modified so that the texture coordinates are interpolated over the fragments:</p>
+<pre class="c++"><code>...
+in vec2 texcoord;
+out vec3 Color;
+out vec2 Texcoord;
+...
+void main()
+{
+    Texcoord = texcoord;
+...</code></pre>
+</section><section id="example-fragment-shader" class="slide level2">
+<h1>Example fragment shader</h1>
+<pre class="c++"><code>#version 150
+in vec3 Color;
+in vec2 Texcoord;
+out vec4 outColor;
+uniform sampler2D tex;
+void main()
+{
+    outColor = texture(tex, Texcoord) * vec4(Color, 1.0);
+}</code></pre>
+</section><section id="texture-units" class="slide level2">
+<h1>Texture Units</h1>
+<ul>
+<li>each sampler in bound to a texture unit</li>
+<li>by default texture unit 0</li>
+<li>texture units are references to texture objects that can be sampled in a shader</li>
+<li>use <code>glBindTexture</code> to bind to a texture object to the active texture unit</li>
+<li>use <code>glActiveTexture</code> to make a specific textureUnit the active one
+<ul>
+<li>e.g. <code>glActiveTexture(GL_TEXTURE0);</code></li>
+</ul></li>
+<li>the OpenGL specification says that at least 48 texture units should be supported
+<ul>
+<li>which means we can have multiple texture units in one GLSL program</li>
+<li>and therefore multiple samplers and texture objects</li>
+<li>this allows lots of flexibility and for features such as <strong>multiTexturing</strong></li>
+</ul></li>
+</ul>
+</section></section>
+<section><section id="lighting" class="titleslide slide level1"><h1>Lighting</h1></section><section id="what-visual-features-are-we-looking-for" class="slide level2">
+<h1>What visual features are we looking for</h1>
+<ul>
+<li>surfaces angled away from lights are less well lit</li>
+<li>curved surfaces show specular highlights</li>
+<li>objects obscure each other's light (shadows)</li>
+</ul>
+<figure>
+<img src="assets/lighting_none_per-vertex_and_per-fragment.png" alt="lighting_none_per-vertex_and_per-fragment" /><figcaption>lighting_none_per-vertex_and_per-fragment</figcaption>
+</figure>
+</section><section id="diffuse-vs-specular" class="slide level2">
+<h1>Diffuse vs Specular</h1>
+<figure>
+<img src="assets/lighting_diffuseVsSpecular.gif" alt="lighting_diffuseVsSpecular" /><figcaption>lighting_diffuseVsSpecular</figcaption>
+</figure>
+</section><section id="phong-lighting-model" class="slide level2">
+<h1>Phong lighting model</h1>
+<ul>
+<li>aka <em>Phong reflection model</em>, <em>Phong illumination</em></li>
+<li><strong>Bui Tuong Phong</strong> at the University of Utah</li>
+<li><p><strong>1973!!!</strong></p></li>
+<li><p>from http://en.wikipedia.org/wiki/Phong_reflection_model</p></li>
+</ul>
+<figure>
+<img src="assets/phongComponents.png" alt="phongComponents" /><figcaption>phongComponents</figcaption>
+</figure>
+</section><section id="phong-vectors" class="slide level2">
+<h1>Phong Vectors</h1>
+<figure>
+<img src="assets/lighting_blinnVectors.png" alt="lighting_blinnVectors" /><figcaption>lighting_blinnVectors</figcaption>
+</figure>
+<ul>
+<li>direction of incident light</li>
+<li>direction of reflected light</li>
+<li>the importance of the viewing position</li>
+<li>normal to the surface</li>
+</ul>
+</section><section id="lighting-per-vertex-vs-per-fragment" class="slide level2">
+<h1>Lighting per-vertex vs per-fragment</h1>
+<figure>
+<img src="assets/lighting_none_per-vertex_and_per-fragment.png" alt="lighting_none_per-vertex_and_per-fragment" /><figcaption>lighting_none_per-vertex_and_per-fragment</figcaption>
+</figure>
+<ul>
+<li>computational cost</li>
+</ul>
+</section></section>
+    </div>
+  </div>
+
+
+  <script src="reveal.js/lib/js/head.min.js"></script>
+  <script src="reveal.js/js/reveal.min.js"></script>
+
+  <script>
+
+      // Full list of configuration options available here:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+        theme: 'sky', // available themes are in /css/theme
+        transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+        // Optional libraries used to extend on reveal.js
+        dependencies: [
+          { src: 'reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: 'reveal.js/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+          { src: 'reveal.js/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } },
+//          { src: 'reveal.js/plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; }, }
+//          { src: 'reveal.js/plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+]});
+    </script>
+    </body>
+</html>
