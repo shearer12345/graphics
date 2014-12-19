@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <title></title>
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <link rel="stylesheet" href="reveal.js/css/reveal.min.css"/>
+    <style type="text/css">code{white-space: pre;}</style>
+    <link rel="stylesheet" href="reveal.js/css/theme/simple.css" id="theme">
+    <!-- If the query includes 'print-pdf', include the PDF print sheet -->
+    <script>
+      if( window.location.search.match( /print-pdf/gi ) ) {
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = 'reveal.js/css/print/pdf.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+      }
+    </script>
+    <!--[if lt IE 9]>
+    <script src="reveal.js/lib/js/html5shiv.js"></script>
+    <![endif]-->
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+
+<section><section id="lincoln-lectures-on-graphics---13" class="titleslide slide level1"><h1>Lincoln Lectures On Graphics - 13</h1></section></section>
+<section><section id="lighting" class="titleslide slide level1"><h1>Lighting</h1></section></section>
+<section><section id="lighting-1" class="titleslide slide level1"><h1>Lighting</h1></section><section id="what-visual-features-are-we-looking-for" class="slide level2">
+<h1>What visual features are we looking for</h1>
+<ul>
+<li>surfaces angled away from lights are less well lit</li>
+<li>curved surfaces show specular highlights</li>
+<li>objects obscure each other's light (shadows)</li>
+</ul>
+<figure>
+<img src="assets/lighting_none_per-vertex_and_per-fragment.png" alt="lighting_none_per-vertex_and_per-fragment" /><figcaption>lighting_none_per-vertex_and_per-fragment</figcaption>
+</figure>
+</section><section id="diffuse-vs-specular" class="slide level2">
+<h1>Diffuse vs Specular</h1>
+<figure>
+<img src="assets/lighting_diffuseVsSpecular.gif" alt="lighting_diffuseVsSpecular" /><figcaption>lighting_diffuseVsSpecular</figcaption>
+</figure>
+</section><section id="phong-lighting-model" class="slide level2">
+<h1>Phong lighting model</h1>
+<ul>
+<li>aka <em>Phong reflection model</em>, <em>Phong illumination</em></li>
+<li><strong>Bui Tuong Phong</strong> at the University of Utah</li>
+<li><strong>1973!!!</strong></li>
+<li><strong>NOT</strong> the only lighting model, but used very frequently in Games</li>
+<li>from http://en.wikipedia.org/wiki/Phong_reflection_model</li>
+</ul>
+<figure>
+<img src="assets/phongComponents.png" alt="phongComponents" /><figcaption>phongComponents</figcaption>
+</figure>
+</section><section id="phong-lighting-model-2" class="slide level2">
+<h1>Phong lighting model 2</h1>
+<ul>
+<li><strong>model</strong> of <strong>local</strong> illumination
+<ul>
+<li>model?</li>
+<li>local?</li>
+</ul></li>
+<li>describes the way a surface reflects light as a combination of
+<ul>
+<li>the diffuse reflection of rough surfaces</li>
+<li>the specular reflection of shiny surfaces</li>
+</ul></li>
+<li>also an ambient term to model light that is scattered about the entire scene</li>
+</ul>
+</section><section id="phong-lighting-model-3" class="slide level2">
+<h1>Phong lighting model 3</h1>
+<ul>
+<li>you specify these three &quot;types&quot; of lighting separately
+<ul>
+<li>this is <strong>NOT</strong> connected to reality!</li>
+<li>but does keep things relatively simple</li>
+</ul></li>
+<li>you also have to specify properties of lights and surfaces</li>
+<li>i.e. it ends up as a <strong>large</strong> number of parameters</li>
+</ul>
+</section><section id="phong-vectors" class="slide level2">
+<h1>Phong Vectors</h1>
+<figure>
+<img src="assets/lighting_blinnVectors.png" alt="lighting_blinnVectors" /><figcaption>lighting_blinnVectors</figcaption>
+</figure>
+<ul>
+<li><p>direction of incident light = <img src="http://quicklatex.com/cache3/ql_d12ef1e222c357983a4848afdfa75c4f_l3.png" title="\hat{L}_m" alt="_m" /></p></li>
+<li><p>direction of reflected light = <img src="http://quicklatex.com/cache3/ql_6f6d380b92eff9ba77eced4de6a8c856_l3.png" title="\hat{R}_m" alt="_m" /></p></li>
+<li><p>the importance of the viewing position = <img src="http://quicklatex.com/cache3/ql_983e06ed34a1ceca4475ed67397b0acc_l3.png" title="\hat{V}" alt="" /></p></li>
+<li><p>normal to the surface = <img src="http://quicklatex.com/cache3/ql_e11aaa799de1b66627aba9f8a099ca40_l3.png" title="\hat{N}" alt="" /></p></li>
+</ul>
+</section><section id="light-sources" class="slide level2">
+<h1>Light Sources</h1>
+<ul>
+<li>each light source in the scene has an <strong>intensity</strong> for
+<ul>
+<li>specular component - <span class="math"><em>i</em><sub>s</sub></span></li>
+<li>diffuse components - <span class="math"><em>i</em><sub>d</sub></span></li>
+<li>usually RGB values</li>
+</ul></li>
+<li>there is (in this model) a single term that controls the ambient lighting
+<ul>
+<li>can be computed as a sum of contributions from all light sources</li>
+<li><span class="math"><em>i</em><sub>a</sub></span></li>
+</ul></li>
+</ul>
+</section><section id="materials" class="slide level2">
+<h1>Materials</h1>
+<ul>
+<li>each surface in the scene has an associated material specifying how that surface reflects the various <strong>&quot;types&quot;</strong> of light.
+<ul>
+<li>this <strong>may</strong> be stored in textures for more lighting detail</li>
+<li>specular reflection coefficient - what proportion of incoming &quot;specular&quot; light is reflected
+<ul>
+<li><span class="math"><em>k</em><sub>s</sub></span></li>
+</ul></li>
+<li>diffuse reflection coefficient - <span class="math"><em>k</em><sub>d</sub></span></li>
+<li>ambient reflection coefficient - <span class="math"><em>k</em><sub>a</sub></span></li>
+</ul></li>
+<li>plus a <strong>shininess</strong> constant for the material - <img src="http://quicklatex.com/cache3/ql_db147c93b439940827bb5decfb22528d_l3.png" title="\alpha" alt="" /></li>
+</ul>
+</section><section id="phong-reflection-model" class="slide level2">
+<h1>Phong reflection model</h1>
+<ul>
+<li><img src="http://quicklatex.com/cache3/ql_d12ef1e222c357983a4848afdfa75c4f_l3.png" title="\hat{L}_m" alt="_m" /></li>
+<li>direction of incident light</li>
+<li><img src="http://quicklatex.com/cache3/ql_6f6d380b92eff9ba77eced4de6a8c856_l3.png" title="\hat{R}_m" alt="_m" /></li>
+<li>direction of reflected light</li>
+<li><img src="http://quicklatex.com/cache3/ql_983e06ed34a1ceca4475ed67397b0acc_l3.png" title="\hat{V}" alt="" /></li>
+<li>the importance of the viewing position</li>
+<li><img src="http://quicklatex.com/cache3/ql_e11aaa799de1b66627aba9f8a099ca40_l3.png" title="\hat{N}" alt="" /></li>
+<li><p>normal to the surface</p></li>
+<li><img src="http://quicklatex.com/cache3/ql_7d7b45208b2f3c13328378ded5918ac8_l3.png" title="i_\text{s}" alt="i_" /></li>
+<li>specular component</li>
+<li><img src="http://quicklatex.com/cache3/ql_b358d3a4a988c2d164686acf32b1e1ed_l3.png" title="i_\text{d}" alt="i_" /></li>
+<li>diffuse component</li>
+<li><img src="http://quicklatex.com/cache3/ql_a53c127050c2083917dd46aa4a2a6d2a_l3.png" title="i_\text{a}" alt="i_" /></li>
+<li><p>ambient component</p></li>
+<li><img src="http://quicklatex.com/cache3/ql_2c0f461dee29c53a9d95e0271d74bf98_l3.png" title="k_\text{s}" alt="k_" /></li>
+<li>specular reflection coefficient</li>
+<li><img src="http://quicklatex.com/cache3/ql_1423da2152ee8d6bc751a84ea1b89d49_l3.png" title="k_\text{d}" alt="k_" /></li>
+<li>diffuse reflection coefficient</li>
+<li><img src="http://quicklatex.com/cache3/ql_9ac2b52d0c8055e160955d5fd51abe61_l3.png" title="k_\text{a}" alt="k_" /></li>
+<li>ambient reflection coefficient</li>
+<li><img src="http://quicklatex.com/cache3/ql_db147c93b439940827bb5decfb22528d_l3.png" title="\alpha" alt="" /></li>
+<li><p>shininess</p></li>
+<li><p><img src="http://quicklatex.com/cache3/ql_64aab003cf7ce75e41ffe61f65974aea_l3.png" title="I_\text{p}" alt="I_" /> = illumination of each surface point</p></li>
+</ul>
+</section><section id="phong-reflection-model-2" class="slide level2">
+<h1>Phong reflection model 2</h1>
+<figure>
+<img src="http://quicklatex.com/cache3/ql_1b948210530670127240784025f557b7_l3.png" title="I_\text{p} = k_\text{a} i_\text{a} + \sum_{m;\in;\text{lights}} (k_\text{d} (\hat{L}_m \cdot \hat{N}) i_{m,\text{d}} + k_\text{s} (\hat{R}_m \cdot \hat{V})^{\alpha}i_{m,\text{s}})" alt="I_ = k_ i_ + {m;;} (k (m ) i{m,} + k_ (m )^{}i{m,})" /><figcaption>I_ = k_ i_ + <em>{m;;} (k</em> (<em>m ) i</em>{m,} + k_ (<em>m )^{}i</em>{m,})</figcaption>
+</figure>
+</section><section id="reflection-vector" class="slide level2">
+<h1>Reflection vector</h1>
+<p>direction vector <img src="http://quicklatex.com/cache3/ql_2c5e554cbe44cf2b156f5166073fd632_l3.png" title="\hat{R}_m is calculated as the reflection of \hat{L}_m on the surface characterized by the surface normal \hat{N}" alt="_m is calculated as the reflection of _m on the surface characterized by the surface normal " /> using</p>
+<figure>
+<img src="http://quicklatex.com/cache3/ql_ba666c218f663e4268ec09e4890fb9c8_l3.png" title="\hat{R}_m = 2(\hat{L}_m\cdot \hat{N})\hat{N} - \hat{L}_m" alt="_m = 2(_m) - _m" /><figcaption>_m = 2(_m) - _m</figcaption>
+</figure>
+<ul>
+<li>hats indicate that the vectors are normalized</li>
+</ul>
+</section><section id="phong-reflection-model-properties" class="slide level2">
+<h1>Phong reflection model properties</h1>
+<ul>
+<li>diffuse term is not affected by the viewer direction (<img src="http://quicklatex.com/cache3/ql_983e06ed34a1ceca4475ed67397b0acc_l3.png" title="\hat{V}" alt="" /> )</li>
+<li><p>specular term is large only when the viewer direction (<img src="http://quicklatex.com/cache3/ql_80cc157da3b31e2d1347567d6fb9ff18_l3.png" title="\hat{V}) is aligned with the reflection direction \hat{R}_m" alt=") is aligned with the reflection direction _m" /></p>
+<ul>
+<li>their alignment is measured by the <span class="math"><em>α</em></span> power of the cosine of the angle between them</li>
+<li>the cosine of the angle between the normalized vectors <span class="math">$\hat{R}_m$</span> and <span class="math">$\hat{V}$</span> is equal to their <strong>dot product</strong></li>
+<li>when <span class="math"><em>α</em></span> is large, in the case of a nearly mirror-like reflection, the specular highlight will be small
+<ul>
+<li>because any viewpoint not aligned with the reflection will have a cosine less than one which rapidly approaches zero when raised to a high power</li>
+</ul></li>
+</ul></li>
+</ul>
+</section><section id="phong-reflection-model-summary" class="slide level2">
+<h1>Phong reflection model summary</h1>
+<p><img src="assets/lighting_blinnVectors.png" alt="lighting_blinnVectors" /> <img src="assets/phongComponents.png" alt="phongComponents" /></p>
+</section><section id="lighting-per-vertex-vs-per-fragment" class="slide level2">
+<h1>Lighting per-vertex vs per-fragment</h1>
+<ul>
+<li>we can apply the lighting model at
+<ul>
+<li>each <strong>vertex</strong></li>
+<li>or each <strong>fragment</strong></li>
+</ul></li>
+</ul>
+<figure>
+<img src="assets/lighting_none_per-vertex_and_per-fragment.png" alt="lighting_none_per-vertex_and_per-fragment" /><figcaption>lighting_none_per-vertex_and_per-fragment</figcaption>
+</figure>
+<ul>
+<li>computational cost</li>
+</ul>
+</section></section>
+    </div>
+  </div>
+
+
+  <script src="reveal.js/lib/js/head.min.js"></script>
+  <script src="reveal.js/js/reveal.min.js"></script>
+
+  <script>
+
+      // Full list of configuration options available here:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+        theme: 'sky', // available themes are in /css/theme
+        transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+        // Optional libraries used to extend on reveal.js
+        dependencies: [
+          { src: 'reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: 'reveal.js/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+          { src: 'reveal.js/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } },
+//          { src: 'reveal.js/plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; }, }
+//          { src: 'reveal.js/plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+]});
+    </script>
+    </body>
+</html>

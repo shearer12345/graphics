@@ -30,8 +30,8 @@
 
 
 <section><section id="lincoln-lectures-on-graphics---12" class="titleslide slide level1"><h1>Lincoln Lectures On Graphics - 12</h1></section></section>
-<section><section id="textures-and-lighting" class="titleslide slide level1"><h1>Textures and Lighting</h1></section></section>
-<section><section id="textures" class="titleslide slide level1"><h1>Textures</h1></section><section id="why-use-textures" class="slide level2">
+<section><section id="textures" class="titleslide slide level1"><h1>Textures</h1></section></section>
+<section><section id="textures-1" class="titleslide slide level1"><h1>Textures</h1></section><section id="why-use-textures" class="slide level2">
 <h1>Why use textures</h1>
 <ul>
 <li>Textures are typically used to add visual detail to models without adding geometric detail</li>
@@ -333,52 +333,6 @@ void main()
 <li>and therefore multiple samplers and texture objects</li>
 <li>this allows lots of flexibility and for features such as <strong>multiTexturing</strong></li>
 </ul></li>
-</ul>
-</section></section>
-<section><section id="lighting" class="titleslide slide level1"><h1>Lighting</h1></section><section id="what-visual-features-are-we-looking-for" class="slide level2">
-<h1>What visual features are we looking for</h1>
-<ul>
-<li>surfaces angled away from lights are less well lit</li>
-<li>curved surfaces show specular highlights</li>
-<li>objects obscure each other's light (shadows)</li>
-</ul>
-<figure>
-<img src="assets/lighting_none_per-vertex_and_per-fragment.png" alt="lighting_none_per-vertex_and_per-fragment" /><figcaption>lighting_none_per-vertex_and_per-fragment</figcaption>
-</figure>
-</section><section id="diffuse-vs-specular" class="slide level2">
-<h1>Diffuse vs Specular</h1>
-<figure>
-<img src="assets/lighting_diffuseVsSpecular.gif" alt="lighting_diffuseVsSpecular" /><figcaption>lighting_diffuseVsSpecular</figcaption>
-</figure>
-</section><section id="phong-lighting-model" class="slide level2">
-<h1>Phong lighting model</h1>
-<ul>
-<li>aka <em>Phong reflection model</em>, <em>Phong illumination</em></li>
-<li><strong>Bui Tuong Phong</strong> at the University of Utah</li>
-<li><p><strong>1973!!!</strong></p></li>
-<li><p>from http://en.wikipedia.org/wiki/Phong_reflection_model</p></li>
-</ul>
-<figure>
-<img src="assets/phongComponents.png" alt="phongComponents" /><figcaption>phongComponents</figcaption>
-</figure>
-</section><section id="phong-vectors" class="slide level2">
-<h1>Phong Vectors</h1>
-<figure>
-<img src="assets/lighting_blinnVectors.png" alt="lighting_blinnVectors" /><figcaption>lighting_blinnVectors</figcaption>
-</figure>
-<ul>
-<li>direction of incident light</li>
-<li>direction of reflected light</li>
-<li>the importance of the viewing position</li>
-<li>normal to the surface</li>
-</ul>
-</section><section id="lighting-per-vertex-vs-per-fragment" class="slide level2">
-<h1>Lighting per-vertex vs per-fragment</h1>
-<figure>
-<img src="assets/lighting_none_per-vertex_and_per-fragment.png" alt="lighting_none_per-vertex_and_per-fragment" /><figcaption>lighting_none_per-vertex_and_per-fragment</figcaption>
-</figure>
-<ul>
-<li>computational cost</li>
 </ul>
 </section></section>
     </div>
