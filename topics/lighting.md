@@ -90,11 +90,11 @@
 
 ##Phong reflection model 2
 
-$I_\text{p} = k_\text{a} i_\text{a} + \sum_{m\;\in\;\text{lights}} (k_\text{d} (\hat{L}_m \cdot \hat{N}) i_{m,\text{d}} + k_\text{s} (\hat{R}_m \cdot \hat{V})^{\alpha}i_{m,\text{s}}).$
+$I_\text{p} = k_\text{a} i_\text{a} + \sum_{m\;\in\;\text{lights}} (k_\text{d} (\hat{L}_m \cdot \hat{N}) i_{m,\text{d}} + k_\text{s} (\hat{R}_m \cdot \hat{V})^{\alpha}i_{m,\text{s}})$
 
 ##Reflection vector
 
-direction vector $\hat{R}_m$ is calculated as the reflection of $\hat{L}_m$ on the surface characterized by the surface normal $\hat{N}$ using
+direction vector $$$\hat{R}_m$$$ is calculated as the reflection of $$$\hat{L}_m$$$ on the surface characterized by the surface normal $$$\hat{N}$$$ using
 
 $\hat{R}_m = 2(\hat{L}_m\cdot \hat{N})\hat{N} - \hat{L}_m$
 
