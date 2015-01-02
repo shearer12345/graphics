@@ -6,6 +6,7 @@
 
 ##OpenGL 3.0 onwards
 
+- [http://learnopengl.com/](http://learnopengl.com/)
 - [http://open.gl/](http://open.gl/)
 - [http://duriansoftware.com/joe/An-intro-to-modern-OpenGL.-Chapter-1%3a-The-Graphics-Pipeline.html](http://duriansoftware.com/joe/An-intro-to-modern-OpenGL.-Chapter-1%3a-The-Graphics-Pipeline.html)
 - [http://www.arcsynthesis.org/gltut/](http://www.arcsynthesis.org/gltut/)
