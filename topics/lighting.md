@@ -45,6 +45,8 @@
 
 ![lighting_blinnVectors](assets/lighting_blinnVectors.png)
 
+##Phong Vectors 2
+
 - direction of incident light = $\hat{L}_m$
 - direction of reflected light = $\hat{R}_m$
 - the importance of the viewing position = $\hat{V}$
