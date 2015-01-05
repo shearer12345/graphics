@@ -23,6 +23,7 @@
     <!--[if lt IE 9]>
     <script src="reveal.js/lib/js/html5shiv.js"></script>
     <![endif]-->
+    <script src="MathJax/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
 </head>
 <body>
   <div class="reveal">
@@ -89,25 +90,27 @@
 <figure>
 <img src="assets/lighting_blinnVectors.png" alt="lighting_blinnVectors" /><figcaption>lighting_blinnVectors</figcaption>
 </figure>
+</section><section id="phong-vectors-2" class="slide level2">
+<h1>Phong Vectors 2</h1>
 <ul>
-<li><p>direction of incident light = <img src="http://quicklatex.com/cache3/ql_d12ef1e222c357983a4848afdfa75c4f_l3.png" title="\hat{L}_m" alt="_m" /></p></li>
-<li><p>direction of reflected light = <img src="http://quicklatex.com/cache3/ql_6f6d380b92eff9ba77eced4de6a8c856_l3.png" title="\hat{R}_m" alt="_m" /></p></li>
-<li><p>the importance of the viewing position = <img src="http://quicklatex.com/cache3/ql_983e06ed34a1ceca4475ed67397b0acc_l3.png" title="\hat{V}" alt="" /></p></li>
-<li><p>normal to the surface = <img src="http://quicklatex.com/cache3/ql_e11aaa799de1b66627aba9f8a099ca40_l3.png" title="\hat{N}" alt="" /></p></li>
+<li>direction of incident light = <span class="math">\(\hat{L}_m\)</span></li>
+<li>direction of reflected light = <span class="math">\(\hat{R}_m\)</span></li>
+<li>the importance of the viewing position = <span class="math">\(\hat{V}\)</span></li>
+<li>normal to the surface = <span class="math">\(\hat{N}\)</span></li>
 </ul>
 </section><section id="light-sources" class="slide level2">
 <h1>Light Sources</h1>
 <ul>
 <li>each light source in the scene has an <strong>intensity</strong> for
 <ul>
-<li>specular component - <span class="math"><em>i</em><sub>s</sub></span></li>
-<li>diffuse components - <span class="math"><em>i</em><sub>d</sub></span></li>
+<li>specular component - <span class="math">\(i_\text{s}\)</span></li>
+<li>diffuse components - <span class="math">\(i_\text{d}\)</span></li>
 <li>usually RGB values</li>
 </ul></li>
 <li>there is (in this model) a single term that controls the ambient lighting
 <ul>
 <li>can be computed as a sum of contributions from all light sources</li>
-<li><span class="math"><em>i</em><sub>a</sub></span></li>
+<li><span class="math">\(i_\text{a}\)</span></li>
 </ul></li>
 </ul>
 </section><section id="materials" class="slide level2">
@@ -118,63 +121,48 @@
 <li>this <strong>may</strong> be stored in textures for more lighting detail</li>
 <li>specular reflection coefficient - what proportion of incoming &quot;specular&quot; light is reflected
 <ul>
-<li><span class="math"><em>k</em><sub>s</sub></span></li>
+<li><span class="math">\(k_\text{s}\)</span></li>
 </ul></li>
-<li>diffuse reflection coefficient - <span class="math"><em>k</em><sub>d</sub></span></li>
-<li>ambient reflection coefficient - <span class="math"><em>k</em><sub>a</sub></span></li>
+<li>diffuse reflection coefficient - <span class="math">\(k_\text{d}\)</span></li>
+<li>ambient reflection coefficient - <span class="math">\(k_\text{a}\)</span></li>
 </ul></li>
-<li>plus a <strong>shininess</strong> constant for the material - <img src="http://quicklatex.com/cache3/ql_db147c93b439940827bb5decfb22528d_l3.png" title="\alpha" alt="" /></li>
+<li>plus a <strong>shininess</strong> constant for the material - <span class="math">\(\alpha\)</span></li>
 </ul>
 </section><section id="phong-reflection-model" class="slide level2">
 <h1>Phong reflection model</h1>
 <ul>
-<li><img src="http://quicklatex.com/cache3/ql_d12ef1e222c357983a4848afdfa75c4f_l3.png" title="\hat{L}_m" alt="_m" /></li>
-<li>direction of incident light</li>
-<li><img src="http://quicklatex.com/cache3/ql_6f6d380b92eff9ba77eced4de6a8c856_l3.png" title="\hat{R}_m" alt="_m" /></li>
-<li>direction of reflected light</li>
-<li><img src="http://quicklatex.com/cache3/ql_983e06ed34a1ceca4475ed67397b0acc_l3.png" title="\hat{V}" alt="" /></li>
-<li>the importance of the viewing position</li>
-<li><img src="http://quicklatex.com/cache3/ql_e11aaa799de1b66627aba9f8a099ca40_l3.png" title="\hat{N}" alt="" /></li>
-<li><p>normal to the surface</p></li>
-<li><img src="http://quicklatex.com/cache3/ql_7d7b45208b2f3c13328378ded5918ac8_l3.png" title="i_\text{s}" alt="i_" /></li>
-<li>specular component</li>
-<li><img src="http://quicklatex.com/cache3/ql_b358d3a4a988c2d164686acf32b1e1ed_l3.png" title="i_\text{d}" alt="i_" /></li>
-<li>diffuse component</li>
-<li><img src="http://quicklatex.com/cache3/ql_a53c127050c2083917dd46aa4a2a6d2a_l3.png" title="i_\text{a}" alt="i_" /></li>
-<li><p>ambient component</p></li>
-<li><img src="http://quicklatex.com/cache3/ql_2c0f461dee29c53a9d95e0271d74bf98_l3.png" title="k_\text{s}" alt="k_" /></li>
-<li>specular reflection coefficient</li>
-<li><img src="http://quicklatex.com/cache3/ql_1423da2152ee8d6bc751a84ea1b89d49_l3.png" title="k_\text{d}" alt="k_" /></li>
-<li>diffuse reflection coefficient</li>
-<li><img src="http://quicklatex.com/cache3/ql_9ac2b52d0c8055e160955d5fd51abe61_l3.png" title="k_\text{a}" alt="k_" /></li>
-<li>ambient reflection coefficient</li>
-<li><img src="http://quicklatex.com/cache3/ql_db147c93b439940827bb5decfb22528d_l3.png" title="\alpha" alt="" /></li>
-<li><p>shininess</p></li>
-<li><p><img src="http://quicklatex.com/cache3/ql_64aab003cf7ce75e41ffe61f65974aea_l3.png" title="I_\text{p}" alt="I_" /> = illumination of each surface point</p></li>
+<li><span class="math">\(\hat{L}_m\)</span> - direction of incident light</li>
+<li><span class="math">\(\hat{R}_m\)</span> - direction of reflected light</li>
+<li><span class="math">\(\hat{V}\)</span> - the importance of the viewing position</li>
+<li><p><span class="math">\(\hat{N}\)</span> - normal to the surface</p></li>
+<li><span class="math">\(i_\text{s}\)</span> - specular component</li>
+<li><span class="math">\(i_\text{d}\)</span> - diffuse component</li>
+<li><p><span class="math">\(i_\text{a}\)</span> - ambient component</p></li>
+<li><span class="math">\(k_\text{s}\)</span> - specular reflection coefficient</li>
+<li><span class="math">\(k_\text{d}\)</span> - diffuse reflection coefficient</li>
+<li><span class="math">\(k_\text{a}\)</span> - ambient reflection coefficient</li>
+<li><p><span class="math">\(\alpha\)</span> - shininess</p></li>
+<li><p><span class="math">\(I_\text{p}\)</span> = illumination of each surface point</p></li>
 </ul>
 </section><section id="phong-reflection-model-2" class="slide level2">
 <h1>Phong reflection model 2</h1>
-<figure>
-<img src="http://quicklatex.com/cache3/ql_1b948210530670127240784025f557b7_l3.png" title="I_\text{p} = k_\text{a} i_\text{a} + \sum_{m;\in;\text{lights}} (k_\text{d} (\hat{L}_m \cdot \hat{N}) i_{m,\text{d}} + k_\text{s} (\hat{R}_m \cdot \hat{V})^{\alpha}i_{m,\text{s}})" alt="I_ = k_ i_ + {m;;} (k (m ) i{m,} + k_ (m )^{}i{m,})" /><figcaption>I_ = k_ i_ + <em>{m;;} (k</em> (<em>m ) i</em>{m,} + k_ (<em>m )^{}i</em>{m,})</figcaption>
-</figure>
+<p><span class="math">\(I_\text{p} = k_\text{a} i_\text{a} + \sum_{m\;\in\;\text{lights}} (k_\text{d} (\hat{L}_m \cdot \hat{N}) i_{m,\text{d}} + k_\text{s} (\hat{R}_m \cdot \hat{V})^{\alpha}i_{m,\text{s}})\)</span></p>
 </section><section id="reflection-vector" class="slide level2">
 <h1>Reflection vector</h1>
-<p>direction vector <img src="http://quicklatex.com/cache3/ql_2c5e554cbe44cf2b156f5166073fd632_l3.png" title="\hat{R}_m is calculated as the reflection of \hat{L}_m on the surface characterized by the surface normal \hat{N}" alt="_m is calculated as the reflection of _m on the surface characterized by the surface normal " /> using</p>
-<figure>
-<img src="http://quicklatex.com/cache3/ql_ba666c218f663e4268ec09e4890fb9c8_l3.png" title="\hat{R}_m = 2(\hat{L}_m\cdot \hat{N})\hat{N} - \hat{L}_m" alt="_m = 2(_m) - _m" /><figcaption>_m = 2(_m) - _m</figcaption>
-</figure>
+<p>direction vector <span class="math">\(\hat{R}_m\)</span> is calculated as the reflection of <span class="math">\(\hat{L}_m\)</span> on the surface characterized by the surface normal <span class="math">\(\hat{N}\)</span> using</p>
+<p><span class="math">\[\hat{R}_m = 2(\hat{L}_m\cdot \hat{N})\hat{N} - \hat{L}_m\]</span></p>
 <ul>
 <li>hats indicate that the vectors are normalized</li>
 </ul>
 </section><section id="phong-reflection-model-properties" class="slide level2">
 <h1>Phong reflection model properties</h1>
 <ul>
-<li>diffuse term is not affected by the viewer direction (<img src="http://quicklatex.com/cache3/ql_983e06ed34a1ceca4475ed67397b0acc_l3.png" title="\hat{V}" alt="" /> )</li>
-<li><p>specular term is large only when the viewer direction (<img src="http://quicklatex.com/cache3/ql_80cc157da3b31e2d1347567d6fb9ff18_l3.png" title="\hat{V}) is aligned with the reflection direction \hat{R}_m" alt=") is aligned with the reflection direction _m" /></p>
+<li>diffuse term is not affected by the viewer direction (<span class="math">\(\hat{V}\)</span>)</li>
+<li>specular term is large only when the viewer direction (<span class="math">\(\hat{V}\)</span>) is aligned with the reflection direction <span class="math">\(\hat{R}_m\)</span>
 <ul>
-<li>their alignment is measured by the <span class="math"><em>α</em></span> power of the cosine of the angle between them</li>
-<li>the cosine of the angle between the normalized vectors <span class="math">$\hat{R}_m$</span> and <span class="math">$\hat{V}$</span> is equal to their <strong>dot product</strong></li>
-<li>when <span class="math"><em>α</em></span> is large, in the case of a nearly mirror-like reflection, the specular highlight will be small
+<li>their alignment is measured by the <span class="math">\(\alpha\)</span> power of the cosine of the angle between them</li>
+<li>the cosine of the angle between the normalized vectors <span class="math">\(\hat{R}_m\)</span> and <span class="math">\(\hat{V}\)</span> is equal to their <strong>dot product</strong></li>
+<li>when <span class="math">\(\alpha\)</span> is large, in the case of a nearly mirror-like reflection, the specular highlight will be small
 <ul>
 <li>because any viewpoint not aligned with the reflection will have a cosine less than one which rapidly approaches zero when raised to a high power</li>
 </ul></li>
