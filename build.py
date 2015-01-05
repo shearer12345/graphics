@@ -84,7 +84,7 @@ def buildDirectory(dir, reveal=True, pdfReveal=False, purePdf=False):
             webtexFileName = os.path.join(dir, fileNameWithoutSuffix + '_webtex.html')
             
             if reveal:
-                os.system('pandoc ' + '-s ' + file + ' -o ' + revealFileName + ' -t revealjs' + ' -V theme=sky --base-header-level=1 --section-divs --slide-level=2 --mathjax')
+                os.system('pandoc ' + '-s --mathjax=MathJax/MathJax.js?config=TeX-AMS-MML_HTMLorMML ' + file + ' -o ' + revealFileName + ' -t revealjs' + ' -V theme=sky --base-header-level=1 --section-divs --slide-level=2')
             #os.system('pandoc ' + '-s ' + file + ' -o ' + html5FileName + ' -t html5')
             #os.system('pandoc ' + '-s ' + file + ' -o ' + docxFileName + ' -t docx')
             if purePdf:
