@@ -1,0 +1,6 @@
+#Assignment Feedback and Comments
+
+> I believe it’s safe to say OpenGl isn’t easy, actually I’ll go as far as saying it’s difficult. Learning Opengl (well for
+me anyway) isn’t like drawing or painting, you can’t just pick up the brush and practice… For me learning
+OpenGl is more like putting together a car engine, you’ve truly got to understand the mechanics behind the
+parts before you can venture of on your own
