@@ -27,6 +27,8 @@
 - OpenGL 4.3/4.4 example using SDL2 and GLM [http://openme.gl/opengl-4-x-example-using-sdl2-and-glm/](http://openme.gl/opengl-4-x-example-using-sdl2-and-glm/)
 - Swiftless tutorials [http://www.swiftless.com/opengl4tuts.html](http://www.swiftless.com/opengl4tuts.html)
 - http://www.tomdalling.com/blog/category/modern-opengl/
+- https://www.youtube.com/user/thebennybox
+  - https://www.youtube.com/watch?v=ftiKrP3gW3k&list=PLEETnX-uPtBXT9T-hD0Bj31DSnwio-ywh
 - NYU graphics slides (and example code, and some CC0 assets - https://github.com/ivansafrin/CS3113/tree/master/class_slides - NOTE: most of this is only using *modern* (3.0+) OpenGL through extensions. So be aware that a number of the features being used no longer exist. But the concepts are clear.
 
 ##Texturing
