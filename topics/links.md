@@ -229,6 +229,12 @@ http://www.songho.ca/math/homogeneous/homogeneous.html
 - Resilient Image Library [http://sourceforge.net/projects/resil/](http://sourceforge.net/projects/resil/)
 - Simple OpenGL Image Library [http://www.opengl-tutorial.org/miscellaneous/useful-tools-links/](http://www.opengl-tutorial.org/miscellaneous/useful-tools-links/)
 
+## Wireframe
+
+- Single-pass wireframe rendering
+    - http://dl.acm.org/citation.cfm?id=1180035
+    - http://www2.imm.dtu.dk/pubdb/views/edoc_download.php/4884/pdf/imm4884.pdf
+
 ##other
 
 - unreal engine 4 to linux
