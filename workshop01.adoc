@@ -1,0 +1,197 @@
+= Graphics - Setting up a Build System
+John Shearer
+:imagesdir: assets
+:revealjs_history: true
+:source-highlighter: highlightjs
+
+include::links.adoc[]
+
+== Overview
+
+* SDL2 will be used for:
+  ** Window creation etc
+  ** Input handling
+  ** Creating an OpenGL "Context"
+* The workshops will broadly follow https://learnopengl.com/[learnopengl.com]
+
+== Where we want to get to
+
+* Have tested if OpenGL works on your machine
+* Have an updated build system for OpenGL
+* Have modified our {cpp} to use OpenGL for some basic functionality
+* Have
+
+== Where you should already be
+
+* Assuming you have just studied the Games Computing module
+  ** if not, then we'll support you still, but individually
+* Have a working build system, that uses SDL
+  ** we'll provide a template (again) to update
+
+== 1. Testing if OpenGL works
+
+* does OpenGL work at all on your hardware?
+  ** test without building your own code
+* what versions of OpenGL your hardware supports?
+* how fast does OpenGL work on your hardware?
+* An example tool to test these is
+  ** http://www.geeks3d.com/gputest/download/[gputest]
+
+== 2. Download the sample
+
+* The latest SDL2 template is available at
+  ** https://github.com/shearer12345/sdl2template
+* Download this to your local system
+* You *may* (strongly encouraged) want to version your project using git or another VCS
+* You *could* clone or fork the template so you can pull down changes to it
+
+== 3. Build the sample
+
+* Make sure the sample works on your machine
+  ** there are automation scripts - `auto.bat`/`auto.sh`
+NOTE: this is still just SDL - no OpenGL yet
+
+== 4. Check the sample for changes from what you are familiar with
+
+* where is `main.cpp`
+  ** which file refers to this and has also been changed
+* in `conanfile.txt`, what does the `[imports]` section do? why is this important?
+* in `CMakeLists.txt`, what does the line starting `FILE(` do? why is this important?
+
+== 5. Read a little about OpenGL
+
+* https://learnopengl.com/#!Getting-started/OpenGL[OpenGL]
+
+== 6. OPTIONAL - make a better program structure
+
+* The sample has only a single `main` function
+  ** no other functions
+  ** no other classes
+  ** no main loop
+* This is to keep the samples simple
+* You probably want to have a better program structure
+  ** perhaps developed in Games Programming
+* Update the sample program to a better structure
+  ** Alternatively, you could migrate the changes demonstrated in the sample into your Games Programming codebase
+    *** if you do, make sure you get *ALL* the changes
+
+== 7. Add some new libraries
+
+* We've been using OpenGL indirectly so far, but SDL already include OpenGL for us
+  ** so we don't have to
+* BUT, we do want some other libraries
+  ** GLEW - OpenGL Extension Wrangler
+  ** GLM - OpenGL Mathmatics library
+* Modify your `conanfile.txt` to setup these libraries
+
+NOTE: for now, you don't need SDL2_image, SDL2_mixer, or SDL2_ttf, but you'll likely need them later
+
+== 8. Read about the new libraries
+
+* GLEW and GLM provide useful and/or neccessary functionality
+* Read about each, and discuss with a friend, or demonstrator, what main functionality each provides
+
+== 9. Create an OpenGL window
+
+* Previously our window was usable by SDL, but not by OpenGL
+* Update your window creation code to create a window for OpenGL
+  ** Read the SDL documentation for this
+* This may *break* your program
+
+== 10. Towards an OpenGL context
+
+* Previous we created an SDL renderer.
+* We now want to use OpenGL for rendering
+  ** so we can do more advanced graphical things
+* To do these we no longer want the SDL renderer
+* Instead, we want an SDL "context"
+  ** which is an instance of OpenGL that we can talk to
+* We can ask SDL to create an OpenGL context for us
+  ** other libraries (e.g. GLFW, SFML) also provide this functionality, but we're not using them (nor are you allowed to in this module)
+  ** you *could* do this by hand, in a platform-specific way, but you shouldn't here
+
+== 11. Making an OpenGL context
+
+* Remove the creation of the SDL renderer, and the associated variable
+* Leave a comment line for a placeholder of where to create your OpenGL context
+* All other lines that use `renderer` can no longer work
+  ** remove them, but leave placeholders for major functionality (e.g. for clearing the back buffer)
+* https://learnopengl.com/#!Getting-started/Hello-Window[LearnOpenGL.com] provides instructions for how to create an OpenGL context using GLFW
+  ** use this as a guide of how to create your OpenGL context with SDL
+  ** you *cannot* use GLFW
+  ** look up the equivalent functionality in the SDL documentation
+  ** the full source for learnopengl.com's helloWindow is linked from the website - you may find it useful
+* Add code to create an OpenGL context
+* Add hints to ask for version *4.3* rather than 3.3
+  ** that will allow us to do some things more easily later on
+* Run your program
+
+== 12. Check the version of OpenGL you are getting
+
+* SDL provides functionality to find out what version of OpenGL you've set up
+  ** look this up in the SDL documentation
+* You should always check this after creating the context
+  ** as it may not be the version you asked for
+* Add code to check the version of OpenGL your context is
+* Add code to log this, and make sure you are getting the appropriate version of OpenGL
+  ** anything lower than 3.1 will be a problem for this module (ideally 3.3 or higher)
+  ** it's possible that your home PC/Laptop my not support OpenGL 3.1 or higher
+    *** => use University machines
+
+== 13. Add GLEW to your code
+
+* OpenGL provides only a very limited set of functions by default
+* We need to setup the rest of the functions
+* The OpenGL Extension Wrangler does this for us
+* Uncomment the line in `main.cpp` to include the GLEW library
+* Add code to initialise GLEW
+  ** this should be *after* the GL context has been created
+  ** you should set `glewExperimental` to true before initialising GLEW
+
+NOTE: this is the only point where we will use GLEW in our code. Once you have this working you won't need to change it. And as long as it's at the start of your prgram you can otherwise forget all about it. YAY.
+
+== 14. Our first OpenGL calls
+
+* We are now *finally* ready to issue calls into OpenGL
+* We want to, as early in Games Programming, clear the frame buffer to a specific colour
+* There are two OpenGL calls involved in this, much like with SDL
+  ** setting the colour in the OpenGL state (on the context)
+  ** clearing the back buffer to that colour in the state
+* Add code to do these two things
+
+== 15. Swap buffers / present
+
+* We cannot see the window colour change yet
+  ** we've cleared the back buffer, but haven't made the back buffer visible
+* We did this before with the SDL renderer
+* Now we need to do it for OpenGL
+* Oddly, that is outside OpenGL's scope.
+* It is *again* the job of SDL
+* Add code to ask SDL to swap the OpenGL buffers
+* You should now have a coloured window - YAY
+
+== 16. Set the screen color with variables
+
+* Make variables for the Red, Green and Blue components of the screen color, with initial values
+* Use these variables to set the colour of your screen
+
+== 17. Set the screen colorr with an array
+
+* Having 3 variables for the colour is hard work, confusing, difficult, error prone, etc
+* Have a single variable would be better
+  ** we could use an array
+* For some functions in OpenGL we can pass the array (the pointer) directly
+* Unfortunately, we can't do this for setting the clear colour
+* BUT, we can still store an array, and use the indices in the function call
+* Add code to store your colour as an array of floats, and to pass the values from the array into OpenGL to set the clear colour
+
+== 18. Using GLM for storing colour
+
+* A simple array is ok, but an actual object would have some advantages
+  ** discuss with a friend?
+* The GLM library provides appropriate objects - a vector-3 object
+* Add code to import the GLM library (in `conanfile.txt` and your {cpp})
+* Change your code to store your colour in a GLM vector-3 object
+* Change your code to pass the values to OpenGL from the GLM object
+
+NOTE: GLM will be much more valuable to us later on. We exploring it now to become familiar
