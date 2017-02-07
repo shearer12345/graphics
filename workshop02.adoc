@@ -36,3 +36,148 @@ include::links.adoc[]
   ** we'll be using these ideas throughout the rest of the module
 * Write down the major steps needed that are given by LearnOpenGL
 * Explain each of those steps to a friend
+
+== 2. Set up key bindings to be useful
+
+* Add useful key bindings for things, such as:
+  ** close program
+* If you're working from the template, restructure it to your preference
+  ** and add a main loop
+
+== 3. Set the viewport
+
+* The viewport controls which part of the window is used for rendering
+  ** this should be the whole window, for now
+
+== 4. Vertex Shader
+
+. Create a variable to hold the shader handle (GL justs uses int and unsigned ints!!!!)
+. Create a new shader - a *vertex* shader - and assign it to your variable
+. Create a variable for the *vertex* shader source, with the appropriate content
+. Give this source to OpenGL
+. Ask OpenGL to compile your shader
+. Check the compilation works
+  ** add error checking code
+  ** add logging
+  ** ALSO - read about https://learnopengl.com/#!In-Practice/Debugging[Debugging]
+  ** Use the `glDebugOutput` approach
+    *** you *can* use the error printing tool, as is
+    *** but make sure you understand what it is doing
+
+== 5. Fragment Shader
+
+. Create a variable to hold the shader handle (GL justs uses int and unsigned ints!!!!)
+. Create a new shader - a *fragment* shader - and assign it to your variable
+. Create a variable for the *fragment* shader source, with the appropriate content
+. Give this source to OpenGL
+. Ask OpenGL to compile your shader
+. Check the compilation works
+  ** add error checking code
+  ** add logging
+  ** ALSO - read about https://learnopengl.com/#!In-Practice/Debugging[Debugging]
+  ** Use the `glDebugOutput` approach
+    *** you *can* use the error printing tool, as is
+    *** but make sure you understand what it is doing
+
+== 6. GLSL program, and link shaders
+
+. Create a variable for the GLSL program
+. Create a new program
+. Attached both shaders to the program
+  ** *vertex* shader and *fragment* shader
+. Ask OpenGL to link the shaders
+. Check the linking works
+  ** add error checking code
+  ** add logging
+
+== 7. Delete shaders
+
+* The shaders are now linked into a new program, and aren't needed any longer
+. Ask OpenGL to delete your two shaders
+
+== 8. Vertices
+
+. Create an array to hold your vertices
+  ** just an array of floats will be fine for now
+  ** we'll make something in the future
+  ** these are *only* the *unique* vertices, we'll use indexed rendering
+
+== 9. Indices
+
+. Create an array to hold indices into the vertex array
+  ** just an array of ints
+    *** could be an array of `char` if only a short vertex array
+
+NOTE: also known as an element array
+
+== 10. Vertex Buffer Object, Element Buffer Object, Vertex Array Object
+
+. Create variables to store handles for:
+  .. a Vertex Buffer Object
+  .. an Element Buffer Object
+  .. a Vertex Array Object
+    *** note that the VAO is a different type of object
+. Generate handles and store in the variables for:
+  .. a Vertex Buffer Object
+  .. an Element Buffer Object
+  .. a Vertex Array Object
+
+== 11. Bind the Vertex Array Object
+
+. Bind the Vertex Array Object
+  ** This makes our VAO the active one
+  ** so that our future actions store things in this VAO
+
+== 12. Fill the Vertex Buffer Object
+
+. Bind the Vertex Buffer Object
+. Fill it with data from your vertex array
+
+== 13. Fill the Element Buffer Object
+
+. Bind the Element Buffer Object
+  ** this makes our VBO no longer bound to `GL_ARRAY_BUFFER`
+    *** `GL_ARRAY_BUFFER` only stores a single binding
+. Fill it with data from your element array
+
+== 14. Tell OpenGL how to access data in the Vertex Buffer Object
+
+. Tell OpenGL how to fill the attribute in location 0 from your Vertex Buffer Object
+
+== 15. Unbind the Buffer Object
+
+. Unbind our Element Buffer Object
+  ** by binding `GL_ARRAY_BUFFER` to 0
+  ** for safety, so we don't accidentally mess with it
+
+== 16. Unbind the Vertex Array Object
+
+. Unbind our Vertex Array Object
+  ** by binding the Vertex Array to `0`
+  ** for safety, so we don't accidentally change it
+
+== 17. Do the render!! FINALLY
+
+* After clearing the back buffer
+. Activate your GLSL program
+. Bind your Vertex Array Object (remember, it stores the as objects to read from, and how to read from them)
+. Draw your Triangles, using indexed mode
+  ** should be in `GL_TRIANGLES` mode
+  ** should be made from 3 vertices
+. Unbind your Vertex Array Object
+  ** for safety
+
+== 18. How does it know which Element Array to use?
+
+* The one we bound in step 13
+* We never unbound it
+* It would have been better, safer, to unbind after step 13, and bound it when we need it
+
+NOTE: the element array isn't stored in the Vertex Array Object.
+
+== 19. Clean up your resources
+
+. Ask OpenGL to delete:
+  .. your Vertex Array Object
+  .. your Element Buffer Object
+  .. your Vertex Buffer Object
