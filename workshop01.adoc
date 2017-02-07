@@ -19,7 +19,7 @@ include::links.adoc[]
 * Have tested if OpenGL works on your machine
 * Have an updated build system for OpenGL
 * Have modified our {cpp} to use OpenGL for some basic functionality
-* Have
+* Have some log output and error checking
 
 == Where you should already be
 
