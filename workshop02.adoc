@@ -1,0 +1,38 @@
+= Graphics - Hello Triangle
+John Shearer
+:imagesdir: assets
+:revealjs_history: true
+:source-highlighter: highlightjs
+
+include::links.adoc[]
+
+== Overview
+
+* This workshop broadly follows https://learnopengl.com/#!Getting-started/Hello-Triangle[learnopengl.com's HelloTriangle]
+
+== Where we want to get to
+
+* Have a working HelloTriangle example
+  ** that shows a single triangle on screen
+* Understand the (many) steps it takes to get just a single triangle on screen
+  ** and how they fit in with the pipeline model and OpenGL's state machine
+* Show more than one triangle on screen
+  ** which turns out to be reasonably easy
+* Have an updated build system for OpenGL
+* Have modified our {cpp} to use OpenGL for some basic functionality
+
+== Where you should already be
+
+* Have a working build system for OpenGL
+  ** giving you a version of OpenGL atleast 3.1
+    *** preferably 4.3 or 3.3 (or higher)
+* Have some log output and error checking
+
+== 1. Read through HelloTriangle
+
+* LearnOpenGL explains the HelloTriangle example really clearly
+* Read through the entire webpage
+  ** this content is the key to Graphics
+  ** we'll be using these ideas throughout the rest of the module
+* Write down the major steps needed that are given by LearnOpenGL
+* Explain each of those steps to a friend
