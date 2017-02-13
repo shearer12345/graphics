@@ -9,6 +9,10 @@ include::links.adoc[]
 == Overview
 
 * This workshop broadly follows https://learnopengl.com/#!Getting-started/Hello-Triangle[learnopengl.com's HelloTriangle]
+  ** you should refer to this and it's source code for this workshop
+  ** you should NOT just copy-paste it's code
+    *** you won't learn anything
+    *** it may not work
 
 == Where we want to get to
 
