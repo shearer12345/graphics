@@ -1,0 +1,51 @@
+== Toolchain for graphics
+
+* Programming
+  ** C / C++
+* Libraries
+  ** https://www.opengl.org/about/[OpenGL] - graphics rendering
+  ** https://www.libsdl.org/[SDL2] - context creation, windowing, input handling
+* Library Package Manager
+  ** https://www.conan.io/[conan.io]
+* Build system
+  ** https://cmake.org/[cmake]
+* IDE
+  ** Visual Studio
+
+== OpenGL
+
+* a C library for graphics rendering
+* usually utilises the underlying hardware graphics accelerator
+(graphics card)
+
+== SDL2
+
+* context creation, windowing, input handling
+* OpenGL *only* does rendering, we need other tools for a number of
+jobs:
+* to setup a "context" that OpenGL can use
+* to create and manipulate windows
+* to handle input
+* ...
+
+== C / {cpp}
+
+* OpenGL provides a C-style API (Application Program Interface)
+* that API can be used from C or C++
+* or the API can be wrapped for use from other languages (e.g. Java,
+Python)
+
+== Conan
+
+[quote, https://www.conan.io/, Conan summary]
+____
+De-centralized dependency and package management for developers
+____
+
+
+== CMake
+
+[quote, https://cmake.org/, CMake summary]
+____
+CMake is an open-source, cross-platform family of tools designed to build, test and package software. CMake is used to control the software compilation process
+____

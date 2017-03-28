@@ -1,0 +1,314 @@
+[[pipeline-overview]]
+Pipeline Overview
+-----------------
+
+[[putting-the-fun-in-fundamentals]]
+Putting the *"Fun"* in Fundamentals
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+[[vertices-in-world-space]]
+Vertices in World Space
+~~~~~~~~~~~~~~~~~~~~~~~
+
+The pipeline is fed (__somehow, we'll cover later__) with *vertices* in
+*WORLD SPACE* (or **Object Space**)
+
+image:assets/pipelineOverview/pipelineOverview01verticesInWorldSpace.png[pipelineOverview01verticesInWorldSpace] 
+
+[[clip-space-transformation]]
+Clip Space Transformation
+~~~~~~~~~~~~~~~~~~~~~~~~~
+
+* Transform the vertices into a certain region of space
+** in OpenGL this is called *clip space*
+* Also known as *projection transformation*
+** http://arcsynthesis.org/gltut/Basics/Intro%20Graphics%20and%20Rendering.html
+** you get to *program* this bit (GLSL - vertex shader)
+
+image:assets/pipelineOverview/worldSpaceToClipSpace.png[worldSpaceToClipSpace] 
+
+[[homogeneous-coordinates]]
+Homogeneous Coordinates!!
+~~~~~~~~~~~~~~~~~~~~~~~~~
+
+* X,Y,Z and W!!!
+** W defines what the extents of clip space are for this vertex (-W to W
+on X, Y, Z)
+* The process of transforming vertices into clip space is arbitrary
+(stupid)
+** OpenGL provides a lot of flexibility in this step
+** i.e. *programmable* flexibility!
+* We'll cover homogeneous coordinates more later
+** http://www.tomdalling.com/blog/modern-opengl/explaining-homogenous-coordinates-and-projective-geometry/
+** http://www.songho.ca/math/homogeneous/homogeneous.html
+
+[[vertices-in-clip-space]]
+Vertices in Clip Space
+~~~~~~~~~~~~~~~~~~~~~~
+
+image:assets/pipelineOverview/pipelineOverview02verticesInClipSpace.png[pipelineOverview02verticesInClipSpace] 
+
+[[clipping]]
+Clipping
+~~~~~~~~
+
+* Triangles not *fully* in *clip space* (the [-1,1] cube) we want to
+*clip*
+
+image:assets/pipelineOverview/clipping.png[clipping] 
+
+[[clipping-2]]
+Clipping 2
+~~~~~~~~~~
+
+* Points are easy to test in our new, normalised coordinate space (NDC)
+* Lines are more difficult
+* Triangles are complicated
+** may need to make more triangles
+
+[[vertices-in-normalized-device-coordinates]]
+Vertices in Normalized Device Coordinates
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+image:assets/pipelineOverview/pipelineOverview03verticesThatHaveBeenClipped.png[pipelineOverview03verticesThatHaveBeenClipped] 
+
+[[normalized-device-coordinates]]
+Normalized Device Coordinates
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+* Clip space is interesting, but inconvenient
+** the extent of this space is different for each vertex, which makes
+visualizing a triangle rather difficult
+* The X, Y, and Z of each vertex's position is divided by W to get
+normalized device coordinates
+** basically the same as clip space except that the range of X, Y and Z
+are *[-1, 1]*
+
+[[vertices-in-ndc]]
+Vertices in NDC
+~~~~~~~~~~~~~~~
+
+image:assets/pipelineOverview/pipelineOverview04verticesInNormalizedDeviceCoordinates.png[pipelineOverview04verticesInNormalizedDeviceCoordinates] 
+
+[[window-transformation]]
+Window Transformation
+~~~~~~~~~~~~~~~~~~~~~
+
+* Transform from normalized device coordinates towindow coordinates
+* window coordinates are relative to the window that OpenGL is running
+within
+* Though they refer to the window, they are still three dimensional
+coordinates
+** still floating-point values
+** still have a z-coordinates!! Why?? Stay-tuned ...
+** bottom-left position is the origin (0, 0)
+
+[[vertices-in-window-coordinates]]
+Vertices in Window Coordinates
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+image:assets/pipelineOverview/pipelineOverview05verticesInWindowCoordinates.png[pipelineOverview05verticesInWindowCoordinates] 
+
+[[scan-conversion]]
+Scan Conversion
+~~~~~~~~~~~~~~~
+
+* After conversion to window coordinates the triangle undergoes a
+process called *scan conversion*
+** also known as *rasterization*
+* Takes the triangle and generates fragments that cover the area of the
+triangle
+** also fills in pixels for lines
+* We'll look later at how scan conversion can be done
+
+[[scan-conversion-triangles-again]]
+Scan Conversion (triangles again)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+* Image in the centre shows the digital grid of output pixels
+** the circles represent the centre of each pixel, the centre of each
+pixel represents a **sample**:
+*** a discrete location within the area of a pixel
+
+image:assets/pipelineOverview/scanline.png[scanline] 
+
+[[scan-conversion-more-triangles]]
+Scan Conversion (more triangles)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+* During scan conversion, a triangle will produce a *fragment* for every
+pixel sample that is within the 2D area of the triangle (right)
+** a rough *approximation* of the triangle's general shape
+
+image:assets/pipelineOverview/scanline.png[scanline] 
+
+[[scan-conversion-1]]
+Scan Conversion
+~~~~~~~~~~~~~~~
+
+[[shared-edges-and-the-invariance-guarantee-by-tom-clancy]]
+Shared Edges and *_the invariance guarantee_* (By Tom Clancy)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+* triangles that share edges are very often rendered (unless you’re
+making asteroids)
+* OpenGL offers the invariance guarantee
+** so long as shared edge vertex positions are **identical**, there will
+be no sample gaps during scan conversion
+* What would happen otherwise??
+
+image:assets/pipelineOverview/sharededge.png[sharededge] 
+
+[[scan-conversion-still]]
+Scan Conversion (Still??)
+~~~~~~~~~~~~~~~~~~~~~~~~~
+
+* Scan conversion only uses X and Y position of the triangle in window
+coordinates to determine which fragments to generate
+** the Z value is not forgotten!
+* The result of scan converting a triangle is a sequence of fragments
+that cover the shape of the triangle
+** each fragment has data associated with it
+*** the 2D location of the fragment in window coordinates
+*** the Z position of the fragment
+*** (a.k.a. known as the depth of the fragment)
+*** there may be other information that is part of a fragment
+
+[[fragments]]
+Fragments
+~~~~~~~~~
+
+image:assets/pipelineOverview/pipelineOverview06fragments.png[pipelineOverview06fragments] 
+
+[[fragment-processing]]
+Fragment Processing
+~~~~~~~~~~~~~~~~~~~
+
+* Fragment processing takes a fragment from scan converted triangle and
+*transforms* it into
+* one or more colour values
+* a single depth value (z value)
+* you get to *program* this bit (GLSL - fragment shader)
+* The order that fragments from a single triangle are processed in is
+irrelevant
+** _unlike_ the order that triangles are pumped into the pipeline, a
+single triangle lies in a *single plane* so fragments generated from it
+*cannot overlap*
+* **However**, the fragments from another triangle might
+* *_Therefore, fragments from one triangle must all be processed before
+fragments from another triangle_*
+
+[[processed-fragments]]
+Processed Fragments
+~~~~~~~~~~~~~~~~~~~
+
+image:assets/pipelineOverview/pipelineOverview07fragmentsProcessed.png[pipelineOverview07fragmentsProcessed] 
+
+[[fragment-writing-maybe]]
+Fragment Writing (maybe)
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+* After generating one or more colours and a depth value
+** the fragment is *possibly* written to the destination (probably a
+frame buffer)
+** *What might control this?*
+* This step involves more than simply writing to the destination image
+** These will be covered more later
+
+[[colours]]
+Colours
+-------
+
+[[colours-1]]
+Colours
+~~~~~~~
+
+* The usual description of a colour is as a series of numbers on the
+range **[0, 1] **__Why [0,1]?__
+** each of the numbers corresponds to the *intensity* of a particular
+reference colour
+** the final colour represented by the series of numbers is a mix of
+these reference colours
+* The set of reference colours is called a **colour space**.
+** the most common colour space for screens is RGB, where the reference
+colours are Red, Green and Blue
+** printed works tend to use CMYK (Cyan, Magenta, Yellow, Black)]
+
+image:assets/pipelineOverview/RGB_and_CMYK_comparison.png[RGB_and_CMYK_comparison] 
+
+[[colours-2]]
+Colours 2
+~~~~~~~~~
+
+* Combining different intensities of this 3 colours, we can generate and
+display millions of different colour shades in OpenGL
+** how many colours? what is the usual representation?
+*** http://en.wikipedia.org/wiki/Color_depth#Deep_color_.2830.2F36.2F48-bit.29
+** in most conditions more than the human eye can perceive
+*** any _special conditions?_
+** unless you're a tetrachromat ...
+http://www.post-gazette.com/pg/06256/721190-114.stm
+
+[[shaders]]
+Shaders
+-------
+
+[[shaders-1]]
+Shaders
+~~~~~~~
+
+* A shader is a program designed to be run on a renderer as part of the
+rendering operation
+* Regardless of the kind of rendering system in use, shaders can only be
+executed at certain points in the rendering process
+* These shader stages represent hooks where we can insert our code to
+create specific visual effects, for example:
+** transformation of an incoming vertex to clip space is a useful hook
+for user-defined code
+** the processing of a fragment into final colours and depth
+
+[[shaders-2-glsl]]
+Shaders 2 (GLSL)
+~~~~~~~~~~~~~~~~
+
+* Shaders for OpenGL are run on the actual rendering hardware so free up
+valuable CPU time for other tasks
+** and *usually* the graphics card has orders of magnitude more raw,
+though specialist processing power available
+** GeForce GTX 760 Ti - *2460 GFLOPS* single-precision!!
+* Or perform operations that would be difficult if not impossible
+without the flexibility of executing arbitrary code
+** however, they live within certain limits that CPU code would not have
+to ...
+** ?? any guess what limits ??
+* There are a number of shading languages available to various APIs. The
+one used here is the primary shading language of OpenGL, the **OpenGL
+Shading Language**, or **GLSL**. for short
+** It looks deceptively like C, *but it is very much not C*
+
+[[shaders-3-glsl]]
+Shaders 3 (GLSL)
+~~~~~~~~~~~~~~~~
+
+[source,glsl]
+----
+#version 330
+
+layout(location = 0) in vec4 position;
+uniform float loopDuration;
+uniform float time;
+
+void main()
+{
+    float timeScale = 3.14159f * 2.0f / loopDuration;
+    
+    float currTime = mod(time, loopDuration);
+    vec4 totalOffset = vec4(
+        cos(currTime * timeScale) * 0.5f,
+        sin(currTime * timeScale) * 0.5f,
+        0.0f,
+        0.0f);
+
+    gl_Position = position + totalOffset;
+}
+----

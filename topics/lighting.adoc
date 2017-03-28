@@ -1,0 +1,140 @@
+== Lighting
+:stem: latexmath
+
+
+== What visual features are we looking for
+
+* surfaces angled away from lights are less well lit
+* curved surfaces show specular highlights
+* objects obscure each other's light (shadows)
+
+image::assets/lighting_none_per-vertex_and_per-fragment.png[lighting_none_per-vertex_and_per-fragment]
+
+== Diffuse vs Specular
+
+image::assets/lighting_diffuseVsSpecular.gif[lighting_diffuseVsSpecular]
+
+== Phong lighting model
+
+* aka __Phong reflection model__, _Phong illumination_
+* *Bui Tuong Phong* at the University of Utah
+* *1973!!!*
+* *NOT* the only lighting model, but used very frequently in Games
+* from http://en.wikipedia.org/wiki/Phong_reflection_model
+
+image::assets/phongComponents.png[phongComponents]
+
+=== Phong lighting model 2
+
+* *model* of *local* illumination
+  ** model?
+  ** local?
+* describes the way a surface reflects light as a combination of
+  ** the diffuse reflection of rough surfaces
+  ** the specular reflection of shiny surfaces
+* also an ambient term to model light that is scattered about the entire
+scene
+
+=== Phong lighting model 3
+
+* you specify these three "types" of lighting separately
+  ** this is *NOT* connected to reality!
+  ** but does keep things relatively simple
+* you also have to specify properties of lights and surfaces
+* i.e. it ends up as a *large* number of parameters
+
+=== Phong Vectors
+
+image::assets/lighting_blinnVectors.png[lighting_blinnVectors]
+
+=== Phong Vectors 2
+
+* direction of incident light = stem:[\hat{L}_m]
+* direction of reflected light = stem:[\hat{R}_m]
+* the importance of the viewing position = stem:[\hat{V}]
+* normal to the surface = stem:[\hat{N}]
+
+== Light Sources
+
+* each light source in the scene has an *intensity* for
+  ** specular component - stem:[i_\text{s}]
+  ** diffuse components - stem:[i_\text{d}]
+  ** usually RGB values
+* there is (in this model) a single term that controls the ambient
+lighting
+  ** can be computed as a sum of contributions from all light sources
+  ** stem:[i_\text{a}]
+
+== Materials
+
+* each surface in the scene has an associated material specifying how
+that surface reflects the various *"types"* of light.
+  ** this *may* be stored in textures for more lighting detail
+  ** specular reflection coefficient - what proportion of incoming
+"specular" light is reflected
+    *** stem:[k_\text{s}]
+  ** diffuse reflection coefficient - stem:[k_\text{d}]
+  ** ambient reflection coefficient - stem:[k_\text{a}]
+* plus a *shininess* constant for the material - stem:[\alpha]
+
+== Phong reflection model
+
+* stem:[\hat{L}_m] - direction of incident light
+* stem:[\hat{R}_m] - direction of reflected light
+* stem:[\hat{V}] - the importance of the viewing position
+* stem:[\hat{N}] - normal to the surface
+* stem:[i_\text{s}] - specular component
+* stem:[i_\text{d}] - diffuse component
+* stem:[i_\text{a}] - ambient component
+* stem:[k_\text{s}] - specular reflection coefficient
+* stem:[k_\text{d}] - diffuse reflection coefficient
+* stem:[k_\text{a}] - ambient reflection coefficient
+* stem:[\alpha] - shininess
+* stem:[I_\text{p}] = illumination of each surface point
+
+== Phong reflection model 2
+
+stem:[I_\text{p} = k_\text{a} i_\text{a} + \sum_{m\;\in\;\text{lights}} (k_\text{d} (\hat{L}_m \cdot \hat{N}) i_{m,\text{d}} + k_\text{s} (\hat{R}_m \cdot \hat{V})^{\alpha}i_{m,\text{s}})]
+
+== Reflection vector
+
+direction vector stem:[\hat{R}_m] is calculated as the reflection
+of stem:[\hat{L}_m] on the surface characterized by the surface
+normal stem:[\hat{N}] using
+
+stem:[\hat{R}_m = 2(\hat{L}_m\cdot \hat{N})\hat{N} - \hat{L}_m ]
+
+* hats indicate that the vectors are normalized
+
+== Phong reflection model properties
+
+* diffuse term is not affected by the viewer direction
+(stem:[\hat{V}])
+* specular term is large only when the viewer direction
+(stem:[\hat{V}]) is aligned with the reflection direction
+stem:[\hat{R}_m]
+  ** their alignment is measured by the stem:[\alpha] power of the
+cosine of the angle between them
+  ** the cosine of the angle between the normalized vectors
+stem:[\hat{R}_m] and stem:[\hat{V}] is equal to their *dot
+product*
+  ** when stem:[\alpha] is large, in the case of a nearly
+mirror-like reflection, the specular highlight will be small
+    *** because any viewpoint not aligned with the reflection will have a
+cosine less than one which rapidly approaches zero when raised to a high
+power
+
+== Phong reflection model summary
+
+image::assets/lighting_blinnVectors.png[lighting_blinnVectors]
+image::assets/phongComponents.png[phongComponents]
+
+== Lighting per-vertex vs per-fragment
+
+* we can apply the lighting model at
+  ** each *vertex*
+  ** or each *fragment*
+
+image::assets/lighting_none_per-vertex_and_per-fragment.png[lighting_none_per-vertex_and_per-fragment]
+
+* computational cost

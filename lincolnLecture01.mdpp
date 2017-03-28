@@ -1,7 +1,0 @@
-##Lincoln Lectures On Graphics - 01
-
-!INCLUDE "topics/whatIsComputerGraphics.md"
-
-!INCLUDE "topics/whyIsComputerGraphicsHard.md"
-
-!INCLUDE "topics/toolchain.md"

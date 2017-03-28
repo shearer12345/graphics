@@ -1,0 +1,165 @@
+[[lincoln-graphics-workshop-10---input-depth-buffer-and-culling]]
+Lincoln Graphics Workshop 10 - Input, Depth Buffer and Culling
+--------------------------------------------------------------
+
+[[input]]
+Input
+~~~~~
+
+* so far we've had no user input to our system.
+** the things that have been changing have been automatic
+** usually based on time
+** or requiring compile time changes
+* Remember: OpenGL only supports rendering
+* Input is *outside* the scope of OpenGL
+* We'll use the SDL library (again)
+** fairly easy to use (though low level)
+** cross platform
+** flexible
+** https://wiki.libsdl.org/FrontPage
+
+[[input---example-branches]]
+Input - example branches
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+* sdlKeyboardInputEventBased
+** https://github.com/shearer12345/graphics_examples_in_git_branches/tree/sdlKeyboardInputEventBased
+* sdlKeyboardInputPollBased
+** https://github.com/shearer12345/graphics_examples_in_git_branches/tree/sdlKeyboardInputPollBased
+
+[[depth-buffer]]
+Depth Buffer
+~~~~~~~~~~~~
+
+* so far each triangle rendered:
+** will write on top of any previous pixels
+** independent of how far away the triangle is from the screen
+** the standard technique to resolve this is to use a depth-buffer
+
+[[depth-buffer---example-branches]]
+Depth Buffer - example branches
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+* glmRotateColorCubeNoCullingNoDepthTest
+** https://github.com/shearer12345/graphics_examples_in_git_branches/tree/glmRotateColorCubeNoCullingNoDepthTest
+* glmRotateColorCubeNoCullingWithDepthTest
+** https://github.com/shearer12345/graphics_examples_in_git_branches/tree/glmRotateColorCubeNoCullingWithDepthTest
+
+[[activities]]
+Activities
+----------
+
+[[activity-1]]
+Activity 1
+~~~~~~~~~~
+
+* Using Event-based input, from SDL
+* Make your program dump each event to the console
+** you could *just* focus on key-events
+** or output for all event types
+
+[[activity-2]]
+Activity 2
+~~~~~~~~~~
+
+* When the `ESCAPE` key is pressed
+** make your program exit (cleanly)
+
+[[activity-3]]
+Activity 3
+~~~~~~~~~~
+
+* When the `C` key is pressed
+** make your background colour change (as a one shot event)
+
+[[activity-3-1]]
+Activity 3
+~~~~~~~~~~
+
+* When the `C` key is pressed
+** toggle the background colour
+** each press should switch between two colours
+
+[[activity-4]]
+Activity 4
+~~~~~~~~~~
+
+* When the `UP` key is pressed
+** make your object move upwards
+** it should stop moving upwards when the key is released
+
+[[activity-5]]
+Activity 5
+~~~~~~~~~~
+
+* When the `DOWN` key is pressed
+** make your object move downwards
+** it should stop moving downwards when the key is released
+
+[[activity-5-1]]
+Activity 5
+~~~~~~~~~~
+
+* When the `UP` or `DOWN` key is pressed
+** make your object move up or down, appropriately
+** when both keys are pressed the object should stop moving
+** when both keys are not pressed the object should stop moving
+
+[[acvitity-6]]
+Acvitity 6
+~~~~~~~~~~
+
+* Add controls for moving your object left and right
+
+[[activity-7]]
+Activity 7
+~~~~~~~~~~
+
+* Using a Solid 3D shape (e.g. a cube)
+** with different colours for each face (or textures)
+* Make your program do Depth-testing
+* Remember: to clear the depth buffer at the appropriate time(s)
+
+[[activity-8]]
+Activity 8
+~~~~~~~~~~
+
+* add a keyboard input to control whether depth testing is
+enabled/disabled
+** this should make it easy to see the effect it has
+
+[[activity-9]]
+Activity 9
+~~~~~~~~~~
+
+* Make your program do back-face-culling
+** make sure you set which is the `front-face` appropriately
+
+[[activity-10]]
+Activity 10
+~~~~~~~~~~~
+
+* Add a keyboard input to enable/disable back-face-culling
+** try all 4 combinations of depth-testing on/off and culling on/off, to
+check everything is working correctly
+** Remember: Depth-testing is to make the correct pixels write (be
+visible)
+** Remember: Culling is just an optimization
+*** so, with depth-testing enabled it shouldn't have any visible effect
+
+[[stretch-activities]]
+Stretch Activities
+~~~~~~~~~~~~~~~~~~
+
+*If you've got through the standard activities then have a bash at
+these*
+
+1.  Add another object and add keyboard controls for it
+2.  Add another object and also add keyboard control for it
+3.  Add 12 (or so) objects and add keyboard control for all of them ...
+4.  Make one object render without depth testing, but another render
+with depth testing
+5.  Look up mouse input in SDL
+(https://wiki.libsdl.org/SDL_MouseMotionEvent) and control the position
+of an object with the mouse
+6.  Control the position of the "camera" with the mouse

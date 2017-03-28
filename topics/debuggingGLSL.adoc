@@ -1,0 +1,19 @@
+== Debugging GLSL
+
+* GLSL is compiled at run-time, from your code
+* Your program can obtain compile errors for the GLSL compiler
+* Sometimes using debugging tools for GLSL can be helpful - see tools
+
+=== Debugging GLSL Tools
+
+* Apitrace http://apitrace.github.io/
+* RenderDoc https://github.com/baldurk/renderdoc
+* GLSL-Debugger https://github.com/GLSL-Debugger/GLSL-Debugger
+* synthclipse
+http://devmaster.net/p/24392/synthclipse-open-source-glsl-shader-prototyping-tool-based-on-eclipse-ide
+* shdr
+http://bkcore.com/blog/3d/shdr-online-glsl-shader-editor-viewer-validator.html
+* VOGL https://github.com/ValveSoftware/vogl
+* GLIntercept https://code.google.com/p/glintercept/
+* AMD codexl http://developer.amd.com/tools-and-sdks/opencl-zone/codexl/
+* NVidia Nsight http://www.nvidia.com/object/nsight.html

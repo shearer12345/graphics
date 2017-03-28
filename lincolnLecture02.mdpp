@@ -1,9 +1,0 @@
-#Lincoln Lectures On Graphics - 02
-
-!INCLUDE "lincolnAssessment.md"
-
-!INCLUDE "topics/recommendedReading.md"
-
-!INCLUDE "topics/itsTrianglesAllTheWayDown.md"
-
-!INCLUDE "topics/whatIsOpenGL.md"

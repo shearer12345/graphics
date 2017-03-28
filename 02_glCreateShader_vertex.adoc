@@ -1,0 +1,81 @@
+== Apitrace - Vertex Shader creation
+
+=== glCreateShader (vertex)
+
+* https://github.com/shearer12345/graphics_examples_in_git_branches/blob/glTraingleWhiteWithApiTrace/main.cpp#L158[main.cpp
+line 158 in our cpp code]
+[source,cpp]
+----
+GLuint shader = glCreateShader(eShaderType);
+----
+* https://www.opengl.org/sdk/docs/man4/html/glCreateShader.xhtml[glCreateShader]
+Creates a shader object
+* returns a non-zero value by which it can be referenced
+
+image:assets/apitrace/02_glCreateShader_vertex/01_glCreateShaderVertex.png[01_glCreateShaderVertex.png]
+
+=== glCreateShader (vertex) - context
+
+* a new (empty) shader with ID=1 now exists in our context
+* the shader is empty
+* nothing else has changed
+
+TODO - diagram of context, with a new vertex shader, based on
+image:assets/apitrace/context_draft.jpg[assets/apitrace/context_draft.jpg]
+
+=== glShaderSource (vertex)
+
+* https://github.com/shearer12345/graphics_examples_in_git_branches/blob/glTraingleWhiteWithApiTrace/main.cpp#L160[main.cpp
+line 160 in our cpp code]
+[source,cpp]
+----
+glShaderSource(shader, 1, &strFileData, NULL);
+----
+* https://www.opengl.org/sdk/docs/man4/html/glShaderSource.xhtml[glShaderSource]
+— Replaces the source code in a shader object
+
+image:assets/apitrace/02_glCreateShader_vertex/02_glShaderSourceVertex.png[02_glShaderSourceVertex.png]
+
+=== glShaderSource (vertex) - context
+
+* the shader with ID=1 is now loaded with source
+* nothing else has changed
+
+TODO - diagram of context, with the vertex shader loaded with the source
+
+=== glCompileShader (vertex)
+
+* https://github.com/shearer12345/graphics_examples_in_git_branches/blob/glTraingleWhiteWithApiTrace/main.cpp#L162[main.cpp
+line 162 in our cpp code]
+[source,cpp]
+----
+glCompileShader(shader);
+----
+* https://www.opengl.org/sdk/docs/man4/html/glCompileShader.xhtml[glCompileShader]
+— Compiles a shader object
+
+image:assets/apitrace/02_glCreateShader_vertex/03_glCompileShaderVertex.png[03_glCompileShaderVertex.png]
+
+=== glCompileShader (vertex) - context
+
+* the shader with ID=1 has now been compiled
+* nothing else has changed
+
+TODO - diagram of context, with the vertex shader loaded with the
+source, and compiled
+
+=== glGetShaderiv (vertex)
+
+* https://github.com/shearer12345/graphics_examples_in_git_branches/blob/glTraingleWhiteWithApiTrace/main.cpp#L165[main.cpp
+line 165 in our cpp code]
+[source,cpp]
+----
+glGetShaderiv(shader, GL_COMPILE_STATUS, &status);
+----
+* https://www.opengl.org/sdk/docs/man4/html/glGetShader.xhtml[glGetShaderiv]
+- returns a parameter from a shader object
+* in this case the compile status, which is 1 (=ok)
+* nothing has changed in the context, we just queried it
+** queries are *expensive* (relatively) operations
+
+image:assets/apitrace/02_glCreateShader_vertex/04_glGetShaderivVertex.png[04_glGetShaderivVertex.png]

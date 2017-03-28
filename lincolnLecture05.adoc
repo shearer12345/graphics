@@ -1,0 +1,77 @@
+= Graphics - 05
+
+== Stepping through glTriangleWhite with ApiTrace
+
+* http://apitrace.github.io/
+
+[quote, apitrace, http://apitrace.github.io/]
+____
+apitrace consists of a set of tools to: - trace OpenGL, OpenGL ES,
+Direct3D, and DirectDraw APIs calls to a file - replay the recorded
+calls from a file, on any machine and, for OpenGL and OpenGL ES, on any
+operating system - inspect state at any call while replaying - view
+framebuffers and textures - view call data - edit trace files - profile
+performance of traces
+____
+
+=== ApiTrace OS support matrix
+
+[cols=",,,",options="header",]
+|======================
+|OS |Trace |CLI |GUI
+|Android |yes | |
+|Linux |yes |yes |yes
+|OS X |yes |yes |yes
+|Windows |yes |yes |yes
+|======================
+
+== Tracing
+
+* ApiTrace records the exact calls that are made to the OpenGL library, and the responses from OpenGL
+* It allows us to step through the trace of a program
+  ** one `gl` call at a time
+  ** and introspect the `gl` *state* at that point
+* Great for debugging
+  ** mostly `gl` issues come from the state being different to what you thought it was
+
+=== Tracing - commands
+
+* record a trace
+[source, bash]
+----
+apitrace trace bin/3_1_master-debug
+----
+
+* open the trace with the GUI
+[source, bash]
+----
+qapitrace 3_1_master-debug.trace
+----
+
+== What are we tracing?
+
+* a moving white triangle on a red background
+** https://github.com/shearer12345/graphics_examples_in_git_branches/tree/glTraingleWhiteWithApiTrace
+
+image::assets/apitrace/3_1_glTraingleWhiteWithApiTrace-debug_trace.gif[3_1_glTraingleWhiteWithApiTrace-debug.trace]
+
+=== Trace is online
+
+* in the glTraingleWhiteWithApiTrace branch
+* https://github.com/shearer12345/graphics_examples_in_git_branches/blob/glTraingleWhiteWithApiTrace/3_1_glTraingleWhiteWithApiTrace-debug.trace[binary
+trace]
+* https://github.com/shearer12345/graphics_examples_in_git_branches/blob/glTraingleWhiteWithApiTrace/3_1_glTraingleWhiteWithApiTrace-debug.trace.txt[text
+version of the trace]
+
+
+include::01_initial.adoc[]
+
+include::02_glCreateShader_vertex.adoc[]
+
+include::03_glCreateShader_fragment.adoc[]
+
+include::04_glCreateProgram.adoc[]
+
+include::05_glGenBuffers.adoc[]
+
+include::06_glGenVertexArrays.adoc[]

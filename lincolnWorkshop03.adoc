@@ -1,0 +1,97 @@
+[[lincoln-graphics-workshop-03---helloglsl]]
+Lincoln Graphics Workshop 03 - HelloGLSL
+----------------------------------------
+
+[[gltrianglewhite]]
+glTriangleWhite
+~~~~~~~~~~~~~~~
+
+image:assets/examples/glTriangleWhite.png[glTriangleWhite]
+
+[[source-and-checkout]]
+Source and checkout
+~~~~~~~~~~~~~~~~~~~
+
+* source for examples:
+
+https://github.com/shearer12345/graphics_examples_in_git_branches
+
+[source,bash]
+----
+git checkout glTriangleWhite ##the glTriangle example - a helloTriangle
+----
+
+[[strangely-familiar-...]]
+Strangely Familiar ...
+----------------------
+
+[[strangely-familiar-...-1]]
+Strangely Familiar ...
+~~~~~~~~~~~~~~~~~~~~~~
+
+* Activities are mainly the same as Workshop 02
+* but you'll be doing the *transformations* in *GLSL*
+** so they'll run on the GPU, rather than the CPU
+** which makes debugging a challenge
+
+!INCLUDE "topics/whatIsGLSL.md"
+
+!INCLUDE "topics/debuggingGLSL.md"
+
+[[activities]]
+Activities
+----------
+
+[[activities-1]]
+Activities
+~~~~~~~~~~
+
+* You should try to *all of these* today. Work on them in your
+free-study time if you need
+* You should mainly only change the GLSL shaders to do this!
+** You *should not* alter the vertices in the C/C++ program.
+** Only alter the vertices with GLSL
+* You may find the GLSL reference card useful
+** http://www.khronos.org/files/opengl-quick-reference-card.pdf
+** GLSL 3.2 and 3.3 are close-enough for us
+* If you want to make each of these activities as a separate
+`git branch` you can
+** if you fork my repo on github, and upload your own branches
+** then you can send pull requests - for feedback and as *student as
+producer*
+
+[[glsl-sources]]
+GLSL sources
+~~~~~~~~~~~~
+
+* There are *lots* of GLSL examples online
+* These are a *great* place to start
+* There are also examples on arcsynthesis and in the OpenGLSuperBible
+
+[[activity-list]]
+Activity List
+~~~~~~~~~~~~~
+
+1.  GLSL is *NOT* C. What are the key differences?
+2.  make the triangle color something different
+3.  make the triangle appear somewhere else on the screen, but the
+original shape
+4.  make the triangle larger than the original
+5.  make the position of the triangle controlled by a *variable* that
+you pass in from C/C++
+* look *uniform* and *varying*
+6.  make the position change over time, by changing that *variable* in
+C/C++
+
+[[stretch-activities]]
+Stretch Activities
+~~~~~~~~~~~~~~~~~~
+
+* If you've got through the standard activities then have a bash at
+these
+
+1.  make the triangle be in a rotated position
+* this is *rotation*
+2.  make the triangle rotate over time
+3.  make the triangle translate *and* scale, over time
+4.  make the triangle translate *and* rotate, over time!!!!!!!!!!

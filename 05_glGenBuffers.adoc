@@ -1,0 +1,152 @@
+== Apitrace - Generate Buffers
+
+=== glGenBuffers
+
+* https://github.com/shearer12345/graphics_examples_in_git_branches/blob/glTraingleWhiteWithApiTrace/main.cpp#L243[main.cpp
+line 243 in our cpp code]
+
+[source, cpp]
+
+----
+glGenBuffers(1, &positionBufferObject);
+
+----
+
+* https://www.opengl.org/sdk/docs/man4/html/glGenBuffers.xhtml[glGenBuffers]
+generate buffer object names
+* returns n buffer object names in buffers
+* in this case only 1 name is asked for, and return, the ID of buffer
+object is *1*
+
+image::assets/apitrace/05_glGenBuffers/01_glGenBuffers.png[01_glGenBuffers.png]
+
+[[glgenbuffers---context]]
+glGenBuffers - context
+~~~~~~~~~~~~~~~~~~~~~~
+
+* new buffer objects (in this case just 1) are created
+* the buffer object is empty
+* the *ID/name* for the buffer object is stored in the address passed in
+* nothing else has changed
+
+TODO - diagram of context, based on
+image::assets/apitrace/context_draft_placeholder.jpg[assets/apitrace/context_draft.jpg]
+
+=== glBindBuffer
+
+* https://github.com/shearer12345/graphics_examples_in_git_branches/blob/glTraingleWhiteWithApiTrace/main.cpp#L245[main.cpp
+line 245 in our cpp code]
+[source,cpp]
+----
+glBindBuffer(GL_ARRAY_BUFFER, positionBufferObject);
+----
+* https://www.opengl.org/sdk/docs/man4/html/glBindBuffer.xhtml[glBindBuffer]
+binds a buffer object to the specified buffer binding point
+* in this case the buffer object is ID=**1** (our positionBufferObject)
+is bound as the GL_ARRAY_BUFFER
+** you can see this change in the OpenGL state (parameters tab)
+
+image::assets/apitrace/05_glGenBuffers/02_glBindBuffer.png[02_glBindBuffer.png]
+
+=== glBindBuffer - context
+
+* the *GL_ARRAY_BUFFER_BINDING* is now set to *1*
+* nothing else has changed
+
+TODO - diagram of context, based on
+image::assets/apitrace/context_draft_placeholder.jpg[assets/apitrace/context_draft.jpg]
+
+=== glBufferData
+
+* https://github.com/shearer12345/graphics_examples_in_git_branches/blob/glTraingleWhiteWithApiTrace/main.cpp#L246[main.cpp
+line 246 in our cpp code]
+[source,cpp]
+----
+glBufferData(GL_ARRAY_BUFFER, sizeof(vertexPositions), vertexPositions, GL_STATIC_DRAW);
+----
+* https://www.opengl.org/sdk/docs/man4/html/glBufferData.xhtml[glBufferData]
+creates and initializes a buffer object's data store.
+* Takes 4 parameters:
+** target
+** size
+** data
+** usage
+* Note the *Vertex Data* tab that now shows in ApiTrace
+** It is the *glBufferData* call that *copies* our CPU data to OpenGL
+** This data is now visible in the debugger
+*** Note: it is just 48 bytes, we can choose how to interpret it
+** These are detailed more in the next section
+
+image::assets/apitrace/05_glGenBuffers/03_glBufferData.png[03_glBufferData.png]
+
+=== glBufferData (parameters)
+
+* GLenum target
+** Specifies the target to which the buffer object is bound.
+** In this case = **GL_ARRAY_BUFFER**, which is used to store vertex
+attributes
+* GLsizeiptr size
+** the size in *bytes* of the buffer object's new data store.
+** in this case *48* bytes (our array has **12 elements**, each of which
+are **GL_FLOAT**s (each **32-bits **of precision == **4 bytes**)
+**12*4=48**
+* const GLvoid * data
+** a pointer to data that will be *copied* into the data store for
+initialization, or NULL if no data is to be copied.
+** in this case, a pointer to the *vertexPositions* array
+* GLenum usage
+** the expected usage pattern of the data store
+** in this case, *GL_STATIC_DRAW*
+*** STATIC means *data store contents will be modified once and used
+many times.*
+*** DRAW means *data store contents are modified by the application, and
+used as the source for GL drawing and image specification commands.*
+* you can see this change in the OpenGL state (parameters tab)
+
+=== glBufferData (byte interpretation)
+
+* we can choose how the bytes in the buffer object are interpreted in
+Vertices
+* we will have to specify this when we want to use the buffer object for
+rendering
+* in the following example, ApiTrace is set to interpret vertices as
+groups of 4 GL_FLOATS, with a 16 byte jump from one group to the next
+
+image::assets/apitrace/05_glGenBuffers/04_glBufferDataByteInterpretation.png[04_glBufferDataByteInterpretation.png]
+
+=== glBufferData - context
+
+* new graphics memory is allocated for the buffer
+* the graphics memory is *filled* with the bytes from *vertexPositions*
+* nothing else has changed
+** specifically, we *have not* told OpenGL *how* to interpret the bytes
+
+TODO - diagram of context, based on
+image::assets/apitrace/context_draft_placeholder.jpg[assets/apitrace/context_draft.jpg]
+
+=== glBindBuffer (unbinding)
+
+* https://github.com/shearer12345/graphics_examples_in_git_branches/blob/glTraingleWhiteWithApiTrace/main.cpp#L247[main.cpp
+line 247 in our cpp code]
+[source,cpp]
+----
+glBindBuffer(GL_ARRAY_BUFFER, 0);
+----
+* https://www.opengl.org/sdk/docs/man4/html/glBindBuffer.xhtml[glBindBuffer]
+binds a buffer object to the specified buffer binding point
+* in this case the buffer object is ID=**0**
+** *0* has the meaning on **no buffer**, so no buffer is any longer
+bound
+** you can see this change in the OpenGL state (parameters tab)
+*** GL_ARRAY_BUFFER_BINDING no longer shows as it is back on its default
+value
+
+image::assets/apitrace/05_glGenBuffers/05_glBindBufferUnbind.png[05_glBindBufferUnbind.png]
+
+=== glBindBuffer (unbinding) - context
+
+* the *GL_ARRAY_BUFFER_BINDING* is now set to *0* (meaning no buffer)
+* nothing else has changed
+
+TODO - diagram of context, based on
+image::assets/apitrace/context_draft_placeholder.jpg[assets/apitrace/context_draft.jpg]

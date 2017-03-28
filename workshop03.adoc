@@ -1,0 +1,92 @@
+= Graphics - Hello Triangle++
+John Shearer
+:imagesdir: assets
+:revealjs_history: true
+:source-highlighter: highlightjs
+
+include::links.adoc[]
+
+== Overview
+
+* This workshop builds on
+https://learnopengl.com/#!Getting-started/Hello-Triangle[learnopengl.com's
+HelloTriangle] ** you should refer to this and it's source code for this
+workshop ** you should NOT just copy-paste it's code *** you won't learn
+anything *** it may not work
+
+== Where we want to get to
+
+* Change what our HelloTriangle renders
+  ** make it a different colour
+  ** change the shape of the triangle
+  ** move the triangle
+  ** draw 2 triangles
+  ** draw 4 triangles
+  ** draw 100 triangles
+  ** approximate a circle from a bunch of triangles
+* Deepen our understanding the (many) steps it takes to get just a single triangle on
+screen
+  ** and how they fit in with the pipeline model and OpenGL's state
+machine
+
+== Where you should already be
+
+* Have a working HelloTriangle using OpenGL
+  ** with atleast OpenGL 3.1, preferably 4.3 or 3.3 (or higher)
+* Have some log output and error checking
+
+== 1. Change the colour of the triangle
+
+* Where is the colour of the triangle presently set?
+* What do the numbers represent?
+. Make the triangle:
+  .. Green
+  .. Blue
+  .. Yellow
+
+== 2. Change the shape of the triangle
+
+* Where are the vertices of the triangle defined?
+. Make the triangle:
+  .. wider
+  .. taller
+
+== 3. Move the triangle
+
+. Position the triangle:
+  .. at the top left, with one vertex right in the corner of the window
+    *** what range is needed?
+  .. at the bottom left
+  .. at the top right
+
+== 4. Draw 2 triangles
+
+. What controls how many triangles are drawn?
+  ** there are multiple places in the code relavent
+. Add vertices for 2 triangles
+  ** is this enough?
+. Ask OpenGL to draw both triangles
+
+== 5. Draw 4 triangles
+
+. Add vertices for 4 triangles
+. Ask OpenGL to draw all 4 triangles
+
+== 6. Draw 100 triangles
+
+. Make storage for 100 triangles
+. Fill the storage with data for many triangles
+  ** using some algorithm (random would be ok)
+  ** make sure all triangles will be visible on the screen
+. Ask OpenGL to draw all 100 triangles
+. Ask OpenGL to draw just the first 50 triangles
+. Ask OpenGL to draw just the second 50 triangles
+. Make it change which set of triangles are drawn on a key press
+
+== 7. Approximate a circle from a bunch of triangles
+
+* A circle can be approximated by a set of triangles
+. Look up some methods to do this (explanations, not code)
+. Implement code to do this
+. Make the number of triangles used controlled by a `const` parameter
+. Make the number of triangles used changable at run time

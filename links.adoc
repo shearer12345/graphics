@@ -1,9 +1,5 @@
-:examplesdir: examples
-:icons: font
-:stem: latexmath
-:experimental:
+:examplesdir: examples :icons: font :stem: latexmath :experimental:
 :imagesdir: assets/
 
-:link-sdl2: https://www.libsdl.org/index.php
-:link-conan: https://conan.io/
-:link-cmake:  https://cmake.org/
+:link-sdl2: https://www.libsdl.org/index.php :link-conan:
+https://conan.io/ :link-cmake: https://cmake.org/
