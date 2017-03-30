@@ -30,7 +30,7 @@ seen from the "front" or the "back" side
 
 === Winding order 2
 
-image::assets/WindingOrder.svg[WindingOrder.svg]
+image::WindingOrder.svg[WindingOrder.svg]
 
 ==Front face
 
@@ -75,4 +75,4 @@ glFrontFace(GL_CCW); //front faces are counter-clockwise (default)
 
 == Face Culling Artifacts
 
-image::images/faceCulling-04a90.png[caption="Visible holes in a model", link="https://github.com/mrdoob/three.js/issues/3662"]
+image::faceCulling-04a90.png[caption="Visible holes in a model", link="https://github.com/mrdoob/three.js/issues/3662"]
