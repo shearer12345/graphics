@@ -1,5 +1,10 @@
-:examplesdir: examples :icons: font :stem: latexmath :experimental:
+
+:examplesdir: examples
+
 ifndef::imagesdir[:imagesdir: assets]
+:icons: font
+:stem: latexmath
+:experimental:
 :source-highlighter: highlightjs
 
 :link-sdl2: https://www.libsdl.org/index.php
