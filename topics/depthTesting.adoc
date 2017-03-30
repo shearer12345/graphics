@@ -96,3 +96,4 @@ image::Z-fighting.png[caption="z-fight", link="https://en.wikipedia.org/wiki/Fil
 * https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/glClear.xhtml[glClear]
 * https://www.khronos.org/opengl/wiki/Early_Fragment_Test[Early-Z / Early Fragment Test]
   ** https://fgiesen.wordpress.com/2011/07/08/a-trip-through-the-graphics-pipeline-2011-part-7/[more on early-z]
+* http://www.adriancourreges.com/blog/2015/11/02/gta-v-graphics-study/[State of the Art Z-buffer tricks] - search for "Depth map"
