@@ -36,6 +36,7 @@ task :default do
 
     task(:generateReveal).execute( :filename => 'lincolnLecture08.adoc')
     task(:generateReveal).execute( :filename => 'lincolnLecture10.adoc')
+    task(:generateReveal).execute( :filename => 'lincolnLecture11.adoc')
 
     #PDFs
     #task(:generatePDF   ).execute( :filename => 'workshop10_dingDing.adoc')
@@ -43,4 +44,5 @@ task :default do
 
     task(:generatePDF   ).execute( :filename => 'lincolnLecture08.adoc')
     task(:generatePDF   ).execute( :filename => 'lincolnLecture10.adoc')
+    task(:generatePDF   ).execute( :filename => 'lincolnLecture11.adoc')
 end

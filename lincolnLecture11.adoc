@@ -1,14 +1,4 @@
-= Graphics - 11
+= Graphics - Model Loading
 include::links.adoc[]
 
-== Texturing and Lighting - in OpenGL - no theory
-
-== Just looking at code
-
-* there are no slides this week
-* just working through 4 code examples
-  ** glCubeWithTextureCoordinatesButNoTextureImage
-  ** glCubeWithTexture
-  ** glCubeWithNormalsButNoLighting
-  ** glCubeLightingPerVertexDiffuse
-* we'll cover the theory on these next week
+include::topics/modelLoading.adoc[]

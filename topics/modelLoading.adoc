@@ -1,0 +1,175 @@
+== Model Loading
+ifndef::imagesdir[:imagesdir: ../assets]
+
+== What's a model?
+
+[.stretch]
+image::modelLoading-95c6e.png[]
+
+== What's a model? 2
+
+[.stretch]
+image::modelLoading-b2929.png[]
+
+== What's a model? 3
+
+image::modelLoading-9a74d.png[]
+
+== What's a model?
+
+* A bunch of stuff that lets us render an entity
+  ** perhaps other non-render related stuff
+* What kind of stuff?
+  ** ???
+
+== What's (usually) in a model (file)?
+
+[.step]
+* geometry
+  ** vertices
+  ** how they are connected (triangles? quads?)
+* colours
+
+== What's (usually) in a model (file)?
+
+[.step]
+* material (surface) properties
+  ** texture coordinates
+  ** normals
+* animations
+  ** bones
+  ** morpth targets
+  ** key-frame data
+
+== What's (usually) in a model (file)? 2
+
+* sometimes refers to other files
+  ** especially for texture data
+
+== What in a model (file) do you want/need?
+
+[.step]
+* geometry?
+  ** vertices?
+  ** how they are connected (triangles? quads?)?
+* colours?
+
+== What in a model (file) do you want/need? 2
+
+[.step]
+* material (surface) properties?
+  ** texture coordinates?
+  ** normals?
+* animations?
+  ** bones?
+  ** morpth targets?
+  ** key-frame data?
+
+== File formats
+
+* Let's name some ...
+
+== File formats - a list
+
+[.step]
+* https://en.wikipedia.org/wiki/STL_(file_format)[.stl - **ST**ereo**L**ithography]
+* https://en.wikipedia.org/wiki/Wavefront_.obj_file[.obj - Wavefront OBJ (Object?)]
+* https://en.wikipedia.org/wiki/PLY_(file_format)[.ply - Polygon File Format]
+* https://en.wikipedia.org/wiki/FBX[.fbx - **F**ilm**B**o**x**]
+* https://en.wikipedia.org/wiki/.3ds[.3ds - Autodesk 3D Studio Max]
+* https://en.wikipedia.org/wiki/COLLADA[.dae - Collada (**COLLA**borative **D**esign **A**ctivity)]
+* https://en.wikipedia.org/wiki/Blender_(software)#File_format[.blend - Blender File format]
+* https://en.wikipedia.org/wiki/GlTF[.gltf - GL Transmission Format]
+* Many, many others
+
+== File formats - text vs binary
+
+* we've discussed this before, but thoughts?
+  ** ??
+
+== A closer look at some formats
+
+* let's have a look at the wikipedia entries, because they're pretty good
+  ** but, obviously, non-authoratative
+* https://en.wikipedia.org/wiki/STL_(file_format)[.stl - **ST**ereo**L**ithography]
+* https://en.wikipedia.org/wiki/Wavefront_.obj_file[.obj - Wavefront OBJ (Object?)]
+* https://en.wikipedia.org/wiki/GlTF[.gltf - GL Transmission Format]
+
+== Importing models - features we want
+
+* What features do we want from our model loader?
+  ** ???
+
+== Importing models - features we want 2
+
+[.step]
+* loads at least one format
+  ** in fact, one subset of one format
+* reasonably quick
+* reasonably memory efficient
+* error checks, recovers
+  ** external files are untrusted and frequently "bad"
+* let's us know what texture files to load
+
+== Importing model s - what will we need to do
+
+* take the geometry we've loaded (ourselves or with ASSIMP) and give it to OpenGL
+* set up our render appropriately
+* start small
+  ** with very simple geometry (export a cube from Blender?)
+  ** adding one feature at a time
+    *** i.e. start with *just* vertices - perhaps just render as GL_POINTS
+* use a default texture initially?
+
+== Tools / Libraries
+
+* Do it yourself
+  ** look at the file formats - especially text formats
+* Use an existing library
+  ** *except only allowed to use ASSIMP for this module*
+
+== ASSIMP
+
+* An open-source model import library
+  ** http://www.assimp.org/
+* loads http://www.assimp.org/main_features_formats.html[*many* file formats]
+* also supports some http://www.assimp.org/main_features_export.html[export formats]
+* can do http://www.assimp.org/main_features_pp.html[post-processing]
+* "The library is not designed for speed"
+
+== ASSIMP - video examples
+
+http://www.assimp.org/animVideos.html
+
+== ASSIMP - video example - Animated MD5 character
+
+video::psut1SvSrUQ[youtube]
+
+== ASSIMP - video example - Animated Collada character
+
+video::Ju2ZBLotikY[youtube]
+
+== ASSIMP tutorials / samples
+
+* https://learnopengl.com/#!Model-Loading/Assimp
+* https://github.com/assimp/assimp/tree/master/samples/SimpleTexturedOpenGL
+
+== ASSIMP from conan.io
+
+* An Assimp package is available on conan.io (Windows only)
+  ** https://www.conan.io/source/assimp/3.3.1/lasote/vcpkg
+* The SDL2 template (glTemplate branch) uses this
+  ** https://github.com/shearer12345/sdl2template/tree/glTemplate
+
+== Where to find models?
+
+* Make sure you have license to use them
+  ** *especially* if you want to publish/showcase your game
+* Why do you know?
+  ** ...
+
+== Where to find models? 2
+
+* Assimp has a bunch of BSD licensed model for its testing
+  ** in *many* different formats
+  ** https://github.com/assimp/assimp/tree/master/test/models
