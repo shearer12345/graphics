@@ -1,4 +1,5 @@
 = Graphics - 12
+:include: links.adoc[]
 
 == Textures
 

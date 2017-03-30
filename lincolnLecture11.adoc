@@ -1,4 +1,5 @@
 = Graphics - 11
+:include: links.adoc[]
 
 == Texturing and Lighting - in OpenGL - no theory
 

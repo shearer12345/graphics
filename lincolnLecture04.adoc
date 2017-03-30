@@ -1,6 +1,5 @@
 = Graphics - 04
-
-:source-highlighter: highlightjs
+:include: links.adoc[]
 
 == Stepping through helloTriangle
 
