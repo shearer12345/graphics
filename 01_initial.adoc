@@ -21,7 +21,7 @@ set to a default
 
 * note the thumbnails on the left are from the *end* of each frame
 
-image::assets/apitrace/01_initial/01_initial_wholeState.png[01_initial_wholeState.png]
+image::apitrace/01_initial/01_initial_wholeState.png[01_initial_wholeState.png]
 
 === ApiTrace initially, only showing non-default state
 
@@ -31,14 +31,14 @@ image::assets/apitrace/01_initial/01_initial_wholeState.png[01_initial_wholeStat
 ** we've set the viewport explicitly, to allow apiTrace to replay
 properly
 
-image::assets/apitrace/01_initial/02_initial_nonDefaultState.png[02_initial_nonDefaultState.png]
+image::apitrace/01_initial/02_initial_nonDefaultState.png[02_initial_nonDefaultState.png]
 
 === Apitrace initially, with an unfilled back buffer (GL_BACK)
 
 * at this point the back buffer hasn't been filled
 ** it is just whatever happens to be whatever the GPU has in RAM already
 in the allocated area
-image::assets/apitrace/01_initial/03_unfilledBackBuffer.png[03_unfilledBackBuffer.png]
+image::apitrace/01_initial/03_unfilledBackBuffer.png[03_unfilledBackBuffer.png]
 
 === Apitrace initially, with a unfilled back buffer (GL_BACK) - ZOOM
 
@@ -46,10 +46,10 @@ image::assets/apitrace/01_initial/03_unfilledBackBuffer.png[03_unfilledBackBuffe
 * filled with random stuff that's being rendered previously
 * *fun days*
 
-image::assets/apitrace/01_initial/04_unfilledBackBufferZoom.png[04_unfilledBackBufferZoom.png]
+image::apitrace/01_initial/04_unfilledBackBufferZoom.png[04_unfilledBackBufferZoom.png]
 
 === Apitrace initially, with no _uniform_ variables set
 
 * initially no _uniform_ variables are set
 
-image::assets/apitrace/01_initial/05_noUniformsSet.png[05_noUniformsSet.png]
+image::apitrace/01_initial/05_noUniformsSet.png[05_noUniformsSet.png]

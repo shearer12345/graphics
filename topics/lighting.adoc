@@ -8,11 +8,11 @@
 * curved surfaces show specular highlights
 * objects obscure each other's light (shadows)
 
-image::assets/lighting_none_per-vertex_and_per-fragment.png[lighting_none_per-vertex_and_per-fragment]
+image::lighting_none_per-vertex_and_per-fragment.png[lighting_none_per-vertex_and_per-fragment]
 
 == Diffuse vs Specular
 
-image::assets/lighting_diffuseVsSpecular.gif[lighting_diffuseVsSpecular]
+image::lighting_diffuseVsSpecular.gif[lighting_diffuseVsSpecular]
 
 == Phong lighting model
 
@@ -22,7 +22,7 @@ image::assets/lighting_diffuseVsSpecular.gif[lighting_diffuseVsSpecular]
 * *NOT* the only lighting model, but used very frequently in Games
 * from http://en.wikipedia.org/wiki/Phong_reflection_model
 
-image::assets/phongComponents.png[phongComponents]
+image::phongComponents.png[phongComponents]
 
 === Phong lighting model 2
 
@@ -45,7 +45,7 @@ scene
 
 === Phong Vectors
 
-image::assets/lighting_blinnVectors.png[lighting_blinnVectors]
+image::lighting_blinnVectors.png[lighting_blinnVectors]
 
 === Phong Vectors 2
 
@@ -126,8 +126,8 @@ power
 
 == Phong reflection model summary
 
-image::assets/lighting_blinnVectors.png[lighting_blinnVectors]
-image::assets/phongComponents.png[phongComponents]
+image::lighting_blinnVectors.png[lighting_blinnVectors]
+image::phongComponents.png[phongComponents]
 
 == Lighting per-vertex vs per-fragment
 
@@ -135,6 +135,6 @@ image::assets/phongComponents.png[phongComponents]
   ** each *vertex*
   ** or each *fragment*
 
-image::assets/lighting_none_per-vertex_and_per-fragment.png[lighting_none_per-vertex_and_per-fragment]
+image::lighting_none_per-vertex_and_per-fragment.png[lighting_none_per-vertex_and_per-fragment]
 
 * computational cost

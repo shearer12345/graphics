@@ -53,7 +53,7 @@ matrix
 
 === Matrix-Matrix product!! 4x4
 
-image::assets/matrixMatrix_4x4_Product.png[matrixMatrix_4x4_Product.png]
+image::matrixMatrix_4x4_Product.png[matrixMatrix_4x4_Product.png]
 
 === Matrix-Vector product - 2x2
 
@@ -61,7 +61,7 @@ image::assets/matrixMatrix_4x4_Product.png[matrixMatrix_4x4_Product.png]
 * let's briefly look at a 2x2 to get a handle on this
 * with some fixed numbers
 
-image::assets/matrixMatrix_2x2_Product.png[matrixMatrix_2x2_Product.png]
+image::matrixMatrix_2x2_Product.png[matrixMatrix_2x2_Product.png]
 
 === Let's try
 
@@ -75,13 +75,13 @@ opposite of what you've asked for.
 * To figure out the transformation from the vectors perspective, read
 the transformation from the vector to the *LEFT!!*
 
-image::assets/matrixMatrix_4x4_Product_translateByScale.png[matrixMatrix_4x4_Product_translateByScale.png]
+image::matrixMatrix_4x4_Product_translateByScale.png[matrixMatrix_4x4_Product_translateByScale.png]
 
 === Test it
 
 * let's apply that to a test vector
 
-image::assets/matrixMatrix_4x4_Product_translateByScale_applied.png[matrixMatrix_4x4_Product_translateByScale_applied.png]
+image::matrixMatrix_4x4_Product_translateByScale_applied.png[matrixMatrix_4x4_Product_translateByScale_applied.png]
 
 == Matrix-Matrix product in practice
 

@@ -7,7 +7,7 @@ in what pixels
 * This determination is what makes text look like text, windows look
 like windows, and so forth
 
-image::assets/exampleOfGraphics.png[Examples of Graphics]
+image::exampleOfGraphics.png[Examples of Graphics]
 
 == 3D Graphics?
 

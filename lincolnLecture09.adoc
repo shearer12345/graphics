@@ -51,7 +51,7 @@ NOTE: OpenGL allows you to decide on these steps yourself, all 3D graphics appli
     *** Projection Matrix = how the camera goes from 3D to 2D
   ** B.  they change at different frequencies/rates
 
-image::assets/modelViewProjectionMatricesInPipeline.png[modelViewProjectionMatricesInPipeline.png]
+image::modelViewProjectionMatricesInPipeline.png[modelViewProjectionMatricesInPipeline.png]
 
 === How often does each change?
 
@@ -60,7 +60,7 @@ image::assets/modelViewProjectionMatricesInPipeline.png[modelViewProjectionMatri
 * View Matrix = position and orientation of the camera
 * Projection Matrix = how the camera goes from 3D to 2D
 
-image::assets/modelViewProjectionMatricesInPipeline.png[modelViewProjectionMatricesInPipeline.png]
+image::modelViewProjectionMatricesInPipeline.png[modelViewProjectionMatricesInPipeline.png]
 
 === How often does the Model Matrix change?
 
@@ -139,7 +139,7 @@ of the transform you want applied to the "camera"
 * things further away are the same size as if they are near
 * frustum is *always a cuboid*
 
-image::assets/projectionOrthographic.png[http://www.labri.fr/perso/nrougier/teaching/opengl/images/ViewFrustum.png]
+image::projectionOrthographic.png[http://www.labri.fr/perso/nrougier/teaching/opengl/images/ViewFrustum.png]
 
 === Orthographic Projection
 
@@ -166,11 +166,11 @@ image::assets/projectionOrthographic.png[http://www.labri.fr/perso/nrougier/teac
 
 * frustum is a rectangular based pyramid with the point chopped off
 
-image::assets/projectionPerspective.png[http://www.labri.fr/perso/nrougier/teaching/opengl/images/ViewFrustum.png]
+image::projectionPerspective.png[http://www.labri.fr/perso/nrougier/teaching/opengl/images/ViewFrustum.png]
 
 === Perspective Projection VS Orthographic Projection
 
-image::assets/projectionPerspectiveVSOrthographic.png[http://www.labri.fr/perso/nrougier/teaching/opengl/images/ViewFrustum.png]
+image::projectionPerspectiveVSOrthographic.png[http://www.labri.fr/perso/nrougier/teaching/opengl/images/ViewFrustum.png]
 
 === Representing Perspective Projection
 
@@ -192,23 +192,23 @@ fovy         // The Field of View in y (vertically)
 * A 4x4 Matrix can represent this projection
 * Easy to create with GLM
 
-image::assets/projectionPerspectiveWithParameters.png[http://i.stack.imgur.com/XLpXa.gif]
+image::projectionPerspectiveWithParameters.png[http://i.stack.imgur.com/XLpXa.gif]
 
 === Perspective Projection Perspective Non-Deformed
 
-image::assets/projectionPerspectiveNonDeformed.png[http://www.opengl-tutorial.org/beginners-tutorials/tutorial-3-matrices/#The_Projection_matrix]
+image::projectionPerspectiveNonDeformed.png[http://www.opengl-tutorial.org/beginners-tutorials/tutorial-3-matrices/#The_Projection_matrix]
 
 === Perspective Projection Deformed
 
-image::assets/projectionPerspectiveDeformed.png[http://www.opengl-tutorial.org/beginners-tutorials/tutorial-3-matrices/#The_Projection_matrix]
+image::projectionPerspectiveDeformed.png[http://www.opengl-tutorial.org/beginners-tutorials/tutorial-3-matrices/#The_Projection_matrix]
 
 === View From Behind Frustum
 
-image::assets/ProjectionPerspectiveBehindFrustum.png[http://www.opengl-tutorial.org/beginners-tutorials/tutorial-3-matrices/#The_Projection_matrix]
+image::ProjectionPerspectiveBehindFrustum.png[http://www.opengl-tutorial.org/beginners-tutorials/tutorial-3-matrices/#The_Projection_matrix]
 
 === View From Behind Frustum In Screen Coordinates
 
-image::assets/projectionPerspectiveBehindFrustumInScreenCoordinates.png[http://www.opengl-tutorial.org/beginners-tutorials/tutorial-3-matrices/#The_Projection_matrix]
+image::projectionPerspectiveBehindFrustumInScreenCoordinates.png[http://www.opengl-tutorial.org/beginners-tutorials/tutorial-3-matrices/#The_Projection_matrix]
 
 === Perspective Projection example
 

@@ -22,7 +22,7 @@ data* to the pipeline
 https://www.opengl.org/wiki/Vertex_Specification#Vertex_Array_Object
 ** definitely worth reading - carefully
 
-image::assets/apitrace/06_glGenVertexArrays/01_glGenVertexArrays.png[01_glGenVertexArrays.png]
+image::apitrace/06_glGenVertexArrays/01_glGenVertexArrays.png[01_glGenVertexArrays.png]
 
 === glGenVertexArrays - context
 
@@ -35,7 +35,7 @@ passed in
 * nothing else has changed
 
 TODO - diagram of context, based on
-image::assets/apitrace/context_draft_placeholder.jpg[assets/apitrace/context_draft.jpg]
+image::apitrace/context_draft_placeholder.jpg[assets/apitrace/context_draft.jpg]
 
 === glBindVertexArray
 
@@ -51,7 +51,7 @@ binds the specified vertex array object
 as the GL_VERTEX_ARRAY_BINDING
 ** you can see this change in the OpenGL state (parameters tab)
 
-image::assets/apitrace/06_glGenVertexArrays/02_glBindVertexArray.png[02_glBindVertexArray.png]
+image::apitrace/06_glGenVertexArrays/02_glBindVertexArray.png[02_glBindVertexArray.png]
 
 ==== glBindVertexArray - context
 
@@ -59,4 +59,4 @@ image::assets/apitrace/06_glGenVertexArrays/02_glBindVertexArray.png[02_glBindVe
 * nothing else has changed
 
 TODO - diagram of context, based on
-image::assets/apitrace/context_draft_placeholder.jpg[assets/apitrace/context_draft_placeholder.jpg]
+image::apitrace/context_draft_placeholder.jpg[assets/apitrace/context_draft_placeholder.jpg]

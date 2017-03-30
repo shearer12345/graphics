@@ -18,7 +18,7 @@ generate buffer object names
 * in this case only 1 name is asked for, and return, the ID of buffer
 object is *1*
 
-image::assets/apitrace/05_glGenBuffers/01_glGenBuffers.png[01_glGenBuffers.png]
+image::apitrace/05_glGenBuffers/01_glGenBuffers.png[01_glGenBuffers.png]
 
 [[glgenbuffers---context]]
 glGenBuffers - context
@@ -30,7 +30,7 @@ glGenBuffers - context
 * nothing else has changed
 
 TODO - diagram of context, based on
-image::assets/apitrace/context_draft_placeholder.jpg[assets/apitrace/context_draft.jpg]
+image::apitrace/context_draft_placeholder.jpg[assets/apitrace/context_draft.jpg]
 
 === glBindBuffer
 
@@ -46,7 +46,7 @@ binds a buffer object to the specified buffer binding point
 is bound as the GL_ARRAY_BUFFER
 ** you can see this change in the OpenGL state (parameters tab)
 
-image::assets/apitrace/05_glGenBuffers/02_glBindBuffer.png[02_glBindBuffer.png]
+image::apitrace/05_glGenBuffers/02_glBindBuffer.png[02_glBindBuffer.png]
 
 === glBindBuffer - context
 
@@ -54,7 +54,7 @@ image::assets/apitrace/05_glGenBuffers/02_glBindBuffer.png[02_glBindBuffer.png]
 * nothing else has changed
 
 TODO - diagram of context, based on
-image::assets/apitrace/context_draft_placeholder.jpg[assets/apitrace/context_draft.jpg]
+image::apitrace/context_draft_placeholder.jpg[assets/apitrace/context_draft.jpg]
 
 === glBufferData
 
@@ -77,7 +77,7 @@ creates and initializes a buffer object's data store.
 *** Note: it is just 48 bytes, we can choose how to interpret it
 ** These are detailed more in the next section
 
-image::assets/apitrace/05_glGenBuffers/03_glBufferData.png[03_glBufferData.png]
+image::apitrace/05_glGenBuffers/03_glBufferData.png[03_glBufferData.png]
 
 === glBufferData (parameters)
 
@@ -112,7 +112,7 @@ rendering
 * in the following example, ApiTrace is set to interpret vertices as
 groups of 4 GL_FLOATS, with a 16 byte jump from one group to the next
 
-image::assets/apitrace/05_glGenBuffers/04_glBufferDataByteInterpretation.png[04_glBufferDataByteInterpretation.png]
+image::apitrace/05_glGenBuffers/04_glBufferDataByteInterpretation.png[04_glBufferDataByteInterpretation.png]
 
 === glBufferData - context
 
@@ -122,7 +122,7 @@ image::assets/apitrace/05_glGenBuffers/04_glBufferDataByteInterpretation.png[04_
 ** specifically, we *have not* told OpenGL *how* to interpret the bytes
 
 TODO - diagram of context, based on
-image::assets/apitrace/context_draft_placeholder.jpg[assets/apitrace/context_draft.jpg]
+image::apitrace/context_draft_placeholder.jpg[assets/apitrace/context_draft.jpg]
 
 === glBindBuffer (unbinding)
 
@@ -141,7 +141,7 @@ bound
 *** GL_ARRAY_BUFFER_BINDING no longer shows as it is back on its default
 value
 
-image::assets/apitrace/05_glGenBuffers/05_glBindBufferUnbind.png[05_glBindBufferUnbind.png]
+image::apitrace/05_glGenBuffers/05_glBindBufferUnbind.png[05_glBindBufferUnbind.png]
 
 === glBindBuffer (unbinding) - context
 
@@ -149,4 +149,4 @@ image::assets/apitrace/05_glGenBuffers/05_glBindBufferUnbind.png[05_glBindBuffer
 * nothing else has changed
 
 TODO - diagram of context, based on
-image::assets/apitrace/context_draft_placeholder.jpg[assets/apitrace/context_draft.jpg]
+image::apitrace/context_draft_placeholder.jpg[assets/apitrace/context_draft.jpg]

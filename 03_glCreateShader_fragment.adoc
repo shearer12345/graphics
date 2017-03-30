@@ -13,7 +13,7 @@ Creates a shader object
 * in this case a fragment shader
 * returns a non-zero value by which it can be referenced
 
-image::assets/apitrace/03_glCreateShader_fragment/01_createShaderFragment.png[01_createShaderFragment.png]
+image::apitrace/03_glCreateShader_fragment/01_createShaderFragment.png[01_createShaderFragment.png]
 20:24.png)
 
 === glCreateShader (fragment) - context
@@ -23,7 +23,7 @@ image::assets/apitrace/03_glCreateShader_fragment/01_createShaderFragment.png[01
 * nothing else has changed
 
 TODO - diagram of context, with a new fragment shader, based on
-image::assets/apitrace/context_draft_placeholder.jpg[assets/apitrace/context_draft.jpg]
+image::apitrace/context_draft_placeholder.jpg[assets/apitrace/context_draft.jpg]
 
 === glShaderSource (fragment)
 
@@ -36,7 +36,7 @@ glShaderSource(shader, 1, &strFileData, NULL);
 * https://www.opengl.org/sdk/docs/man4/html/glShaderSource.xhtml[glShaderSource]
 — Replaces the source code in a shader object
 
-image::assets/apitrace/03_glCreateShader_fragment/02_glShaderSourceFragment.png[02_glShaderSourceFragment.png]
+image::apitrace/03_glCreateShader_fragment/02_glShaderSourceFragment.png[02_glShaderSourceFragment.png]
 
 === glShaderSource (fragment) - context
 
@@ -57,7 +57,7 @@ glCompileShader(shader);
 * https://www.opengl.org/sdk/docs/man4/html/glCompileShader.xhtml[glCompileShader]
 — Compiles a shader object
 
-image::assets/apitrace/03_glCreateShader_fragment/03_glCompileShaderFragment.png[03_glCompileShaderFragment.png]
+image::apitrace/03_glCreateShader_fragment/03_glCompileShaderFragment.png[03_glCompileShaderFragment.png]
 
 === glCompileShader (fragment) - context
 
@@ -81,4 +81,4 @@ glGetShaderiv(shader, GL_COMPILE_STATUS, &status);
 * nothing has changed in the context, we just queried it
 ** queries are *expensive* (relatively) operations
 
-image::assets/apitrace/03_glCreateShader_fragment/04_glGetShaderivFragment.png[04_glGetShaderivFragment.png]
+image::apitrace/03_glCreateShader_fragment/04_glGetShaderivFragment.png[04_glGetShaderivFragment.png]

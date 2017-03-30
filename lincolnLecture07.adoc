@@ -55,7 +55,7 @@ void main()
 }
 ----
 
-image::assets/translation.png[translation]
+image::translation.png[translation]
 
 === Translation
 
@@ -91,7 +91,7 @@ page]
 * height of the second matrix
 * the *dot* just means multiply
 
-image::assets/matrixVectorProduct.png[matrixVectorProduct.png]
+image::matrixVectorProduct.png[matrixVectorProduct.png]
 
 === Matrix-Vector product - identity
 
@@ -99,7 +99,7 @@ image::assets/matrixVectorProduct.png[matrixVectorProduct.png]
 * the resultant vector is the same as the original
 * this is the identity matrix
 
-image::assets/matrixVectorProductIdentity.png[matrixVectorProductIdentity.png]
+image::matrixVectorProductIdentity.png[matrixVectorProductIdentity.png]
 
 === Translation Matrix 2
 
@@ -120,12 +120,12 @@ not want to have it modify the position in some other way
 vector?
   ** hint: start with the identify matrix
 
-image::assets/matrixVectorProduct.png[matrixVectorProduct.png]
-image::assets/matrixVectorProductIdentity.png[matrixVectorProductIdentity.png]
+image::matrixVectorProduct.png[matrixVectorProduct.png]
+image::matrixVectorProductIdentity.png[matrixVectorProductIdentity.png]
 
 === Translation Matrix 4
 
-image::assets/translationMatrix.png[translationMatrix.png]
+image::translationMatrix.png[translationMatrix.png]
 
 == Scaling
 
@@ -139,19 +139,19 @@ image::assets/translationMatrix.png[translationMatrix.png]
 * when applied to a collection of vectors, makes the "object" larger
 * a multiplication of the vector
 
-image::assets/scale.png[scale.png]
+image::scale.png[scale.png]
 
 === How about a Scale Matrix?
 
 * what values could we put into the 4x4 matrix to only scale the vector?
   ** hint: start with the identify matrix
 
-image::assets/matrixVectorProduct.png[matrixVectorProduct.png]
-image::assets/matrixVectorProductIdentity.png[matrixVectorProductIdentity.png]
+image::matrixVectorProduct.png[matrixVectorProduct.png]
+image::matrixVectorProductIdentity.png[matrixVectorProductIdentity.png]
 
 === Scale Matrix
 
-image::assets/scaleMatrix.png[scaleMatrix.png]
+image::scaleMatrix.png[scaleMatrix.png]
 
 == Rotation
 
@@ -163,7 +163,7 @@ image::assets/scaleMatrix.png[scaleMatrix.png]
 * what *point* do we rotate around?
 * what *axis* do we rotate around?
 
-image::assets/rotation.png[scale.png]
+image::rotation.png[scale.png]
 
 === How about a Rotation Matrix?
 
@@ -173,20 +173,20 @@ vector?
 * around the origin
 * around the Z-axis
 
-image::assets/matrixVectorProduct.png[matrixVectorProduct.png]
-image::assets/matrixVectorProductIdentity.png[matrixVectorProductIdentity.png]
+image::matrixVectorProduct.png[matrixVectorProduct.png]
+image::matrixVectorProductIdentity.png[matrixVectorProductIdentity.png]
 
 === Rotation Matrix Z
 
-image::assets/rotationMatrixZ.png[rotationMatrixZ.png]
+image::rotationMatrixZ.png[rotationMatrixZ.png]
 
 === Rotation Matrix X
 
-image::assets/rotationMatrixX.png[rotationMatrixX.png]
+image::rotationMatrixX.png[rotationMatrixX.png]
 
 === Rotation Matrix Y
 
-image::assets/rotationMatrixY.png[rotationMatrixY.png]
+image::rotationMatrixY.png[rotationMatrixY.png]
 
 === Rotation Around an arbitrary vector
 
@@ -196,7 +196,7 @@ image::assets/rotationMatrixY.png[rotationMatrixY.png]
 
 === Rotation Around an arbitrary vector 2
 
-image::assets/rotationArbitrary.png[rotationArbitrary.png]
+image::rotationArbitrary.png[rotationArbitrary.png]
 
 === Rotation Around an arbitrary vector 3
 

@@ -13,7 +13,7 @@ Creates a program object
 * returns a non-zero value by which it can be referenced
 * in this case the ID is *3*
 
-image::assets/apitrace/04_glCreateProgram/01_glCreateProgram.png[01_glCreateProgram.png]
+image::apitrace/04_glCreateProgram/01_glCreateProgram.png[01_glCreateProgram.png]
 
 === glCreateProgram - context
 
@@ -22,7 +22,7 @@ image::assets/apitrace/04_glCreateProgram/01_glCreateProgram.png[01_glCreateProg
 * nothing else has changed
 
 TODO - diagram of context, with a new GLSL program, based on
-image::assets/apitrace/context_draft_placeholder.jpg[assets/apitrace/context_draft.jpg]
+image::apitrace/context_draft_placeholder.jpg[assets/apitrace/context_draft.jpg]
 
 === glAttachShader (vertex)
 
@@ -37,7 +37,7 @@ Attaches a shader object to a program object
 * in this case we are attaching to the program with ID=**3**, the shader
 with ID=**1 (our vertex shader)**
 
-image::assets/apitrace/04_glCreateProgram/02_glAttachShaderVertex.png[02_glAttachShaderVertex.png]
+image::apitrace/04_glCreateProgram/02_glAttachShaderVertex.png[02_glAttachShaderVertex.png]
 
 === glAttachShader (vertex) - context
 
@@ -62,7 +62,7 @@ Attaches a shader object to a program object
 * in this case we are attaching to the program with ID=**3**, the shader
 with ID=**2 (our fragment shader)**
 
-image::assets/apitrace/04_glCreateProgram/03_glAttachShaderFragment.png[03_glAttachShaderFragment.png]
+image::apitrace/04_glCreateProgram/03_glAttachShaderFragment.png[03_glAttachShaderFragment.png]
 
 === glAttachShader (fragment) - context
 
@@ -86,7 +86,7 @@ variable
 * in this case associates attribute index **0**, on our program with
 ID=3, with the GLSL name *position*
 
-image::assets/apitrace/04_glCreateProgram/04_glBindAttribLocation.png[04_glBindAttribLocation.png]
+image::apitrace/04_glCreateProgram/04_glBindAttribLocation.png[04_glBindAttribLocation.png]
 
 === glBindAttribLocation - context
 
@@ -112,7 +112,7 @@ Links a program object
 * status of the link operation will be stored as part of the program
 object's state
 
-image::assets/apitrace/04_glCreateProgram/05_glLinkProgram.png[05_glLinkProgram.png]
+image::apitrace/04_glCreateProgram/05_glLinkProgram.png[05_glLinkProgram.png]
 
 === glLinkProgram - context
 
@@ -136,7 +136,7 @@ glGetProgramiv(program, GL_LINK_STATUS, &status););
 Returns a parameter from a program object
 * in this case get the GL_LINK_STATUS - if the linking worked
 
-image::assets/apitrace/04_glCreateProgram/06_glGetProgramiv.png[06_glGetProgramiv.png]
+image::apitrace/04_glCreateProgram/06_glGetProgramiv.png[06_glGetProgramiv.png]
 
 === glGetProgramiv - context
 
@@ -156,7 +156,7 @@ Detaches a shader object from a program object to which it is attached
 * in this case we are detaching from the program with ID=**3**, the
 shader with ID=**1 (our vertex shader)**
 
-image::assets/apitrace/04_glCreateProgram/07_glDetachShaderVertex.png[07_glDetachShaderVertex.png]
+image::apitrace/04_glCreateProgram/07_glDetachShaderVertex.png[07_glDetachShaderVertex.png]
 
 === glDetachShader (vertex) - context
 
@@ -180,7 +180,7 @@ Detaches a shader object from a program object to which it is attached
 * in this case we are detaching from the program with ID=**3**, the
 shader with ID=**2 (our fragment shader)**
 
-image::assets/apitrace/04_glCreateProgram/08_glDetachShaderFragment.png[08_glDetachShaderFragment.png]
+image::apitrace/04_glCreateProgram/08_glDetachShaderFragment.png[08_glDetachShaderFragment.png]
 
 === glDetachShader (fragment) - context
 
@@ -205,7 +205,7 @@ Returns the location of an attribute variable
 the program with ID=**3**
 * which is 0
 
-image::assets/apitrace/04_glCreateProgram/09_glGetAttribLocation.png[09_glGetAttribLocation.png]
+image::apitrace/04_glCreateProgram/09_glGetAttribLocation.png[09_glGetAttribLocation.png]
 
 === glGetAttribLocation (position) - context
 
@@ -225,7 +225,7 @@ Returns the location of a uniform variable
 program with ID=**3**
 * which is 0
 
-image::assets/apitrace/04_glCreateProgram/10_glGetUniformLocation.png[10_glGetUniformLocation.png]
+image::apitrace/04_glCreateProgram/10_glGetUniformLocation.png[10_glGetUniformLocation.png]
 
 === glGetUniformLocation (offset) - context
 
@@ -245,7 +245,7 @@ Deletes a shader object
 object specified by shader.
 * in this case our shader with ID=**1** (the vertex shader) is deleted
 
-image::assets/apitrace/04_glCreateProgram/11_glDeleteShaderVertex.png[11_glDeleteShaderVertex.png]
+image::apitrace/04_glCreateProgram/11_glDeleteShaderVertex.png[11_glDeleteShaderVertex.png]
 
 === glDeleteShader (vertex) - context
 
@@ -253,7 +253,7 @@ image::assets/apitrace/04_glCreateProgram/11_glDeleteShaderVertex.png[11_glDelet
 * nothing else has changed
 
 TODO - diagram of context, based on
-image::assets/apitrace/context_draft_placeholder.jpg[assets/apitrace/context_draft.jpg]
+image::apitrace/context_draft_placeholder.jpg[assets/apitrace/context_draft.jpg]
 
 === glDeleteShader (fragment)
 
@@ -269,7 +269,7 @@ Deletes a shader object
 object specified by shader.
 * in this case our shader with ID=**2** (the fragment shader) is deleted
 
-image::assets/apitrace/04_glCreateProgram/12_glDeleteShaderFragment.png[12_glDeleteShaderFragment.png]
+image::apitrace/04_glCreateProgram/12_glDeleteShaderFragment.png[12_glDeleteShaderFragment.png]
 
 === glDeleteShader (fragment) - context
 
@@ -277,4 +277,4 @@ image::assets/apitrace/04_glCreateProgram/12_glDeleteShaderFragment.png[12_glDel
 * nothing else has changed
 
 TODO - diagram of context, based on
-image::assets/apitrace/context_draft_placeholder.jpg[assets/apitrace/context_draft.jpg]
+image::apitrace/context_draft_placeholder.jpg[assets/apitrace/context_draft.jpg]

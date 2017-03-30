@@ -64,7 +64,7 @@ specific border color
 
 * from https://open.gl/textures
 
-image::assets/textureClamping.png[Texture Clamping]
+image::textureClamping.png[Texture Clamping]
 
 == S, T, R coordinates and wrapping
 
@@ -109,14 +109,14 @@ glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 
 * from https://open.gl/textures
 
-image::assets/textureFiltering.png[textureFiltering]
+image::textureFiltering.png[textureFiltering]
 
 == Texture filtering example 2
 
 * from
 http://www.proun-game.com/Oogst3D/index.php?file=CODING/Raytracer/History.txt
 
-image::assets/textureFilteringZoomed.png[textureFilteringZoomed]
+image::textureFilteringZoomed.png[textureFilteringZoomed]
 
 == Specifying Texture Filtering
 
@@ -145,7 +145,7 @@ glGenerateMipmap(GL_TEXTURE_2D); //generate mipmaps for the present texture
 
 == Mipmap Examples
 
-image::assets/mipmapExample.jpg[mipmapExample]
+image::mipmapExample.jpg[mipmapExample]
 
 == Using mipmaps
 
