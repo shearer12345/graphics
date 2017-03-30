@@ -1,10 +1,7 @@
-= Graphics - 10
+= Graphics - Depth Testing and Back-face Culling
+:include: links.adoc[]
 
-== Depth Testing and Culling
-
-[[where-we-are]]
-Where we are
-~~~~~~~~~~~~
+== Where we are
 
 * with the workshops and the lecture content you should now be beginning
 to be comfortable with:

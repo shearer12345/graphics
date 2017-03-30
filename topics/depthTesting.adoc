@@ -1,42 +1,98 @@
 == Depth Testing
+ifndef::imagesdir[:imagesdir: ../assets]
 
 == Why depth testing
 
-* without depth testing each triangle rendered draws on top of previous
-pixels
-* this causes problems (`glmRotateColorCubeNoCullingNoDepthTest`)
+* without depth testing each triangle rendered draws on top of previous pixels
+* this causes problems
+* TWO general solutions
+  ** resolve depth per polygon (Painter's Algorithm)
+  ** resolve depth per pixel (fragment) (Depth Testing/Z-buffer)
+
+== Painter's Algorithm
+
 * we could try to draw all far away triangles first
 * then draw nearer ones
-** requires *sorting* the triangles
-** doesn't work for all cases ...
+  ** requires *sorting* the triangles
+    *** expensive
+  ** this is called the Painter's Algorithm
+  ** doesn't work for all cases ...
+    *** cyclic overlap
+    *** piercing polygons
+
+== Painter's Algorithm - failure cases
+
+[.stretch]
+image::Painters_problem.svg[caption="Failure cases of Painter's Algorithm", link="https://en.wikipedia.org/wiki/File:Painters_problem.svg"]
+
+* can be solved by cutting the offending polygons, to then allow sorting - https://en.wikipedia.org/wiki/Newell%27s_algorithm[Newell's algorithm]
 
 == What is Depth Testing
 
 * depth test is a per-sample operation performed conceptually after the
 Fragment Shader
-** under some circumstances it can occur *before* frag shader, but ...
-* output depth may be tested against the depth of the sample being
-written to
+  ** under some circumstances it can occur *before* frag shader ("early-Z"), but ...
+* output depth may be tested against the depth of the sample being written to
+  ** requires storing depth (a Z-value) per fragment - the *Z-buffer*
 * if the test fails, the fragment is discarded
-* if the test passes, the depth buffer may be written to
-* writing to the depth/colour buffer is a relatively slow operation, so
-minimizing writes is a good optimization
-** how could depth testing support this?
+* if the test passes, the colour and depth buffers may be written to (usually will do)
+* writing to the depth/colour buffer is a relatively slow operation, so minimizing writes is a good optimization
+  ** how could depth testing support this?
+[%step]
+    *** sort and draw *nearest* first - minimizes writes
 
-== Depth Test Example Branches
+== Depth Test In Practice
 
-* `glmRotateColorCubeNoCullingWithDepthTest`
-* `glmRotateColorCubeWithCullingWithDepthTest`
-* setup depth testing - anywhere before rendering
+. setup depth testing - anywhere before rendering
+  ** make sure our *context* has a z-buffer
+  ** we *can* turn it on and off *during* rendering, for advanced use cases
+. clear the depth buffer before rendering
+  ** we *can* clear it more often (or just parts of it), for advanced use cases
+. [OPTIONAL] set the "Depth Function" - specifies the depth comparison function
+  ** default is `GL_LESS`
+
+== Depth Test In Practice (example)
+
+* *assuming* we have set up a z-buffer - SDL2 does this automatically for you
 
 [source,cpp]
 ----
-glEnable(GL_DEPTH_TEST);
+// initialise
+glEnable(GL_DEPTH_TEST); // enable testing
 glDepthFunc(GL_LESS); //only write if z is less (nearer)
-----
-* //clear depth buffer before rendering
 
-[source,cpp]
+// per frame
+glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); //clear depth buffer before rendering
+render();
 ----
-glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-----
+
+== Depth Testing issues
+
+* the depth is represented using a number
+  ** usually a floating point number, commonly a 32-bit float
+* only some depths can be represented (limited precision)
+  ** floating points errors and limitations are relevant
+* in other words, if polygons are near each the errors in the calculated z-values may cause visual aftifacts
+  ** fragments may be incorrectly discarded
+  ** this is caused z-fighting
+* particularly this happens with polygons on top of each other, or a long way away
+  ** floating point has less precision for larger values
+
+== Depth Testing Arfifacts (z-fight)
+
+[.stretch]
+image::depthTesting-3b166.png[caption="z-fight", link="https://en.wikipedia.org/wiki/File:ZfightingCB.png"]
+
+== Depth Testing Arfifacts (z-fight) 2
+
+[.stretch]
+image::Z-fighting.png[caption="z-fight", link="https://en.wikipedia.org/wiki/File:Z-fighting.png"]
+
+== Depth Testing resources
+
+* https://learnopengl.com/#!Advanced-OpenGL/Depth-testing[LearnOpenGL on Depth Testing]
+* https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/glDepthFunc.xhtml[glDepthFunc]
+* https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/glEnable.xhtml[glEnable]
+* https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/glClear.xhtml[glClear]
+* https://www.khronos.org/opengl/wiki/Early_Fragment_Test[Early-Z / Early Fragment Test]
+  ** https://fgiesen.wordpress.com/2011/07/08/a-trip-through-the-graphics-pipeline-2011-part-7/[more on early-z]
