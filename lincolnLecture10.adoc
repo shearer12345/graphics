@@ -1,5 +1,5 @@
 = Graphics - Depth Testing and Back-face Culling
-:include: links.adoc[]
+include::links.adoc[]
 
 == Where we are
 

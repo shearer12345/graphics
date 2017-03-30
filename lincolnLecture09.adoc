@@ -1,5 +1,5 @@
 = Graphics - 09
-:include: links.adoc[]
+include::links.adoc[]
 
 == View and Projection Matrices
 

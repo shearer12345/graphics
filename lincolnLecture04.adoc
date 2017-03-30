@@ -1,5 +1,5 @@
 = Graphics - 04
-:include: links.adoc[]
+include::links.adoc[]
 
 == Stepping through helloTriangle
 

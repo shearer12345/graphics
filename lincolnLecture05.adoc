@@ -1,5 +1,5 @@
 = Graphics - 05
-:include: links.adoc[]
+include::links.adoc[]
 
 == Stepping through glTriangleWhite with ApiTrace
 

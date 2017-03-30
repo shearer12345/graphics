@@ -1,5 +1,5 @@
 = Graphics - 08
-:include: links.adoc[]
+include::links.adoc[]
 
 == Transformations and 3D
 

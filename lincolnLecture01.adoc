@@ -1,5 +1,5 @@
 = Graphics - 01
-:include: links.adoc[]
+include::links.adoc[]
 
 include::topics/whatIsComputerGraphics.adoc[]
 
