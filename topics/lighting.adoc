@@ -1,4 +1,5 @@
 == Lighting
+:stem: latexmath
 
 == What visual features are we looking for
 
@@ -95,7 +96,8 @@ that surface reflects the various *"types"* of light.
 
 == Phong reflection model 2
 
-stem:[I_\text{p} = k_\text{a} i_\text{a} + \sum_{m\;\in\;\text{lights}} (k_\text{d} (\hat{L}_m \cdot \hat{N}) i_{m,\text{d}} + k_\text{s} (\hat{R}_m \cdot \hat{V})^{\alpha}i_{m,\text{s}})]
+// stem:[I_\text{p} = k_\text{a} i_\text{a} + \sum_{m\;\in\;\text{lights}} (k_\text{d} (\hat{L}_m \cdot \hat{N}) i_{m,\text{d}} + k_\text{s} (\hat{R}_m \cdot \hat{V})^{\alpha}i_{m,\text{s}})]
+image:phongLightingModelEquation.svg[]
 
 == Reflection vector
 
