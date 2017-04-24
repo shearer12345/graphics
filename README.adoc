@@ -30,8 +30,8 @@ NOTE: For some reason, when you use the system Ruby on Fedora, you also have to 
 === Install Ruby Dev library
 
 ```
-sudo apt-get install ruby-dev
-sudo apt-get install ruby2.3-dev
+sudo apt install ruby-dev
+sudo apt install ruby2.3-dev
 ```
 
 === Install
@@ -43,4 +43,5 @@ The following will install the gems into the project.
 rm -f Gemfile.lock
 bundle config --local github.https true
 bundle --path=.bundle/gems --binstubs=.bundle/.bin
+bundle install
 ----

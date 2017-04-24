@@ -1,6 +1,4 @@
 == Lighting
-:stem: latexmath
-
 
 == What visual features are we looking for
 
@@ -20,11 +18,14 @@ image::lighting_diffuseVsSpecular.gif[lighting_diffuseVsSpecular]
 * *Bui Tuong Phong* at the University of Utah
 * *1973!!!*
 * *NOT* the only lighting model, but used very frequently in Games
+
+=== Phong lighting model 2
+
 * from http://en.wikipedia.org/wiki/Phong_reflection_model
 
 image::phongComponents.png[phongComponents]
 
-=== Phong lighting model 2
+=== Phong lighting model 3
 
 * *model* of *local* illumination
   ** model?
@@ -35,7 +36,7 @@ image::phongComponents.png[phongComponents]
 * also an ambient term to model light that is scattered about the entire
 scene
 
-=== Phong lighting model 3
+=== Phong lighting model 4
 
 * you specify these three "types" of lighting separately
   ** this is *NOT* connected to reality!
@@ -138,3 +139,28 @@ image::phongComponents.png[phongComponents]
 image::lighting_none_per-vertex_and_per-fragment.png[lighting_none_per-vertex_and_per-fragment]
 
 * computational cost
+
+== Physically-based rendering
+
+* leverages research on light transport
+  ** rather than made-up approximations that "look right"
+
+[quote, Physically Based Rendering (Third Edition), http://www.pbrt.org/]
+describes both the mathematical theory behind a modern photorealistic rendering system as well as its practical implementation
+
+== Physically-based rendering - links
+
+* https://www.allegorithmic.com/pbr-guide
+* http://blog.selfshadow.com/
+* http://wiki.polycount.com/wiki/PBR
+* https://learnopengl.com/#!PBR/Theory
+* http://blog.wolfire.com/2015/10/Physically-based-rendering
+
+=== Global Illumination
+
+* https://en.wikipedia.org/wiki/Global_illumination
+* Ray-tracing
+* Path-tracing
+* Radiosity
+* Metropolis light transport
+* Photon mapping
